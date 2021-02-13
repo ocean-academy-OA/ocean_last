@@ -34,14 +34,6 @@ class _ContainerServiceWidgetState extends State<ContainerServiceWidget> {
         width: 500.0,
         decoration: BoxDecoration(
             color: isTouching ? Colors.blue : Colors.grey[100],
-            // boxShadow: [
-            //   BoxShadow(
-            //     color: Colors.black.withOpacity(0.1),
-            //     spreadRadius: 5,
-            //     blurRadius: 7,
-            //     offset: Offset(0, 3), // changes position of shadow
-            //   ),
-            // ],
             borderRadius: BorderRadius.circular(10.0)),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
