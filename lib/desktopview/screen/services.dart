@@ -39,12 +39,30 @@ class _ServiceState extends State<Service> {
             Center(
               child: Wrap(
                 children: [
-                  ContainerServiceWidget(),
-                  ContainerServiceWidget(),
-                  ContainerServiceWidget(),
-                  ContainerServiceWidget(),
-                  ContainerServiceWidget(),
-                  ContainerServiceWidget(),
+                  ContainerServiceWidget(
+                    title: ourservicesheading1,
+                    content: ourservices1,
+                  ),
+                  ContainerServiceWidget(
+                    title: ourservicesheading2,
+                    content: ourservices2,
+                  ),
+                  ContainerServiceWidget(
+                    title: ourservicesheading3,
+                    content: ourservices3,
+                  ),
+                  ContainerServiceWidget(
+                    title: ourservicesheading4,
+                    content: ourservices4,
+                  ),
+                  ContainerServiceWidget(
+                    title: "aaa",
+                    content: "bbb",
+                  ),
+                  ContainerServiceWidget(
+                    title: "aaa",
+                    content: "bbb",
+                  ),
                 ],
               ),
             ),

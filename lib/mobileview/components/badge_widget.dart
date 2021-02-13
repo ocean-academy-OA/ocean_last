@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 
 import '../constants.dart';
 
@@ -34,7 +33,8 @@ class BadgeWidget extends StatelessWidget {
         Text(
           title,
           textAlign: TextAlign.center,
-          style: TextStyle(fontFamily: kfontname, color: kcontentcolor),
+          style: TextStyle(
+              fontFamily: kfontname, color: kcontentcolor, height: 1.5),
         ),
       ],
     );

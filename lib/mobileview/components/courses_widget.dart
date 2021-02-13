@@ -62,8 +62,7 @@ class CourseWidget extends StatelessWidget {
                       final messageSession = message.data()['session'];
                       final messageTime = message.data()['time'];
                       final messageImage = message.data()['img'];
-                      final messageDescription =
-                          message.data()['coursedescription'];
+
                       final messageCourse = MessageBubble(
                         trainername: messageText,
                         coursename: messageSender,

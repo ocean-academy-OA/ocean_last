@@ -8,6 +8,7 @@ import 'package:modal_progress_hud/modal_progress_hud.dart';
 import 'package:ocean_project/desktopview/Components/map.dart';
 import 'package:ocean_project/desktopview/Components/navigation_bar.dart';
 import 'package:ocean_project/desktopview/constants.dart';
+import 'package:ocean_project/text.dart';
 import 'package:progress_indicator_button/progress_button.dart';
 import 'package:ocean_project/desktopview/screen/footer.dart';
 
@@ -19,20 +20,6 @@ class ContactUs extends StatefulWidget {
 }
 
 class _ContactUsState extends State<ContactUs> {
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      home: ContactUsPage(),
-    );
-  }
-}
-
-class ContactUsPage extends StatefulWidget {
-  @override
-  _ContactUsPageState createState() => _ContactUsPageState();
-}
-
-class _ContactUsPageState extends State<ContactUsPage> {
   bool showSpinner = false;
   static GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   bool _autoValidate = false;
@@ -109,7 +96,6 @@ class _ContactUsPageState extends State<ContactUsPage> {
         ),
         LengthLimitingTextInputFormatter(10),
       ],
-      autovalidate: _autoValidate,
       validator: (value) {
         if (value.isEmpty) {
           return 'phone_number is required*';
@@ -154,7 +140,6 @@ class _ContactUsPageState extends State<ContactUsPage> {
 
   Widget _buildquery() {
     return TextFormField(
-      autovalidate: _autoValidate,
       validator: (value) {
         // query = value;
         if (value.isEmpty) {
@@ -211,7 +196,7 @@ class _ContactUsPageState extends State<ContactUsPage> {
                                   letterSpacing: 1,
                                   fontSize: 20,
                                   fontWeight: FontWeight.w400,
-                                  fontFamily: kfontname,
+                                  fontFamily: 'Ubuntu',
                                   color: kcontentcolor,
                                 ),
                               ),
@@ -233,7 +218,7 @@ class _ContactUsPageState extends State<ContactUsPage> {
                                     letterSpacing: 1,
                                     fontSize: 20,
                                     fontWeight: FontWeight.w400,
-                                    fontFamily: kfontname,
+                                    fontFamily: 'Ubuntu',
                                     color: kcontentcolor,
                                   ),
                                 ),
@@ -258,7 +243,7 @@ class _ContactUsPageState extends State<ContactUsPage> {
                                     letterSpacing: 1,
                                     fontSize: 20,
                                     fontWeight: FontWeight.w400,
-                                    fontFamily: kfontname,
+                                    fontFamily: 'Ubuntu',
                                     color: kcontentcolor,
                                   ),
                                 ),
@@ -298,19 +283,18 @@ class _ContactUsPageState extends State<ContactUsPage> {
                                 fontWeight: FontWeight.w500,
                                 color: Color(0xff505050),
                                 fontSize: 25,
+                                fontFamily: kfontname,
                               ),
                             ),
                             SizedBox(
                               height: 12,
                             ),
                             Text(
-                              'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean vi'
-                              'tae ipsum vitae justo pharetra tempor.'
-                              ' Quisque volutpat, nibh vitae',
+                              contactuscontent,
                               style: TextStyle(
                                 fontWeight: FontWeight.w400,
                                 fontSize: 20,
-                                fontFamily: kfontname,
+                                fontFamily: 'Ubuntu',
                                 color: kcontentcolor,
                               ),
                             ),
@@ -320,7 +304,7 @@ class _ContactUsPageState extends State<ContactUsPage> {
                               style: TextStyle(
                                 fontSize: 18,
                                 fontWeight: FontWeight.w400,
-                                fontFamily: kfontname,
+                                fontFamily: 'Ubuntu',
                                 color: kcontentcolor,
                               ),
                             ),

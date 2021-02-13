@@ -70,22 +70,15 @@ class ImageToText extends StatelessWidget {
                   topic,
                   style: TextStyle(
                       color: Color(0xff0091d2),
-                      fontSize: 25.0,
+                      fontSize: 26.0,
                       fontWeight: FontWeight.bold,
                       fontFamily: kfontname),
                 ),
                 SizedBox(
                   height: 30.0,
                 ),
-                Text(
-                  content,
-                  textAlign: TextAlign.justify,
-                  style: TextStyle(
-                      fontSize: 18.0,
-                      height: 1.5,
-                      color: kcontentcolor,
-                      fontFamily: kfontname),
-                ),
+                Text(content,
+                    textAlign: TextAlign.justify, style: contentTextStyle),
               ],
             ),
           ),

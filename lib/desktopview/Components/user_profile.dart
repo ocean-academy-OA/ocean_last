@@ -1,22 +1,30 @@
 import 'package:flutter/material.dart';
 import 'package:ocean_project/desktopview/Components/certificates.dart';
+
+import 'package:ocean_project/desktopview/Components/purchase.dart';
+
+import 'package:ocean_project/desktopview/Components/course_enrole.dart';
+import 'package:ocean_project/desktopview/new_user_screen/edit_profile.dart';
+import 'package:ocean_project/desktopview/new_user_screen/log_in.dart';
 import 'package:ocean_project/desktopview/route/routing.dart';
+import 'package:ocean_project/desktopview/screen/home_screen.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:ocean_project/desktopview/screen/menubar.dart';
 
 import 'package:provider/provider.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+
+final _firestore = FirebaseFirestore.instance;
 
 class User_Profile extends StatefulWidget {
-  const User_Profile({
-    @required this.isVisible,
-  });
-
-  final bool isVisible;
+  bool isVisible;
+  User_Profile({this.isVisible});
 
   @override
   _User_ProfileState createState() => _User_ProfileState();
 }
 
 class _User_ProfileState extends State<User_Profile> {
-  bool isVisible = false;
   @override
   Widget build(BuildContext context) {
     return Positioned(
@@ -25,7 +33,6 @@ class _User_ProfileState extends State<User_Profile> {
       child: Visibility(
         visible: widget.isVisible,
         child: Container(
-          height: 150,
           width: 200,
           child: Column(
             children: [
@@ -41,31 +48,63 @@ class _User_ProfileState extends State<User_Profile> {
                 margin: EdgeInsets.symmetric(horizontal: 10.0, vertical: 0.0),
                 padding: EdgeInsets.symmetric(horizontal: 10.0, vertical: 10.0),
                 child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
                   children: [
-                    GestureDetector(
-                      onTap: () {
-                        Provider.of<Routing>(context, listen: false)
-                            .updateRouting(widget: Certificate());
+                    FlatButton(
+                      child: Text('Certificates'),
+                      onPressed: () {
+                        Provider.of<OALive>(context, listen: false)
+                            .updateOA(routing: Certificate());
+                        setState(() {
+                          CourseContent.isShow = !CourseContent.isShow;
+                        });
                       },
-                      child: Text("Certificates"),
                     ),
-                    SizedBox(height: 5),
-                    GestureDetector(
-                      onTap: () {},
-                      child: Text("My Profile"),
+                    SizedBox(height: 10),
+                    FlatButton(
+                      child: Text('My profile'),
+                      onPressed: () {
+                        Provider.of<OALive>(context, listen: false)
+                            .updateOA(routing: EditProfile());
+                        setState(() {
+                          CourseContent.isShow = !CourseContent.isShow;
+                        });
+                      },
                     ),
-                    SizedBox(height: 5),
-                    GestureDetector(
-                      onTap: () {},
-                      child: Text("Purchase"),
+                    SizedBox(height: 10),
+                    FlatButton(
+                      child: Text('Purchase'),
+                      onPressed: () {
+                        Provider.of<OALive>(context, listen: false)
+                            .updateOA(routing: Purchase());
+                        setState(() {
+                          CourseContent.isShow = !CourseContent.isShow;
+                        });
+                      },
                     ),
-                    SizedBox(height: 5),
-                    GestureDetector(
-                      onTap: () {},
-                      child: Text("Logout"),
+                    SizedBox(height: 10),
+                    FlatButton(
+                      child: Text('Log Out'),
+                      onPressed: () async {
+                        Provider.of<Routing>(context, listen: false)
+                            .updateRouting(widget: Home());
+                        Provider.of<OALive>(context, listen: false)
+                            .updateOA(routing: Navbar());
+                        SharedPreferences prefs =
+                            await SharedPreferences.getInstance();
+
+                        await prefs.setInt('login', 0);
+                        await prefs.setString('user', null);
+                        OALive.stayUser = null;
+                        print('SingOut Code');
+
+                        _firestore
+                            .collection("session")
+                            .doc(LogIn.registerNumber)
+                            .delete();
+                      },
                     ),
-                    SizedBox(height: 5),
+                    SizedBox(height: 10),
                   ],
                 ),
               ),
@@ -76,21 +115,3 @@ class _User_ProfileState extends State<User_Profile> {
     );
   }
 }
-
-// class TraingleClipPath extends CustomClipper<Path> {
-//   @override
-//   Path getClip(Size size) {
-//     var path = Path();
-//     path.moveTo(5, 0.0);
-//     path.lineTo(size.width, size.height);
-//     path.lineTo(0, size.height);
-//     path.lineTo(5, 0.0);
-//     path.close();
-//     return path;
-//   }
-//
-//   @override
-//   bool shouldReclip(covariant CustomClipper<Path> oldClipper) {
-//     return false;
-//   }
-// }

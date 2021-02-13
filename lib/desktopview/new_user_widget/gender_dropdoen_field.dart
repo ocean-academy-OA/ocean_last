@@ -41,7 +41,10 @@ class _GenderDropdownFieldState extends State<GenderDropdownField> {
             margin: EdgeInsets.only(left: 10.0),
             child: Text(
               'Gender',
-              style: TextStyle(fontSize: 20.0, color: widget.color),
+              style: TextStyle(
+                fontSize: 20.0,
+                color: widget.color,
+              ),
             ),
           ),
           Container(

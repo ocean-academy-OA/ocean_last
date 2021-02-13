@@ -6,15 +6,20 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:intl/intl.dart';
-import 'package:ocean_project/desktopview/new_user_screen/home_page.dart';
+import 'package:ocean_project/desktopview/Components/course_enrole.dart';
+
 import 'package:ocean_project/desktopview/new_user_screen/log_in.dart';
-import 'package:ocean_project/desktopview/new_user_screen/otp.dart';
+import 'package:ocean_project/desktopview/new_user_widget/contry_states.dart';
+
 import 'package:ocean_project/desktopview/new_user_widget/date_picker.dart';
+import 'package:ocean_project/desktopview/new_user_widget/dropdown.dart';
 import 'package:ocean_project/desktopview/new_user_widget/gender_dropdoen_field.dart';
 import 'package:ocean_project/desktopview/new_user_widget/input_text_field.dart';
+import 'package:ocean_project/desktopview/route/routing.dart';
 
 import 'package:path/path.dart';
 import 'package:firebase_storage/firebase_storage.dart';
+import 'package:provider/provider.dart';
 
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -66,13 +71,61 @@ class _RegistrationState extends State<Registration> {
   session() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     await prefs.setInt('login', 1);
-    await prefs.setString('user', OTP.userID);
     print('Otp Submited');
   }
 
   Uint8List uploadFile;
   String fileName;
   String profilePictureLink;
+
+  Map<String, List> stateAndContry = {};
+  contryPicker() {
+    for (var i in contryState.entries) {
+      List countryList = i.value;
+      for (var j in countryList) {
+        String contry = j['country'];
+        List states = j['states'];
+        stateAndContry.addAll({contry: states});
+      }
+    }
+    splitCountryAndState();
+  }
+
+  List<DropdownMenuItem<String>> countryList = [];
+  splitCountryAndState() {
+    setState(() {
+      countryList.clear();
+    });
+    for (var i in stateAndContry.entries) {
+      DropdownMenuItem<String> addCountry = DropdownMenuItem(
+        child: Text(i.key),
+        value: i.key,
+      );
+      countryList.add(addCountry);
+    }
+  }
+
+  List<DropdownMenuItem<String>> states = [];
+  statePicker(String state) {
+    setState(() {
+      states.clear();
+    });
+    for (var i in stateAndContry[state]) {
+      print(i);
+      DropdownMenuItem<String> state = DropdownMenuItem(
+        child: Text(i),
+        value: i,
+      );
+      states.add(state);
+    }
+  }
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    contryPicker();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -289,25 +342,33 @@ class _RegistrationState extends State<Registration> {
                           controller: _dgree,
                           onChanged: (value) {},
                         ),
-                        LableWithTextField(
-                          lableText: 'Country',
-                          errorText: 'Enter Your Country',
-                          width: 250.0,
+                        ContryPicker(
+                          labelText: 'Country',
+                          errorText: 'select country',
+                          items: countryList,
+                          color: Colors.white,
                           visible: isCountry,
-                          controller: _country,
-                          inputFormatters:
-                              inputFormatte(regExp: r"[a-zA-Z]+|\s"),
-                          onChanged: (value) {},
+                          value: country,
+                          onChanged: (value) {
+                            setState(() {
+                              country = value;
+                              states = [];
+
+                              statePicker(country);
+                            });
+                          },
                         ),
-                        LableWithTextField(
-                          lableText: 'State',
-                          errorText: 'Enter Your State',
-                          width: 250.0,
+                        ContryPicker(
+                          labelText: 'State',
+                          errorText: 'select State',
+                          items: states,
                           visible: isState,
-                          controller: _state,
-                          inputFormatters:
-                              inputFormatte(regExp: r"[a-zA-Z]+|\s"),
-                          onChanged: (value) {},
+                          value: state,
+                          onChanged: (value) {
+                            setState(() {
+                              state = value;
+                            });
+                          },
                         ),
                         LableWithTextField(
                           lableText: 'Phone Number',
@@ -317,17 +378,15 @@ class _RegistrationState extends State<Registration> {
                           visible: isPhoneNumber,
                           controller: _phoneNumber,
                           onChanged: (value) {},
-                          // inputFormatters: inputFormatte(
-                          //     regExp: r'^\d+\.?\d{0,2}', length: 15),
                         ),
-                        LableWithTextField(
-                          lableText: 'Portfolio Link',
-                          errorText: 'Link not Found',
-                          width: 300.0,
-                          controller: _portfolioLink,
-                          visible: isPortfolioLink,
-                          onChanged: (value) {},
-                        ),
+                        // LableWithTextField(
+                        //   lableText: 'Portfolio Link',
+                        //   errorText: 'Link not Found',
+                        //   width: 300.0,
+                        //   controller: _portfolioLink,
+                        //   visible: isPortfolioLink,
+                        //   onChanged: (value) {},
+                        // ),
                       ],
                     ),
                   ),
@@ -358,17 +417,17 @@ class _RegistrationState extends State<Registration> {
 
                               textFieldClear();
                               session();
-                              Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (context) =>
-                                          Home(userID: OTP.userID)));
+                              // Provider.of<Routing>(context, listen: false)
+                              //     .updateRouting(widget: CoursesView());
+                              Provider.of<OALive>(context, listen: false)
+                                  .updateOA(routing: CoursesView());
                             } else {
-                              print('Incomplet');
+                              Provider.of<Routing>(context, listen: false)
+                                  .updateRouting(widget: Registration());
                             }
 
                             // fireStoreAdd();
-                            // textFieldClear();
+                            //  textFieldClear();
                           }),
                     ],
                   ),
@@ -391,10 +450,12 @@ class _RegistrationState extends State<Registration> {
       'E Mail': _eMail.text,
       'Company or School': _companyOrSchool.text,
       'Degree': _dgree.text,
-      'Country': _country.text,
-      'State': _state.text,
+      'Country': country,
+      'State': state,
       'Phone Number': _phoneNumber.text,
       'Portfolio': _portfolioLink.text,
+      'Courses': [],
+      'batchid': [],
     });
   }
 
@@ -409,8 +470,8 @@ class _RegistrationState extends State<Registration> {
     _eMail.clear();
     _companyOrSchool.clear();
     _dgree.clear();
-    _country.clear();
-    _state.clear();
+    country = null;
+    state = null;
     _phoneNumber.clear();
     _portfolioLink.clear();
   }
@@ -541,7 +602,7 @@ class _RegistrationState extends State<Registration> {
       });
     }
     //Country
-    if (!nameValidation(_country.text) || _country.text.length < 3) {
+    if (country == null) {
       setState(() {
         isCountry = true;
         ifRFV = isCountry;
@@ -553,7 +614,7 @@ class _RegistrationState extends State<Registration> {
       });
     }
     //state
-    if (!nameValidation(_state.text) || _state.text.length < 3) {
+    if (state == null) {
       setState(() {
         isState = true;
         ifRFV = isState;
@@ -577,17 +638,17 @@ class _RegistrationState extends State<Registration> {
       });
     }
     //portfolio
-    if (!validateUrl(_portfolioLink.text)) {
-      setState(() {
-        isPortfolioLink = true;
-        ifRFV = isPortfolioLink;
-      });
-    } else {
-      setState(() {
-        isPortfolioLink = false;
-        elseRFV = isPortfolioLink;
-      });
-    }
+    // if (!validateUrl(_portfolioLink.text)) {
+    //   setState(() {
+    //     isPortfolioLink = true;
+    //     ifRFV = isPortfolioLink;
+    //   });
+    // } else {
+    //   setState(() {
+    //     isPortfolioLink = false;
+    //     elseRFV = isPortfolioLink;
+    //   });
+    // }
     return ifRFV == elseRFV;
   }
 }

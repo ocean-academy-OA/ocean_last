@@ -89,30 +89,22 @@ class HowItWorks extends StatelessWidget {
                     children: [
                       Image.asset(
                         'images/local_lesson.gif',
-                        width: 400.0,
+                        width: 500.0,
                       ),
                       Padding(
                         padding: const EdgeInsets.all(10.0),
                         child: Text(
                           'Offline Training',
-                          style: TextStyle(
-                              fontSize: 20.0,
-                              color: Colors.blue[200],
-                              fontWeight: FontWeight.bold,
-                              fontFamily: kfontname),
+                          style: otherSmallHeaddingTextStyle,
                         ),
                       ),
                       Container(
                         //padding: EdgeInsets.all(10.0),
-                        width: 400.0,
+                        width: 500.0,
                         child: Text(
                           offlinetrainingcontent,
                           textAlign: TextAlign.justify,
-                          style: TextStyle(
-                              height: 1.5,
-                              fontSize: 16.0,
-                              fontFamily: kfontname,
-                              color: kcontentcolor),
+                          style: otherSmallContentTextStyle,
                         ),
                       ),
                     ],
@@ -124,31 +116,20 @@ class HowItWorks extends StatelessWidget {
                     children: [
                       Image.asset(
                         'images/online_lesson.gif',
-                        width: 400.0,
+                        width: 500.0,
                       ),
                       Padding(
                         padding: const EdgeInsets.all(10.0),
-                        child: Text(
-                          'Online Live Training',
-                          style: TextStyle(
-                            fontSize: 20.0,
-                            color: Colors.blue[200],
-                            fontWeight: FontWeight.bold,
-                            fontFamily: kfontname,
-                          ),
-                        ),
+                        child: Text('Online Live Training',
+                            style: otherSmallHeaddingTextStyle),
                       ),
                       Container(
                         //padding: EdgeInsets.all(10.0),
-                        width: 400.0,
+                        width: 500.0,
                         child: Text(
                           onlinetrainingcontent,
                           textAlign: TextAlign.justify,
-                          style: TextStyle(
-                              height: 1.5,
-                              fontSize: 16.0,
-                              fontFamily: kfontname,
-                              color: kcontentcolor),
+                          style: otherSmallContentTextStyle,
                         ),
                       ),
                     ],
@@ -160,31 +141,20 @@ class HowItWorks extends StatelessWidget {
                     children: [
                       Image.asset(
                         'images/online_lesson.gif',
-                        width: 400.0,
+                        width: 500.0,
                       ),
                       Padding(
                         padding: const EdgeInsets.all(10.0),
-                        child: Text(
-                          'Online Video Training',
-                          style: TextStyle(
-                            fontSize: 20.0,
-                            color: Colors.blue[200],
-                            fontWeight: FontWeight.bold,
-                            fontFamily: kfontname,
-                          ),
-                        ),
+                        child: Text('Online Video Training',
+                            style: otherSmallHeaddingTextStyle),
                       ),
                       Container(
                         //padding: EdgeInsets.all(10.0),
-                        width: 400.0,
+                        width: 500.0,
                         child: Text(
                           onlinetrainingcontent,
                           textAlign: TextAlign.justify,
-                          style: TextStyle(
-                              height: 1.5,
-                              fontSize: 16.0,
-                              fontFamily: kfontname,
-                              color: kcontentcolor),
+                          style: otherSmallContentTextStyle,
                         ),
                       ),
                     ],

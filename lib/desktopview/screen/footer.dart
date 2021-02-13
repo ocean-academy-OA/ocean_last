@@ -3,16 +3,19 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:ocean_project/desktopview/Components/material_button.dart';
 import 'package:ocean_project/desktopview/constants.dart';
+import 'package:provider/provider.dart';
+import 'package:ocean_project/desktopview/route/routing.dart';
+import 'package:ocean_project/desktopview/screen/contact_us.dart';
+import 'package:ocean_project/desktopview/screen/courses.dart';
+import 'package:ocean_project/desktopview/screen/services.dart';
+import 'home_screen.dart';
+import 'about_us_screen.dart';
 
 class Footer extends StatelessWidget {
-  const Footer({
-    Key key,
-  }) : super(key: key);
-
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: EdgeInsets.all(50.0),
+      padding: EdgeInsets.all(70.0),
       color: Color(0xFF004478),
       child: Column(
         children: [
@@ -29,13 +32,19 @@ class Footer extends StatelessWidget {
                   //mainAxisAlignment: MainAxisAlignment.start,
                   children: [
                     Container(
-                      child: Text(
-                        'OCEAN ACADEMY',
-                        style: TextStyle(
-                            fontSize: 30.0,
-                            color: Colors.white,
-                            fontWeight: FontWeight.bold,
-                            fontFamily: kfontname),
+                      child: GestureDetector(
+                        onTap: () {
+                          Provider.of<Routing>(context, listen: false)
+                              .updateRouting(widget: Home());
+                        },
+                        child: Text(
+                          'OCEAN ACADEMY',
+                          style: TextStyle(
+                              fontSize: 30.0,
+                              color: Colors.white,
+                              fontWeight: FontWeight.bold,
+                              fontFamily: kfontname),
+                        ),
                       ),
                       padding: EdgeInsets.only(right: 150.0),
                     ),
@@ -48,7 +57,7 @@ class Footer extends StatelessWidget {
                         style: TextStyle(
                             height: 1.5,
                             color: Colors.white,
-                            fontSize: 15.0,
+                            fontSize: 18.0,
                             fontFamily: kfontname),
                       ),
                     ),
@@ -145,27 +154,45 @@ class Footer extends StatelessWidget {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Container(
-                        child: Text(
-                      'CONTACT US',
-                      style: kbottom,
-                    )),
+                    GestureDetector(
+                      onTap: () {
+                        Provider.of<Routing>(context, listen: false)
+                            .updateRouting(widget: ContactUs());
+                      },
+                      child: Container(
+                          child: Text(
+                        'CONTACT US',
+                        style: kbottom,
+                      )),
+                    ),
                     SizedBox(
                       height: 20.0,
                     ),
-                    Container(
-                        child: Text(
-                      'SERVICES',
-                      style: kbottom,
-                    )),
+                    GestureDetector(
+                      onTap: () {
+                        Provider.of<Routing>(context, listen: false)
+                            .updateRouting(widget: Service());
+                      },
+                      child: Container(
+                          child: Text(
+                        'SERVICES',
+                        style: kbottom,
+                      )),
+                    ),
                     SizedBox(
                       height: 20.0,
                     ),
-                    Container(
-                        child: Text(
-                      'COURSES',
-                      style: kbottom,
-                    )),
+                    GestureDetector(
+                      onTap: () {
+                        Provider.of<Routing>(context, listen: false)
+                            .updateRouting(widget: Course());
+                      },
+                      child: Container(
+                          child: Text(
+                        'COURSES',
+                        style: kbottom,
+                      )),
+                    ),
                     SizedBox(
                       height: 20.0,
                     ),
@@ -189,11 +216,17 @@ class Footer extends StatelessWidget {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Container(
-                        child: Text(
-                      'ABOUT US',
-                      style: kbottom,
-                    )),
+                    GestureDetector(
+                      onTap: () {
+                        Provider.of<Routing>(context, listen: false)
+                            .updateRouting(widget: AboutUs());
+                      },
+                      child: Container(
+                          child: Text(
+                        'ABOUT US',
+                        style: kbottom,
+                      )),
+                    ),
                     SizedBox(
                       height: 20.0,
                     ),

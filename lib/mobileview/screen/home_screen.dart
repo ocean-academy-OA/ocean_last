@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:email_validator/email_validator.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:ocean_project/alert/alert_msg.dart';
 import 'package:ocean_project/mobileview/components/how_it_works.dart';
 import 'package:ocean_project/mobileview/components/main_badget_widget.dart';
 import 'package:ocean_project/mobileview/components/ocean_icons.dart';
@@ -75,7 +76,8 @@ class Home extends StatelessWidget {
         context: context,
         builder: (BuildContext context) {
           // return object of type Dialog
-          return AlertDialog(
+          return AlertEnquiry(buttonName: 'Submit');
+          AlertDialog(
             title: Center(
               child: Row(
                 children: [

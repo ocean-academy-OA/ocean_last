@@ -1,17 +1,67 @@
 import 'package:flutter/material.dart';
+import 'package:url_launcher/url_launcher.dart';
 import 'rectangular_raw_material_button.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
-class ContainerWidget extends StatelessWidget {
+class ContainerWidget extends StatefulWidget {
   String trainerName;
   String designation;
   String image;
+  String fbLink;
+  String gmailLink;
+  String linkedinLink;
+  String twitterLink;
 
-  ContainerWidget({
-    this.trainerName,
-    this.designation,
-    this.image,
-  });
+  ContainerWidget(
+      {this.trainerName,
+      this.designation,
+      this.image,
+      this.fbLink,
+      this.gmailLink,
+      this.linkedinLink,
+      this.twitterLink});
+
+  @override
+  _ContainerWidgetState createState() => _ContainerWidgetState();
+}
+
+class _ContainerWidgetState extends State<ContainerWidget> {
+  _getFbLink() async {
+    String url = '${widget.fbLink}';
+    if (await canLaunch(url)) {
+      await launch(url);
+    } else {
+      throw 'Could not launch $url';
+    }
+  }
+
+  _getGmailLink() async {
+    String url = '${widget.gmailLink}';
+    if (await canLaunch(url)) {
+      await launch(url);
+    } else {
+      throw 'Could not launch $url';
+    }
+  }
+
+  _getLinkedinLink() async {
+    String url = '${widget.linkedinLink}';
+    if (await canLaunch(url)) {
+      await launch(url);
+    } else {
+      throw 'Could not launch $url';
+    }
+  }
+
+  _getTwitterLink() async {
+    String url = '${widget.twitterLink}';
+    if (await canLaunch(url)) {
+      await launch(url);
+    } else {
+      throw 'Could not launch $url';
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -39,7 +89,7 @@ class ContainerWidget extends StatelessWidget {
             decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(10.0),
                 image: DecorationImage(
-                  image: NetworkImage('$image'),
+                  image: NetworkImage('${widget.image}'),
                   fit: BoxFit.cover,
                 )),
           ),
@@ -47,23 +97,21 @@ class ContainerWidget extends StatelessWidget {
           //   height: 15.0,
           // ),
           Text(
-            "$trainerName",
+            "${widget.trainerName}",
             style: TextStyle(
                 fontSize: 18.0,
                 color: Colors.black87,
-                fontFamily: "Open Sans",
                 fontWeight: FontWeight.bold),
           ),
           // SizedBox(
           //   height: 15.0,
           // ),
           Text(
-            "$designation at Ocean",
+            widget.designation,
             textAlign: TextAlign.center,
             style: TextStyle(
               color: Colors.black45,
               fontSize: 15.0,
-              fontFamily: "Open Sans",
             ),
           ),
           // SizedBox(
@@ -74,19 +122,27 @@ class ContainerWidget extends StatelessWidget {
             children: [
               RectangularMaterialButton(
                 icon: FontAwesomeIcons.facebookF,
-                onPressed: () {},
+                onPressed: () {
+                  _getFbLink();
+                },
               ),
               RectangularMaterialButton(
                 icon: FontAwesomeIcons.googlePlusG,
-                onPressed: () {},
+                onPressed: () {
+                  _getGmailLink();
+                },
               ),
               RectangularMaterialButton(
                 icon: FontAwesomeIcons.linkedinIn,
-                onPressed: () {},
+                onPressed: () {
+                  _getLinkedinLink();
+                },
               ),
               RectangularMaterialButton(
                 icon: FontAwesomeIcons.twitter,
-                onPressed: () {},
+                onPressed: () {
+                  _getTwitterLink();
+                },
               ),
             ],
           ),

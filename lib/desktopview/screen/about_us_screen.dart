@@ -44,66 +44,33 @@ class AboutUs extends StatelessWidget {
                             color: Color(0xff0091d2),
                             fontSize: 25.0,
                             fontWeight: FontWeight.bold,
-                            fontFamily: 'Roboto-Regular.ttf',
-                          ),
-                        ),
-                        Text(
-                          'About us Ocean Academy',
-                          style: TextStyle(
-                            color: Color(0xff0091d2),
-                            fontSize: 25.0,
-                            fontWeight: FontWeight.bold,
-                            fontFamily: 'Roboto-Regular.ttf',
+                            fontFamily: "Ubuntu",
                           ),
                         ),
                         SizedBox(
                           height: 20.0,
                         ),
-                        Text(
-                          aboutcontent1,
-                          textAlign: TextAlign.justify,
-                          style: TextStyle(
-                              height: 1.5,
-                              fontSize: 18.0,
-                              color: kcontentcolor,
-                              fontFamily: 'Roboto-Regular.ttf'),
-                        ),
+                        Text(aboutcontent1,
+                            textAlign: TextAlign.justify,
+                            style: contentTextStyle),
                         SizedBox(
                           height: 20.0,
                         ),
-                        Text(
-                          aboutcontent2,
-                          textAlign: TextAlign.justify,
-                          style: TextStyle(
-                              height: 1.5,
-                              fontSize: 18.0,
-                              color: kcontentcolor,
-                              fontFamily: kfontname),
-                        ),
+                        Text(aboutcontent2,
+                            textAlign: TextAlign.justify,
+                            style: contentTextStyle),
                         SizedBox(
                           height: 20.0,
                         ),
-                        Text(
-                          aboutcontent3,
-                          textAlign: TextAlign.justify,
-                          style: TextStyle(
-                              fontSize: 18.0,
-                              height: 1.5,
-                              color: kcontentcolor,
-                              fontFamily: 'Roboto-Regular.ttf'),
-                        ),
+                        Text(aboutcontent3,
+                            textAlign: TextAlign.justify,
+                            style: contentTextStyle),
                         SizedBox(
                           height: 20.0,
                         ),
-                        Text(
-                          aboutcontent4,
-                          textAlign: TextAlign.justify,
-                          style: TextStyle(
-                              height: 1.5,
-                              fontSize: 18.0,
-                              color: kcontentcolor,
-                              fontFamily: 'Roboto-Regular.ttf'),
-                        ),
+                        Text(aboutcontent4,
+                            textAlign: TextAlign.justify,
+                            style: contentTextStyle),
                         SizedBox(
                           height: 20.0,
                         ),
@@ -170,9 +137,9 @@ class AboutUs extends StatelessWidget {
                   "Meet our Mentors",
                   style: TextStyle(
                       color: Color(0xff0091d2),
-                      fontSize: 25.0,
+                      fontSize: 30.0,
                       fontWeight: FontWeight.bold,
-                      fontFamily: "Open Sans"),
+                      fontFamily: "Ubuntu"),
                 ),
               ],
             ),
@@ -181,7 +148,7 @@ class AboutUs extends StatelessWidget {
             ),
             Wrap(children: [
               StreamBuilder<QuerySnapshot>(
-                stream: _firestore.collection('trainer').snapshots(),
+                stream: _firestore.collection('Mentor').snapshots(),
                 // ignore: missing_return
                 builder: (context, snapshot) {
                   if (!snapshot.hasData) {
@@ -192,11 +159,19 @@ class AboutUs extends StatelessWidget {
                     //List<String> subjects = [];
                     for (var message in messages) {
                       // if (message.data()['coursename'] == "python") {
-                      final trainerName = message.data()['trainername'];
+                      final trainerName = message.data()['name'];
                       final trainerDesignation = message.data()['designation'];
-                      final trainerImage = message.data()['img'];
+                      final trainerImage = message.data()['image'];
+                      final fbLink = message.data()['fbLink'];
+                      final gmailLink = message.data()['gmailLink'];
+                      final linkedinLink = message.data()['linkedinLink'];
+                      final twitter = message.data()['twitter'];
 
                       final messageContent = ContainerWidget(
+                        fbLink: fbLink,
+                        gmailLink: gmailLink,
+                        linkedinLink: linkedinLink,
+                        twitterLink: twitter,
                         designation: trainerDesignation,
                         trainerName: trainerName,
                         image: trainerImage,

@@ -23,29 +23,12 @@ class _PopupDialogState extends State<PopupDialog> {
   String phoneNumber;
   String email;
 
-  bool flag = true;
-  int second = 5;
-
-  @override
-  void initState() {
-    super.initState();
-    Timer.periodic(
-      new Duration(seconds: second),
-      (timer) {
-        _onAlertWithStylePressed(context);
-        if (flag) {
-          timer.cancel();
-        }
-      },
-    );
-  }
-
   @override
   Widget build(BuildContext context) {
-    return Container();
+    return null;
   }
 
-  _onAlertWithStylePressed(dialogContext) {
+  onAlertWithStylePressed(dialogContext) {
     var alertStyle = AlertStyle(
         animationType: AnimationType.fromTop,
         isCloseButton: true,
@@ -67,7 +50,6 @@ class _PopupDialogState extends State<PopupDialog> {
         alertElevation: 0,
         alertAlignment: Alignment.topCenter);
 
-    // Alert dialog using custom alert style
     var alert = Alert(
       context: context,
       style: alertStyle,
@@ -222,13 +204,6 @@ class _PopupDialogState extends State<PopupDialog> {
                     ],
                   ),
                   SizedBox(height: 25),
-                  // RaisedButton(
-                  //   onPressed: () {
-                  //     _fullNameController.clear();
-                  //     _mobileController.clear();
-                  //     _emailController.clear();
-                  //   },
-                  // )
                 ],
               )
             ],
@@ -262,17 +237,6 @@ class _PopupDialogState extends State<PopupDialog> {
                   content: Text('Submitted Successfully'),
                 ),
               );
-              // if (flag) {
-              //   timer.cancel();
-              // }
-              // if (flag) {
-              //   timer.cancel();
-              // }
-              // if (second == second) {
-              //   return second = null;
-              // }
-              // super.deactivate();
-
               // Navigator.of(context).pop();
               // Navigator.of(context, rootNavigator: true).pop('dialog');
               Navigator.of(context).push(
@@ -288,7 +252,6 @@ class _PopupDialogState extends State<PopupDialog> {
         ),
       ],
     );
-
     alert.show();
   }
 }

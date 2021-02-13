@@ -1,11 +1,16 @@
 import 'dart:html';
+import 'dart:math';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:ocean_project/desktopview/Components/comment.dart';
 import 'package:ocean_project/desktopview/Components/main_title_widget.dart';
+import 'package:ocean_project/desktopview/route/upcoming_course.dart';
 import 'package:ocean_project/mobileview/components/ocean_icons.dart';
+import 'package:ocean_project/text.dart';
+import 'package:provider/provider.dart';
 
 class UpcomingCourse extends StatefulWidget {
   @override
@@ -14,75 +19,82 @@ class UpcomingCourse extends StatefulWidget {
 
 class _UpcomingCourseState extends State<UpcomingCourse> {
   final _firestore = FirebaseFirestore.instance;
+  // var leftnumber;
+  // int number = 1;
+  // void left() {
+  //   number = number + 1;
+  //   print("nnnn");
+  //   if (number < leftnumber) {
+  //     number = 1;
+  //     print("aaa");
+  //   }
+  // }
+
+  //void right() {}
+  List<Container> bubbles = [];
+  List<Container> temp = [];
+
+  void getData() async {
+    final message = await _firestore.collection('Upcoming_Course').get();
+    print(message.docs);
+
+    for (var courses in message.docs) {
+      //print(courses.data()['img']);
+      String a = courses.data()['upcomingcourse'];
+      Provider.of<UpcomingModel>(context, listen: false).updateFlags(1);
+      Widget coursIMG = Container(
+        margin: EdgeInsets.symmetric(horizontal: 20.0),
+        child: ClipRRect(
+          borderRadius: BorderRadius.circular(20.0),
+          child: Container(
+            height: 300.0,
+            child: Image(
+              image: NetworkImage('${a}'),
+              fit: BoxFit.cover,
+            ),
+          ),
+        ),
+      );
+
+      bubbles.add(coursIMG);
+    }
+    print('${bubbles} kkkkkkkkkkkkkkkkkk');
+  }
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    getData();
+  }
+
+  var a;
+  void left() {
+    // a = bubbles.removeAt(0);
+    // temp.add(a);
+    bubbles.insert(0, temp[temp.length - 1]);
+    temp.removeAt(temp.length - 1);
+  }
+
+  void right() {
+    if (bubbles.length > 4) {
+      a = bubbles.removeAt(0);
+      print(a);
+      temp.add(a);
+    } else {
+      print("DASAAda");
+    }
+    // print(temp);
+  }
 
   @override
   Widget build(BuildContext context) {
     return Stack(
       alignment: Alignment.center,
       children: [
-        // Positioned(
-        //   top: -50,
-        //   left: -0,
-        //
-        //   child: Icon(
-        //     Ocean.oa,
-        //     size: 400.0,
-        //     color: Colors.lightBlue[200],
-        //
-        //
-        //   ),
-        // ),
-        // Positioned(
-        //   top: 300,
-        //   left: -120,
-        //   child: Icon(
-        //     Icons.circle,
-        //     size: 200.0,
-        //     color: Colors.pinkAccent,
-        //   ),
-        // ),
-        // Positioned(
-        //   top: 500,
-        //   left: 420,
-        //   child: Icon(
-        //     Icons.circle,
-        //     size: 200.0,
-        //     color: Colors.lime,
-        //   ),
-        // ),
-        // Positioned(
-        //   top: 200,
-        //   right: 400,
-        //   child: Icon(
-        //     Icons.circle,
-        //     size: 180.0,
-        //     color: Colors.lightBlue,
-        //   ),
-        // ),
-        // Positioned(
-        //     top: 0,
-        //     right: 380,
-        //     child: Text(
-        //       '°',
-        //       style: TextStyle(fontSize: 100, color: Colors.yellow),
-        //     )),
-        // Positioned(
-        //   top: 70,
-        //   right: 330,
-        //   child: Transform.rotate(
-        //       angle: -170.2,
-        //       child: Container(
-        //         decoration: BoxDecoration(
-        //           color: Colors.purple,
-        //           borderRadius: BorderRadius.circular(5.0),
-        //         ),
-        //         height: 10.0,
-        //         width: 100.0,
-        //       )),
-        // ),
         Container(
           decoration: BoxDecoration(
-              image: DecorationImage(image: AssetImage('images/oa_bg-01.png'))),
+              image: DecorationImage(image: AssetImage('images/oa_bg.png'))),
           padding: EdgeInsets.only(top: 20.0, bottom: 50.0),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -93,35 +105,72 @@ class _UpcomingCourseState extends State<UpcomingCourse> {
                 ),
               ),
               SizedBox(
+                height: 30.0,
+              ),
+              TextWidget(
+                title: upcomingcontent,
+              ),
+              SizedBox(
                 height: 40.0,
               ),
-              SingleChildScrollView(
-                scrollDirection: Axis.horizontal,
-                child: Row(
+              Container(
+                alignment: Alignment.center,
+                child: Stack(
+                  alignment: Alignment.center,
                   children: [
-                    StreamBuilder<QuerySnapshot>(
-                      stream: _firestore.collection('course').snapshots(),
-                      // ignore: missing_return
-                      builder: (context, snapshot) {
-                        if (!snapshot.hasData) {
-                          return Text("Loading.....");
-                        } else {
-                          final messages = snapshot.data.docs;
-                          List<UpcomingCoursesImages> bubbles = [];
-
-                          for (var message in messages) {
-                            final messageImage = message.data()['img'];
-                            final bubble = UpcomingCoursesImages(
-                              imagePath: messageImage,
-                            );
-                            // Text('$messageText from $messageSender');
-                            bubbles.add(bubble);
-                          }
-                          return Wrap(
-                            children: bubbles,
-                          );
-                        }
-                      },
+                    SingleChildScrollView(
+                      scrollDirection: Axis.horizontal,
+                      child: Consumer<UpcomingModel>(
+                          builder: (context, cart, child) {
+                        return Row(
+                          children: bubbles,
+                        );
+                      }),
+                    ),
+                    Row(
+                      children: [
+                        GestureDetector(
+                          onTap: () {
+                            setState(() {
+                              left();
+                            });
+                          },
+                          child: Container(
+                            margin: EdgeInsets.all(15.0),
+                            alignment: Alignment.center,
+                            width: 60.0,
+                            height: 60.0,
+                            decoration: BoxDecoration(
+                                color: Colors.white,
+                                borderRadius: BorderRadius.circular(500.0)),
+                            child: Icon(
+                              Icons.chevron_left,
+                              size: 50.0,
+                            ),
+                          ),
+                        ),
+                        Spacer(),
+                        GestureDetector(
+                          onTap: () {
+                            setState(() {
+                              right();
+                            });
+                          },
+                          child: Container(
+                            margin: EdgeInsets.all(15.0),
+                            alignment: Alignment.center,
+                            width: 60.0,
+                            height: 60.0,
+                            decoration: BoxDecoration(
+                                color: Colors.white,
+                                borderRadius: BorderRadius.circular(500.0)),
+                            child: Icon(
+                              Icons.chevron_right,
+                              size: 50.0,
+                            ),
+                          ),
+                        ),
+                      ],
                     ),
                   ],
                 ),
@@ -130,30 +179,6 @@ class _UpcomingCourseState extends State<UpcomingCourse> {
           ),
         ),
       ],
-    );
-  }
-}
-
-class UpcomingCoursesImages extends StatelessWidget {
-  UpcomingCoursesImages({this.imagePath});
-  final String imagePath;
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      // width: 100.0,
-      // height: 100.0,
-      margin: EdgeInsets.symmetric(horizontal: 20.0),
-      child: ClipRRect(
-        borderRadius: BorderRadius.circular(20.0),
-        child: Container(
-          height: 300.0,
-          child: Image(
-            image: NetworkImage("$imagePath"),
-            fit: BoxFit.cover,
-          ),
-        ),
-      ),
     );
   }
 }

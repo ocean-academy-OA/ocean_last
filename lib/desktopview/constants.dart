@@ -8,8 +8,30 @@ var buttonRadius = RoundedRectangleBorder(
 );
 const menuTextStyle = TextStyle(
     fontSize: 22.0, color: Color(0xFF6792B1), fontWeight: FontWeight.normal);
-const kcontentcolor = Color(0xff434343);
-const kfontname = "OpenSans-Regular.ttf";
+const kcontentcolor = Color(0xff757575);
+const kfontname = "Gilroy";
+
+const contentTextStyle = TextStyle(
+  height: 1.5,
+  fontSize: 22,
+  color: kcontentcolor,
+  inherit: false,
+  fontWeight: FontWeight.w400,
+);
+const otherSmallContentTextStyle = TextStyle(
+  height: 1.5,
+  fontSize: 18,
+  color: kcontentcolor,
+  inherit: false,
+  fontWeight: FontWeight.w400,
+);
+const otherSmallHeaddingTextStyle = TextStyle(
+  height: 1.5,
+  fontSize: 26,
+  color: textColor,
+  inherit: false,
+  fontWeight: FontWeight.w400,
+);
 
 const logInButtonPadding = EdgeInsets.all(20.0);
 const textColor = Color(0xFF0091D2);
@@ -27,9 +49,10 @@ const ktextediting = TextStyle(
     color: Color(0xFF155575), fontSize: 20.0, fontWeight: FontWeight.bold);
 const kbottom = TextStyle(
     color: Colors.white,
-    fontSize: 15.0,
+    fontSize: 18.0,
+    letterSpacing: 1,
     fontWeight: FontWeight.normal,
-    fontFamily: kfontname);
+    fontFamily: 'Ubuntu');
 
 const kactiveColour = Color(0xFF155575);
 const kinactiveColour = Color(0xFFACACAC);

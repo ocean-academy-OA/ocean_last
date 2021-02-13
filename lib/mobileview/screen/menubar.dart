@@ -27,6 +27,7 @@ class _NavbarState extends State<Navbar> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      theme: ThemeData(fontFamily: 'Gilroy'),
       debugShowCheckedModeBanner: false,
       home: Scaffold(
         resizeToAvoidBottomInset: false,
@@ -36,7 +37,6 @@ class _NavbarState extends State<Navbar> {
             onTap: () {
               setState(() {
                 visibility = !visibility;
-                print("hello");
               });
             },
             child: Icon(

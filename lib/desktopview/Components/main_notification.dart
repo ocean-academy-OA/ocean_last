@@ -1,22 +1,33 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:ocean_project/desktopview/Components/course_enrole.dart';
 import 'package:ocean_project/desktopview/Components/notification.dart';
+import 'package:ocean_project/desktopview/new_user_screen/log_in.dart';
 import 'package:ocean_project/desktopview/route/routing.dart';
 
 import 'package:provider/provider.dart';
 
+// ignore: camel_case_types
 class Notification_onclick extends StatefulWidget {
-  const Notification_onclick({
-    @required this.isVisible,
-  });
+  Notification_onclick({@required this.isVisible, this.image});
 
   final bool isVisible;
+  final String image;
 
   @override
   _Notification_onclickState createState() => _Notification_onclickState();
 }
 
+// ignore: camel_case_types
 class _Notification_onclickState extends State<Notification_onclick> {
-  bool isVisible = false;
+  final _firestore = FirebaseFirestore.instance;
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    print("${LogIn.registerNumber}gfhcghfhgfrrrrrrrr");
+  }
+
   @override
   Widget build(BuildContext context) {
     return Positioned(
@@ -25,256 +36,158 @@ class _Notification_onclickState extends State<Notification_onclick> {
       child: Visibility(
         visible: widget.isVisible,
         child: Container(
-          color: Colors.white,
-          height: 400,
-          width: 400,
+          // height: 400,
+          width: 500,
+          decoration: BoxDecoration(
+              color: Colors.blue[50],
+              boxShadow: [
+                BoxShadow(color: Colors.black.withOpacity(0.3), blurRadius: 6)
+              ],
+              borderRadius: BorderRadius.only(
+                  bottomRight: Radius.circular(8),
+                  bottomLeft: Radius.circular(8))),
           child: Column(
             children: [
-              // Stack(
-              //   children: [
-              //     Container(
-              //       height: 10,
-              //       width: double.infinity,
-              //       color: Colors.white,
-              //       // color: Color(0xff0091D2),
-              //     ),
-              //     Positioned(
-              //       right: 23,
-              //       child: ClipPath(
-              //         clipper: TraingleClipPath(),
-              //         child: Container(
-              //           height: 10,
-              //           width: 10,
-              //           color: Colors.black,
-              //         ),
-              //       ),
-              //     ),
-              //   ],
-              // ),
-              Column(
-                children: [
-                  Container(
-                    margin: EdgeInsets.symmetric(horizontal: 10, vertical: 10),
-                    height: 70,
-                    width: double.infinity,
-                    decoration: BoxDecoration(
-                      border: Border.all(color: Colors.black12),
-                    ),
-                    child: Row(
+              Container(
+                padding: EdgeInsets.zero,
+                margin: EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+                // height: 70,
+                width: double.infinity,
+                decoration: BoxDecoration(color: Colors.white, boxShadow: [
+                  BoxShadow(
+                      color: Colors.black.withOpacity(0.2),
+                      blurRadius: 3,
+                      offset: Offset(0, 6))
+                ]),
+                child: Column(
+                  children: [
+                    Row(
                       children: [
-                        Expanded(
-                          flex: 2,
-                          child: Row(
-                            children: [
-                              Expanded(
-                                child: Container(
-                                  margin: EdgeInsets.all(10),
-                                  height: 100,
-                                  width: 100,
-                                  child: Image.asset("images/python.png"),
-                                ),
-                              ),
-                            ],
-                          ),
+                        StreamBuilder<QuerySnapshot>(
+                          stream: _firestore
+                              .collection('new users')
+                              .doc(LogIn.registerNumber)
+                              .collection("specificnotification")
+                              .snapshots(),
+                          // ignore: missing_return
+                          builder: (context, snapshot) {
+                            if (!snapshot.hasData) {
+                              return Text("Loading.....");
+                            } else {
+                              final messages = snapshot.data.docs;
+                              List<UserNotificationDb> notifyData = [];
+
+                              for (var message in messages) {
+                                final messageDescription =
+                                    message.data()['description'];
+                                final sampleNotify = UserNotificationDb(
+                                  description: messageDescription,
+                                );
+                                // Text('$messageText from $messageSender');
+                                if (notifyData.length < 1) {
+                                  notifyData.add(sampleNotify);
+                                }
+                              }
+                              return Column(
+                                children: notifyData,
+                              );
+                            }
+                          },
                         ),
-                        SizedBox(
-                          width: 1,
-                        ),
-                        Expanded(
-                          flex: 4,
-                          child: Row(
-                            children: [
-                              Expanded(
-                                child: Padding(
-                                  padding: EdgeInsets.all(1),
-                                  child: Container(
-                                    child: Text(
-                                      "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages",
-                                      overflow: TextOverflow.ellipsis,
-                                      maxLines: 3,
-                                      // softWrap: true,
-                                      style: TextStyle(fontSize: 12),
-                                    ),
-                                  ),
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
-                        SizedBox(width: 20),
                       ],
                     ),
-                  ),
-                  Container(
-                    margin: EdgeInsets.symmetric(horizontal: 10, vertical: 10),
-                    height: 70,
-                    width: double.infinity,
-                    decoration: BoxDecoration(
-                      border: Border.all(color: Colors.black12),
-                    ),
-                    child: Row(
+                    Row(
                       children: [
-                        Expanded(
-                          flex: 2,
-                          child: Row(
-                            children: [
-                              Expanded(
-                                child: Container(
-                                  margin: EdgeInsets.all(10),
-                                  height: 100,
-                                  width: 100,
-                                  child: Image.asset("images/python.png"),
-                                ),
-                              ),
-                            ],
-                          ),
+                        StreamBuilder<QuerySnapshot>(
+                          stream: _firestore
+                              .collection('new users')
+                              .doc(LogIn.registerNumber)
+                              .collection("notification")
+                              .snapshots(),
+                          // ignore: missing_return
+                          builder: (context, snapshot) {
+                            if (!snapshot.hasData) {
+                              return Text("Loading.....");
+                            } else {
+                              final messages = snapshot.data.docs;
+                              List<UserNotificationDb> notifyData = [];
+
+                              for (var message in messages) {
+                                final messageDescription =
+                                    message.data()['description'];
+                                final sampleNotify = UserNotificationDb(
+                                  description: messageDescription,
+                                );
+                                // Text('$messageText from $messageSender');
+                                if (notifyData.length < 1) {
+                                  notifyData.add(sampleNotify);
+                                }
+                              }
+                              return Column(
+                                children: notifyData,
+                              );
+                            }
+                          },
                         ),
-                        SizedBox(
-                          width: 1,
-                        ),
-                        Expanded(
-                          flex: 4,
-                          child: Row(
-                            children: [
-                              Expanded(
-                                child: Padding(
-                                  padding: EdgeInsets.all(1),
-                                  child: Container(
-                                    child: Text(
-                                      "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages",
-                                      overflow: TextOverflow.ellipsis,
-                                      maxLines: 3,
-                                      // softWrap: true,
-                                      style: TextStyle(fontSize: 12),
-                                    ),
-                                  ),
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
-                        SizedBox(width: 20),
                       ],
                     ),
-                  ),
-                  Container(
-                    margin: EdgeInsets.symmetric(horizontal: 10, vertical: 10),
-                    height: 70,
-                    width: double.infinity,
-                    decoration: BoxDecoration(
-                      border: Border.all(color: Colors.black12),
-                    ),
-                    child: Row(
+                    Row(
                       children: [
-                        Expanded(
-                          flex: 2,
-                          child: Row(
-                            children: [
-                              Expanded(
-                                child: Container(
-                                  margin: EdgeInsets.all(10),
-                                  height: 100,
-                                  width: 100,
-                                  child: Image.asset("images/python.png"),
-                                ),
-                              ),
-                            ],
-                          ),
+                        StreamBuilder<QuerySnapshot>(
+                          stream: _firestore
+                              .collection('new users')
+                              .doc(LogIn.registerNumber)
+                              .collection("Subject Notification")
+                              .snapshots(),
+                          // ignore: missing_return
+                          builder: (context, snapshot) {
+                            if (!snapshot.hasData) {
+                              return Text("Loading.....");
+                            } else {
+                              final messages = snapshot.data.docs;
+                              List<UserNotificationDb> notifyData = [];
+
+                              for (var message in messages) {
+                                final messageDescription =
+                                    message.data()['description'];
+                                final sampleNotify = UserNotificationDb(
+                                  description: messageDescription,
+                                );
+                                // Text('$messageText from $messageSender');
+                                if (notifyData.length < 1) {
+                                  notifyData.add(sampleNotify);
+                                }
+                              }
+                              return Column(
+                                children: notifyData,
+                              );
+                            }
+                          },
                         ),
-                        SizedBox(
-                          width: 1,
-                        ),
-                        Expanded(
-                          flex: 4,
-                          child: Row(
-                            children: [
-                              Expanded(
-                                child: Padding(
-                                  padding: EdgeInsets.all(1),
-                                  child: Container(
-                                    child: Text(
-                                      "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages",
-                                      overflow: TextOverflow.ellipsis,
-                                      maxLines: 3,
-                                      // softWrap: true,
-                                      style: TextStyle(fontSize: 12),
-                                    ),
-                                  ),
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
-                        SizedBox(width: 20),
                       ],
                     ),
+                  ],
+                ),
+              ),
+              SizedBox(
+                height: 20.0,
+              ),
+              FlatButton(
+                child: Text(
+                  'See all',
+                  style: TextStyle(
+                    fontSize: 20,
                   ),
-                  Container(
-                    margin: EdgeInsets.symmetric(horizontal: 10, vertical: 10),
-                    height: 70,
-                    width: double.infinity,
-                    decoration: BoxDecoration(
-                      border: Border.all(color: Colors.black12),
-                    ),
-                    child: Row(
-                      children: [
-                        Expanded(
-                          flex: 2,
-                          child: Row(
-                            children: [
-                              Expanded(
-                                child: Container(
-                                  margin: EdgeInsets.all(10),
-                                  height: 100,
-                                  width: 100,
-                                  child: Image.asset("images/python.png"),
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
-                        SizedBox(
-                          width: 1,
-                        ),
-                        Expanded(
-                          flex: 4,
-                          child: Row(
-                            children: [
-                              Expanded(
-                                child: Padding(
-                                  padding: EdgeInsets.all(10),
-                                  child: Container(
-                                    child: Text(
-                                      "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages",
-                                      overflow: TextOverflow.ellipsis,
-                                      maxLines: 3,
-                                      // softWrap: true,
-                                      style: TextStyle(fontSize: 12),
-                                    ),
-                                  ),
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
-                        SizedBox(width: 20),
-                      ],
-                    ),
-                  ),
-                  GestureDetector(
-                    onTap: () {
-                      Provider.of<Routing>(context, listen: false)
-                          .updateRouting(widget: User());
-                    },
-                    child: Container(
-                      child: Text(
-                        'See all',
-                        style: TextStyle(
-                            fontSize: 20, decoration: TextDecoration.underline),
-                      ),
-                    ),
-                  )
-                ],
+                ),
+                minWidth: 200,
+                color: Colors.blue[100],
+                onPressed: () {
+                  Provider.of<OALive>(context, listen: false)
+                      .updateOA(routing: User());
+                },
+              ),
+              SizedBox(
+                height: 10.0,
               ),
             ],
           ),
@@ -284,20 +197,38 @@ class _Notification_onclickState extends State<Notification_onclick> {
   }
 }
 
-// class TraingleClipPath extends CustomClipper<Path> {
-//   @override
-//   Path getClip(Size size) {
-//     var path = Path();
-//     path.moveTo(5, 0.0);
-//     path.lineTo(size.width, size.height);
-//     path.lineTo(0, size.height);
-//     path.lineTo(5, 0.0);
-//     path.close();
-//     return path;
-//   }
-//
-//   @override
-//   bool shouldReclip(covariant CustomClipper<Path> oldClipper) {
-//     return false;
-//   }
-// }
+class UserNotificationDb extends StatefulWidget {
+  String description;
+  UserNotificationDb({this.description});
+  @override
+  _UserNotificationDbState createState() => _UserNotificationDbState();
+}
+
+class _UserNotificationDbState extends State<UserNotificationDb> {
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      children: [
+        Container(
+          margin: EdgeInsets.symmetric(horizontal: 10, vertical: 30),
+          // height: 100,
+          // width: 100,
+          child: Image.asset(
+            "images/alert.png",
+            width: 100,
+          ),
+        ),
+        Container(
+          width: 350,
+          child: Text(
+            "${widget.description}dsdfdsfdfsd",
+            overflow: TextOverflow.ellipsis,
+            maxLines: 3,
+            // softWrap: true,
+            style: TextStyle(fontSize: 18),
+          ),
+        ),
+      ],
+    );
+  }
+}

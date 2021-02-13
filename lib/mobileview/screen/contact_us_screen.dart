@@ -13,6 +13,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 import 'package:email_validator/email_validator.dart';
+import 'package:ocean_project/text.dart';
 
 final _firestore = FirebaseFirestore.instance;
 
@@ -24,7 +25,6 @@ class ContactUs extends StatefulWidget {
 class _ContactUsState extends State<ContactUs> {
   @override
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
-  bool _autoValidate = false;
 
   final enquiryController = TextEditingController();
   final nameController = TextEditingController();
@@ -51,7 +51,6 @@ class _ContactUsState extends State<ContactUs> {
         FilteringTextInputFormatter.allow(RegExp(r"[a-zA-Z]+|\s")),
         LengthLimitingTextInputFormatter(40),
       ],
-      autovalidate: _autoValidate,
       validator: (value) {
         if (value.isEmpty) {
           return 'Name is required*';
@@ -79,7 +78,6 @@ class _ContactUsState extends State<ContactUs> {
         FilteringTextInputFormatter.allow(RegExp(r"^\d+\.?\d{0,2}")),
         LengthLimitingTextInputFormatter(10),
       ],
-      autovalidate: _autoValidate,
       validator: (value) {
         if (value.isEmpty) {
           return 'phone_number is required*';
@@ -102,7 +100,6 @@ class _ContactUsState extends State<ContactUs> {
   Widget _buildEmail() {
     return TextFormField(
       inputFormatters: [FilteringTextInputFormatter.deny(RegExp(r"\s"))],
-      autovalidate: _autoValidate,
       validator: (value) =>
           EmailValidator.validate(value) ? null : "invalid email",
       decoration: InputDecoration(
@@ -120,7 +117,6 @@ class _ContactUsState extends State<ContactUs> {
 
   Widget _buildquery() {
     return TextFormField(
-      autovalidate: _autoValidate,
       validator: (value) {
         // query = value;
         if (value.isEmpty) {
@@ -210,6 +206,7 @@ class _ContactUsState extends State<ContactUs> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      theme: ThemeData(fontFamily: 'Ubuntu'),
       debugShowCheckedModeBanner: false,
       home: Scaffold(
         body: SingleChildScrollView(
@@ -317,9 +314,7 @@ class _ContactUsState extends State<ContactUs> {
                         height: 10,
                       ),
                       Text(
-                        'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean vi'
-                        'tae ipsum vitae justo pharetra tempor.'
-                        ' Quisque volutpat, nibh vitae',
+                        contactuscontent,
                         textAlign: TextAlign.justify,
                         style: TextStyle(
                             fontWeight: FontWeight.w400,
@@ -462,11 +457,7 @@ class _ContactUsState extends State<ContactUs> {
                               emailController.clear();
                               queryController.clear();
                               phoneNumberController.clear();
-                            } else {
-                              setState(() {
-                                _autoValidate = true;
-                              });
-                            }
+                            } else {}
                             // If the form is valid, display a Snackbar.
                             // ScaffoldMessenger.of(context)
                             //     .showSnackBar(

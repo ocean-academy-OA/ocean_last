@@ -16,6 +16,7 @@ class OceanMobileView extends StatelessWidget {
     return ChangeNotifierProvider(
         create: (context) => Routing(),
         child: MaterialApp(
+          theme: ThemeData(fontFamily: 'Ubuntu'),
           home: Navbar(),
           debugShowCheckedModeBanner: false,
         ));

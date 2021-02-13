@@ -18,6 +18,7 @@ void main() async {
 
   Firebase.initializeApp();
   await runApp(MaterialApp(
+    theme: ThemeData(fontFamily: 'Ubuntu'),
     supportedLocales: [
       Locale('en'),
     ],

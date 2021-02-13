@@ -37,7 +37,6 @@ class _ReviewsSectionState extends State<ReviewsSection> {
   @override
   void initState() {
     // TODO: implement initState
-    var finding = plus();
   }
 
   @override

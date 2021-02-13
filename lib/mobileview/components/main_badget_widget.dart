@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:ocean_project/mobileview/components/badge_widget.dart';
+import 'package:ocean_project/mobileview/components/comment.dart';
+import 'package:ocean_project/text.dart';
 
 import 'main_title_widget.dart';
 
@@ -11,6 +13,15 @@ class MainBadgeWidget extends StatelessWidget {
       MainTitleWidget(
         title: "Our journey through the years",
       ),
+      SizedBox(
+        height: 10.0,
+      ),
+      Padding(
+        padding: EdgeInsets.symmetric(horizontal: 40.0),
+        child: TextWidget(
+          title: ourjourneycontent,
+        ),
+      ),
       Container(
         child: Column(
           children: [
@@ -20,7 +31,7 @@ class MainBadgeWidget extends StatelessWidget {
               child: BadgeWidget(
                 icon: FontAwesomeIcons.award,
                 heading: "5500+ Students trained",
-                title: '5500+ Students trained',
+                title: ourjourneycontent1,
               ),
             ),
             Container(
@@ -29,7 +40,7 @@ class MainBadgeWidget extends StatelessWidget {
               child: BadgeWidget(
                 icon: FontAwesomeIcons.award,
                 heading: "50+ Free seminars",
-                title: '50+ Free seminars',
+                title: ourjourneycontent2,
               ),
             ),
             Container(
@@ -38,7 +49,7 @@ class MainBadgeWidget extends StatelessWidget {
               child: BadgeWidget(
                 icon: FontAwesomeIcons.award,
                 heading: "6 International workshops",
-                title: '6 International workshops',
+                title: ourjournerycontent3,
               ),
             ),
           ],

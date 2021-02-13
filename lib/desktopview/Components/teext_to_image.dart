@@ -29,15 +29,8 @@ class TextToImage extends StatelessWidget {
                 SizedBox(
                   height: 30.0,
                 ),
-                Text(
-                  content,
-                  textAlign: TextAlign.justify,
-                  style: TextStyle(
-                      fontSize: 18.0,
-                      color: kcontentcolor,
-                      height: 1.5,
-                      fontFamily: kfontname),
-                ),
+                Text(content,
+                    textAlign: TextAlign.justify, style: contentTextStyle),
               ],
             ),
           ),

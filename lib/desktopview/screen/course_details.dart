@@ -1,9 +1,15 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:ocean_project/desktopview/Components/course_enrole.dart';
 import 'package:ocean_project/desktopview/Components/courses_widget.dart';
+import 'package:ocean_project/desktopview/Components/payment.dart';
+import 'package:ocean_project/desktopview/Components/thanks_purchasing.dart';
+import 'package:ocean_project/desktopview/new_user_screen/log_in.dart';
+import 'package:ocean_project/desktopview/new_user_screen/otp.dart';
 import 'package:ocean_project/desktopview/route/routing.dart';
+import 'package:ocean_project/desktopview/screen/about_us_screen.dart';
 import 'package:ocean_project/desktopview/screen/courses.dart';
 import 'package:provider/provider.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -13,8 +19,11 @@ class CourseDetails extends StatefulWidget {
   String trainer;
   String sess;
   String desc;
+  String batch;
+  String section;
+  String chapter;
 
-  CourseDetails({this.course, this.sess, this.trainer, this.desc});
+  CourseDetails({this.course, this.sess, this.trainer, this.desc, this.batch});
 
   @override
   _CourseDetailsState createState() => _CourseDetailsState();
@@ -39,6 +48,29 @@ class _CourseDetailsState extends State<CourseDetails> {
   //   super.initState();
   //   // subMessage();
   // }
+
+  String syllabusid;
+
+  void studentId() async {
+    await for (var snapshot in _firestore
+        .collection('course')
+        .where("coursename", isEqualTo: widget.course)
+        .snapshots(includeMetadataChanges: true)) {
+      for (var message in snapshot.docs) {
+        //print(message.documentID);
+        syllabusid = message.id;
+
+        print("${syllabusid}iiii");
+      }
+    }
+  }
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    studentId();
+  }
 
   final _firestore = FirebaseFirestore.instance;
   @override
@@ -79,18 +111,24 @@ class _CourseDetailsState extends State<CourseDetails> {
                         ],
                       ),
                       Text(
-                        '${widget.course} Full Package Course',
+                        '${widget.course} Certificate Development Course',
                         style: TextStyle(
                             fontSize: 30.0,
                             fontWeight: FontWeight.bold,
                             color: Colors.white),
                       ),
-                      Text(
-                        '${widget.trainer}',
-                        style: TextStyle(
-                            fontSize: 15.0,
-                            fontWeight: FontWeight.bold,
-                            color: Colors.white),
+                      GestureDetector(
+                        onTap: () {
+                          Provider.of<Routing>(context, listen: false)
+                              .updateRouting(widget: AboutUs());
+                        },
+                        child: Text(
+                          '${widget.trainer}',
+                          style: TextStyle(
+                              fontSize: 15.0,
+                              fontWeight: FontWeight.bold,
+                              color: Colors.white),
+                        ),
                       ),
                       Row(
                         children: [
@@ -203,19 +241,23 @@ class _CourseDetailsState extends State<CourseDetails> {
                               StreamBuilder<QuerySnapshot>(
                                 stream: _firestore
                                     .collection('course')
-                                    .doc(widget.course)
+                                    .doc(widget.batch)
                                     .collection('syllabus')
                                     .snapshots(),
                                 // ignore: missing_return
                                 builder: (context, snapshot) {
                                   if (!snapshot.hasData) {
-                                    return Text("Loading.....");
+                                    return Text("Loading........");
                                   } else {
                                     final messages = snapshot.data.docs;
                                     List<CourseDescription> courseDetails = [];
+                                    print("${syllabusid}tjtjtjtj");
+                                    String messageContent;
                                     //List<String> subjects = [];
                                     for (var message in messages) {
-                                      // if (message.data()['coursename'] == widget.course) {
+                                      List<Widget> chapterWidget = [];
+                                      // if (message.data()['coursename'] ==
+                                      //     widget.course) {
                                       final messageText =
                                           message.data()[widget.trainer];
                                       final messageSender =
@@ -225,13 +267,47 @@ class _CourseDetailsState extends State<CourseDetails> {
                                       final messageCoursedescription =
                                           message.data()[widget.desc];
                                       final messageTopic =
-                                          message.data()['topic'];
-                                      final messageContent1 =
-                                          message.data()['content1'];
-                                      final messageContent2 =
-                                          message.data()['content2'];
-                                      final messageContent3 =
-                                          message.data()['content3'];
+                                          message.data()['section'];
+                                      for (var i = 0;
+                                          i < message.data()["chapter"].length;
+                                          i++) {
+                                        if ((chapterWidget == null)) {
+                                          return Container(
+                                            height: 700,
+                                            width: 500,
+                                            color: Colors.pinkAccent,
+                                          );
+                                        } else {
+                                          messageContent =
+                                              message.data()["chapter"][i];
+                                          chapterWidget.add(
+                                            Container(
+                                              color: Colors.grey[100],
+                                              padding: EdgeInsets.all(5.0),
+                                              child: Column(
+                                                crossAxisAlignment:
+                                                    CrossAxisAlignment.stretch,
+                                                children: [
+                                                  Padding(
+                                                    padding:
+                                                        const EdgeInsets.all(
+                                                            8.0),
+                                                    child: Text(
+                                                      messageContent,
+                                                      style: TextStyle(
+                                                        fontSize: 20.0,
+                                                      ),
+                                                    ),
+                                                  ),
+                                                ],
+                                              ),
+                                            ),
+                                          );
+                                          print(messageContent);
+                                          print("${widget.batch}iiii");
+                                        }
+                                      }
+
                                       final messageDubble = CourseDescription(
                                         trainername: messageText,
                                         coursename: messageSender,
@@ -239,9 +315,7 @@ class _CourseDetailsState extends State<CourseDetails> {
                                         coursedescription:
                                             messageCoursedescription,
                                         topic: messageTopic,
-                                        content1: messageContent1,
-                                        content2: messageContent2,
-                                        content3: messageContent3,
+                                        chapterWidget: chapterWidget,
                                       );
                                       courseDetails.add(messageDubble);
                                       // subjects.add(message.data()["coursename"]);
@@ -265,106 +339,75 @@ class _CourseDetailsState extends State<CourseDetails> {
               ],
             ),
             Visibility(
-              visible: MessageBubble.visiblity,
+              visible: OnlineCourse.visiblity,
               child: Positioned(
-                top: 140,
+                top: 100,
                 right: 150.0,
-                child: Container(
-                  height: 500.0,
-                  width: 500.0,
-                  decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(10.0),
-                      color: Colors.white,
-                      boxShadow: [
-                        BoxShadow(
-                          color: Colors.black.withOpacity(0.2),
-                          blurRadius: 30.0,
-                        ),
-                      ]),
-                  child: Column(
-                    children: [
-                      // StreamBuilder<QuerySnapshot>(
-                      //   stream: _firestore.collection('course').snapshots(),
-                      //   // ignore: missing_return
-                      //   builder: (context, snapshot) {
-                      //     if (!snapshot.hasData) {
-                      //       return Text("Loading.....");
-                      //     } else {
-                      //       final messages = snapshot.data.docs;
-                      //       List<VisibleWidget> courseImage = [];
-                      //       for (var message in messages) {
-                      //         if (message.data()['coursename'] ==
-                      //             widget.course) {
-                      //           final contentImage = message.data()['img'];
-                      //           final contentRate = message.data()['rate'];
-                      //           final contentImage1 =
-                      //               message.data()['content1'];
-                      //           final contentImage2 =
-                      //               message.data()['content2'];
-                      //           final contentImage3 =
-                      //               message.data()['content3'];
-                      //           final messageImage = VisibleWidget(
-                      //             image: contentImage,
-                      //             collection1: contentImage1,
-                      //             collection2: contentImage2,
-                      //             collection3: contentImage3,
-                      //             rupees: contentRate,
-                      //           );
-                      //           courseImage.add(messageImage);
-                      //           //print('${CourseEnroll.subject} ggg');
-                      //         }
-                      //       }
-                      //
-                      //       return Column(
-                      //         children: courseImage,
-                      //       );
-                      //     }
-                      //   },
-                      // ),
-                      StreamBuilder<QuerySnapshot>(
-                        stream: _firestore.collection('course').snapshots(),
-                        // ignore: missing_return
-                        builder: (context, snapshot) {
-                          if (!snapshot.hasData) {
-                            return Text("Loading.....");
-                          } else {
-                            final messages = snapshot.data.docs;
-                            List<VisibleWidget> courseImage = [];
-                            //List<String> subjects = [];
-                            for (var message in messages) {
-                              if (message.data()['coursename'] ==
-                                  CourseEnroll.selectedCourse) {
-                                final courseRate = message.data()['rate'];
-                                final contentImage = message.data()['img'];
-                                final imageContent1 =
-                                    message.data()['content1'];
-                                final imageContent2 =
-                                    message.data()['content2'];
+                child: Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Container(
+                    height: 530.0,
+                    width: 500.0,
+                    decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(10.0),
+                        color: Colors.white,
+                        boxShadow: [
+                          BoxShadow(
+                            color: Colors.black.withOpacity(0.2),
+                            blurRadius: 30.0,
+                          ),
+                        ]),
+                    child: Column(
+                      children: [
+                        StreamBuilder<QuerySnapshot>(
+                          stream: _firestore.collection('course').snapshots(),
+                          // ignore: missing_return
+                          builder: (context, snapshot) {
+                            if (!snapshot.hasData) {
+                              return Text("Loading.....");
+                            } else {
+                              final messages = snapshot.data.docs;
+                              List<VisibleWidget> courseImage = [];
+                              //List<String> subjects = [];
+                              for (var message in messages) {
+                                if (message.data()['coursename'] ==
+                                    widget.course) {
+                                  final courseRate = message.data()['rate'];
+                                  final contentImage = message.data()['img'];
+                                  final messageCourse =
+                                      message.data()['coursename'];
+                                  final courseBatchid =
+                                      message.data()['batchid'];
+                                  final imageContent1 = message.data()['time'];
+                                  final imageContent2 = message.data()['date'];
 
-                                final imageContent3 =
-                                    message.data()['content3'];
+                                  final imageContent3 =
+                                      message.data()['duration'];
 
-                                final images = VisibleWidget(
-                                  image: contentImage,
-                                  collection1: imageContent1,
-                                  collection2: imageContent2,
-                                  collection3: imageContent3,
-                                  rupees: courseRate,
-                                );
+                                  final images = VisibleWidget(
+                                    image: contentImage,
+                                    collection1: imageContent1,
+                                    collection2: imageContent2,
+                                    collection3: imageContent3,
+                                    rupees: courseRate,
+                                    courseName: messageCourse,
+                                    batchid: courseBatchid,
+                                  );
 
-                                courseImage.add(images);
+                                  courseImage.add(images);
+                                }
                               }
-                            }
 
-                            print("${widget.course} jaya");
-                            print("${courseImage}");
-                            return Column(
-                              children: courseImage,
-                            );
-                          }
-                        },
-                      ),
-                    ],
+                              print("${widget.course} jaya");
+                              print("${courseImage}");
+                              return Column(
+                                children: courseImage,
+                              );
+                            }
+                          },
+                        ),
+                      ],
+                    ),
                   ),
                 ),
               ),
@@ -376,94 +419,23 @@ class _CourseDetailsState extends State<CourseDetails> {
   }
 }
 
-class Expansion extends StatelessWidget {
-  String heading;
-  String collection1;
-  String collection2;
-  String collection3;
-
-  Expansion({
-    this.collection1,
-    this.heading,
-    this.collection2,
-    this.collection3,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      decoration:
-          BoxDecoration(border: Border.all(color: Colors.black, width: 1.0)),
-      padding: EdgeInsets.symmetric(horizontal: 0.0, vertical: 0.0),
-      child: Column(
-        children: [
-          ExpansionTile(
-            title: Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Text(
-                heading,
-                style: TextStyle(
-                  fontSize: 20.0,
-                ),
-              ),
-            ),
-            children: [
-              Container(
-                color: Colors.grey[100],
-                padding: EdgeInsets.all(15.0),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.stretch,
-                  children: [
-                    Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Text(
-                        collection1,
-                        style: TextStyle(fontSize: 20.0),
-                      ),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Text(
-                        collection2,
-                        style: TextStyle(fontSize: 20.0),
-                      ),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Text(
-                        collection3,
-                        style: TextStyle(fontSize: 20.0),
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-            ],
-          ),
-        ],
-      ),
-    );
-  }
-}
-
+//style: TextStyle(fontSize: 20.0),
 class CourseDescription extends StatelessWidget {
   String coursename;
   String trainername;
   String session;
   String coursedescription;
   String topic;
-  String content1;
-  String content2;
-  String content3;
-  CourseDescription(
-      {this.coursename,
-      this.trainername,
-      this.session,
-      this.coursedescription,
-      this.topic,
-      this.content1,
-      this.content3,
-      this.content2});
+  List<Widget> chapterWidget = [];
+
+  CourseDescription({
+    this.coursename,
+    this.trainername,
+    this.session,
+    this.coursedescription,
+    this.topic,
+    this.chapterWidget,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -473,11 +445,27 @@ class CourseDescription extends StatelessWidget {
         SizedBox(
           height: 20.0,
         ),
-        Expansion(
-          heading: "$topic",
-          collection1: '$content1',
-          collection2: '$content2',
-          collection3: '$content3',
+        Container(
+          decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(10.0),
+              border: Border.all(color: Colors.black, width: 1.0)),
+          padding: EdgeInsets.symmetric(horizontal: 0.0, vertical: 0.0),
+          child: Column(
+            children: [
+              ExpansionTile(
+                title: Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Text(
+                    "$topic",
+                    style: TextStyle(
+                      fontSize: 20.0,
+                    ),
+                  ),
+                ),
+                children: chapterWidget,
+              ),
+            ],
+          ),
         ),
         SizedBox(
           height: 10.0,
@@ -493,28 +481,80 @@ class CourseDetailsHeadingText extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Text(
-      title,
-      style: TextStyle(
-          fontSize: 30.0, fontWeight: FontWeight.bold, color: Colors.grey[700]),
+    return Center(
+      child: Text(
+        title,
+        style: TextStyle(
+            fontSize: 30.0,
+            fontWeight: FontWeight.bold,
+            color: Colors.grey[700]),
+      ),
     );
   }
 }
 
-class VisibleWidget extends StatelessWidget {
+class VisibleWidget extends StatefulWidget {
+  String courseName;
+  String batchid;
   String image;
   String collection1;
   String collection2;
   String collection3;
   String rupees;
 
-  VisibleWidget({
-    this.collection1,
-    this.image,
-    this.collection2,
-    this.collection3,
-    this.rupees,
-  });
+  VisibleWidget(
+      {this.collection1,
+      this.image,
+      this.collection2,
+      this.collection3,
+      this.rupees,
+      this.courseName,
+      this.batchid});
+
+  @override
+  _VisibleWidgetState createState() => _VisibleWidgetState();
+}
+
+class _VisibleWidgetState extends State<VisibleWidget> {
+  void _showDialog() {
+    // flutter defined function
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        // return object of type Dialog
+        return AlertDialog(
+          title: Text("${widget.courseName}"),
+          content: Container(
+            height: 670,
+            width: 400,
+            child: RazorPayWeb(
+              amount: widget.rupees,
+              courseImage: widget.image,
+              courseName: widget.courseName,
+              course: [widget.courseName],
+              batchid: [widget.batchid],
+            ),
+          ),
+          actions: <Widget>[
+            // usually buttons at the bottom of the dialog
+            new FlatButton(
+              child: new Text("Close"),
+              onPressed: () {
+                // Provider.of<SyllabusView>(context, listen: false)
+                //     .updateCourseSyllabus(routing: ThanksForPurchasing());
+                Navigator.of(context).pop();
+              },
+            ),
+          ],
+        );
+      },
+    );
+  }
+
+  FirebaseFirestore _firestore = FirebaseFirestore.instance;
+
+  bool isLogin = false;
+
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -523,12 +563,17 @@ class VisibleWidget extends StatelessWidget {
           padding: const EdgeInsets.all(10.0),
           child: Column(
             children: [
-              ClipRRect(
-                borderRadius: BorderRadius.circular(10.0),
-                child: Image(
-                  image: NetworkImage('${image}'),
-                  // width: 350.0,
-                  // height: 100.0,
+              Container(
+                // width: 500,
+                height: 260,
+                child: ClipRRect(
+                  borderRadius: BorderRadius.circular(15),
+                  child: Image(
+                    image: NetworkImage('${widget.image}'),
+                    fit: BoxFit.cover,
+
+                    // height: 100.0,
+                  ),
                 ),
               )
             ],
@@ -545,7 +590,7 @@ class VisibleWidget extends StatelessWidget {
                     children: [
                       Icon(FontAwesomeIcons.rupeeSign),
                       Text(
-                        '$rupees',
+                        '${widget.rupees}',
                         style: TextStyle(
                             fontSize: 25.0, fontWeight: FontWeight.bold),
                       )
@@ -555,7 +600,7 @@ class VisibleWidget extends StatelessWidget {
                     padding:
                         EdgeInsets.symmetric(horizontal: 20.0, vertical: 10.0),
                     child: Text(
-                      'Buy Now',
+                      'Enroll Now',
                       style: TextStyle(
                           fontWeight: FontWeight.bold,
                           fontSize: 20.0,
@@ -564,7 +609,26 @@ class VisibleWidget extends StatelessWidget {
                     shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(50.0),
                         side: BorderSide(color: Colors.blue, width: 2.0)),
-                    onPressed: () {},
+                    onPressed: () async {
+                      var userSession = await _firestore
+                          .collection('new users')
+                          .doc(OALive.stayUser != null
+                              ? OALive.stayUser
+                              : LogIn.registerNumber)
+                          .get();
+                      print(userSession.data());
+                      //print(OT)
+
+                      if (userSession.data() != null) {
+                        setState(() {
+                          isLogin = true;
+                        });
+                        _showDialog();
+                      } else {
+                        Provider.of<Routing>(context, listen: false)
+                            .updateRouting(widget: LogIn());
+                      }
+                    },
                   )
                 ],
               ),
@@ -578,18 +642,20 @@ class VisibleWidget extends StatelessWidget {
               Row(
                 children: [
                   Icon(
-                    Icons.circle,
-                    color: Colors.green,
-                    size: 15.0,
+                    Icons.timelapse,
+                    color: Colors.blue,
+                    size: 22.0,
                   ),
-                  Expanded(
-                    child: Container(
-                      margin:
-                          EdgeInsets.symmetric(horizontal: 10, vertical: 5.0),
-                      child: Text(
-                        'Python is powerful programming language',
-                        style: TextStyle(fontSize: 18, color: Colors.grey[500]),
-                      ),
+                  SizedBox(width: 10),
+                  Text(
+                    'Time',
+                    style: TextStyle(fontSize: 18, color: Colors.grey[500]),
+                  ),
+                  Container(
+                    margin: EdgeInsets.symmetric(horizontal: 10, vertical: 5.0),
+                    child: Text(
+                      '${widget.collection1}',
+                      style: TextStyle(fontSize: 18, color: Colors.grey[500]),
                     ),
                   ),
                 ],
@@ -597,18 +663,20 @@ class VisibleWidget extends StatelessWidget {
               Row(
                 children: [
                   Icon(
-                    Icons.circle,
-                    color: Colors.green,
-                    size: 15.0,
+                    Icons.date_range,
+                    color: Colors.blue,
+                    size: 20.0,
                   ),
-                  Expanded(
-                    child: Container(
-                      margin:
-                          EdgeInsets.symmetric(horizontal: 10, vertical: 5.0),
-                      child: Text(
-                        'Python is powerful programming language',
-                        style: TextStyle(fontSize: 18, color: Colors.grey[500]),
-                      ),
+                  SizedBox(width: 10),
+                  Text(
+                    'Date',
+                    style: TextStyle(fontSize: 18, color: Colors.grey[500]),
+                  ),
+                  Container(
+                    margin: EdgeInsets.symmetric(horizontal: 10, vertical: 5.0),
+                    child: Text(
+                      '${widget.collection2}',
+                      style: TextStyle(fontSize: 18, color: Colors.grey[500]),
                     ),
                   ),
                 ],
@@ -616,18 +684,20 @@ class VisibleWidget extends StatelessWidget {
               Row(
                 children: [
                   Icon(
-                    Icons.circle,
-                    color: Colors.green,
-                    size: 15.0,
+                    Icons.time_to_leave,
+                    color: Colors.blue,
+                    size: 20.0,
                   ),
-                  Expanded(
-                    child: Container(
-                      margin:
-                          EdgeInsets.symmetric(horizontal: 10, vertical: 5.0),
-                      child: Text(
-                        'Python is powerful programming language',
-                        style: TextStyle(fontSize: 18, color: Colors.grey[500]),
-                      ),
+                  SizedBox(width: 10),
+                  Text(
+                    'Hours',
+                    style: TextStyle(fontSize: 18, color: Colors.grey[500]),
+                  ),
+                  Container(
+                    margin: EdgeInsets.symmetric(horizontal: 10, vertical: 5.0),
+                    child: Text(
+                      '${widget.collection3}',
+                      style: TextStyle(fontSize: 18, color: Colors.grey[500]),
                     ),
                   ),
                 ],

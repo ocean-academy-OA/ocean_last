@@ -25,6 +25,7 @@ class _CoursesState extends State<Courses> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      theme: ThemeData(fontFamily: 'Ubuntu'),
       debugShowCheckedModeBanner: false,
       home: Scaffold(
         body: SingleChildScrollView(

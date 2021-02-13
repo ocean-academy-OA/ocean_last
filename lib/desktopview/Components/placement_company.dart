@@ -38,7 +38,7 @@ class PlacementCompany extends StatelessWidget {
             runSpacing: 100.0,
             children: [
               StreamBuilder<QuerySnapshot>(
-                stream: _firestore.collection('placement').snapshots(),
+                stream: _firestore.collection('Company').snapshots(),
                 // ignore: missing_return
                 builder: (context, snapshot) {
                   if (!snapshot.hasData) {
@@ -48,7 +48,7 @@ class PlacementCompany extends StatelessWidget {
                     List<CompanyLogo> companyLogo = [];
 
                     for (var message in messages) {
-                      final logoImage = message.data()['img'];
+                      final logoImage = message.data()['Company'];
                       final logos = CompanyLogo(
                         companyLogoImage: logoImage,
                       );

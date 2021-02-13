@@ -1,6 +1,5 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:ocean_project/desktopview/Components/courses_widget.dart';
 import 'package:ocean_project/desktopview/Components/navigation_bar.dart';
 import 'package:ocean_project/desktopview/constants.dart';
@@ -27,6 +26,7 @@ class _CourseState extends State<Course> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      theme: ThemeData(fontFamily: 'Ubuntu'),
       debugShowCheckedModeBanner: false,
       home: Scaffold(
         body: SingleChildScrollView(
@@ -45,7 +45,7 @@ class _CourseState extends State<Course> {
                       child: Container(
                         decoration: BoxDecoration(
                             image: DecorationImage(
-                          image: AssetImage('images/oa_bg-01.png'),
+                          image: AssetImage('images/oa_bg.png'),
                           repeat: ImageRepeat.repeatY,
                         )),
                         child: Column(
@@ -88,13 +88,13 @@ class _CourseState extends State<Course> {
                                           height: 60.0),
                                       children: [
                                         Text(
-                                          'Online Courses',
+                                          'Offline Courses',
                                           style: TextStyle(
                                               fontSize: 25,
                                               fontWeight: FontWeight.w500,
                                               fontFamily: kfontname),
                                         ),
-                                        Text('Offline Courses',
+                                        Text('Online Courses',
                                             style: TextStyle(
                                               fontSize: 25,
                                               fontFamily: kfontname,

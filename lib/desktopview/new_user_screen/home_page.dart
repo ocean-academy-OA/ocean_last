@@ -1,7 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:ocean_project/desktopview/new_user_screen/log_in.dart';
-import 'package:ocean_project/desktopview/new_user_widget/whats_new.dart';
+
 import 'package:shared_preferences/shared_preferences.dart';
 
 class Home extends StatefulWidget {
@@ -40,7 +40,7 @@ class _HomeState extends State<Home> {
             margin: EdgeInsets.symmetric(horizontal: 15.0),
             padding: EdgeInsets.all(5.0),
             child: Text(
-              '${value}',
+              value,
               style: TextStyle(
                   fontSize: 25.0,
                   fontWeight: FontWeight.bold,

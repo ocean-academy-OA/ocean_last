@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 
 class ContainerServiceWidget extends StatefulWidget {
+  final String title;
+  final String content;
+  ContainerServiceWidget({this.title, this.content});
   @override
   _ContainerServiceWidgetState createState() => _ContainerServiceWidgetState();
 }
@@ -52,21 +55,22 @@ class _ContainerServiceWidgetState extends State<ContainerServiceWidget> {
               height: 15.0,
             ),
             Text(
-              "24/7 Service",
+              widget.title,
               style: TextStyle(
                   color: isTouching == true ? Colors.white : Colors.lightBlue,
                   fontWeight: FontWeight.bold,
-                  fontSize: 18.0),
+                  fontSize: 22.0,
+                  fontFamily: "Gilroy"),
             ),
             SizedBox(
-              height: 15.0,
+              height: 10.0,
             ),
             Text(
-              "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ",
+              widget.content,
               style: TextStyle(
-                color: isTouching == true ? Colors.white : Colors.black87,
-                fontSize: 18.0,
-              ),
+                  color: isTouching == true ? Colors.white : Colors.grey[600],
+                  fontSize: 20.0,
+                  fontFamily: 'Gilroy'),
             ),
             SizedBox(
               height: 15.0,

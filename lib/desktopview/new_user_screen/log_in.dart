@@ -6,10 +6,11 @@ import 'package:country_code_picker/country_code_picker.dart';
 import 'package:flutter/services.dart';
 
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:ocean_project/desktopview/Components/course_enrole.dart';
-import 'package:ocean_project/desktopview/new_user_screen/home_page.dart';
+
 import 'package:ocean_project/desktopview/route/routing.dart';
+
 import 'package:provider/provider.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import 'dart:ui';
 
@@ -26,22 +27,22 @@ class LogIn extends StatefulWidget {
 
 class _LogInState extends State<LogIn> {
   var userSession;
-  getData() async {
-    userSession = await _firestore
-        .collection('new users')
-        .doc(LogIn.registerNumber)
-        .get();
-    print(userSession.data() != null);
-    if (userSession.data() != null) {
-      Navigator.push(
-        context,
-        MaterialPageRoute(builder: (context) => Home()),
-      );
-    } else {
-      Provider.of<Routing>(context, listen: false)
-          .updateRouting(widget: CoursesView());
-    }
-  }
+  // getData() async {
+  //   userSession = await _firestore
+  //       .collection('new users')
+  //       .doc(LogIn.registerNumber)
+  //       .get();
+  //   print(userSession.data() != null);
+  //   if (userSession.data() != null) {
+  //     Navigator.push(
+  //       context,
+  //       MaterialPageRoute(builder: (context) => Home()),
+  //     );
+  //   } else {
+  //     Provider.of<Routing>(context, listen: false)
+  //         .updateRouting(widget: Registration());
+  //   }
+  // }
 
   bool isNumValid = false;
   final _firestore = FirebaseFirestore.instance;
@@ -57,6 +58,20 @@ class _LogInState extends State<LogIn> {
         '${countryCode.toString()} ${_phoneNumberController.text}');
   }
 
+  session() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    await prefs.setInt('login', 1);
+    await prefs.setString('user', _phoneNumberController.text);
+    print('Otp Submited');
+    _firestore
+        .collection("session")
+        .doc('$countryCode ${_phoneNumberController.text}')
+        .set({
+      "session": true,
+      "sessionNumber": '$countryCode ${_phoneNumberController.text}'
+    });
+  }
+
   List getContryCode() {
     List<String> contryCode = [];
     for (var cCode in contri) {
@@ -67,7 +82,7 @@ class _LogInState extends State<LogIn> {
 
   _launchURL() async {
     try {
-      const url = 'https://flutter.dev';
+      const url = 'https://oceanacademy.in/';
       if (await canLaunch(url)) {
         await launch(url);
       } else {
@@ -76,6 +91,13 @@ class _LogInState extends State<LogIn> {
     } catch (e) {
       print(e);
     }
+  }
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    //Navbar.visiblity = false;
+    super.initState();
   }
 
   @override
@@ -233,22 +255,25 @@ class _LogInState extends State<LogIn> {
                                       onPressed: () async {
                                         print(_phoneNumberController.text);
                                         setState(() {
+                                          //Navbar.visiblity = false;
                                           LogIn.registerNumber =
                                               '${countryCode.toString()} ${_phoneNumberController.text}';
+                                          OALive.stayUser =
+                                              LogIn.registerNumber;
                                         });
 
                                         if (_phoneNumberController
                                                 .text.length >=
                                             10) {
-                                          // getData();
+                                          //getData();
+
+                                          ///todo remove the hide get otp
 
                                           getOTP();
-                                          Navigator.push(
-                                              context,
-                                              MaterialPageRoute(
-                                                builder: (context) =>
-                                                    OTP(), //OTP insted of CoursesView()
-                                              ));
+                                          session();
+                                          Provider.of<Routing>(context,
+                                                  listen: false)
+                                              .updateRouting(widget: OTP());
                                         } else {
                                           isNumValid = true;
                                         }

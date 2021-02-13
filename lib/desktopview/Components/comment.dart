@@ -11,13 +11,7 @@ class TextWidget extends StatelessWidget {
         padding: EdgeInsets.symmetric(horizontal: 200.0),
         child: Text(
           title,
-          style: TextStyle(
-            height: 1.5,
-            fontSize: 20,
-            color: kcontentcolor,
-            fontWeight: FontWeight.w300,
-            fontFamily: "Open Sans",
-          ),
+          style: contentTextStyle,
           textAlign: TextAlign.center,
         ),
       ),

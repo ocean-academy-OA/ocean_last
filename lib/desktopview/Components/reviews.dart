@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:ocean_project/desktopview/Components/main_title_widget.dart';
+import 'package:ocean_project/desktopview/review/reviews.dart';
 
 import 'package:readmore/readmore.dart';
 import 'package:smooth_star_rating/smooth_star_rating.dart';
@@ -44,47 +45,12 @@ class _ReviewsSectionState extends State<ReviewsSection> {
   @override
   Widget build(BuildContext context) {
     return Container(
+      decoration: BoxDecoration(
+          image: DecorationImage(image: AssetImage('images/oa_bg.png'))),
+      padding: EdgeInsets.only(top: 20.0, bottom: 50.0),
       child: Stack(
         alignment: Alignment.center,
         children: [
-          Positioned(
-            top: 150.0,
-            left: -30,
-            child: Icon(
-              Icons.circle,
-              size: 400.0,
-              color: Colors.red[200],
-            ),
-          ),
-          Positioned(
-            left: 620,
-            top: 200,
-            child: Icon(
-              Icons.circle,
-              size: 200.0,
-              color: Colors.blue[200],
-            ),
-          ),
-          Positioned(
-            right: 500,
-            top: 100,
-            child: Icon(
-              Icons.circle,
-              size: 120.0,
-              color: Colors.deepPurple[400],
-            ),
-          ),
-          Positioned(
-            right: -100,
-            top: -150,
-            child: Text(
-              '°',
-              style: TextStyle(
-                  fontSize: 500.0,
-                  color: Colors.green[400],
-                  fontWeight: FontWeight.normal),
-            ),
-          ),
           Column(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
@@ -145,48 +111,10 @@ class _ReviewsSectionState extends State<ReviewsSection> {
                   ],
                 ),
               ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  StreamBuilder<QuerySnapshot>(
-                    stream: _firestore.collection('ratings').snapshots(),
-                    // ignore: missing_return
-                    builder: (context, snapshot) {
-                      if (!snapshot.hasData) {
-                        return Text("Loading.....");
-                      } else {
-                        final messages = snapshot.data.docs;
-                        List<StarRating> rateReview = [];
-
-                        for (var message in messages) {
-                          final userReviewSite = message.data()['ratingsite'];
-                          final userReviewCount = message.data()['rate'];
-                          final rating = StarRating(
-                            ratingSite: userReviewSite,
-                            ratings: userReviewCount,
-                          );
-                          // Text('$messageText from $messageSender');
-                          rateReview.add(rating);
-                        }
-                        return Wrap(
-                          children: rateReview,
-                        );
-                      }
-                    },
-                  ),
-                  // StarRating(
-                  //   ratings: '25',
-                  //   ratingSite: 'Google Review',
-                  // ),
-                  // SizedBox(
-                  //   width: 200.0,
-                  // ),
-                  // StarRating(
-                  //   ratings: '18',
-                  //   ratingSite: 'Justdial Review',
-                  // ),
-                ],
+              SizedBox(
+                height: 80.0,
               ),
+              ReView(),
             ],
           ),
         ],
@@ -268,113 +196,6 @@ class ReviewLable extends StatelessWidget {
           ],
         ),
       ),
-    );
-  }
-}
-
-class StarRating extends StatelessWidget {
-  StarRating({this.ratings, this.ratingSite});
-  final String ratings;
-  final String ratingSite;
-
-  @override
-  Widget build(BuildContext context) {
-    return Stack(
-      alignment: Alignment.center,
-      children: [
-        Container(
-          color: Colors.yellow,
-          height: 350,
-        ),
-        Container(
-          height: 150.0,
-          width: 150.0,
-          decoration: BoxDecoration(
-            color: Color(0xff4285B7),
-            borderRadius: BorderRadius.circular(75.0),
-          ),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              Text(
-                "$ratings",
-                style: TextStyle(
-                    fontSize: 30.0,
-                    fontWeight: FontWeight.bold,
-                    color: Colors.white),
-              ),
-            ],
-          ),
-        ),
-        Container(
-          margin: EdgeInsets.only(left: 190.0, bottom: 50.0),
-          child: Icon(
-            Icons.star_half,
-            color: Colors.yellow[700],
-            size: 40,
-          ),
-        ),
-        Container(
-          margin: EdgeInsets.only(left: 130.0, bottom: 160.0),
-          child: Icon(
-            Icons.star,
-            color: Colors.yellow[700],
-            size: 40,
-          ),
-        ),
-        Container(
-          margin: EdgeInsets.only(bottom: 200.0),
-          child: Icon(
-            Icons.star,
-            color: Colors.yellow[700],
-            size: 40,
-          ),
-        ),
-        Container(
-          margin: EdgeInsets.only(right: 130.0, bottom: 160.0),
-          child: Icon(
-            Icons.star,
-            color: Colors.yellow[700],
-            size: 40,
-          ),
-        ),
-        Container(
-          margin: EdgeInsets.only(right: 190.0, bottom: 50.0),
-          child: Icon(
-            Icons.star,
-            color: Colors.yellow[700],
-            size: 40,
-          ),
-        ),
-        Positioned(
-          top: 250.0,
-          child: Column(
-            children: [
-              Text(
-                "$ratingSite",
-                style: TextStyle(
-                  fontWeight: FontWeight.bold,
-                  fontSize: 25,
-                  color: Color(0xff003A5D),
-                ),
-              ),
-              SmoothStarRating(
-                  allowHalfRating: false,
-                  onRated: (v) {},
-                  starCount: 5,
-                  rating: 4.9,
-                  size: 40.0,
-                  isReadOnly: true,
-                  filledIconData: Icons.star,
-                  halfFilledIconData: Icons.star_half,
-                  color: Colors.yellow[700],
-                  borderColor: Colors.yellow[700],
-                  spacing: 0.0),
-            ],
-          ),
-        ),
-      ],
     );
   }
 }

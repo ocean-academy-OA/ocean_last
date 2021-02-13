@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:ocean_project/desktopview/Components/enrool_appbar.dart';
+import 'package:ocean_project/desktopview/new_user_screen/log_in.dart';
+import 'package:ocean_project/desktopview/route/routing.dart';
+import 'package:provider/provider.dart';
 
 import 'course_enrole.dart';
 
@@ -33,10 +36,17 @@ class _UserState extends State<User> {
                 width: 213,
                 child: Row(
                   children: [
-                    Icon(
-                      Icons.chevron_left,
+                    IconButton(
+                      icon: Icon(
+                        Icons.chevron_left,
+                      ),
                       color: Colors.blue,
-                      size: 70,
+                      iconSize: 50,
+                      splashRadius: 30,
+                      onPressed: () {
+                        Provider.of<OALive>(context, listen: false)
+                            .updateOA(routing: CoursesView());
+                      },
                     ),
                     Text(
                       'Notification',
@@ -57,7 +67,9 @@ class _UserState extends State<User> {
                       children: [
                         StreamBuilder<QuerySnapshot>(
                           stream: _firestore
-                              .collection('notifications')
+                              .collection('new users')
+                              .doc(LogIn.registerNumber)
+                              .collection("specificnotification")
                               .snapshots(),
                           // ignore: missing_return
                           builder: (context, snapshot) {
@@ -65,21 +77,80 @@ class _UserState extends State<User> {
                               return Text("Loading.....");
                             } else {
                               final messages = snapshot.data.docs;
-                              List<Jaya> data = [];
+                              List<NotifyDB> notifyData = [];
 
                               for (var message in messages) {
-                                final messageImage = message.data()['img'];
                                 final messageDescription =
                                     message.data()['description'];
-                                final sample = Jaya(
-                                  imagepath: messageImage,
+                                final sampleNotify = NotifyDB(
                                   description: messageDescription,
                                 );
                                 // Text('$messageText from $messageSender');
-                                data.add(sample);
+
+                                notifyData.add(sampleNotify);
                               }
                               return Column(
-                                children: data,
+                                children: notifyData,
+                              );
+                            }
+                          },
+                        ),
+                        StreamBuilder<QuerySnapshot>(
+                          stream: _firestore
+                              .collection('new users')
+                              .doc(LogIn.registerNumber)
+                              .collection("notification")
+                              .snapshots(),
+                          // ignore: missing_return
+                          builder: (context, snapshot) {
+                            if (!snapshot.hasData) {
+                              return Text("Loading.....");
+                            } else {
+                              final messages = snapshot.data.docs;
+                              List<NotifyDB> notifyData = [];
+
+                              for (var message in messages) {
+                                final messageDescription =
+                                    message.data()['description'];
+                                final sampleNotify = NotifyDB(
+                                  description: messageDescription,
+                                );
+                                // Text('$messageText from $messageSender');
+
+                                notifyData.add(sampleNotify);
+                              }
+                              return Column(
+                                children: notifyData,
+                              );
+                            }
+                          },
+                        ),
+                        StreamBuilder<QuerySnapshot>(
+                          stream: _firestore
+                              .collection('new users')
+                              .doc(LogIn.registerNumber)
+                              .collection("Subject Notification")
+                              .snapshots(),
+                          // ignore: missing_return
+                          builder: (context, snapshot) {
+                            if (!snapshot.hasData) {
+                              return Text("Loading.....");
+                            } else {
+                              final messages = snapshot.data.docs;
+                              List<NotifyDB> notifyData = [];
+
+                              for (var message in messages) {
+                                final messageDescription =
+                                    message.data()['description'];
+                                final sampleNotify = NotifyDB(
+                                  description: messageDescription,
+                                );
+                                // Text('$messageText from $messageSender');
+
+                                notifyData.add(sampleNotify);
+                              }
+                              return Column(
+                                children: notifyData,
                               );
                             }
                           },
@@ -98,8 +169,9 @@ class _UserState extends State<User> {
   }
 }
 
-class Jaya extends StatelessWidget {
-  Jaya({this.imagepath, this.description});
+// ignore: must_be_immutable
+class NotifyDB extends StatelessWidget {
+  NotifyDB({this.imagepath, this.description});
   String imagepath;
   String description;
 
@@ -121,11 +193,14 @@ class Jaya extends StatelessWidget {
                 children: [
                   Expanded(
                     child: Container(
-                      padding: EdgeInsets.all(10),
-                      height: 120,
-                      width: 50,
-                      // color: Colors.blue,
-                      child: Image.network("$imagepath"),
+                      margin:
+                          EdgeInsets.symmetric(horizontal: 10, vertical: 30),
+                      // height: 100,
+                      // width: 100,
+                      child: Image.asset(
+                        "images/alert.png",
+                        width: 100,
+                      ),
                     ),
                   ),
                   SizedBox(width: 50),

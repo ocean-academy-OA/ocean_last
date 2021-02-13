@@ -1,17 +1,65 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:ocean_project/desktopview/Components/course_enrole.dart';
 import 'package:ocean_project/desktopview/Components/ocean_icons.dart';
+import 'package:ocean_project/desktopview/new_user_screen/log_in.dart';
+import 'package:ocean_project/desktopview/screen/menubar.dart';
 import 'package:ocean_project/desktopview/route/routing.dart';
+import 'package:ocean_project/desktopview/screen/home_screen.dart';
 import 'package:provider/provider.dart';
 
+final _firestore = FirebaseFirestore.instance;
+
 class AppBarWidget extends StatefulWidget {
+  AppBarWidget({this.userProfile});
+  String userProfile;
   @override
   _AppBarWidgetState createState() => _AppBarWidgetState();
 }
 
 class _AppBarWidgetState extends State<AppBarWidget> {
+  String userProfile;
+  getProfilePicture() async {
+    var details = await _firestore
+        .collection('new users')
+        .doc(OALive.stayUser != null ? OALive.stayUser : LogIn.registerNumber)
+        .get(); // 8015122373 insted of  LogIn.userNum
+    userProfile = details.data()['Profile Picture'];
+  }
+
+  getImage() async {
+    StreamBuilder<QuerySnapshot>(
+        stream: _firestore.collection('new users').snapshots(),
+        // ignore: missing_return
+        builder: (context, snapshot) {
+          if (!snapshot.hasData) {
+            return Text("Loading.....");
+          } else {
+            final messages = snapshot.data.docs;
+            for (var message in messages) {
+              // ignore: unrelated_type_equality_checks
+              if (OALive.stayUser == message.data() ||
+                  // ignore: unrelated_type_equality_checks
+                  LogIn.registerNumber == message.data()) {
+                final dbImage = message.data()['Profile Picture'];
+                userProfile = dbImage;
+              }
+            }
+          }
+        });
+  }
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    getProfilePicture();
+  }
+
   @override
   Widget build(BuildContext context) {
+    getImage();
     return Stack(
       children: [
         Column(
@@ -23,24 +71,32 @@ class _AppBarWidgetState extends State<AppBarWidget> {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Row(
-                    children: [
-                      Icon(
-                        Ocean.oa,
-                        size: 70.0,
-                        color: Colors.white,
-                      ),
-                      SizedBox(
-                        width: 10,
-                      ),
-                      Text(
-                        "OCEAN ACADEMY",
-                        style: TextStyle(
-                            fontWeight: FontWeight.w400,
-                            color: Colors.white,
-                            fontSize: 20),
-                      ),
-                    ],
+                  GestureDetector(
+                    onTap: () {
+                      Provider.of<Routing>(context, listen: false)
+                          .updateRouting(widget: Home());
+                      Provider.of<OALive>(context, listen: false)
+                          .updateOA(routing: Navbar());
+                    },
+                    child: Row(
+                      children: [
+                        Icon(
+                          Ocean.oa,
+                          size: 70.0,
+                          color: Colors.white,
+                        ),
+                        SizedBox(
+                          width: 10,
+                        ),
+                        Text(
+                          "ocean academy",
+                          style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                              color: Colors.white,
+                              fontSize: 35),
+                        ),
+                      ],
+                    ),
                   ),
                   Container(
                     // color: Colors.red,
@@ -83,17 +139,23 @@ class _AppBarWidgetState extends State<AppBarWidget> {
                               borderRadius:
                                   BorderRadius.all(Radius.circular(600.0))),
                           onPressed: () {
-                            Provider.of<Routing>(context, listen: false)
-                                .updateRouting(widget: CoursesView());
+                            Provider.of<OALive>(context, listen: false)
+                                .updateOA(routing: CoursesView());
                             setState(() {
                               CourseContent.isShow = !CourseContent.isShow;
                             });
                           },
-                          child: Icon(
-                            Icons.account_circle_outlined,
-                            color: Colors.white,
-                            size: 50.0,
-                          ),
+                          child: userProfile != null
+                              ? ClipRRect(
+                                  borderRadius: BorderRadius.circular(100.0),
+                                  child: Image.network(userProfile,
+                                      height: 60, width: 60, fit: BoxFit.cover),
+                                )
+                              : Icon(
+                                  FontAwesomeIcons.solidUserCircle,
+                                  size: 60,
+                                  color: Colors.white,
+                                ),
                         ),
                         MaterialButton(
                           padding: EdgeInsets.all(10.0),
@@ -103,8 +165,8 @@ class _AppBarWidgetState extends State<AppBarWidget> {
                               borderRadius:
                                   BorderRadius.all(Radius.circular(600.0))),
                           onPressed: () {
-                            Provider.of<Routing>(context, listen: false)
-                                .updateRouting(widget: CoursesView());
+                            Provider.of<OALive>(context, listen: false)
+                                .updateOA(routing: CoursesView());
                             setState(() {
                               CourseContent.isVisible =
                                   !CourseContent.isVisible;
@@ -160,6 +222,11 @@ class _AppBarWidgetState extends State<AppBarWidget> {
     );
     //   ],
     // );
+  }
+
+  Image profileImage() {
+    return Image.network(widget.userProfile,
+        height: 60, width: 60, fit: BoxFit.cover);
   }
 }
 

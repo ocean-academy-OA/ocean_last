@@ -148,8 +148,7 @@ class ContentWidget extends StatelessWidget {
     return Text(
       content,
       textAlign: TextAlign.justify,
-      style:
-          TextStyle(fontFamily: kfontname, color: kcontentcolor, height: 1.5),
+      style: TextStyle(color: kcontentcolor, height: 1.5),
     );
   }
 }
