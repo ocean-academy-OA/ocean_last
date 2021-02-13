@@ -143,9 +143,7 @@ class _RazorPayWebState extends State<RazorPayWeb> {
            "notes": {
              "address": "Autofy"
           },
-          "theme": {
-             "color": "blue"
-          },
+        
           "modal": {
             "ondismiss": function(){
                //window.parent.postMessage("MODAL_CLOSED","*");   //3
