@@ -1,9 +1,10 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:ocean_project/desktopview/main.dart';
 import 'package:ocean_project/mobileview/main.dart';
 import 'package:responsive_builder/responsive_builder.dart';
 
-void main() {
+void main() async {
   runApp(
     MaterialApp(
       theme: ThemeData(fontFamily: 'Ubuntu'),
@@ -32,6 +33,7 @@ class ScreenTypeLayout extends StatelessWidget {
       // If sizing indicates desktop and we have a desktop widget then return
       if (sizingInformation.deviceScreenType == DeviceScreenType.desktop) {
         print("desktop");
+
         if (desktop != null) {
           print("desktop");
           return OceanLive();

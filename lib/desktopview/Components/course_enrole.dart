@@ -16,6 +16,11 @@ import 'package:ocean_project/desktopview/screen/menubar.dart';
 import 'package:provider/provider.dart';
 import 'package:url_launcher/url_launcher.dart';
 
+Map<String, String> courses_icon = {
+  'C':
+      'https://firebasestorage.googleapis.com/v0/b/ocean-live.appspot.com/o/courses_icon%2Fc.png?alt=media&token=4e2c22c6-8364-4bfc-b49e-d9fdab591bba',
+};
+final _firestore = FirebaseFirestore.instance;
 _launchURL() async {
   const url =
       'https://us04web.zoom.us/j/5175653439?pwd=MEI0R1VjQ2FDMitpbkV6RHpSWURndz09';
@@ -26,13 +31,12 @@ _launchURL() async {
   }
 }
 
-final _firestore = FirebaseFirestore.instance;
-
 class HorizontalMenu extends StatefulWidget {
   List<String> courseList = [];
   Map menu = {};
   List<String> batchId = [];
-  HorizontalMenu({this.courseList, this.menu, this.batchId});
+  List<String> courseIcon = [];
+  HorizontalMenu({this.courseList, this.menu, this.batchId, this.courseIcon});
   @override
   _HorizontalMenuState createState() => _HorizontalMenuState();
 }
@@ -53,10 +57,12 @@ class _HorizontalMenuState extends State<HorizontalMenu> {
         itemCount: widget.courseList.length,
         itemBuilder: (context, index) {
           return ListTile(
-            leading: Icon(
-              Icons.compass_calibration_rounded,
-              size: 20.0,
-              color: Colors.white,
+            leading: ClipRRect(
+              child: Image.network(
+                widget.courseIcon[index].toString(),
+                width: 30,
+              ),
+              borderRadius: BorderRadius.circular(500),
             ),
             title: courseEnroll(
                 text: widget.courseList[index], color: widget.menu[index]),
@@ -185,13 +191,13 @@ class _CoursesViewState extends State<CoursesView> {
                                     //userCourses();
                                     int pos = 0;
                                     List<String> courseList = [];
+                                    List<String> courseIconList = [];
                                     List<String> batchId = [];
                                     for (var message in messages) {
                                       if (message.id == LogIn.registerNumber) {
-                                        print(
-                                            "${message}rrrrrrrrrrrrrrrrrrrrrrrrr");
                                         final messageSender =
                                             message.data()['Courses'];
+
                                         final batch = message.data()['batchid'];
                                         print(batch);
                                         print(messageSender);
@@ -199,6 +205,7 @@ class _CoursesViewState extends State<CoursesView> {
                                         for (var i in messageSender) {
                                           menu[pos++] = false;
                                           courseList.add(i);
+                                          courseIconList.add(courses_icon[i]);
                                         }
                                         for (var i in batch) {
                                           batchId.add(i);
@@ -207,9 +214,11 @@ class _CoursesViewState extends State<CoursesView> {
                                     }
 
                                     return HorizontalMenu(
-                                        courseList: courseList,
-                                        menu: menu,
-                                        batchId: batchId);
+                                      courseList: courseList,
+                                      menu: menu,
+                                      batchId: batchId,
+                                      courseIcon: courseIconList,
+                                    );
                                   }
                                 },
                               ),
