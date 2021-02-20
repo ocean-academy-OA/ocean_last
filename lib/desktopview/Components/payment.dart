@@ -98,10 +98,10 @@ class _RazorPayWebState extends State<RazorPayWeb> {
             "paid_via": "debit card",
             "status": "Completed",
           });
-          Navigator.pop(context);
 
-          // Provider.of<SyllabusView>(context, listen: false)
-          //     .updateCourseSyllabus(routing: ThanksForPurchasing());
+          //
+          Provider.of<SyllabusView>(context, listen: false)
+              .updateCourseSyllabus(routing: ThanksForPurchasing());
           print('PAYMENT SUCCESSFULL!!!!!!!');
         }
       });

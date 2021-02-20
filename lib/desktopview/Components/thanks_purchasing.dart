@@ -2,7 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:ocean_project/desktopview/screen/menubar.dart';
 import 'package:ocean_project/desktopview/screen/footer.dart';
 
-class ThanksForPurchasing extends StatelessWidget {
+class ThanksForPurchasing extends StatefulWidget {
+  @override
+  _ThanksForPurchasingState createState() => _ThanksForPurchasingState();
+}
+
+class _ThanksForPurchasingState extends State<ThanksForPurchasing> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(

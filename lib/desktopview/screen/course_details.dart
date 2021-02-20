@@ -342,7 +342,7 @@ class _CourseDetailsState extends State<CourseDetails> {
               visible: OnlineCourse.visiblity,
               child: Positioned(
                 top: 100,
-                right: 150.0,
+                right: 100.0,
                 child: Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: Container(
@@ -520,7 +520,7 @@ class _VisibleWidgetState extends State<VisibleWidget> {
     // flutter defined function
     showDialog(
       context: context,
-      builder: (BuildContext context) {
+      builder: (BuildContext context1) {
         // return object of type Dialog
         return AlertDialog(
           title: Text("${widget.courseName}"),
@@ -540,9 +540,10 @@ class _VisibleWidgetState extends State<VisibleWidget> {
             new FlatButton(
               child: new Text("Close"),
               onPressed: () {
-                // Provider.of<SyllabusView>(context, listen: false)
-                //     .updateCourseSyllabus(routing: ThanksForPurchasing());
-                Navigator.of(context).pop();
+                Navigator.of(context1).pop();
+                setState(() {});
+                Provider.of<SyllabusView>(context, listen: false)
+                    .updateCourseSyllabus(routing: ThanksForPurchasing());
               },
             ),
           ],
