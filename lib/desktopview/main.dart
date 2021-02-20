@@ -10,6 +10,7 @@ import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 void main() async {
+  print('[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[');
   SharedPreferences prefs = await SharedPreferences.getInstance();
   int x = (prefs.getInt('login') ?? 0);
   Widget screen = x == 0
