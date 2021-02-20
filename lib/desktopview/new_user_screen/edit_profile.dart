@@ -92,7 +92,6 @@ class _EditProfileState extends State<EditProfile> {
     });
   }
 
-  //testing github
 // profile picture
   Uint8List uploadFile;
   String fileName;
