@@ -1,13 +1,14 @@
 import 'dart:html';
 import 'dart:ui' as ui;
+import 'package:http/http.dart' as http;
 import 'package:email_validator/email_validator.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:intl/intl.dart';
 import 'package:modal_progress_hud/modal_progress_hud.dart';
-import 'package:ocean_project/desktopview/Components/map.dart';
 import 'package:ocean_project/desktopview/Components/navigation_bar.dart';
 import 'package:ocean_project/desktopview/constants.dart';
 import 'package:ocean_project/text.dart';
@@ -22,6 +23,66 @@ class ContactUs extends StatefulWidget {
 }
 
 class _ContactUsState extends State<ContactUs> {
+  dynamic getDate() async {
+    return DateTime.now();
+  }
+
+  void getData() async {
+    http.Response response = await http.get(
+        """https://us-central1-ocean-live-project-ea2e7.cloudfunctions.net/sendMail?dest=jass07rtr@gmail.com&sub=OA COURSE ENQUIRY - $date $time&html= <!DOCTYPE html>
+<html>
+<style>
+table, th, td {
+  border: 1px solid red;
+  border-collapse: collapse;
+}
+</style>
+<body>
+
+
+
+<table border="outline">
+<tbody>
+
+<tr>
+<td style="font-weight:bold;width:180px">Enquiry</td>
+<td>$enquiry</td>
+</tr>
+
+<tr>
+<td style="font-weight:bold;width:180px">Full Name</td>
+<td>$fullname</td>
+</tr>
+
+<tr>
+<td style="font-weight:bold;width:180px">Phone Number</td>
+<td>$phoneNumber</td>
+</tr>
+
+<tr>
+<td style="font-weight:bold;width:180px">Email</td>
+<td>$email</td>
+</tr>
+
+<tr>
+<td style="font-weight:bold;width:180px">Query</td>
+<td>$query</td>
+</tr>
+
+</tbody>
+</table>
+
+</body>
+</html>""");
+
+    if (response.statusCode == 200) {
+      String data = response.body;
+      print(data);
+    } else {
+      print(response.statusCode);
+    }
+  }
+
   String linkMaps =
       "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2320.9284365759204!2d79.82874531102095!3d11.952276565466109!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3a53616c1e43a73f%3A0xf3758f2502e74f5b!2sOcean%20Academy%20Software%20Training%20Division!5e0!3m2!1sen!2sin!4v1613816776714!5m2!1sen!2sin";
   bool showSpinner = false;
@@ -49,6 +110,8 @@ class _ContactUsState extends State<ContactUs> {
   String email;
   String query;
   String phoneNumber;
+  var date;
+  var time;
 
   List getDropdown() {
     List<DropdownMenuItem<String>> dropList = [];
@@ -420,6 +483,15 @@ class _ContactUsState extends State<ContactUs> {
                                   ),
                                   onPressed:
                                       (AnimationController controller) async {
+                                    TimeOfDay picked = TimeOfDay.now();
+                                    MaterialLocalizations localizations =
+                                        MaterialLocalizations.of(context);
+                                    time = localizations.formatTimeOfDay(picked,
+                                        alwaysUse24HourFormat: false);
+
+                                    date = DateFormat("d-M-y")
+                                        .format(DateTime.now());
+                                    print('${time} < Current Time >');
                                     if (_formKey.currentState.validate()) {
                                       if (controller.isCompleted) {
                                         controller.reverse();
@@ -441,6 +513,8 @@ class _ContactUsState extends State<ContactUs> {
                                           'Query': query,
                                           'Phone_Number': phoneNumber
                                         });
+                                        getData();
+                                        print("${date} < Date Time >");
                                         if (enquiry.isNotEmpty) {
                                           setState(() {
                                             enquiry = enquery[0];

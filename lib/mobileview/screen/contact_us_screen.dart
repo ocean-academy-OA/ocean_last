@@ -1,10 +1,11 @@
 // ignore: avoid_web_libraries_in_flutter
 import 'dart:html';
+import 'dart:ui' as ui;
+import 'package:http/http.dart' as http;
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-
-import 'package:ocean_project/desktopview/Components/map.dart';
+import 'package:intl/intl.dart';
 import 'package:ocean_project/mobileview/Components/navigation_bar.dart';
 import 'package:ocean_project/mobileview/constants.dart';
 import 'package:ocean_project/mobileview/screen/footer.dart';
@@ -24,6 +25,68 @@ class ContactUs extends StatefulWidget {
 
 class _ContactUsState extends State<ContactUs> {
   @override
+  dynamic getDate() async {
+    return DateTime.now();
+  }
+
+  void getData() async {
+    http.Response response = await http.get(
+        """https://us-central1-ocean-live-project-ea2e7.cloudfunctions.net/sendMail?dest=jass07rtr@gmail.com&sub=OA COURSE ENQUIRY - $date $time&html= <!DOCTYPE html>
+<html>
+<style>
+table, th, td {
+  border: 1px solid red;
+  border-collapse: collapse;
+}
+</style>
+<body>
+
+
+
+<table border="outline">
+<tbody>
+
+<tr>
+<td style="font-weight:bold;width:180px">Enquiry</td>
+<td>$enquiry</td>
+</tr>
+
+<tr>
+<td style="font-weight:bold;width:180px">Full Name</td>
+<td>$fullname</td>
+</tr>
+
+<tr>
+<td style="font-weight:bold;width:180px">Phone Number</td>
+<td>$phoneNumber</td>
+</tr>
+
+<tr>
+<td style="font-weight:bold;width:180px">Email</td>
+<td>$email</td>
+</tr>
+
+<tr>
+<td style="font-weight:bold;width:180px">Query</td>
+<td>$query</td>
+</tr>
+
+</tbody>
+</table>
+
+</body>
+</html>""");
+
+    if (response.statusCode == 200) {
+      String data = response.body;
+      print(data);
+    } else {
+      print(response.statusCode);
+    }
+  }
+
+  String linkMaps =
+      "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2320.9284365759204!2d79.82874531102095!3d11.952276565466109!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3a53616c1e43a73f%3A0xf3758f2502e74f5b!2sOcean%20Academy%20Software%20Training%20Division!5e0!3m2!1sen!2sin!4v1613816776714!5m2!1sen!2sin";
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
   final enquiryController = TextEditingController();
@@ -31,19 +94,6 @@ class _ContactUsState extends State<ContactUs> {
   final emailController = TextEditingController();
   final queryController = TextEditingController();
   final phoneNumberController = TextEditingController();
-
-  // CreateAlertDialog(BuildContext Context) {
-  //   return showDialog(
-  //       context: context,
-  //       builder: (context) {
-  //         Future.delayed(Duration(seconds: 2), () {
-  //           Navigator.of(context).pop(true);
-  //         });
-  //         return AlertDialog(
-  //           title: Text('Title'),
-  //         );
-  //       });
-  // }
 
   Widget _buildName() {
     return TextFormField(
@@ -145,30 +195,14 @@ class _ContactUsState extends State<ContactUs> {
     'query3',
     'query4',
   ];
+
   String enquiry = 'select';
   String fullname;
   String email;
   String query;
   String phoneNumber;
-
-  // void getMessage() async {
-  //   final message = await _firestore.collection('contact_us').get();
-  //   print(message.docs);
-  //
-  //   for (var courses in message.docs) {
-  //     print(courses.data());
-  //   }
-  // }
-
-  // void messageStream() async {
-  //   await for (var snapshot in _firestore
-  //       .collection('contact_us')
-  //       .snapshots(includeMetadataChanges: true)) {
-  //     for (var message in snapshot.docs) {
-  //       print(message.data());
-  //     }
-  //   }
-  // }
+  var date;
+  var time;
 
   List getDropdown() {
     List<DropdownMenuItem<String>> dropList = [];
@@ -182,26 +216,6 @@ class _ContactUsState extends State<ContactUs> {
     }
     return dropList;
   }
-
-  // void _showAlertDialog() {
-  //   showDialog(
-  //       context: context,
-  //       builder: (context) {
-  //         return Dialog(
-  //           shape: RoundedRectangleBorder(
-  //             borderRadius: BorderRadius.circular(10),
-  //           ),
-  //           child: Container(
-  //               height: 100,
-  //               color: Colors.black,
-  //               padding: EdgeInsets.all(10),
-  //               child: Column(
-  //                 crossAxisAlignment: CrossAxisAlignment.start,
-  //                 children: [Text('ihg')],
-  //               )),
-  //         );
-  //       });
-  // }
 
   @override
   Widget build(BuildContext context) {
@@ -429,6 +443,14 @@ class _ContactUsState extends State<ContactUs> {
                               fontFamily: kfontname),
                         ),
                         onPressed: () {
+                          TimeOfDay picked = TimeOfDay.now();
+                          MaterialLocalizations localizations =
+                              MaterialLocalizations.of(context);
+                          time = localizations.formatTimeOfDay(picked,
+                              alwaysUse24HourFormat: false);
+
+                          date = DateFormat("d-M-y").format(DateTime.now());
+                          print('${time} < Current Time >');
                           if (_formKey.currentState.validate()) {
                             _formKey.currentState.save();
                             if (enquiry != null &&
@@ -443,12 +465,14 @@ class _ContactUsState extends State<ContactUs> {
                                 'Query': query,
                                 'Phone_Number': phoneNumber
                               });
+                              getData();
                               if (enquiry.isNotEmpty) {
                                 setState(() {
                                   enquiry = enquery[0];
                                   ScaffoldMessenger.of(context)
                                       .showSnackBar(SnackBar(
-                                    content: Text('Have a snack!'),
+                                    content:
+                                        Text('Your enquiry sent successfully!'),
                                   ));
                                 });
                                 print(enquiry);
@@ -477,9 +501,9 @@ class _ContactUsState extends State<ContactUs> {
                 children: [
                   Container(
                     margin: EdgeInsets.symmetric(horizontal: 30),
-                    height: 370,
+                    height: 300,
                     width: 400,
-                    child: getMap(),
+                    child: IframeScreen(400, 300, linkMaps),
                   ),
                   SizedBox(height: 40),
                 ],
@@ -489,6 +513,62 @@ class _ContactUsState extends State<ContactUs> {
           ),
         ),
       ),
+    );
+  }
+}
+
+class IframeScreen extends StatefulWidget {
+  double w;
+  double h;
+  String src;
+
+  IframeScreen(double _w, double _h, String _src) {
+    this.w = _w;
+    this.h = _h;
+    this.src = _src;
+  }
+
+  @override
+  _IframeScreenState createState() => _IframeScreenState(w, h, src);
+}
+
+class _IframeScreenState extends State<IframeScreen> {
+  Widget _iframeWidget;
+  final IFrameElement _iframeElement = IFrameElement();
+  double _width;
+  double _height;
+  String _source;
+
+  _IframeScreenState(double _w, double _h, String _src) {
+    _width = _w;
+    _height = _h;
+    _source = _src;
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    _iframeElement.src = _source;
+    _iframeElement.style.border = 'none';
+
+    // ignore: undefined_prefixed_name
+    ui.platformViewRegistry.registerViewFactory(
+      'iframeElement',
+      (int viewId) => _iframeElement,
+    );
+
+    _iframeWidget = HtmlElementView(
+      key: UniqueKey(),
+      viewType: 'iframeElement',
+    );
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return SizedBox(
+      height: _height,
+      width: _width,
+      child: _iframeWidget,
     );
   }
 }
