@@ -17,7 +17,7 @@ import 'package:provider/provider.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 Map<String, String> courses_icon = {
-  'C++':
+  'C':
       'https://firebasestorage.googleapis.com/v0/b/ocean-live.appspot.com/o/courses_icon%2Fc.png?alt=media&token=4e2c22c6-8364-4bfc-b49e-d9fdab591bba',
 };
 final _firestore = FirebaseFirestore.instance;

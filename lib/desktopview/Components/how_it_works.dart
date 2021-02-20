@@ -12,53 +12,8 @@ class HowItWorks extends StatelessWidget {
     return Container(
       // color: Colors.grey[100],
       padding: EdgeInsets.symmetric(vertical: 20.0),
-      child: Stack(
-        alignment: Alignment.center,
+      child: Column(
         children: [
-          Positioned(
-            top: 340,
-            right: 10,
-            child: Transform.rotate(
-                angle: -170.2,
-                child: Container(
-                  decoration: BoxDecoration(
-                    color: Colors.grey[100],
-                    borderRadius: BorderRadius.circular(100.0),
-                  ),
-                  height: 30.0,
-                  width: 150.0,
-                )),
-          ),
-          Positioned(
-            top: 350,
-            right: -200,
-            child: Transform.rotate(
-                angle: -170.2,
-                child: Container(
-                  decoration: BoxDecoration(
-                    color: Colors.grey[200],
-                    borderRadius: BorderRadius.circular(100.0),
-                  ),
-                  height: 70.0,
-                  width: 400.0,
-                )),
-          ),
-          Positioned(
-            bottom: 0,
-            left: -200,
-            child: Icon(
-              FontAwesomeIcons.dotCircle,
-              size: 400.0,
-              color: Colors.grey[200],
-            ),
-          ),
-          Positioned(
-            child: Icon(
-              FontAwesomeIcons.audible,
-              size: 300,
-              color: Colors.grey[200],
-            ),
-          ),
           Column(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
@@ -79,8 +34,10 @@ class HowItWorks extends StatelessWidget {
               SizedBox(
                 height: 40.0,
               ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              Wrap(
+                alignment: WrapAlignment.center,
+                spacing: 10,
+                runSpacing: 15,
                 children: [
                   SizedBox(
                     width: 10.0,
