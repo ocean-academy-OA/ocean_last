@@ -1,3 +1,5 @@
+import 'dart:html';
+import 'dart:ui' as ui;
 import 'package:email_validator/email_validator.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -20,6 +22,8 @@ class ContactUs extends StatefulWidget {
 }
 
 class _ContactUsState extends State<ContactUs> {
+  String linkMaps =
+      "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2320.9284365759204!2d79.82874531102095!3d11.952276565466109!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3a53616c1e43a73f%3A0xf3758f2502e74f5b!2sOcean%20Academy%20Software%20Training%20Division!5e0!3m2!1sen!2sin!4v1613816776714!5m2!1sen!2sin";
   bool showSpinner = false;
   static GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   bool _autoValidate = false;
@@ -259,7 +263,7 @@ class _ContactUsState extends State<ContactUs> {
                                   margin: EdgeInsets.symmetric(horizontal: 40),
                                   height: 400,
                                   width: 450,
-                                  child: getMap(),
+                                  child: IframeScreen(500, 400, linkMaps),
                                 ),
                               ),
                             ],
@@ -396,77 +400,6 @@ class _ContactUsState extends State<ContactUs> {
                               child: _buildquery(),
                             ),
                             SizedBox(height: 30),
-                            // RaisedButton(
-                            //   padding: EdgeInsets.only(
-                            //       left: 30, right: 30, top: 20, bottom: 20),
-                            //   splashColor: Colors.white24,
-                            //   shape: RoundedRectangleBorder(
-                            //     borderRadius: BorderRadius.circular(10),
-                            //   ),
-                            //   color: Color(0xff0091D2),
-                            //   child: Text(
-                            //     'Submit',
-                            //     style: TextStyle(
-                            //       color: Colors.white,
-                            //       fontSize: 22,
-                            //       fontWeight: FontWeight.w700,
-                            //     ),
-                            //   ),
-                            //   onPressed: () async {
-                            //     if (_formKey.currentState.validate()) {
-                            //       setState(() {
-                            //         showSpinner = true;
-                            //       });
-                            //       _formKey.currentState.save();
-                            //       if (enquiry != null &&
-                            //           fullname != null &&
-                            //           email != null &&
-                            //           query != null &&
-                            //           phoneNumber != null) {
-                            //         await _firestore
-                            //             .collection('contact_us')
-                            //             .add({
-                            //           'Enquery': enquiry,
-                            //           'Full_Name': fullname,
-                            //           'Email': email,
-                            //           'Query': query,
-                            //           'Phone_Number': phoneNumber
-                            //         });
-                            //         if (enquiry.isNotEmpty) {
-                            //           setState(() {
-                            //             enquiry = enquery[0];
-                            //           });
-                            //         }
-                            //         nameController.clear();
-                            //         emailController.clear();
-                            //         queryController.clear();
-                            //         phoneNumberController.clear();
-                            //         setState(() {
-                            //           showSpinner = false;
-                            //         });
-                            //         ScaffoldMessenger.of(context).showSnackBar(
-                            //           SnackBar(
-                            //             content: Row(
-                            //               children: [
-                            //                 Icon(
-                            //                   Icons.thumb_up_alt_outlined,
-                            //                   color: Colors.white,
-                            //                 ),
-                            //                 SizedBox(width: 20),
-                            //                 Text(
-                            //                   'Sent Successfully',
-                            //                   style: TextStyle(
-                            //                       color: Colors.white),
-                            //                 )
-                            //               ],
-                            //             ),
-                            //           ),
-                            //         );
-                            //       }
-                            //       ;
-                            //     }
-                            //   },
-                            // ),
                             Container(
                               width: 120,
                               height: 53,
@@ -559,6 +492,62 @@ class _ContactUsState extends State<ContactUs> {
           ),
         ),
       ),
+    );
+  }
+}
+
+class IframeScreen extends StatefulWidget {
+  double w;
+  double h;
+  String src;
+
+  IframeScreen(double _w, double _h, String _src) {
+    this.w = _w;
+    this.h = _h;
+    this.src = _src;
+  }
+
+  @override
+  _IframeScreenState createState() => _IframeScreenState(w, h, src);
+}
+
+class _IframeScreenState extends State<IframeScreen> {
+  Widget _iframeWidget;
+  final IFrameElement _iframeElement = IFrameElement();
+  double _width;
+  double _height;
+  String _source;
+
+  _IframeScreenState(double _w, double _h, String _src) {
+    _width = _w;
+    _height = _h;
+    _source = _src;
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    _iframeElement.src = _source;
+    _iframeElement.style.border = 'none';
+
+    // ignore: undefined_prefixed_name
+    ui.platformViewRegistry.registerViewFactory(
+      'iframeElement',
+      (int viewId) => _iframeElement,
+    );
+
+    _iframeWidget = HtmlElementView(
+      key: UniqueKey(),
+      viewType: 'iframeElement',
+    );
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return SizedBox(
+      height: _height,
+      width: _width,
+      child: _iframeWidget,
     );
   }
 }
