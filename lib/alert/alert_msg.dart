@@ -151,7 +151,7 @@ class _AlertEnquiryState extends State<AlertEnquiry> {
                             : Icon(Icons.check, color: Colors.green),
                         onChanged: (value) {
                           setState(() {
-                            if (_mobile.text.length >= 10 &&
+                            if (_mobile.text.length == 10 &&
                                 phoneNumberValidation(_mobile.text)) {
                               setState(() {
                                 isPhoneNumber = true;

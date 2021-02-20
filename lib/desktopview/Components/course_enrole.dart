@@ -17,10 +17,11 @@ import 'package:provider/provider.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 Map<String, String> courses_icon = {
-  'C':
+  'C++':
       'https://firebasestorage.googleapis.com/v0/b/ocean-live.appspot.com/o/courses_icon%2Fc.png?alt=media&token=4e2c22c6-8364-4bfc-b49e-d9fdab591bba',
 };
 final _firestore = FirebaseFirestore.instance;
+
 _launchURL() async {
   const url =
       'https://us04web.zoom.us/j/5175653439?pwd=MEI0R1VjQ2FDMitpbkV6RHpSWURndz09';
@@ -46,7 +47,7 @@ class _HorizontalMenuState extends State<HorizontalMenu> {
   void initState() {
     // TODO: implement initState
     super.initState();
-
+    print('${widget.courseList} ====================================');
     EnrollNew();
   }
 
@@ -58,10 +59,13 @@ class _HorizontalMenuState extends State<HorizontalMenu> {
         itemBuilder: (context, index) {
           return ListTile(
             leading: ClipRRect(
-              child: Image.network(
-                widget.courseIcon[index].toString(),
-                width: 30,
-              ),
+              child: widget.courseIcon[index] != null
+                  ? Image.network(
+                      widget.courseIcon[index],
+                      width: 30,
+                    )
+                  : Image.network(
+                      'https://firebasestorage.googleapis.com/v0/b/ocean-live.appspot.com/o/courses_icon%2Fcourse%20icon.jpg?alt=media&token=02a905c7-ba14-44c8-ab8e-f1d58a00b70a'),
               borderRadius: BorderRadius.circular(500),
             ),
             title: courseEnroll(
@@ -186,8 +190,7 @@ class _CoursesViewState extends State<CoursesView> {
                                     return Text("Loading.....");
                                   } else {
                                     final messages = snapshot.data.docs;
-                                    print(
-                                        'lllllllllllllllllllllllllllllllllllllllllllllllllllllll');
+
                                     //userCourses();
                                     int pos = 0;
                                     List<String> courseList = [];
