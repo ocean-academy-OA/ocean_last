@@ -63,220 +63,217 @@ class _AlertEnquiryState extends State<AlertEnquiry> {
         padding: EdgeInsets.symmetric(vertical: 10.0),
         width: 400.0,
         height: widget.queryField ? 680 : 560,
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            //close icon
-            Row(
-              mainAxisAlignment: MainAxisAlignment.end,
-              children: [
-                GestureDetector(
-                  child: Container(
-                    child: Icon(
-                      Icons.close,
-                      size: 30.0,
-                      color: Colors.white,
-                    ),
-                    width: 50.0,
-                    height: 50.0,
-                    decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(50.0),
-                        color: Colors.black12),
-                  ),
-                  onTap: () {
-                    print('close Alert');
-                    Navigator.pop(context);
-                  },
-                )
-              ],
-            ),
+        child: Expanded(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              // close icon
+              Row(
+                mainAxisAlignment: MainAxisAlignment.end,
+                children: [
+                  IconButton(
+                    icon: Icon(Icons.close),
+                    iconSize: 30,
+                    splashRadius: 30,
+                    color: Colors.grey,
+                    onPressed: () {
+                      print('close Alert');
+                      Navigator.pop(context);
+                    },
+                  )
+                ],
+              ),
 
-            //ocean logo
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Image(
-                  image: AssetImage('images/alert.png'),
-                  width: 300.0,
-                )
-              ],
-            ),
-            SizedBox(
-              height: 10.0,
-            ),
-            //text field
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Column(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    AlertTextField(
-                      errorText: 'invalid Name',
-                      hintText: 'Name',
-                      icon: Icon(Icons.person),
-                      controller: _name,
-                      onChanged: (value) {
-                        setState(() {
-                          if (nameValidation(_name.text) &&
-                              _name.text.length > 3) {
-                            setState(() {
-                              isName = true;
-                            });
-                          } else {
-                            setState(() {
-                              isName = false;
-                            });
-                          }
-                        });
-                      },
-                      suffixIcon: isName != true
-                          ? Icon(
-                              Icons.close,
-                              color: Colors.red,
-                            )
-                          : Icon(Icons.check, color: Colors.green),
-                    ),
-                    AlertTextField(
-                        hintText: 'Mobile',
-                        errorText: 'Enter Valid Number',
-                        icon: Icon(Icons.phone_android),
-                        controller: _mobile,
-                        suffixIcon: isPhoneNumber != true
-                            ? Icon(
-                                Icons.close,
-                                color: Colors.red,
-                              )
-                            : Icon(Icons.check, color: Colors.green),
-                        onChanged: (value) {
-                          setState(() {
-                            if (_mobile.text.length == 10 &&
-                                phoneNumberValidation(_mobile.text)) {
-                              setState(() {
-                                isPhoneNumber = true;
-                              });
-                            } else {
-                              setState(() {
-                                isPhoneNumber = false;
-                              });
-                            }
-                          });
-                        }),
-                    AlertTextField(
-                      hintText: 'Email',
-                      errorText: 'invalid Email',
-                      icon: Icon(Icons.email),
-                      controller: _email,
-                      suffixIcon: isEmail != true
-                          ? Icon(
-                              Icons.close,
-                              color: Colors.red,
-                            )
-                          : Icon(Icons.check, color: Colors.green),
-                      onChanged: (value) {
-                        setState(() {
-                          if (validateEmail(_email.text)) {
-                            setState(() {
-                              isEmail = true;
-                            });
-                          } else {
-                            setState(() {
-                              isEmail = false;
-                            });
-                          }
-                        });
-                      },
-                    ),
-                    Visibility(
-                      visible: widget.queryField,
-                      child: AlertQueryField(
-                        hintText: 'Query',
-                        errorText: 'Enter your Query',
-                        icon: Icon(
-                          Icons.question_answer_rounded,
-                        ),
-                        controller: _query,
-                        suffixIcon: isQuery != true
-                            ? Icon(
-                                Icons.close,
-                                color: Colors.red,
-                              )
-                            : Icon(Icons.check, color: Colors.green),
-                        onChanged: (value) {
-                          setState(() {
-                            if (_query.text.isNotEmpty &&
-                                _query.text.length > 6) {
-                              isQuery = true;
-                            } else {
-                              isQuery = false;
-                            }
-                          });
-                        },
-                      ),
-                    ),
-                  ],
+              // ocean logo
+              Container(
+                child: Expanded(
+                  child: Image(
+                    image: AssetImage('images/alert.png'),
+                    width: 350,
+                  ),
                 ),
-              ],
-            ),
-            Container(
-              margin: EdgeInsets.symmetric(vertical: 20.0),
-              child: FlatButton(
-                minWidth: 363.0,
-                color: Colors.blue,
-                height: 60.0,
-                shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(8.0)),
-                child: Text(
-                  widget.buttonName,
-                  style: TextStyle(fontSize: 20.0, color: Colors.white),
-                ),
-                onPressed: () async {
-                  if (widget.queryField) {
-                    if (validateEmail(_email.text) &&
-                        _mobile.text.length >= 10 &&
-                        nameValidation(_name.text) &&
-                        _name.text.length > 3 &&
-                        _query.text.length > 6) {
-                      print(' with query done');
-                      firestoreAddQuickEnquiry();
-                      SharedPreferences prefs =
-                          await SharedPreferences.getInstance();
-                      prefs.setBool(widget.keyIsFirstLoaded, false);
-                      Navigator.of(context).pop();
-                      Flushbar(
-                        icon: Icon(
-                          Icons.done,
-                          color: Colors.white,
-                        ),
-                        message: "Sent Successfully",
-                        duration: Duration(seconds: 2),
-                      )..show(context);
+              ),
+              //text field
+              AlertTextField(
+                errorText: 'invalid Name',
+                hintText: 'Name',
+                icon: Icon(Icons.person),
+                controller: _name,
+                onChanged: (value) {
+                  setState(() {
+                    if (nameValidation(_name.text) && _name.text.length > 3) {
+                      setState(() {
+                        isName = true;
+                      });
                     } else {
-                      print('fill all field');
+                      setState(() {
+                        isName = false;
+                      });
                     }
-                  } else {
-                    if (validateEmail(_email.text) &&
-                        _mobile.text.length >= 10 &&
-                        nameValidation(_name.text) &&
-                        _name.text.length > 3) {
-                      print('without query field');
-                      fireStoreAddWithDownload();
-                      var url = widget.pdfLink;
-                      if (await canLaunch(url)) {
-                        await launch(url);
+                  });
+                },
+                suffixIcon: isName != true
+                    ? Icon(
+                        Icons.close,
+                        color: Colors.red,
+                      )
+                    : Icon(Icons.check, color: Colors.green),
+              ),
+              AlertTextField(
+                  hintText: 'Mobile',
+                  errorText: 'Enter Valid Number',
+                  icon: Icon(Icons.phone_android),
+                  controller: _mobile,
+                  suffixIcon: isPhoneNumber != true
+                      ? Icon(
+                          Icons.close,
+                          color: Colors.red,
+                        )
+                      : Icon(Icons.check, color: Colors.green),
+                  onChanged: (value) {
+                    setState(() {
+                      if (_mobile.text.length == 10 &&
+                          phoneNumberValidation(_mobile.text)) {
+                        setState(() {
+                          isPhoneNumber = true;
+                        });
                       } else {
-                        throw 'Could not launch $url';
+                        setState(() {
+                          isPhoneNumber = false;
+                        });
                       }
+                    });
+                  }),
+              AlertTextField(
+                hintText: 'Email',
+                errorText: 'invalid Email',
+                icon: Icon(Icons.email),
+                controller: _email,
+                suffixIcon: isEmail != true
+                    ? Icon(
+                        Icons.close,
+                        color: Colors.red,
+                      )
+                    : Icon(Icons.check, color: Colors.green),
+                onChanged: (value) {
+                  setState(() {
+                    if (validateEmail(_email.text)) {
+                      setState(() {
+                        isEmail = true;
+                      });
                     } else {
-                      print('fill all field');
+                      setState(() {
+                        isEmail = false;
+                      });
                     }
-                  }
-                  Navigator.pop(context);
+                  });
                 },
               ),
-            ),
-          ],
+              Visibility(
+                visible: widget.queryField,
+                child: AlertQueryField(
+                  hintText: 'Query',
+                  errorText: 'Enter your Query',
+                  icon: Icon(
+                    Icons.question_answer_rounded,
+                  ),
+                  controller: _query,
+                  suffixIcon: isQuery != true
+                      ? Icon(
+                          Icons.close,
+                          color: Colors.red,
+                        )
+                      : Icon(Icons.check, color: Colors.green),
+                  onChanged: (value) {
+                    setState(() {
+                      if (_query.text.isNotEmpty && _query.text.length > 6) {
+                        isQuery = true;
+                      } else {
+                        isQuery = false;
+                      }
+                    });
+                  },
+                ),
+              ),
+              SizedBox(
+                height: 20,
+              ),
+              Container(
+                margin: EdgeInsets.symmetric(vertical: 8.0),
+                child: FlatButton(
+                  minWidth: 363.0,
+                  color: Colors.blue,
+                  height: 50.0,
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(8.0)),
+                  child: Text(
+                    widget.buttonName,
+                    style: TextStyle(fontSize: 20.0, color: Colors.white),
+                  ),
+                  onPressed: () async {
+                    if (widget.queryField) {
+                      if (validateEmail(_email.text) &&
+                          _mobile.text.length >= 10 &&
+                          nameValidation(_name.text) &&
+                          _name.text.length > 3 &&
+                          _query.text.length > 6) {
+                        print(' with query done');
+                        firestoreAddQuickEnquiry();
+                        SharedPreferences prefs =
+                            await SharedPreferences.getInstance();
+                        prefs.setBool(widget.keyIsFirstLoaded, false);
+                        Navigator.of(context).pop();
+                        Flushbar(
+                          icon: Icon(
+                            Icons.done,
+                            color: Colors.white,
+                          ),
+                          message: "Sent Successfully",
+                          duration: Duration(seconds: 2),
+                        )..show(context);
+                      } else {
+                        print('fill all field');
+                      }
+                    } else {
+                      if (validateEmail(_email.text) &&
+                          _mobile.text.length >= 10 &&
+                          nameValidation(_name.text) &&
+                          _name.text.length > 3) {
+                        print('without query field');
+                        fireStoreAddWithDownload();
+                        var url = widget.pdfLink;
+                        if (await canLaunch(url)) {
+                          await launch(url);
+                        } else {
+                          throw 'Could not launch $url';
+                        }
+                      } else {
+                        print('fill all field');
+                      }
+                    }
+                    Navigator.pop(context);
+                  },
+                ),
+              ),
+              Container(
+                margin: EdgeInsets.symmetric(vertical: 8.0),
+                child: FlatButton(
+                  minWidth: 363.0,
+                  color: Colors.redAccent,
+                  height: 50.0,
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(8.0)),
+                  child: Text(
+                    'Close',
+                    style: TextStyle(fontSize: 20.0, color: Colors.white),
+                  ),
+                  onPressed: () {
+                    Navigator.pop(context);
+                  },
+                ),
+              ),
+            ],
+          ),
         ),
       ),
     );
