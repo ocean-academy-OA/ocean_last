@@ -689,12 +689,10 @@ class _CourseContentState extends State<CourseContent> {
                                     borderRadius: BorderRadius.all(
                                         Radius.circular(05.0))),
                                 onPressed: () {
-                                  Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                        builder: (context) =>
-                                            ZoomIntegration()),
-                                  );
+                                  Provider.of<SyllabusView>(context,
+                                          listen: false)
+                                      .updateCourseSyllabus(
+                                          routing: ZoomIntegration());
                                 },
                                 child: Row(
                                   children: [

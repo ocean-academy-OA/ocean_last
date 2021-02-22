@@ -4,10 +4,8 @@ import 'package:ocean_project/mobileview/main.dart';
 import 'package:provider/provider.dart';
 import 'package:responsive_builder/responsive_builder.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-
 import 'desktopview/Components/course_enrole.dart';
 import 'desktopview/route/routing.dart';
-import 'desktopview/screen/home_screen.dart';
 
 void main() {
   runApp(
