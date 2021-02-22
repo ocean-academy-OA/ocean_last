@@ -19,12 +19,30 @@ final _firestore = FirebaseFirestore.instance;
 class User_Profile extends StatefulWidget {
   bool isVisible;
   User_Profile({this.isVisible});
+  getSession() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    // int x = (prefs.getInt('login') ?? 0);
+    LogIn.registerNumber = (prefs.getString('user') ?? null);
+  }
 
   @override
   _User_ProfileState createState() => _User_ProfileState();
 }
 
 class _User_ProfileState extends State<User_Profile> {
+  @override
+  getSession() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    // int x = (prefs.getInt('login') ?? 0);
+    LogIn.registerNumber = (prefs.getString('user') ?? null);
+  }
+
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    getSession();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Positioned(
@@ -56,7 +74,7 @@ class _User_ProfileState extends State<User_Profile> {
                         Provider.of<OALive>(context, listen: false)
                             .updateOA(routing: Certificate());
                         setState(() {
-                          CourseContent.isShow = !CourseContent.isShow;
+                          ContentWidget.isShow = !ContentWidget.isShow;
                         });
                       },
                     ),
@@ -67,7 +85,7 @@ class _User_ProfileState extends State<User_Profile> {
                         Provider.of<OALive>(context, listen: false)
                             .updateOA(routing: EditProfile());
                         setState(() {
-                          CourseContent.isShow = !CourseContent.isShow;
+                          ContentWidget.isShow = !ContentWidget.isShow;
                         });
                       },
                     ),
@@ -78,7 +96,7 @@ class _User_ProfileState extends State<User_Profile> {
                         Provider.of<OALive>(context, listen: false)
                             .updateOA(routing: Purchase());
                         setState(() {
-                          CourseContent.isShow = !CourseContent.isShow;
+                          ContentWidget.isShow = !ContentWidget.isShow;
                         });
                       },
                     ),

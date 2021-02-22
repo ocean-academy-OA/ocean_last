@@ -6,10 +6,13 @@ import 'package:ocean_project/desktopview/new_user_screen/log_in.dart';
 import 'package:ocean_project/desktopview/route/routing.dart';
 
 import 'package:provider/provider.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 // ignore: camel_case_types
 class Notification_onclick extends StatefulWidget {
   Notification_onclick({@required this.isVisible, this.image});
+
+  static bool notify = false;
 
   final bool isVisible;
   final String image;
@@ -21,10 +24,12 @@ class Notification_onclick extends StatefulWidget {
 // ignore: camel_case_types
 class _Notification_onclickState extends State<Notification_onclick> {
   final _firestore = FirebaseFirestore.instance;
+
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
+    //getSession();
     print("${LogIn.registerNumber}gfhcghfhgfrrrrrrrr");
   }
 

@@ -1,26 +1,16 @@
-import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
-import 'package:ocean_project/desktopview/new_user_screen/home_page.dart';
-import 'package:ocean_project/desktopview/new_user_screen/log_in.dart';
 import 'package:ocean_project/desktopview/route/routing.dart';
-import 'package:ocean_project/desktopview/route/slider_content.dart';
-import 'package:ocean_project/desktopview/route/upcoming_course.dart';
 
 import 'package:provider/provider.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 void main() async {
   print('[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[');
-  SharedPreferences prefs = await SharedPreferences.getInstance();
-  int x = (prefs.getInt('login') ?? 0);
-  Widget screen = x == 0
-      ? OceanLive()
-      : Home(
-          userID: LogIn.registerNumber,
-        );
-  WidgetsFlutterBinding.ensureInitialized();
-  await Firebase.initializeApp();
-  runApp(screen);
+  // SharedPreferences prefs = await SharedPreferences.getInstance();
+  // int x = (prefs.getInt('login') ?? 0);
+  // Widget screen = x == 0 ? OceanLive() : Home();
+  // WidgetsFlutterBinding.ensureInitialized();
+  // await Firebase.initializeApp();
+  runApp(OceanLive());
 }
 
 class OceanLive extends StatefulWidget {
@@ -34,7 +24,6 @@ class _OceanLiveState extends State<OceanLive> {
     return MultiProvider(
       providers: [
         ChangeNotifierProvider(create: (context) => Routing()),
-        ChangeNotifierProvider(create: (context) => Thanks()),
         ChangeNotifierProvider(create: (context) => SliderContent()),
         ChangeNotifierProvider(create: (context) => UpcomingModel()),
         ChangeNotifierProvider(
@@ -42,6 +31,7 @@ class _OceanLiveState extends State<OceanLive> {
         ),
         ChangeNotifierProvider(create: (context) => SyllabusView()),
         ChangeNotifierProvider(create: (context) => OALive()),
+        ChangeNotifierProvider(create: (context) => UserProfiles()),
       ],
       child: MaterialApp(
         theme: ThemeData(

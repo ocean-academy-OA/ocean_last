@@ -34,6 +34,7 @@ class _AlertEnquiryState extends State<AlertEnquiry> {
   bool isName = false;
   bool isPhoneNumber = false;
   bool isQuery = false;
+  bool isSubmited = true;
 
   bool validateEmail(String value) {
     Pattern pattern =
@@ -112,24 +113,28 @@ class _AlertEnquiryState extends State<AlertEnquiry> {
                     }
                   });
                 },
-                suffixIcon: isName != true
-                    ? Icon(
-                        Icons.close,
-                        color: Colors.red,
-                      )
-                    : Icon(Icons.check, color: Colors.green),
+                suffixIcon: isSubmited
+                    ? null
+                    : isName != true
+                        ? Icon(
+                            Icons.close,
+                            color: Colors.red,
+                          )
+                        : Icon(Icons.check, color: Colors.green),
               ),
               AlertTextField(
                   hintText: 'Mobile',
                   errorText: 'Enter Valid Number',
                   icon: Icon(Icons.phone_android),
                   controller: _mobile,
-                  suffixIcon: isPhoneNumber != true
-                      ? Icon(
-                          Icons.close,
-                          color: Colors.red,
-                        )
-                      : Icon(Icons.check, color: Colors.green),
+                  suffixIcon: isSubmited
+                      ? null
+                      : isPhoneNumber != true
+                          ? Icon(
+                              Icons.close,
+                              color: Colors.red,
+                            )
+                          : Icon(Icons.check, color: Colors.green),
                   onChanged: (value) {
                     setState(() {
                       if (_mobile.text.length == 10 &&
@@ -149,12 +154,14 @@ class _AlertEnquiryState extends State<AlertEnquiry> {
                 errorText: 'invalid Email',
                 icon: Icon(Icons.email),
                 controller: _email,
-                suffixIcon: isEmail != true
-                    ? Icon(
-                        Icons.close,
-                        color: Colors.red,
-                      )
-                    : Icon(Icons.check, color: Colors.green),
+                suffixIcon: isSubmited
+                    ? null
+                    : isEmail != true
+                        ? Icon(
+                            Icons.close,
+                            color: Colors.red,
+                          )
+                        : Icon(Icons.check, color: Colors.green),
                 onChanged: (value) {
                   setState(() {
                     if (validateEmail(_email.text)) {
@@ -178,12 +185,14 @@ class _AlertEnquiryState extends State<AlertEnquiry> {
                     Icons.question_answer_rounded,
                   ),
                   controller: _query,
-                  suffixIcon: isQuery != true
-                      ? Icon(
-                          Icons.close,
-                          color: Colors.red,
-                        )
-                      : Icon(Icons.check, color: Colors.green),
+                  suffixIcon: isSubmited
+                      ? null
+                      : isQuery != true
+                          ? Icon(
+                              Icons.close,
+                              color: Colors.red,
+                            )
+                          : Icon(Icons.check, color: Colors.green),
                   onChanged: (value) {
                     setState(() {
                       if (_query.text.isNotEmpty && _query.text.length > 6) {
@@ -232,6 +241,9 @@ class _AlertEnquiryState extends State<AlertEnquiry> {
                           duration: Duration(seconds: 2),
                         )..show(context);
                       } else {
+                        setState(() {
+                          isSubmited = false;
+                        });
                         print('fill all field');
                       }
                     } else {
@@ -247,11 +259,14 @@ class _AlertEnquiryState extends State<AlertEnquiry> {
                         } else {
                           throw 'Could not launch $url';
                         }
+                        Navigator.pop(context);
                       } else {
+                        setState(() {
+                          isSubmited = false;
+                        });
                         print('fill all field');
                       }
                     }
-                    Navigator.pop(context);
                   },
                 ),
               ),

@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:ocean_project/desktopview/Components/video_player_screen.dart';
 import 'package:ocean_project/desktopview/constants.dart';
 import 'package:ocean_project/desktopview/route/routing.dart';
-import 'package:ocean_project/desktopview/route/slider_content.dart';
 import 'package:ocean_project/desktopview/screen/courses.dart';
 import 'package:ocean_project/text.dart';
 
@@ -57,7 +56,7 @@ class _SliderWidgetState extends State<SliderWidget> {
           Expanded(
             flex: 2,
             child: Container(
-              child: Consumer<SliderContent>(builder: (context, cart, child) {
+              child: Consumer<SliderContent>(builder: (context1, cart, child) {
                 return Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [

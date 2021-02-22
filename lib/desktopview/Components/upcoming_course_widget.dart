@@ -1,13 +1,11 @@
-import 'dart:html';
-import 'dart:math';
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:ocean_project/desktopview/Components/comment.dart';
 import 'package:ocean_project/desktopview/Components/main_title_widget.dart';
-import 'package:ocean_project/desktopview/route/upcoming_course.dart';
+import 'package:ocean_project/desktopview/route/routing.dart';
+
 import 'package:ocean_project/mobileview/components/ocean_icons.dart';
 import 'package:ocean_project/text.dart';
 import 'package:provider/provider.dart';

@@ -16,6 +16,7 @@ import 'package:ocean_project/desktopview/screen/course_details.dart';
 import 'package:ocean_project/desktopview/screen/courses.dart';
 import 'package:ocean_project/desktopview/screen/menubar.dart';
 import 'package:provider/provider.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'zoom_integration.dart';
 
@@ -24,16 +25,6 @@ Map<String, String> courses_icon = {
       'https://firebasestorage.googleapis.com/v0/b/ocean-live.appspot.com/o/courses_icon%2Fc.png?alt=media&token=4e2c22c6-8364-4bfc-b49e-d9fdab591bba',
 };
 final _firestore = FirebaseFirestore.instance;
-
-_launchURL() async {
-  const url =
-      'https://us04web.zoom.us/j/5175653439?pwd=MEI0R1VjQ2FDMitpbkV6RHpSWURndz09';
-  if (await canLaunch(url)) {
-    await launch(url);
-  } else {
-    throw 'Could not launch $url';
-  }
-}
 
 class HorizontalMenu extends StatefulWidget {
   List<String> courseList = [];
@@ -50,7 +41,6 @@ class _HorizontalMenuState extends State<HorizontalMenu> {
   void initState() {
     // TODO: implement initState
     super.initState();
-    print('${widget.courseList} ====================================');
     EnrollNew();
   }
 
@@ -84,7 +74,6 @@ class _HorizontalMenuState extends State<HorizontalMenu> {
                 routing: ContentWidget(
                   course: widget.courseList[index],
                   batchid: widget.batchId[index],
-                  //batchid: "OCNBK08",
                 ),
               );
             },
@@ -124,12 +113,20 @@ class _CoursesViewState extends State<CoursesView> {
   bool visibility = true;
 
   Map menu = {};
+
+  getSession() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    // int x = (prefs.getInt('login') ?? 0);
+    LogIn.registerNumber = (prefs.getString('user') ?? null);
+    userCourses();
+  }
+
   @override
   void initState() {
-    userCourses();
+    getSession();
+
     // TODO: implement initState
     super.initState();
-
     Provider.of<SyllabusView>(context, listen: false)
         .updateCourseSyllabus(routing: EnrollNew());
   }
@@ -143,15 +140,11 @@ class _CoursesViewState extends State<CoursesView> {
         .doc(LogIn.registerNumber)
         .get();
     CoursesView.courseEnroll = course.data()["First Name"];
-    //CoursesView.studentname = course.data()["First Name"];
     CoursesView.studentemail = course.data()["E Mail"];
-    //batchid = course.data()["batchid"];
-    print('${CoursesView.courseEnroll}jjjjjjjjjjj');
   }
 
   @override
   Widget build(BuildContext context) {
-    //Navbar.visiblity = false;
     return MaterialApp(
       theme: ThemeData(fontFamily: 'Ubuntu'),
       home: Scaffold(
@@ -188,7 +181,7 @@ class _CoursesViewState extends State<CoursesView> {
                                     .collection('new users')
                                     .snapshots(),
                                 // ignore: missing_return
-                                builder: (context, snapshot) {
+                                builder: (context1, snapshot) {
                                   if (!snapshot.hasData) {
                                     return Text("Loading.....");
                                   } else {
@@ -199,6 +192,7 @@ class _CoursesViewState extends State<CoursesView> {
                                     List<String> courseList = [];
                                     List<String> courseIconList = [];
                                     List<String> batchId = [];
+
                                     for (var message in messages) {
                                       if (message.id == LogIn.registerNumber) {
                                         final messageSender =
@@ -283,10 +277,8 @@ class _CoursesViewState extends State<CoursesView> {
                 )
               ],
             ),
-            Notification_onclick(
-              isVisible: CourseContent.isVisible,
-            ),
-            User_Profile(isVisible: CourseContent.isShow),
+            Notification_onclick(isVisible: ContentWidget.isVisible),
+            User_Profile(isVisible: ContentWidget.isShow),
           ],
         ),
       ),
@@ -295,6 +287,8 @@ class _CoursesViewState extends State<CoursesView> {
 }
 
 class ContentWidget extends StatefulWidget {
+  static bool isVisible = false;
+  static bool isShow = false;
   String course;
   String batchid;
   String trainername;
@@ -317,6 +311,7 @@ class ContentWidget extends StatefulWidget {
 class _ContentWidgetState extends State<ContentWidget> {
   String description;
   String trainername;
+
   userCoursesName() async {
     var course =
         await _firestore.collection("course").doc(widget.batchid).get();
@@ -578,9 +573,6 @@ class _CourseEnrollState extends State<CourseEnroll> {
 }
 
 class CourseContent extends StatefulWidget {
-  static bool isVisible = false;
-  static bool isShow = false;
-
   final String coursename;
   final String trainername;
   final String name;
@@ -678,12 +670,10 @@ class _CourseContentState extends State<CourseContent> {
                                     borderRadius: BorderRadius.all(
                                         Radius.circular(05.0))),
                                 onPressed: () {
-                                  Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                        builder: (context) =>
-                                            ZoomIntegration()),
-                                  );
+                                  Provider.of<SyllabusView>(context,
+                                          listen: false)
+                                      .updateCourseSyllabus(
+                                          routing: ZoomIntegration());
                                 },
                                 child: Row(
                                   children: [
