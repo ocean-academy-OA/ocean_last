@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
+import 'package:ocean_project/desktopview/Components/flash_notification.dart';
 import 'package:ocean_project/desktopview/Components/ocean_icons.dart';
 import 'package:ocean_project/desktopview/new_user_screen/log_in.dart';
 import 'package:ocean_project/desktopview/route/routing.dart';
@@ -25,6 +26,7 @@ class _NavbarState extends State<Navbar> {
     'Contact Us': false,
     'Career': false,
   };
+  bool isNotification = true;
 
   @override
   void initState() {
@@ -38,6 +40,16 @@ class _NavbarState extends State<Navbar> {
       resizeToAvoidBottomInset: false,
       body: Column(
         children: [
+          Visibility(
+            visible: isNotification,
+            child: FlashNotification(
+              onPressed: () {
+                setState(() {
+                  isNotification = false;
+                });
+              },
+            ),
+          ),
           Visibility(
             visible: Navbar.visiblity,
             child: Container(

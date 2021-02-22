@@ -13,6 +13,7 @@ import 'package:ocean_project/desktopview/Components/slider_widget.dart';
 import 'package:ocean_project/desktopview/Components/upcoming_course_widget.dart';
 import 'package:ocean_project/desktopview/Components/what_is_new.dart';
 import 'package:ocean_project/desktopview/screen/footer.dart';
+
 import 'package:shared_preferences/shared_preferences.dart';
 
 class Home extends StatefulWidget {
@@ -55,7 +56,6 @@ class _HomeState extends State<Home> {
         itemBuilder: (BuildContext context, int index) => Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            FlatButton(onPressed: () {}, child: Text('test')),
             SliderWidget(),
             MainBadgeWidget(),
             UpcomingCourse(),
