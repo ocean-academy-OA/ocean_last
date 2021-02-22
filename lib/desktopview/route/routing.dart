@@ -34,46 +34,41 @@ class SyllabusView extends ChangeNotifier {
   }
 }
 
-class Thanks extends ChangeNotifier {
-  Widget routing = CoursesView();
-  void updateThanks({Widget routing}) {
-    this.routing = routing;
-    notifyListeners();
-  }
-}
-
 class OALive extends ChangeNotifier {
   Widget route = Navbar();
 
   static String stayUser;
 
-  Routing() {
-    print("jayaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
-    myfunction() async {
-      var sessionDb = await _firestore
-          .collection("session")
-          .doc(LogIn.registerNumber)
-          .get();
-      SharedPreferences prefs = await SharedPreferences.getInstance();
-      // int x = (prefs.getInt('login') ?? 0);
-      String username = (prefs.getString('user') ?? null);
-      print('${username} sherdppppppppppppppppppppppppppppppppppp');
-      username = OALive.stayUser;
-      print("${route}routeetettehsvdh");
-      print("${username}dddddddddddddddddddddddddddddddddddddddd");
-
-      route = username != null
-          ? CoursesView(
-              userID: OALive.stayUser,
-            )
-          : Home();
-    }
-
-    myfunction();
+  void updateOA({Widget routing}) {
+    this.route = routing;
+    notifyListeners();
   }
+}
+
+class UserProfiles extends ChangeNotifier {
+  Widget route = Navbar();
 
   void updateOA({Widget routing}) {
     this.route = routing;
+    notifyListeners();
+  }
+}
+
+class SliderContent extends ChangeNotifier {
+  String title = "", description = "";
+
+  void updateValue(String title, String description) {
+    this.title = title;
+    this.description = description;
+    notifyListeners();
+  }
+}
+
+class UpcomingModel extends ChangeNotifier {
+  int flag = 0;
+
+  void updateFlags(int flag) {
+    this.flag = flag;
     notifyListeners();
   }
 }

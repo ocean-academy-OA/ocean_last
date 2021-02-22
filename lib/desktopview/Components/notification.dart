@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:ocean_project/desktopview/Components/course_enrole.dart';
 import 'package:ocean_project/desktopview/Components/enrool_appbar.dart';
 import 'package:ocean_project/desktopview/new_user_screen/log_in.dart';
 import 'package:ocean_project/desktopview/route/routing.dart';
 import 'package:provider/provider.dart';
-
-import 'course_enrole.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class User extends StatefulWidget {
   @override
@@ -13,6 +13,19 @@ class User extends StatefulWidget {
 }
 
 class _UserState extends State<User> {
+  getSession() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    // int x = (prefs.getInt('login') ?? 0);
+    LogIn.registerNumber = (prefs.getString('user') ?? null);
+  }
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    getSession();
+  }
+
   final _firestore = FirebaseFirestore.instance;
   @override
   Widget build(BuildContext context) {

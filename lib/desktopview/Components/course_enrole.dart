@@ -16,6 +16,7 @@ import 'package:ocean_project/desktopview/screen/course_details.dart';
 import 'package:ocean_project/desktopview/screen/courses.dart';
 import 'package:ocean_project/desktopview/screen/menubar.dart';
 import 'package:provider/provider.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'zoom_integration.dart';
 
@@ -124,12 +125,20 @@ class _CoursesViewState extends State<CoursesView> {
   bool visibility = true;
 
   Map menu = {};
+
+  getSession() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    // int x = (prefs.getInt('login') ?? 0);
+    LogIn.registerNumber = (prefs.getString('user') ?? null);
+    userCourses();
+  }
+
   @override
   void initState() {
-    userCourses();
+    getSession();
+
     // TODO: implement initState
     super.initState();
-
     Provider.of<SyllabusView>(context, listen: false)
         .updateCourseSyllabus(routing: EnrollNew());
   }
@@ -151,6 +160,9 @@ class _CoursesViewState extends State<CoursesView> {
 
   @override
   Widget build(BuildContext context) {
+    // SharedPreferences prefs = await SharedPreferences.getInstance();
+    // // int x = (prefs.getInt('login') ?? 0);
+    // String username = (prefs.getString('user') ?? null);
     //Navbar.visiblity = false;
     return MaterialApp(
       theme: ThemeData(fontFamily: 'Ubuntu'),
@@ -188,7 +200,7 @@ class _CoursesViewState extends State<CoursesView> {
                                     .collection('new users')
                                     .snapshots(),
                                 // ignore: missing_return
-                                builder: (context, snapshot) {
+                                builder: (context1, snapshot) {
                                   if (!snapshot.hasData) {
                                     return Text("Loading.....");
                                   } else {
@@ -199,6 +211,7 @@ class _CoursesViewState extends State<CoursesView> {
                                     List<String> courseList = [];
                                     List<String> courseIconList = [];
                                     List<String> batchId = [];
+
                                     for (var message in messages) {
                                       if (message.id == LogIn.registerNumber) {
                                         final messageSender =
@@ -283,10 +296,8 @@ class _CoursesViewState extends State<CoursesView> {
                 )
               ],
             ),
-            Notification_onclick(
-              isVisible: CourseContent.isVisible,
-            ),
-            User_Profile(isVisible: CourseContent.isShow),
+            Notification_onclick(isVisible: ContentWidget.isVisible),
+            User_Profile(isVisible: ContentWidget.isShow),
           ],
         ),
       ),
@@ -295,6 +306,8 @@ class _CoursesViewState extends State<CoursesView> {
 }
 
 class ContentWidget extends StatefulWidget {
+  static bool isVisible = false;
+  static bool isShow = false;
   String course;
   String batchid;
   String trainername;
@@ -317,6 +330,7 @@ class ContentWidget extends StatefulWidget {
 class _ContentWidgetState extends State<ContentWidget> {
   String description;
   String trainername;
+
   userCoursesName() async {
     var course =
         await _firestore.collection("course").doc(widget.batchid).get();
@@ -578,9 +592,6 @@ class _CourseEnrollState extends State<CourseEnroll> {
 }
 
 class CourseContent extends StatefulWidget {
-  static bool isVisible = false;
-  static bool isShow = false;
-
   final String coursename;
   final String trainername;
   final String name;

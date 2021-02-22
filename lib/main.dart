@@ -1,10 +1,15 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:ocean_project/desktopview/main.dart';
 import 'package:ocean_project/mobileview/main.dart';
+import 'package:provider/provider.dart';
 import 'package:responsive_builder/responsive_builder.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
-void main() async {
+import 'desktopview/Components/course_enrole.dart';
+import 'desktopview/route/routing.dart';
+import 'desktopview/screen/home_screen.dart';
+
+void main() {
   runApp(
     MaterialApp(
       theme: ThemeData(fontFamily: 'Ubuntu'),
@@ -14,34 +19,75 @@ void main() async {
   );
 }
 
-class ScreenTypeLayout extends StatelessWidget {
+class ScreenTypeLayout extends StatefulWidget {
   // Mobile will be returned by default
+  @override
+  _ScreenTypeLayoutState createState() => _ScreenTypeLayoutState();
+}
+
+class _ScreenTypeLayoutState extends State<ScreenTypeLayout> {
   final Widget mobile = OceanMobileView();
   final Widget tablet = OceanMobileView();
   final Widget desktop = OceanLive();
+  Widget route;
+  myfunction() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    // int x = (prefs.getInt('login') ?? 0);
+    String username = (prefs.getString('user') ?? null);
+    print("${username}name");
+
+    route = username != null
+        ? CoursesView(
+            userID: username,
+          )
+        : OceanLive();
+  }
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    myfunction();
+  }
 
   @override
   Widget build(BuildContext context) {
-    return ResponsiveBuilder(builder: (context, sizingInformation) {
-      // If sizing indicates Tablet and we have a tablet widget then return
-      // if (sizingInformation.deviceScreenType == DeviceScreenType.Tablet) {
-      //   if (tablet != null) {
-      //     return tablet;
-      //   }
-      // }
+    return MultiProvider(
+      providers: [
+        ChangeNotifierProvider(create: (context) => Routing()),
+        ChangeNotifierProvider(create: (context) => SliderContent()),
+        ChangeNotifierProvider(create: (context) => UpcomingModel()),
+        ChangeNotifierProvider(
+          create: (context) => CourseProvide(),
+        ),
+        ChangeNotifierProvider(create: (context) => SyllabusView()),
+        ChangeNotifierProvider(create: (context) => OALive()),
+      ],
+      child: MaterialApp(
+        theme: ThemeData(
+          fontFamily: 'Gilroy',
+        ),
+        home: Scaffold(
+          body: Consumer<OALive>(
+            builder: (context, routing, child) {
+              return ResponsiveBuilder(builder: (context, sizingInformation) {
+                if (sizingInformation.deviceScreenType ==
+                    DeviceScreenType.desktop) {
+                  print("desktop");
+                  if (desktop != null) {
+                    print("desktop");
+                    return route;
+                  }
+                }
 
-      // If sizing indicates desktop and we have a desktop widget then return
-      if (sizingInformation.deviceScreenType == DeviceScreenType.desktop) {
-        print("desktop");
-
-        if (desktop != null) {
-          print("desktop");
-          return OceanLive();
-        }
-      }
-
-      // Return mobile layout if nothing else is supplied
-      return OceanMobileView();
-    });
+                // Return mobile layout if nothing else is supplied
+                return OceanMobileView();
+              });
+            },
+          ),
+        ),
+        debugShowCheckedModeBanner: false,
+      ),
+    );
   }
 }

@@ -4,14 +4,14 @@ import 'package:ocean_project/desktopview/new_user_screen/log_in.dart';
 
 import 'package:shared_preferences/shared_preferences.dart';
 
-class Home extends StatefulWidget {
-  Home({this.userID});
+class ThamizhHome extends StatefulWidget {
+  ThamizhHome({this.userID});
   final String userID;
   @override
-  _HomeState createState() => _HomeState();
+  _ThamizhHomeState createState() => _ThamizhHomeState();
 }
 
-class _HomeState extends State<Home> {
+class _ThamizhHomeState extends State<ThamizhHome> {
   List<Widget> userField = [];
   var userInfo;
   FirebaseFirestore _firestore = FirebaseFirestore.instance;
