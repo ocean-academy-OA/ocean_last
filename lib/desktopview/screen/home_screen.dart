@@ -1,9 +1,11 @@
 import 'dart:async';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flushbar/flushbar.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:ocean_project/alert/alert_msg.dart';
+import 'package:ocean_project/desktopview/Components/flash_notification.dart';
 import 'package:ocean_project/desktopview/Components/how_it_works.dart';
 import 'package:ocean_project/desktopview/Components/main_badget_widget.dart';
 import 'package:ocean_project/desktopview/Components/our_client.dart';

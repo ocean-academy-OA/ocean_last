@@ -1,3 +1,4 @@
+import 'package:flushbar/flushbar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:ocean_project/desktopview/Components/flash_notification.dart';
@@ -6,6 +7,7 @@ import 'package:ocean_project/desktopview/new_user_screen/log_in.dart';
 import 'package:ocean_project/desktopview/route/routing.dart';
 import 'package:ocean_project/desktopview/screen/contact_us.dart';
 import 'package:ocean_project/desktopview/screen/courses.dart';
+import 'package:ocean_project/desktopview/screen/free_course.dart';
 import 'package:ocean_project/desktopview/screen/services.dart';
 import 'package:provider/provider.dart';
 import 'home_screen.dart';
@@ -43,11 +45,16 @@ class _NavbarState extends State<Navbar> {
           Visibility(
             visible: isNotification,
             child: FlashNotification(
-              onPressed: () {
+              dismissNotification: () {
                 setState(() {
                   isNotification = false;
                 });
               },
+              joinButton: () {
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => FreeCourse()));
+              },
+              joinButtonName: 'Join Now',
             ),
           ),
           Visibility(
