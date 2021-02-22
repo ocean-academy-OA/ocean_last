@@ -1,3 +1,5 @@
+import 'dart:html';
+import 'dart:ui' as ui;
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -15,6 +17,7 @@ import 'package:ocean_project/desktopview/screen/courses.dart';
 import 'package:ocean_project/desktopview/screen/menubar.dart';
 import 'package:provider/provider.dart';
 import 'package:url_launcher/url_launcher.dart';
+import 'zoom_integration.dart';
 
 Map<String, String> courses_icon = {
   'C++':
@@ -608,6 +611,8 @@ class CourseContent extends StatefulWidget {
 
 class _CourseContentState extends State<CourseContent> {
   @override
+  String zoomLink =
+      "https://us04web.zoom.us/j/73962946984?pwd=TDRmWGJDZ1ZqbWZSNVlLMnNwWjdhQT09#success";
   Widget build(BuildContext context) {
     print("${CoursesView.courseEnroll}fffffffffffff");
     return Stack(
@@ -672,7 +677,14 @@ class _CourseContentState extends State<CourseContent> {
                                 shape: RoundedRectangleBorder(
                                     borderRadius: BorderRadius.all(
                                         Radius.circular(05.0))),
-                                onPressed: _launchURL,
+                                onPressed: () {
+                                  Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) =>
+                                            ZoomIntegration()),
+                                  );
+                                },
                                 child: Row(
                                   children: [
                                     Icon(
@@ -694,7 +706,7 @@ class _CourseContentState extends State<CourseContent> {
                                 ),
                               ),
                             ],
-                          )
+                          ),
                         ],
                       ),
                     ],
