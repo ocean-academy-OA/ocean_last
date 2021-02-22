@@ -26,16 +26,6 @@ Map<String, String> courses_icon = {
 };
 final _firestore = FirebaseFirestore.instance;
 
-_launchURL() async {
-  const url =
-      'https://us04web.zoom.us/j/5175653439?pwd=MEI0R1VjQ2FDMitpbkV6RHpSWURndz09';
-  if (await canLaunch(url)) {
-    await launch(url);
-  } else {
-    throw 'Could not launch $url';
-  }
-}
-
 class HorizontalMenu extends StatefulWidget {
   List<String> courseList = [];
   Map menu = {};
@@ -51,7 +41,6 @@ class _HorizontalMenuState extends State<HorizontalMenu> {
   void initState() {
     // TODO: implement initState
     super.initState();
-    print('${widget.courseList} ====================================');
     EnrollNew();
   }
 
@@ -85,7 +74,6 @@ class _HorizontalMenuState extends State<HorizontalMenu> {
                 routing: ContentWidget(
                   course: widget.courseList[index],
                   batchid: widget.batchId[index],
-                  //batchid: "OCNBK08",
                 ),
               );
             },
@@ -152,18 +140,11 @@ class _CoursesViewState extends State<CoursesView> {
         .doc(LogIn.registerNumber)
         .get();
     CoursesView.courseEnroll = course.data()["First Name"];
-    //CoursesView.studentname = course.data()["First Name"];
     CoursesView.studentemail = course.data()["E Mail"];
-    //batchid = course.data()["batchid"];
-    print('${CoursesView.courseEnroll}jjjjjjjjjjj');
   }
 
   @override
   Widget build(BuildContext context) {
-    // SharedPreferences prefs = await SharedPreferences.getInstance();
-    // // int x = (prefs.getInt('login') ?? 0);
-    // String username = (prefs.getString('user') ?? null);
-    //Navbar.visiblity = false;
     return MaterialApp(
       theme: ThemeData(fontFamily: 'Ubuntu'),
       home: Scaffold(

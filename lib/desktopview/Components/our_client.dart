@@ -52,10 +52,14 @@ class OurClient extends StatelessWidget {
                       // Text('$messageText from $messageSender');
                       collegeLogo.add(logos);
                     }
-                    return Wrap(
-                      alignment: WrapAlignment.center,
-                      spacing: 100.0,
-                      children: collegeLogo,
+                    return Container(
+                      padding: EdgeInsets.symmetric(horizontal: 300),
+                      child: Wrap(
+                        alignment: WrapAlignment.center,
+                        spacing: 50.0,
+                        runSpacing: 30,
+                        children: collegeLogo,
+                      ),
                     );
                   }
                 },
@@ -77,9 +81,19 @@ class CollegeLogo extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Image(
-      image: NetworkImage("$collegeLogoImage,"),
-      width: 200.0,
+    return Container(
+      padding: EdgeInsets.all(15),
+      decoration: BoxDecoration(
+          color: Colors.white,
+          borderRadius: BorderRadius.circular(500),
+          boxShadow: [
+            BoxShadow(color: Colors.grey.withOpacity(0.5), blurRadius: 10)
+          ]),
+      child: Image(
+        image: NetworkImage("$collegeLogoImage,"),
+        width: 100.0,
+        // fit: BoxFit.fitWidth,
+      ),
     );
   }
 }
