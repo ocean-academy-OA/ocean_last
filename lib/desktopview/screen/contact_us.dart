@@ -73,7 +73,7 @@ table, th, td {
 </table>
 
 </body>
-</html>""")
+</html>""");
 
     if (response.statusCode == 200) {
       String data = response.body;
