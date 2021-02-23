@@ -7,7 +7,7 @@ import 'package:ocean_project/desktopview/new_user_screen/log_in.dart';
 import 'package:ocean_project/desktopview/route/routing.dart';
 import 'package:ocean_project/desktopview/screen/contact_us.dart';
 import 'package:ocean_project/desktopview/screen/courses.dart';
-import 'package:ocean_project/desktopview/screen/free_course.dart';
+import 'file:///C:/Users/thami/Documents/GitHub%20clones/lib/webinar/free_course.dart';
 import 'package:ocean_project/desktopview/screen/services.dart';
 import 'package:provider/provider.dart';
 import 'home_screen.dart';
