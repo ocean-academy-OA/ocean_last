@@ -73,7 +73,7 @@ table, th, td {
 </table>
 
 </body>
-</html>""");
+</html>""")
 
     if (response.statusCode == 200) {
       String data = response.body;
@@ -224,6 +224,7 @@ table, th, td {
         errorStyle: TextStyle(color: Colors.redAccent, fontSize: 12),
         border: OutlineInputBorder(),
         hintText: 'Enter Your Query',
+        labelText: 'Query',
       ),
       controller: queryController,
       onChanged: (value) {
@@ -331,6 +332,7 @@ table, th, td {
                               ),
                             ],
                           ),
+                          SizedBox(height: 10),
                         ],
                       ),
                     ),
