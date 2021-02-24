@@ -44,9 +44,7 @@ class _WebinarState extends State<Webinar> {
               Positioned(
                 left: 0,
                 child: Container(
-                  decoration: BoxDecoration(
-                      color: Colors.white,
-                      borderRadius: BorderRadius.circular(20)),
+                  color: Colors.white,
                   width: 1200,
                   height: 580,
                 ),
