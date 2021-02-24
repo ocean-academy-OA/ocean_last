@@ -48,8 +48,8 @@ class _TimerState extends State<Timer> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      color: Colors.white,
       width: 357,
+      height: 200,
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
