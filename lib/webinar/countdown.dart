@@ -45,51 +45,49 @@ class _TimerState extends State<Timer> {
 
   @override
   Widget build(BuildContext context) {
-    return Center(
-      child: Container(
-        color: Colors.white,
-        width: 400,
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Container(
-              child: Stack(
-                alignment: Alignment.center,
-                children: [
-                  Container(
-                    margin: EdgeInsets.symmetric(vertical: 10),
-                    height: 110,
-                    padding: EdgeInsets.symmetric(horizontal: 25, vertical: 15),
-                    decoration: BoxDecoration(
-                        border: Border.all(color: kBlue, width: 3),
-                        borderRadius: BorderRadius.circular(5)),
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.spaceAround,
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        SlideCountdownClock(
-                          duration: Duration(
-                              days: widget.cDay,
-                              hours: widget.cHours,
-                              minutes: widget.cMinute),
-                          separator: ' : ',
-                          textStyle: TextStyle(
-                              fontSize: 40,
-                              fontFamily: kfontname,
-                              color: kBlue),
-                          separatorTextStyle:
-                              TextStyle(fontSize: 35, color: kBlue),
-                          shouldShowDays: true,
-                          onDone: () {
-                            setState(() {
-                              timeUp = true;
-                            });
-                          },
-                        ),
-                        Row(
+    return Container(
+      color: Colors.white,
+      width: 357,
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Container(
+            child: Stack(
+              alignment: Alignment.center,
+              children: [
+                Container(
+                  margin: EdgeInsets.symmetric(vertical: 10),
+                  height: 110,
+                  padding: EdgeInsets.symmetric(horizontal: 25, vertical: 15),
+                  decoration: BoxDecoration(
+                      border: Border.all(color: kBlue, width: 3),
+                      borderRadius: BorderRadius.circular(5)),
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      SlideCountdownClock(
+                        duration: Duration(
+                            days: widget.cDay,
+                            hours: widget.cHours,
+                            minutes: widget.cMinute),
+                        separator: ' : ',
+                        textStyle: TextStyle(
+                            fontSize: 40, fontFamily: kfontname, color: kBlue),
+                        separatorTextStyle:
+                            TextStyle(fontSize: 35, color: kBlue),
+                        shouldShowDays: true,
+                        onDone: () {
+                          setState(() {
+                            timeUp = true;
+                          });
+                        },
+                      ),
+                      Container(
+                        width: 290,
+                        child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            SizedBox(width: 5),
                             Text(
                               'DAYS',
                               style: TextStyle(
@@ -121,41 +119,40 @@ class _TimerState extends State<Timer> {
                                   fontFamily: kfontname,
                                   color: kBlue),
                             ),
-                            SizedBox(width: 5)
                           ],
                         ),
-                      ],
+                      ),
+                    ],
+                  ),
+                ),
+                Positioned(
+                  top: 0,
+                  child: Container(
+                    padding: EdgeInsets.symmetric(horizontal: 10),
+                    color: Colors.white,
+                    child: Text(
+                      'Webinar nds in...',
+                      style: TextStyle(fontSize: 15),
                     ),
                   ),
-                  Positioned(
-                    top: 0,
-                    child: Container(
-                      padding: EdgeInsets.symmetric(horizontal: 10),
-                      color: Colors.white,
-                      child: Text(
-                        'Webinar nds in...',
-                        style: TextStyle(fontSize: 15),
-                      ),
-                    ),
-                  )
-                ],
-              ),
+                )
+              ],
             ),
-            Container(
-              margin: EdgeInsets.symmetric(vertical: 10),
-              child: FlatButton(
-                child: Text(
-                  'Register',
-                  style: TextStyle(fontSize: 20, color: Colors.white),
-                ),
-                color: kBlue,
-                minWidth: double.infinity,
-                height: 60,
-                onPressed: () {},
+          ),
+          Container(
+            margin: EdgeInsets.only(top: 10),
+            child: FlatButton(
+              child: Text(
+                'Register',
+                style: TextStyle(fontSize: 20, color: Colors.white),
               ),
+              color: kBlue,
+              minWidth: double.infinity,
+              height: 60,
+              onPressed: () {},
             ),
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }
