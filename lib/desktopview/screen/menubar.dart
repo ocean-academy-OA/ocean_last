@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flushbar/flushbar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
@@ -9,10 +10,13 @@ import 'package:ocean_project/desktopview/screen/contact_us.dart';
 import 'package:ocean_project/desktopview/screen/courses.dart';
 
 import 'package:ocean_project/desktopview/screen/services.dart';
+import 'package:ocean_project/webinar/countdown.dart';
 import 'package:ocean_project/webinar/webinar.dart';
 import 'package:provider/provider.dart';
 import 'home_screen.dart';
 import 'about_us_screen.dart';
+
+FirebaseFirestore _firestore = FirebaseFirestore.instance;
 
 class Navbar extends StatefulWidget {
   static bool visiblity = true;
@@ -30,6 +34,14 @@ class _NavbarState extends State<Navbar> {
     'Career': false,
   };
   bool isNotification = true;
+  // getDateFromDb() async {
+  //   var timeing =
+  //       await _firestore.collection('webinar').doc('free_webinar').get();
+  //   widget.cDay = timeing.data()['day'];
+  //   widget.cHours = timeing.data()['hour'];
+  //   widget.cMinute = timeing.data()['minute'];
+  //   widget.cMonth = timeing.data()['month'];
+  // }
 
   @override
   void initState() {
@@ -51,7 +63,7 @@ class _NavbarState extends State<Navbar> {
                   isNotification = false;
                 });
               },
-              joinButton: () {
+              joinButton: () async {
                 Navigator.push(context,
                     MaterialPageRoute(builder: (context) => Webinar()));
               },
