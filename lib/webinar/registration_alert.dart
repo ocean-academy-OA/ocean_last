@@ -6,12 +6,12 @@ import 'package:http/http.dart' as http;
 
 final _firestore = FirebaseFirestore.instance;
 
-class Webinar extends StatefulWidget {
+class WebinarAlert extends StatefulWidget {
   @override
-  _WebinarState createState() => _WebinarState();
+  _WebinarAlertState createState() => _WebinarAlertState();
 }
 
-class _WebinarState extends State<Webinar> {
+class _WebinarAlertState extends State<WebinarAlert> {
   String name;
   String phoneNumber;
   String email;
@@ -100,7 +100,7 @@ class _WebinarState extends State<Webinar> {
 
   void getData() async {
     http.Response response = await http.get(
-        """https://us-central1-ocean-live-project-ea2e7.cloudfunctions.net/sendMail?dest=$email&sub=Zoom Link&html= <!DOCTYPE html>
+        """https://us-central1-ocean-live-project-ea2e7.cloudfunctions.net/sendMail?dest=thamizharasan2373@gmail.com&sub=Zoom Link&html= <!DOCTYPE html>
 <html>
 <style>
 table, th, td {
@@ -144,7 +144,6 @@ table, th, td {
 
   _displayDialog(BuildContext context) async {
     return showDialog(
-        useSafeArea: true,
         context: context,
         builder: (context) {
           return AlertDialog(
@@ -216,7 +215,7 @@ table, th, td {
                                       'Phone_Number': phoneNumber
                                     });
                                   }
-                                  // getData();
+                                  getData();
                                   nameController.clear();
                                   emailController.clear();
                                   phoneNumberController.clear();

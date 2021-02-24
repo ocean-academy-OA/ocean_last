@@ -1,8 +1,9 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:google_maps/google_maps.dart';
+
 import 'package:ocean_project/desktopview/constants.dart';
 import 'package:ocean_project/webinar/countdown.dart';
+import 'package:ocean_project/webinar/join_alert.dart';
 
 FirebaseFirestore _firestore = FirebaseFirestore.instance;
 
@@ -12,6 +13,7 @@ class Webinar extends StatefulWidget {
 }
 
 class _WebinarState extends State<Webinar> {
+  WebinarAlert webinarAlert = WebinarAlert();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -72,7 +74,11 @@ class _WebinarState extends State<Webinar> {
                         mainAxisAlignment: MainAxisAlignment.spaceAround,
                         crossAxisAlignment: CrossAxisAlignment.end,
                         children: [
-                          Timer(),
+                          Timer(
+                            onPressed: () {
+                              webinarAlert.displayDialog(context);
+                            },
+                          ),
                           Spacer(
                             flex: 1,
                           ),

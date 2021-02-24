@@ -19,10 +19,12 @@ FirebaseFirestore _firestore = FirebaseFirestore.instance;
 // }
 
 class Timer extends StatefulWidget {
+  Timer({this.onPressed});
   int cMonth = 0;
   int cHours = 2;
   int cMinute = 0;
   int cDay = 0;
+  Function onPressed;
 
   @override
   _TimerState createState() => _TimerState();
@@ -149,7 +151,7 @@ class _TimerState extends State<Timer> {
               color: kBlue,
               minWidth: double.infinity,
               height: 60,
-              onPressed: () {},
+              onPressed: widget.onPressed,
             ),
           ),
         ],
