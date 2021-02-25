@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
@@ -8,6 +10,7 @@ import 'package:http/http.dart' as http;
 import 'package:ocean_project/desktopview/constants.dart';
 import 'package:ocean_project/webinar/countdown.dart';
 import 'package:ocean_project/webinar/join_alert.dart';
+import 'package:webview_flutter/webview_flutter.dart';
 
 FirebaseFirestore _firestore = FirebaseFirestore.instance;
 
@@ -103,23 +106,11 @@ class _WebinarState extends State<Webinar> {
   }
 
   void getData() async {
+    http.Response htmlcontent = await http.get('assets/webinar_link.html');
     http.Response response = await http.get(
-        """https://us-central1-ocean-live-project-ea2e7.cloudfunctions.net/sendMail?dest=$email&sub=Zoom Link&html= <!DOCTYPE html>
-<html>
-<style>
-table, th, td {
-  border: 1px solid red;
-  border-collapse: collapse;
-}
-</style>
-<body>
+        """https://us-central1-ocean-live-project-ea2e7.cloudfunctions.net/sendMail?dest=fotic78205@geeky83.com&sub=Zoom div Link&html= <html> ${htmlcontent.body}
 
-<a href="https://zoom.us/join">Visit Ocean Academy free webinar</a>
-<table border="outline">
-<tbody>
-
-</body>
-</html>""");
+""");
 
     if (response.statusCode == 200) {
       String data = response.body;
@@ -260,7 +251,8 @@ table, th, td {
                             children: [
                               Timer(
                                 onPressed: () {
-                                  _displayDialog(context);
+                                  // _displayDialog(context);
+                                  getData();
                                 },
                               ),
                               Spacer(
