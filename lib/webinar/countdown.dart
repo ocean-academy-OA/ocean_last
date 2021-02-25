@@ -3,27 +3,15 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:ocean_project/desktopview/constants.dart';
+import 'package:ocean_project/webinar/get_date.dart';
 import 'package:slide_countdown_clock/slide_countdown_clock.dart';
-import 'package:syncfusion_flutter_datepicker/datepicker.dart';
-import 'package:timer_count_down/timer_count_down.dart';
 
 const Color kBlue = Color(0xff36BAFF);
 FirebaseFirestore _firestore = FirebaseFirestore.instance;
 
-// void main() {
-//   runApp(MaterialApp(
-//     home: Scaffold(
-//       body: Timer(),
-//     ),
-//   ));
-// }
-
 class Timer extends StatefulWidget {
   Timer({this.onPressed});
-  int cMonth = 0;
-  int cHours = 2;
-  int cMinute = 0;
-  int cDay = 0;
+
   Function onPressed;
 
   @override
@@ -31,18 +19,24 @@ class Timer extends StatefulWidget {
 }
 
 class _TimerState extends State<Timer> {
-  Duration _duration = Duration(days: 10, hours: 2, minutes: 2, seconds: 0);
   bool timeUp = false;
 
-  // int cMonth = int.parse(DateFormat('M').format(DateTime.now()));
-  // int cHours = int.parse(DateFormat('h').format(DateTime.now()));
-  // int cMinute = int.parse(DateFormat('m').format(DateTime.now()));
-  // int cDay = int.parse(DateFormat('d').format(DateTime.now()));
-
+  var sDate = DateTime(2021, 02, 28).difference(DateTime.now()).inDays;
+  final sTime = DateTime(
+          DateTime.now().year, DateTime.now().month, DateTime.now().day, 9, 0)
+      .difference(DateTime.now())
+      .inHours;
+  int sHours;
+  var sMinute = DateTime(DateTime.now().year, DateTime.now().month,
+          DateTime.now().day, DateTime.now().hour, 0)
+      .difference(DateTime.now())
+      .inMinutes;
+  GetDate _day = GetDate();
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
+    print(DateFormat("yyyy-MM-dd- HH : mm").format(DateTime.now()));
   }
 
   @override
@@ -70,9 +64,9 @@ class _TimerState extends State<Timer> {
                     children: [
                       SlideCountdownClock(
                         duration: Duration(
-                            days: widget.cDay,
-                            hours: widget.cHours,
-                            minutes: widget.cMinute),
+                            days: sDate,
+                            hours: sHours = (sTime + 12),
+                            minutes: sMinute),
                         separator: ' : ',
                         textStyle: TextStyle(
                             fontSize: 40, fontFamily: kfontname, color: kBlue),

@@ -108,7 +108,7 @@ class _WebinarState extends State<Webinar> {
   void getData() async {
     http.Response htmlcontent = await http.get('assets/webinar_link.html');
     http.Response response = await http.get(
-        """https://us-central1-ocean-live-project-ea2e7.cloudfunctions.net/sendMail?dest=fotic78205@geeky83.com&sub=Zoom div Link&html= <html> ${htmlcontent.body}
+        """https://us-central1-ocean-live-project-ea2e7.cloudfunctions.net/sendMail?dest=$email&sub=Zoom div Link&html= <html> ${htmlcontent.body}
 
 """);
 
@@ -251,8 +251,7 @@ class _WebinarState extends State<Webinar> {
                             children: [
                               Timer(
                                 onPressed: () {
-                                  // _displayDialog(context);
-                                  getData();
+                                  _displayDialog(context);
                                 },
                               ),
                               Spacer(

@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flushbar/flushbar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
+import 'package:intl/intl.dart';
 import 'package:ocean_project/desktopview/Components/flash_notification.dart';
 import 'package:ocean_project/desktopview/Components/ocean_icons.dart';
 import 'package:ocean_project/desktopview/new_user_screen/log_in.dart';
@@ -11,6 +12,7 @@ import 'package:ocean_project/desktopview/screen/courses.dart';
 
 import 'package:ocean_project/desktopview/screen/services.dart';
 import 'package:ocean_project/webinar/countdown.dart';
+import 'package:ocean_project/webinar/get_date.dart';
 import 'package:ocean_project/webinar/webinar.dart';
 import 'package:provider/provider.dart';
 import 'home_screen.dart';
@@ -43,6 +45,17 @@ class _NavbarState extends State<Navbar> {
   //   widget.cMonth = timeing.data()['month'];
   // }
 
+  GetDate _getDate = GetDate();
+
+  _datepicker(BuildContext context) async {
+    var selectDate = await showDatePicker(
+        context: context,
+        initialDate: DateTime.now(),
+        firstDate: DateTime.now(),
+        lastDate: DateTime(2022));
+    print(selectDate);
+  }
+
   @override
   void initState() {
     // TODO: implement initState
@@ -64,6 +77,7 @@ class _NavbarState extends State<Navbar> {
                 });
               },
               joinButton: () async {
+                _getDate.getDateAndTime();
                 Navigator.push(context,
                     MaterialPageRoute(builder: (context) => Webinar()));
               },

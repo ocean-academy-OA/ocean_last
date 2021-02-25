@@ -63,6 +63,7 @@ dependencies:
   slide_countdown_clock: ^1.0.3
   syncfusion_flutter_datepicker: ^18.4.44-beta
   webview_flutter: ^0.3.20+2
+  flutter_countdown_timer: ^3.0.1
 
 
 
