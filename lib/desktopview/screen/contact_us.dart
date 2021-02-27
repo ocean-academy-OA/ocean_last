@@ -135,9 +135,9 @@ table, th, td {
       // autovalidate: _autoValidate,
       validator: (value) {
         if (value.isEmpty) {
-          return 'name is required*';
+          return 'name is required';
         } else if (value.length < 3) {
-          return 'character should be morethan 2*';
+          return 'character should be morethan 2';
         }
         return null;
       },
@@ -165,9 +165,9 @@ table, th, td {
       ],
       validator: (value) {
         if (value.isEmpty) {
-          return 'phone_number is required*';
+          return 'phone_number is required';
         } else if (value.length < 10) {
-          return 'invalid phone_number*';
+          return 'invalid phone_number';
         }
         return null;
       },
@@ -190,7 +190,7 @@ table, th, td {
       inputFormatters: [FilteringTextInputFormatter.deny(RegExp(r"\s"))],
       autovalidate: _autoValidate,
       validator: (value) =>
-          EmailValidator.validate(value) ? null : "please enter a valid email*",
+          EmailValidator.validate(value) ? null : "please enter a valid email",
       decoration: InputDecoration(
         prefixIcon: Icon(Icons.email_outlined),
         errorStyle: TextStyle(color: Colors.redAccent, fontSize: 12),
@@ -211,18 +211,20 @@ table, th, td {
         // query = value;
         if (value.isEmpty) {
           print(value);
-          return "query is required*";
+          return "query is required";
         } else if (value.length < 2) {
-          return 'character should be more than 2*';
+          return 'character should be more than 2';
         }
         return null;
       },
-      maxLines: 13,
+      maxLines: null,
+      maxLength: 1000,
       decoration: InputDecoration(
         prefixIcon: Icon(Icons.question_answer_outlined),
         errorStyle: TextStyle(color: Colors.redAccent, fontSize: 12),
         border: OutlineInputBorder(),
         hintText: 'Enter Your Query',
+        labelText: 'Query',
       ),
       controller: queryController,
       onChanged: (value) {
@@ -240,7 +242,6 @@ table, th, td {
         child: SingleChildScrollView(
           child: Column(
             children: [
-              // PopupDialog(),
               TopNavigationBar(title: 'Contact Us'),
               Row(
                 children: [
@@ -331,7 +332,7 @@ table, th, td {
                               ),
                             ],
                           ),
-                          SizedBox(height: 140)
+                          SizedBox(height: 10),
                         ],
                       ),
                     ),
@@ -354,7 +355,7 @@ table, th, td {
                               ),
                             ),
                             SizedBox(
-                              height: 12,
+                              height: 13,
                             ),
                             Text(
                               contactuscontent,
@@ -366,14 +367,21 @@ table, th, td {
                               ),
                             ),
                             SizedBox(height: 30),
-                            Text(
-                              'This Enquiry is for',
-                              style: TextStyle(
-                                fontSize: 18,
-                                fontWeight: FontWeight.w400,
-                                fontFamily: 'Ubuntu',
-                                color: kcontentcolor,
-                              ),
+                            RichText(
+                              text: TextSpan(
+                                  text: 'This Enquiry is for',
+                                  style: TextStyle(
+                                    fontSize: 18,
+                                    fontWeight: FontWeight.w400,
+                                    fontFamily: kfontname,
+                                    color: kcontentcolor,
+                                  ),
+                                  children: [
+                                    TextSpan(
+                                      text: '*',
+                                      style: TextStyle(color: Colors.red),
+                                    )
+                                  ]),
                             ),
                             SizedBox(height: 20),
                             Padding(
@@ -381,7 +389,7 @@ table, th, td {
                               child: DropdownButtonFormField<String>(
                                 validator: (value) {
                                   if (value == 'Select') {
-                                    return 'enqiury is required*';
+                                    return 'enquiry is required';
                                   }
                                   return null;
                                 },
@@ -391,7 +399,10 @@ table, th, td {
                                   border: OutlineInputBorder(),
                                 ),
                                 style: TextStyle(
-                                    color: Colors.black87, fontSize: 20),
+                                    fontSize: 18,
+                                    fontWeight: FontWeight.w400,
+                                    fontFamily: kfontname,
+                                    color: kcontentcolor),
                                 value: enquiry,
                                 items: getDropdown(),
                                 onChanged: (value) {
@@ -403,66 +414,95 @@ table, th, td {
                               ),
                             ),
                             SizedBox(height: 20),
-                            Text(
-                              'Full Name',
-                              style: TextStyle(
-                                fontSize: 18,
-                                fontWeight: FontWeight.w400,
-                                fontFamily: kfontname,
-                                color: kcontentcolor,
+                            RichText(
+                              text: TextSpan(
+                                text: 'Full Name',
+                                style: TextStyle(
+                                  fontSize: 18,
+                                  fontWeight: FontWeight.w400,
+                                  fontFamily: kfontname,
+                                  color: kcontentcolor,
+                                ),
+                                children: [
+                                  TextSpan(
+                                    text: '*',
+                                    style: TextStyle(color: Colors.red),
+                                  )
+                                ],
                               ),
                             ),
-                            SizedBox(height: 20),
+                            SizedBox(height: 25),
                             Padding(
                               padding: EdgeInsets.only(right: 80),
                               child: _buildName(),
                             ),
-                            SizedBox(height: 20),
-                            Text(
-                              'Phone Number',
-                              style: TextStyle(
-                                fontSize: 18,
-                                fontWeight: FontWeight.w400,
-                                fontFamily: kfontname,
-                                color: kcontentcolor,
-                              ),
+                            SizedBox(height: 25),
+                            RichText(
+                              text: TextSpan(
+                                  text: 'Phone Number',
+                                  style: TextStyle(
+                                    fontSize: 18,
+                                    fontWeight: FontWeight.w400,
+                                    fontFamily: kfontname,
+                                    color: kcontentcolor,
+                                  ),
+                                  children: [
+                                    TextSpan(
+                                      text: '*',
+                                      style: TextStyle(color: Colors.red),
+                                    )
+                                  ]),
                             ),
-                            SizedBox(height: 20),
+                            SizedBox(height: 25),
                             Padding(
                               padding: EdgeInsets.only(right: 80),
                               child: _buildphonenumber(),
                             ),
-                            SizedBox(height: 30),
-                            Text(
-                              'E-mail Address',
-                              style: TextStyle(
-                                fontSize: 18,
-                                fontWeight: FontWeight.w400,
-                                fontFamily: kfontname,
-                                color: kcontentcolor,
-                              ),
+                            SizedBox(height: 25),
+                            RichText(
+                              text: TextSpan(
+                                  text: 'E-mail',
+                                  style: TextStyle(
+                                    fontSize: 18,
+                                    fontWeight: FontWeight.w400,
+                                    fontFamily: kfontname,
+                                    color: kcontentcolor,
+                                  ),
+                                  children: [
+                                    TextSpan(
+                                      text: '*',
+                                      style: TextStyle(color: Colors.red),
+                                    )
+                                  ]),
                             ),
-                            SizedBox(height: 20),
+                            SizedBox(height: 25),
                             Padding(
                               padding: EdgeInsets.only(right: 80),
                               child: _buildEmail(),
                             ),
-                            SizedBox(height: 20),
-                            Text(
-                              'Your Query',
-                              style: TextStyle(
-                                fontSize: 18,
-                                fontWeight: FontWeight.w400,
-                                fontFamily: kfontname,
-                                color: kcontentcolor,
-                              ),
+                            SizedBox(height: 25),
+                            RichText(
+                              text: TextSpan(
+                                  text: 'Query',
+                                  style: TextStyle(
+                                    fontSize: 18,
+                                    fontWeight: FontWeight.w400,
+                                    fontFamily: kfontname,
+                                    color: kcontentcolor,
+                                  ),
+                                  children: [
+                                    TextSpan(
+                                      text: '*',
+                                      style: TextStyle(color: Colors.red),
+                                    )
+                                  ]),
                             ),
-                            SizedBox(height: 40),
+                            SizedBox(height: 25),
                             Padding(
                               padding: EdgeInsets.only(right: 80),
                               child: _buildquery(),
                             ),
-                            SizedBox(height: 30),
+                            SizedBox(height: 50),
                             Container(
                               width: 120,
                               height: 53,

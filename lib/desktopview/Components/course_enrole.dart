@@ -8,10 +8,13 @@ import 'package:ocean_project/desktopview/Components/courses_widget.dart';
 import 'package:ocean_project/desktopview/Components/enroll_new.dart';
 import 'package:ocean_project/desktopview/Components/enrool_appbar.dart';
 import 'package:ocean_project/desktopview/Components/main_notification.dart';
+import 'package:ocean_project/desktopview/Components/payment.dart';
 import 'package:ocean_project/desktopview/Components/user_profile.dart';
 import 'package:ocean_project/desktopview/new_user_screen/log_in.dart';
 import 'package:ocean_project/desktopview/route/routing.dart';
 import 'package:ocean_project/desktopview/screen/course_details.dart';
+import 'package:ocean_project/desktopview/screen/courses.dart';
+import 'package:ocean_project/desktopview/screen/menubar.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -24,7 +27,8 @@ Map<String, String> courses_icon = {
 final _firestore = FirebaseFirestore.instance;
 
 _launchURL() async {
-  const url = 'https://success.zoom.us/wc/join/{meeting-id}';
+  const url =
+      'https://us04web.zoom.us/j/5175653439?pwd=MEI0R1VjQ2FDMitpbkV6RHpSWURndz09';
   if (await canLaunch(url)) {
     await launch(url);
   } else {
@@ -619,9 +623,7 @@ class CourseContent extends StatefulWidget {
 class _CourseContentState extends State<CourseContent> {
   @override
   String zoomLink =
-      """<div class="iframe-container" style="overflow: hidden; padding-top: 56.25%; position: relative;">
-  <iframe allow="microphone; camera" style="border: 0; height: 100%; left: 0; position: absolute; top: 0; width: 100%;" src="https://success.zoom.us/wc/join/{meeting-id}" frameborder="100"></iframe>
-  </div>""";
+      "https://us04web.zoom.us/j/73962946984?pwd=TDRmWGJDZ1ZqbWZSNVlLMnNwWjdhQT09#success";
   Widget build(BuildContext context) {
     print("${CoursesView.courseEnroll}fffffffffffff");
     return Stack(

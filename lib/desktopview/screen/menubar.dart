@@ -1,14 +1,24 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flushbar/flushbar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
+import 'package:intl/intl.dart';
+import 'package:ocean_project/desktopview/Components/flash_notification.dart';
 import 'package:ocean_project/desktopview/Components/ocean_icons.dart';
 import 'package:ocean_project/desktopview/new_user_screen/log_in.dart';
 import 'package:ocean_project/desktopview/route/routing.dart';
 import 'package:ocean_project/desktopview/screen/contact_us.dart';
 import 'package:ocean_project/desktopview/screen/courses.dart';
+
 import 'package:ocean_project/desktopview/screen/services.dart';
+import 'package:ocean_project/webinar/countdown.dart';
+import 'package:ocean_project/webinar/get_date.dart';
+import 'package:ocean_project/webinar/webinar.dart';
 import 'package:provider/provider.dart';
 import 'home_screen.dart';
 import 'about_us_screen.dart';
+
+FirebaseFirestore _firestore = FirebaseFirestore.instance;
 
 class Navbar extends StatefulWidget {
   static bool visiblity = true;
@@ -25,6 +35,26 @@ class _NavbarState extends State<Navbar> {
     'Contact Us': false,
     'Career': false,
   };
+  bool isNotification = true;
+  // getDateFromDb() async {
+  //   var timeing =
+  //       await _firestore.collection('webinar').doc('free_webinar').get();
+  //   widget.cDay = timeing.data()['day'];
+  //   widget.cHours = timeing.data()['hour'];
+  //   widget.cMinute = timeing.data()['minute'];
+  //   widget.cMonth = timeing.data()['month'];
+  // }
+
+  GetDate _getDate = GetDate();
+
+  _datepicker(BuildContext context) async {
+    var selectDate = await showDatePicker(
+        context: context,
+        initialDate: DateTime.now(),
+        firstDate: DateTime.now(),
+        lastDate: DateTime(2022));
+    print(selectDate);
+  }
 
   @override
   void initState() {
@@ -38,6 +68,22 @@ class _NavbarState extends State<Navbar> {
       resizeToAvoidBottomInset: false,
       body: Column(
         children: [
+          Visibility(
+            visible: isNotification,
+            child: FlashNotification(
+              dismissNotification: () {
+                setState(() {
+                  isNotification = false;
+                });
+              },
+              joinButton: () async {
+                _getDate.getDateAndTime();
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => Webinar()));
+              },
+              joinButtonName: 'Join Now',
+            ),
+          ),
           Visibility(
             visible: Navbar.visiblity,
             child: Container(

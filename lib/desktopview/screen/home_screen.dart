@@ -80,7 +80,7 @@ class _HomeState extends State<Home> {
     bool isFirstLoaded = prefs.getBool(keyIsFirstLoaded);
 
     //TODO make as isFirstLoaded == null
-    if (isFirstLoaded == null) {
+    if (isFirstLoaded == true) {
       showDialog(
         context: context,
         builder: (BuildContext context) {

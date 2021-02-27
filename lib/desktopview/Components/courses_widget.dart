@@ -7,17 +7,16 @@ import 'package:timer_count_down/timer_count_down.dart';
 
 import 'package:country_code_picker/country_code_picker.dart';
 import 'package:country_code_picker/country_codes.dart';
-import 'package:firebase_auth/firebase_auth.dart';
+
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/services.dart';
 import 'package:ocean_project/alert/alert_msg.dart';
 import 'package:ocean_project/desktopview/Components/course_enrole.dart';
-import 'package:ocean_project/desktopview/Components/payment.dart';
-import 'package:ocean_project/desktopview/Components/thanks_purchasing.dart';
+
 import 'package:ocean_project/desktopview/constants.dart';
 import 'package:ocean_project/desktopview/new_user_screen/log_in.dart';
-import 'package:ocean_project/desktopview/new_user_screen/otp.dart';
+
 import 'package:ocean_project/desktopview/new_user_screen/registration.dart';
 import 'package:ocean_project/desktopview/route/routing.dart';
 import 'package:ocean_project/desktopview/screen/course_details.dart';
@@ -29,26 +28,11 @@ import 'package:url_launcher/url_launcher.dart';
 final _firestore = FirebaseFirestore.instance;
 
 class CoursesWidget extends StatefulWidget {
-  // bool online;
-  //
-  // CoursesWidget({
-  //   this.online,
-  // });
-
   @override
   _CoursesWidgetState createState() => _CoursesWidgetState();
 }
 
 class _CoursesWidgetState extends State<CoursesWidget> {
-  // void getMessage() async {
-  //   final message = await _firestore.collection('contact_us').get();
-  //   print(message.docs);
-  //
-  //   for (var courses in message.docs) {
-  //     print(courses.data()["Email"]);
-  //   }
-  // }
-
   List<String> subjects = [];
   @override
   void initState() {
@@ -60,7 +44,6 @@ class _CoursesWidgetState extends State<CoursesWidget> {
   @override
   Widget build(BuildContext context) {
     return Column(
-      //mainAxisAlignment: MainAxisAlignment.spaceAround,
       children: [
         (Course.isSelected[0] == true)
             ? StreamBuilder<QuerySnapshot>(
@@ -570,8 +553,10 @@ class _OfflineCourseState extends State<OfflineCourse> {
                                         borderRadius:
                                             BorderRadius.circular(70.0)),
                                     onPressed: () {
+                                      setState(() {
+                                        Navigator.pop(context);
+                                      });
                                       _showDialog();
-                                      Navigator.pop(context);
                                     },
                                   ),
                                 ],
