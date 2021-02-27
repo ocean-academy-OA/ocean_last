@@ -1,5 +1,3 @@
-import 'dart:convert';
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
@@ -9,8 +7,7 @@ import 'package:http/http.dart' as http;
 
 import 'package:ocean_project/desktopview/constants.dart';
 import 'package:ocean_project/webinar/countdown.dart';
-import 'package:ocean_project/webinar/join_alert.dart';
-import 'package:webview_flutter/webview_flutter.dart';
+import 'package:ocean_project/webinar/webinar_const.dart';
 
 FirebaseFirestore _firestore = FirebaseFirestore.instance;
 
