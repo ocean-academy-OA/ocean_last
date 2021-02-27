@@ -12,6 +12,8 @@ import 'package:provider/provider.dart';
 import 'dart:html';
 
 //conditional import
+import 'package:ocean_project/desktopview/Components/UiFake.dart'
+    if (dart.library.html) 'dart:ui' as ui;
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 
