@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:ocean_project/desktopview/constants.dart';
+import 'package:ocean_project/desktopview/new_user_screen/log_in.dart';
+import 'package:ocean_project/desktopview/route/routing.dart';
 
 import 'package:ocean_project/webinar/webinar_const.dart';
+import 'package:provider/provider.dart';
 
 class WebinarMenu extends StatefulWidget {
   @override

@@ -121,7 +121,7 @@ class _OTPState extends State<OTP> {
     return isLogin
         ? CoursesView()
         : Scaffold(
-            resizeToAvoidBottomPadding: true,
+            resizeToAvoidBottomInset: true,
             body: Stack(
               children: [
                 Container(

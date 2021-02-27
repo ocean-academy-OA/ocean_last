@@ -14,6 +14,7 @@ import 'package:ocean_project/desktopview/screen/services.dart';
 import 'package:ocean_project/webinar/countdown.dart';
 import 'package:ocean_project/webinar/get_date.dart';
 import 'package:ocean_project/webinar/webinar.dart';
+import 'package:ocean_project/webinar/webinar_page.dart';
 import 'package:provider/provider.dart';
 import 'home_screen.dart';
 import 'about_us_screen.dart';
@@ -77,7 +78,7 @@ class _NavbarState extends State<Navbar> {
               joinButton: () async {
                 // _getDate.getDateAndTime();
                 Navigator.push(context,
-                    MaterialPageRoute(builder: (context) => Webinar()));
+                    MaterialPageRoute(builder: (context) => WebinarScreen()));
               },
               joinButtonName: 'Join Now',
             ),

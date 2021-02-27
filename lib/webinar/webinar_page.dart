@@ -27,7 +27,7 @@ class WebinarScreen extends StatefulWidget {
 }
 
 class _WebinarScreenState extends State<WebinarScreen> {
-  bool timeUp = false;
+  bool timeUp;
   var sDate = DateTime(2021, 02, 28).difference(DateTime.now()).inDays;
   final sTime = DateTime(
           DateTime.now().year, DateTime.now().month, DateTime.now().day, 9, 0)
@@ -171,6 +171,39 @@ table, th, td {
   }
 
   /// Ijass work end
+  /// jayalatha
+  num hour;
+  num minute;
+  num second;
+  num days;
+  num month;
+  num year;
+  void retriveTime() async {
+    await for (var snapshot in _firestore
+        .collection('admin')
+        .snapshots(includeMetadataChanges: true)) {
+      for (var message in snapshot.docs) {
+        //print(message.documentID);
+        hour = message.data()['hour'];
+        minute = message.data()['minute'];
+        days = message.data()['day'];
+        month = message.data()['month'];
+        year = message.data()['year'];
+
+        sDate = DateTime(year, month, days).difference(DateTime.now()).inDays;
+        var a = TimeOfDay.now().hour;
+        var b = TimeOfDay.now().minute;
+        if (hour > a) {
+          hour = hour - a;
+          print("$hour}result");
+        } else {
+          hour = (hour - a) + 24;
+        }
+      }
+    }
+  }
+
+  /// jayalatha
 
   WebinarAlert _webinarAlert = WebinarAlert();
 
@@ -320,8 +353,7 @@ table, th, td {
                                                           SlideCountdownClock(
                                                         duration: Duration(
                                                             days: sDate,
-                                                            hours: sHours =
-                                                                (sTime + 12),
+                                                            hours: hour,
                                                             minutes: sMinute),
                                                         separator: ' : ',
                                                         textStyle: TextStyle(
@@ -422,7 +454,7 @@ table, th, td {
                           Form(
                             key: _formKey,
                             child: Container(
-                              height: 220,
+                              height: 240,
                               padding: EdgeInsets.symmetric(horizontal: 20),
                               child: Column(
                                 mainAxisAlignment:

@@ -4,7 +4,6 @@ import 'package:ocean_project/desktopview/route/routing.dart';
 import 'package:provider/provider.dart';
 
 void main() async {
-  print('[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[');
   runApp(OceanLive());
 }
 
