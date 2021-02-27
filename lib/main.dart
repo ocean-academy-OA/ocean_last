@@ -60,6 +60,7 @@ class _ScreenTypeLayoutState extends State<ScreenTypeLayout> {
         ),
         ChangeNotifierProvider(create: (context) => SyllabusView()),
         ChangeNotifierProvider(create: (context) => OALive()),
+        ChangeNotifierProvider(create: (context) => AlertView()),
       ],
       child: MaterialApp(
         theme: ThemeData(

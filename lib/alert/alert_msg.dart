@@ -1,10 +1,12 @@
 import 'dart:html';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:flushbar/flushbar.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:shared_preferences/shared_preferences.dart';
-import 'package:url_launcher/url_launcher.dart';
+import 'package:ocean_project/desktopview/new_user_screen/log_in.dart';
+import 'package:ocean_project/desktopview/new_user_screen/otp.dart';
+import 'package:ocean_project/desktopview/route/routing.dart';
+import 'package:provider/provider.dart';
 
 import 'alert_text_field.dart';
 
@@ -34,6 +36,14 @@ class _AlertEnquiryState extends State<AlertEnquiry> {
   bool isName = false;
   bool isPhoneNumber = false;
   bool isQuery = false;
+  FirebaseAuth auth = FirebaseAuth.instance;
+  TextEditingController _phoneNumberController = TextEditingController();
+  String countryCode;
+
+  getOTP() async {
+    LogIn.confirmationResult = await auth.signInWithPhoneNumber(
+        '${countryCode.toString()} ${_phoneNumberController.text}');
+  }
 
   bool validateEmail(String value) {
     Pattern pattern =
@@ -211,47 +221,57 @@ class _AlertEnquiryState extends State<AlertEnquiry> {
                     style: TextStyle(fontSize: 20.0, color: Colors.white),
                   ),
                   onPressed: () async {
-                    if (widget.queryField) {
-                      if (validateEmail(_email.text) &&
-                          _mobile.text.length >= 10 &&
-                          nameValidation(_name.text) &&
-                          _name.text.length > 3 &&
-                          _query.text.length > 6) {
-                        print(' with query done');
-                        firestoreAddQuickEnquiry();
-                        SharedPreferences prefs =
-                            await SharedPreferences.getInstance();
-                        prefs.setBool(widget.keyIsFirstLoaded, false);
-                        Navigator.of(context).pop();
-                        Flushbar(
-                          icon: Icon(
-                            Icons.done,
-                            color: Colors.white,
-                          ),
-                          message: "Sent Successfully",
-                          duration: Duration(seconds: 2),
-                        )..show(context);
-                      } else {
-                        print('fill all field');
-                      }
-                    } else {
-                      if (validateEmail(_email.text) &&
-                          _mobile.text.length >= 10 &&
-                          nameValidation(_name.text) &&
-                          _name.text.length > 3) {
-                        print('without query field');
-                        fireStoreAddWithDownload();
-                        var url = widget.pdfLink;
-                        if (await canLaunch(url)) {
-                          await launch(url);
-                        } else {
-                          throw 'Could not launch $url';
-                        }
-                      } else {
-                        print('fill all field');
-                      }
+                    if (_phoneNumberController.text.length >= 10) {
+                      //getData();
+
+                      ///todo remove the hide get otp
+
+                      getOTP();
+
+                      Provider.of<Routing>(context, listen: false)
+                          .updateRouting(widget: OTP());
                     }
-                    Navigator.pop(context);
+                    // if (widget.queryField) {
+                    //   if (validateEmail(_email.text) &&
+                    //       _mobile.text.length >= 10 &&
+                    //       nameValidation(_name.text) &&
+                    //       _name.text.length > 3 &&
+                    //       _query.text.length > 6) {
+                    //     print(' with query done');
+                    //     firestoreAddQuickEnquiry();
+                    //     SharedPreferences prefs =
+                    //         await SharedPreferences.getInstance();
+                    //     prefs.setBool(widget.keyIsFirstLoaded, false);
+                    //     Navigator.of(context).pop();
+                    //     Flushbar(
+                    //       icon: Icon(
+                    //         Icons.done,
+                    //         color: Colors.white,
+                    //       ),
+                    //       message: "Sent Successfully",
+                    //       duration: Duration(seconds: 2),
+                    //     )..show(context);
+                    //   } else {
+                    //     print('fill all field');
+                    //   }
+                    // } else {
+                    //   if (validateEmail(_email.text) &&
+                    //       _mobile.text.length >= 10 &&
+                    //       nameValidation(_name.text) &&
+                    //       _name.text.length > 3) {
+                    //     print('without query field');
+                    //     fireStoreAddWithDownload();
+                    //     var url = widget.pdfLink;
+                    //     if (await canLaunch(url)) {
+                    //       await launch(url);
+                    //     } else {
+                    //       throw 'Could not launch $url';
+                    //     }
+                    //   } else {
+                    //     print('fill all field');
+                    //   }
+                    // }
+                    // Navigator.pop(context);
                   },
                 ),
               ),

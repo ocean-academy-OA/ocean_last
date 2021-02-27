@@ -5,11 +5,6 @@ import 'package:provider/provider.dart';
 
 void main() async {
   print('[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[');
-  // SharedPreferences prefs = await SharedPreferences.getInstance();
-  // int x = (prefs.getInt('login') ?? 0);
-  // Widget screen = x == 0 ? OceanLive() : Home();
-  // WidgetsFlutterBinding.ensureInitialized();
-  // await Firebase.initializeApp();
   runApp(OceanLive());
 }
 
@@ -31,6 +26,7 @@ class _OceanLiveState extends State<OceanLive> {
         ),
         ChangeNotifierProvider(create: (context) => SyllabusView()),
         ChangeNotifierProvider(create: (context) => OALive()),
+        ChangeNotifierProvider(create: (context) => AlertView()),
         ChangeNotifierProvider(create: (context) => UserProfiles()),
       ],
       child: MaterialApp(

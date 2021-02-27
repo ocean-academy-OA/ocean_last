@@ -12,8 +12,6 @@ import 'package:shared_preferences/shared_preferences.dart';
 class Notification_onclick extends StatefulWidget {
   Notification_onclick({@required this.isVisible, this.image});
 
-  static bool notify = false;
-
   final bool isVisible;
   final String image;
 

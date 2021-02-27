@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:ocean_project/desktopview/Components/course_enrole.dart';
+import 'package:ocean_project/desktopview/Components/enroll_new.dart';
 import 'package:ocean_project/desktopview/Components/main_notification.dart';
 import 'package:ocean_project/desktopview/Components/ocean_icons.dart';
 import 'package:ocean_project/desktopview/new_user_screen/log_in.dart';
@@ -166,9 +167,9 @@ class _AppBarWidgetState extends State<AppBarWidget> {
                               borderRadius:
                                   BorderRadius.all(Radius.circular(600.0))),
                           onPressed: () {
-                            Provider.of<OALive>(context, listen: false)
-                                .updateOA(routing: CoursesView());
                             setState(() {
+                              Provider.of<OALive>(context, listen: false)
+                                  .updateOA(routing: CoursesView());
                               ContentWidget.isVisible =
                                   !ContentWidget.isVisible;
                             });

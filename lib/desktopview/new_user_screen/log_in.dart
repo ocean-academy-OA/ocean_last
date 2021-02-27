@@ -27,31 +27,15 @@ class LogIn extends StatefulWidget {
 
 class _LogInState extends State<LogIn> {
   var userSession;
-  // getData() async {
-  //   userSession = await _firestore
-  //       .collection('new users')
-  //       .doc(LogIn.registerNumber)
-  //       .get();
-  //   print(userSession.data() != null);
-  //   if (userSession.data() != null) {
-  //     Navigator.push(
-  //       context,
-  //       MaterialPageRoute(builder: (context) => Home()),
-  //     );
-  //   } else {
-  //     Provider.of<Routing>(context, listen: false)
-  //         .updateRouting(widget: Registration());
-  //   }
-  // }
-
   bool isNumValid = false;
   final _firestore = FirebaseFirestore.instance;
   FirebaseAuth auth = FirebaseAuth.instance;
   TextEditingController _phoneNumberController = TextEditingController();
+  String countryCode;
   List<Map<String, String>> contri = codes;
   bool rememberMe = false;
   String phoneNumber;
-  String countryCode;
+
   ConfirmationResult confirmationResult;
   getOTP() async {
     LogIn.confirmationResult = await auth.signInWithPhoneNumber(
