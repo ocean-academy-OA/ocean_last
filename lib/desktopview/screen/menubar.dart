@@ -45,8 +45,6 @@ class _NavbarState extends State<Navbar> {
   //   widget.cMonth = timeing.data()['month'];
   // }
 
-  GetDate _getDate = GetDate();
-
   _datepicker(BuildContext context) async {
     var selectDate = await showDatePicker(
         context: context,
@@ -77,7 +75,7 @@ class _NavbarState extends State<Navbar> {
                 });
               },
               joinButton: () async {
-                _getDate.getDateAndTime();
+                // _getDate.getDateAndTime();
                 Navigator.push(context,
                     MaterialPageRoute(builder: (context) => Webinar()));
               },

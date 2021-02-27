@@ -137,95 +137,61 @@ table, th, td {
     }
   }
 
-  displayDialog(BuildContext context) async {
-    return showDialog(
-        useSafeArea: true,
-        context: context,
-        builder: (context) {
-          return AlertDialog(
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.all(
-                Radius.circular(10),
-              ),
-            ),
-            // title: Text('TextField AlertDemo'),
-            content: Container(
-              height: 450,
-              child: Padding(
-                padding: EdgeInsets.only(top: 30, left: 30, right: 30),
-                child: Form(
-                  key: _formKey,
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Container(
-                            height: 320,
-                            child: Image.network("images/webinar/join.svg"),
-                          ),
-                        ],
-                      ),
-                      Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          SizedBox(height: 15),
-                          Container(
-                              height: 80, width: 300, child: _buildName()),
-                          SizedBox(height: 15),
-                          Container(
-                              height: 75,
-                              width: 300,
-                              child: _buildphonenumber()),
-                          SizedBox(height: 15),
-                          Container(
-                              height: 75, width: 300, child: _buildEmail()),
-                          SizedBox(height: 15),
-                          MaterialButton(
-                              minWidth: 310,
-                              color: Colors.lightBlue,
-                              shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(5.0),
-                              ),
-                              child: Padding(
-                                padding: EdgeInsets.only(
-                                    top: 10, bottom: 10, left: 30, right: 30),
-                                child: Text(
-                                  "Join",
-                                  style: TextStyle(
-                                      color: Colors.white, fontSize: 20),
-                                ),
-                              ),
-                              onPressed: () async {
-                                if (_formKey.currentState.validate()) {
-                                  if (name != null &&
-                                      email != null &&
-                                      phoneNumber != null) {
-                                    await _firestore
-                                        .collection('webinar')
-                                        .doc(phoneNumber)
-                                        .set({
-                                      'name': name,
-                                      'email': email,
-                                      'Phone_Number': phoneNumber
-                                    });
-                                  }
-                                  // getData();
-                                  nameController.clear();
-                                  emailController.clear();
-                                  phoneNumberController.clear();
-                                  Navigator.pop(context);
-                                }
-                              }),
-                        ],
-                      )
-                    ],
+  Widget wbinarForm() {
+    return Container(
+      height: 300,
+      child: Padding(
+        padding: EdgeInsets.only(top: 30, left: 30, right: 30),
+        child: Form(
+          key: _formKey,
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              SizedBox(height: 15),
+              Container(child: _buildName()),
+              SizedBox(height: 15),
+              Container(child: _buildphonenumber()),
+              SizedBox(height: 15),
+              Container(child: _buildEmail()),
+              SizedBox(height: 15),
+              MaterialButton(
+                  minWidth: double.infinity,
+                  color: Colors.lightBlue,
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(5.0),
                   ),
-                ),
-              ),
-            ),
-          );
-        });
+                  child: Padding(
+                    padding: EdgeInsets.only(
+                        top: 10, bottom: 10, left: 30, right: 30),
+                    child: Text(
+                      "Join",
+                      style: TextStyle(color: Colors.white, fontSize: 20),
+                    ),
+                  ),
+                  onPressed: () async {
+                    if (_formKey.currentState.validate()) {
+                      if (name != null &&
+                          email != null &&
+                          phoneNumber != null) {
+                        await _firestore
+                            .collection('webinar')
+                            .doc(phoneNumber)
+                            .set({
+                          'name': name,
+                          'email': email,
+                          'Phone_Number': phoneNumber
+                        });
+                      }
+                      getData();
+                      nameController.clear();
+                      emailController.clear();
+                      phoneNumberController.clear();
+                    }
+                  }),
+            ],
+          ),
+        ),
+      ),
+    );
   }
 }

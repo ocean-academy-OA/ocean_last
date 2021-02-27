@@ -4,9 +4,9 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:ocean_project/desktopview/constants.dart';
 import 'package:ocean_project/webinar/get_date.dart';
+import 'package:ocean_project/webinar/webinar_const.dart';
 import 'package:slide_countdown_clock/slide_countdown_clock.dart';
 
-const Color kBlue = Color(0xff36BAFF);
 FirebaseFirestore _firestore = FirebaseFirestore.instance;
 
 class Timer extends StatefulWidget {
@@ -31,7 +31,7 @@ class _TimerState extends State<Timer> {
           DateTime.now().day, DateTime.now().hour, 0)
       .difference(DateTime.now())
       .inMinutes;
-  GetDate _day = GetDate();
+
   @override
   void initState() {
     // TODO: implement initState

@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_countdown_timer/flutter_countdown_timer.dart';
-import 'package:flutter_countdown_timer/index.dart';
+
 import 'package:ocean_project/webinar/countdown.dart';
-import 'package:ocean_project/webinar/webinar.dart';
 
 void main() {
   runApp(MyApp());
