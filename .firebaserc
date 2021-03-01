@@ -1,9 +1,17 @@
 {
   "projects": {
-    "default": "ocean-live"
+    "default": "ocean-live",
+    "oa": "ocean-live-project-ea2e7"
   },
   "targets": {
     "ocean-live": {
+      "hosting": {
+        "user": [
+          "ocean-live-project-ea2e7"
+        ]
+      }
+    },
+    "ocean-live-project-ea2e7": {
       "hosting": {
         "user": [
           "ocean-live-project-ea2e7"

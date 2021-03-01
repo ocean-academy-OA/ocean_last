@@ -264,13 +264,6 @@ class _CoursesViewState extends State<CoursesView> {
                                           listen: false)
                                       .updateCourseSyllabus(
                                           routing: EnrollNew());
-
-                                  // Navigator.push(
-                                  //     context,
-                                  //     MaterialPageRoute(
-                                  //       builder: (context) =>
-                                  //           Course(), //OTP insted of CoursesView()
-                                  //     ));
                                 },
                                 child: Text(
                                   "Enroll New Course",

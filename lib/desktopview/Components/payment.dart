@@ -117,12 +117,7 @@ class _RazorPayWebState extends State<RazorPayWeb> {
 <head><title>RazorPay Web Payment</title></head>
 
 <body>
-
-
-
 <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
-
-
 <script>
 
        var options = {
