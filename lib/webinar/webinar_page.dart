@@ -1,6 +1,6 @@
 import 'dart:html';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:countdown_timer_simple/countdown_timer_simple.dart';
+
 import 'package:email_validator/email_validator.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
@@ -9,13 +9,11 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:intl/intl.dart';
 import 'package:ocean_project/desktopview/constants.dart';
 import 'package:http/http.dart' as http;
-import 'package:ocean_project/webinar/join_alert.dart';
+
 import 'package:ocean_project/webinar/video%20test.dart';
 import 'package:ocean_project/webinar/wbinar_menubar.dart';
 import 'package:ocean_project/webinar/webinar_const.dart';
 import 'package:slide_countdown_clock/slide_countdown_clock.dart';
-
-import 'package:countdown_flutter/countdown_flutter.dart';
 
 void main() {
   runApp(MaterialApp(
@@ -26,6 +24,8 @@ void main() {
 FirebaseFirestore _firestore = FirebaseFirestore.instance;
 
 class WebinarScreen extends StatefulWidget {
+  Timestamp timestamp;
+  WebinarScreen({this.timestamp});
   @override
   _WebinarScreenState createState() => _WebinarScreenState();
 }
@@ -33,7 +33,6 @@ class WebinarScreen extends StatefulWidget {
 class _WebinarScreenState extends State<WebinarScreen> {
   bool timeUp;
   var sDate;
-  Timestamp timestamp;
 
   /// Ijass work start
   String name;
@@ -175,31 +174,24 @@ table, th, td {
   int hourFormat;
   int minuteFormat;
 
-  void retriveTime() async {
+  void retriveTime() {
     print('=============');
-    await for (var snapshot in _firestore
-        .collection('webinar_time')
-        .snapshots(includeMetadataChanges: true)) {
-      for (var message in snapshot.docs) {
-        timestamp = message.data()['timeStamp'];
-        var year = DateFormat('y');
-        var month = DateFormat('MM');
-        var day = DateFormat('d');
-        var hour = DateFormat('hh');
-        var minute = DateFormat('mm');
+    var year = DateFormat('y');
+    var month = DateFormat('MM');
+    var day = DateFormat('d');
+    var hour = DateFormat('hh');
+    var minute = DateFormat('mm');
 
-        yearFormat = int.parse(year.format(timestamp.toDate()));
-        monthFormat = int.parse(month.format(timestamp.toDate()));
-        dayFormat = int.parse(day.format(timestamp.toDate()));
-        hourFormat = int.parse(hour.format(timestamp.toDate()));
-        minuteFormat = int.parse(minute.format(timestamp.toDate()));
+    yearFormat = int.parse(year.format(widget.timestamp.toDate()));
+    monthFormat = int.parse(month.format(widget.timestamp.toDate()));
+    dayFormat = int.parse(day.format(widget.timestamp.toDate()));
+    hourFormat = int.parse(hour.format(widget.timestamp.toDate()));
+    minuteFormat = int.parse(minute.format(widget.timestamp.toDate()));
 
-        sDate = DateTime(
-                yearFormat, monthFormat, dayFormat, hourFormat, minuteFormat)
+    sDate =
+        DateTime(yearFormat, monthFormat, dayFormat, hourFormat, minuteFormat)
             .difference(DateTime.now())
             .inSeconds;
-      }
-    }
   }
 
   /// jayalatha

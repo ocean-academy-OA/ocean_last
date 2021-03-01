@@ -55,6 +55,7 @@ class _NavbarState extends State<Navbar> {
     print(selectDate);
   }
 
+  Timestamp timestamp;
   @override
   void initState() {
     // TODO: implement initState
@@ -76,9 +77,20 @@ class _NavbarState extends State<Navbar> {
                 });
               },
               joinButton: () async {
-                // _getDate.getDateAndTime();
-                Navigator.push(context,
-                    MaterialPageRoute(builder: (context) => WebinarScreen()));
+                await for (var snapshot in _firestore
+                    .collection('webinar_time')
+                    .snapshots(includeMetadataChanges: true)) {
+                  for (var message in snapshot.docs) {
+                    timestamp = message.data()['timeStamp'];
+                  }
+                }
+
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => WebinarScreen(
+                              timestamp: timestamp,
+                            )));
               },
               joinButtonName: 'Join Now',
             ),
