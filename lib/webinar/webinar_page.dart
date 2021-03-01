@@ -6,6 +6,7 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:intl/intl.dart';
 import 'package:ocean_project/desktopview/constants.dart';
 import 'package:http/http.dart' as http;
 import 'package:ocean_project/webinar/join_alert.dart';
@@ -31,17 +32,8 @@ class WebinarScreen extends StatefulWidget {
 
 class _WebinarScreenState extends State<WebinarScreen> {
   bool timeUp;
-  var sDate =
-      DateTime(2021, 03, 04, 10, 30).difference(DateTime.now()).inMilliseconds;
-  final sTime = DateTime(
-          DateTime.now().year, DateTime.now().month, DateTime.now().day, 9, 0)
-      .difference(DateTime.now())
-      .inHours;
-  int sHours;
-  var sMinute = DateTime(DateTime.now().year, DateTime.now().month,
-          DateTime.now().day, DateTime.now().hour, 0)
-      .difference(DateTime.now())
-      .inMinutes;
+  var sDate;
+  Timestamp timestamp;
 
   /// Ijass work start
   String name;
@@ -176,52 +168,41 @@ table, th, td {
 
   /// Ijass work end
   /// jayalatha
-  num hour;
-  int minute;
-  num second = DateTime.now().second;
-  num days;
-  num month;
-  num year;
+
+  int yearFormat;
+  int monthFormat;
+  int dayFormat;
+  int hourFormat;
+  int minuteFormat;
+
   void retriveTime() async {
-    print(sDate);
-    print(sDate / (10000 * 60 * 60 * 24));
-    print((sDate / (10000 * 60 * 60)) % 24);
-    print((sDate / (10000 * 60)) % 60);
-    print((sDate / 10000) % 60);
+    print('=============');
     await for (var snapshot in _firestore
-        .collection('wibinar_time')
+        .collection('webinar_time')
         .snapshots(includeMetadataChanges: true)) {
       for (var message in snapshot.docs) {
-        //print(message.documentID);
-        hour = message.data()['hour'];
-        // minute = message.data()['minute'];
-        days = message.data()['date'];
-        month = message.data()['month'];
-        year = message.data()['year'];
-        minute = message.data()['minute'];
+        timestamp = message.data()['timeStamp'];
+        var year = DateFormat('y');
+        var month = DateFormat('MM');
+        var day = DateFormat('d');
+        var hour = DateFormat('hh');
+        var minute = DateFormat('mm');
 
-        sDate = DateTime(year, month, days).difference(DateTime.now()).inDays;
-        var a = TimeOfDay.now().hour;
-        int b = TimeOfDay.now().minute;
+        yearFormat = int.parse(year.format(timestamp.toDate()));
+        monthFormat = int.parse(month.format(timestamp.toDate()));
+        dayFormat = int.parse(day.format(timestamp.toDate()));
+        hourFormat = int.parse(hour.format(timestamp.toDate()));
+        minuteFormat = int.parse(minute.format(timestamp.toDate()));
 
-        sMinute = minute > b ? minute - b : (60 - b) + minute;
-        print('$sMinute [[[[[[[[[[[[[[[[[[[[[[[[');
-        print(b);
-        print(minute - b);
-        print(a);
-        if (hour > a) {
-          hour = hour - a;
-          print("$hour}result");
-        } else {
-          hour = (hour - a) + 24;
-        }
+        sDate = DateTime(
+                yearFormat, monthFormat, dayFormat, hourFormat, minuteFormat)
+            .difference(DateTime.now())
+            .inSeconds;
       }
     }
   }
 
   /// jayalatha
-
-  WebinarAlert _webinarAlert = WebinarAlert();
 
   @override
   void initState() {
@@ -370,9 +351,7 @@ table, th, td {
                                                       child:
                                                           SlideCountdownClock(
                                                         duration: Duration(
-                                                            days: sDate,
-                                                            hours: hour,
-                                                            minutes: sMinute),
+                                                            seconds: sDate),
                                                         separator: ' : ',
                                                         textStyle: TextStyle(
                                                             fontSize: 40,
