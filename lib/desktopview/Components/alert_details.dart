@@ -17,10 +17,6 @@ import 'package:firebase_auth/firebase_auth.dart';
 
 import 'package:timer_count_down/timer_count_down.dart';
 
-void main() {
-  runApp(MaterialApp(home: AlertDetails()));
-}
-
 class AlertDetails extends StatefulWidget {
   static String userID;
   @override
@@ -28,96 +24,6 @@ class AlertDetails extends StatefulWidget {
 }
 
 class _AlertDetailsState extends State<AlertDetails> {
-  // FirebaseAuth auth = FirebaseAuth.instance;
-  // FirebaseFirestore _firestore = FirebaseFirestore.instance;
-  // String otp;
-  // TextEditingController _otp = TextEditingController();
-  // UserCredential userCredential;
-  // String count;
-  // bool isLogin = false;
-  // _clickHere() async {
-  //   try {
-  //     const url = 'https://flutter.dev';
-  //     if (await canLaunch(url)) {
-  //       await launch(url);
-  //     } else {
-  //       throw 'Could not launch $url';
-  //     }
-  //   } catch (e) {
-  //     print(e);
-  //   }
-  // }
-  //
-  // List<dynamic> otpCount(int count) {
-  //   List<Widget> otp = [];
-  //   for (int i = 0; i < count; i++) {
-  //     otp.add(OTPInput());
-  //   }
-  //   otp.insert(0, SizedBox(width: 5));
-  //   int lis = otp.length;
-  //   otp.insert(lis, SizedBox(width: 5));
-  //   return otp;
-  // }
-  //
-  // session() async {
-  //   SharedPreferences prefs = await SharedPreferences.getInstance();
-  //   await prefs.setInt('login', 1);
-  //   await prefs.setString('user', LogIn.registerNumber);
-  //   print('Otp Submited');
-  // }
-  //
-  // _verifyPhone() async {
-  //   try {
-  //     setState(() {
-  //       // Navbar.visiblity = false;
-  //     });
-  //     userCredential = await LogIn.confirmationResult.confirm(_otp.text);
-  //
-  //     AlertOtp.userID = LogIn.confirmationResult.toString();
-  //     AlertOtp.userID = LogIn.registerNumber;
-  //     print('${AlertOtp.userID} ppppppppppppppppppp');
-  //     userSession =
-  //     await _firestore.collection('new users').doc(AlertOtp.userID).get();
-  //
-  //     if (userSession.data() != null) {
-  //       setState(() {
-  //         isLogin = true;
-  //       });
-  //
-  //       // Navigator.push(
-  //       //     context, MaterialPageRoute(builder: (context) => CoursesView()));
-  //       Provider.of<OALive>(context, listen: false)
-  //           .updateOA(routing: CoursesView());
-  //
-  //       print('Otp.................got');
-  //
-  //       //CoursesView() insted of Home,
-  //
-  //       session();
-  //     } else {
-  //       Provider.of<Routing>(context, listen: false)
-  //           .updateRouting(widget: Registration());
-  //     }
-  //   } catch (e) {
-  //     print(e);
-  //     ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-  //         content: Row(
-  //           mainAxisAlignment: MainAxisAlignment.center,
-  //           children: [
-  //             Text(
-  //               'OTP Invalid',
-  //               style: TextStyle(fontSize: 30.0),
-  //             ),
-  //           ],
-  //         )));
-  //   }
-  // }
-  //
-  // var userSession;
-  // getData() async {
-  //   print(userSession.data() != null);
-  // }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -215,13 +121,6 @@ class _AlertDetailsState extends State<AlertDetails> {
                                             fillColor: Colors.white,
                                             border: OutlineInputBorder(),
                                             hintText: "Enter your email"),
-                                        //controller: _phoneNumberController,
-                                        // inputFormatters: [
-                                        //   FilteringTextInputFormatter.allow(
-                                        //       RegExp(r'^\d+\.?\d{0,1}')),
-                                        //   LengthLimitingTextInputFormatter(
-                                        //       13),
-                                        // ],
                                         onChanged: (value) {
                                           setState(() {
                                             // phoneNumber = value;

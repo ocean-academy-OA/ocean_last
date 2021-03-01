@@ -2,21 +2,16 @@ import 'dart:html';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:ocean_project/desktopview/new_user_widget/otp_inputs.dart';
 import 'package:otp_text_field/otp_text_field.dart';
-
 import 'package:timer_count_down/timer_count_down.dart';
-
 import 'package:country_code_picker/country_code_picker.dart';
 import 'package:country_code_picker/country_codes.dart';
-
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/services.dart';
 import 'package:ocean_project/alert/alert_msg.dart';
 import 'package:ocean_project/desktopview/Components/course_enrole.dart';
-
 import 'package:ocean_project/desktopview/constants.dart';
 import 'package:ocean_project/desktopview/new_user_screen/log_in.dart';
-
 import 'package:ocean_project/desktopview/new_user_screen/registration.dart';
 import 'package:ocean_project/desktopview/route/routing.dart';
 import 'package:ocean_project/desktopview/screen/course_details.dart';

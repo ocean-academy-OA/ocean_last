@@ -13,25 +13,12 @@ final _firestore = FirebaseFirestore.instance;
 
 class EnrollNew extends StatefulWidget {
   bool isEnroll = false;
-  // bool online;
-  //
-  // CoursesWidget({
-  //   this.online,
-  // });
 
   @override
   _EnrollNewState createState() => _EnrollNewState();
 }
 
 class _EnrollNewState extends State<EnrollNew> {
-  // void getMessage() async {
-  //   final message = await _firestore.collection('contact_us').get();
-  //   print(message.docs);
-  //
-  //   for (var courses in message.docs) {
-  //     print(courses.data()["Email"]);
-  //   }
-  // }
   List<String> subjects = [];
   @override
   void initState() {

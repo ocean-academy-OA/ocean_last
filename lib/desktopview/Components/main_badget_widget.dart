@@ -1,7 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:ocean_project/desktopview/Components/comment.dart';
-import 'package:ocean_project/desktopview/constants.dart';
 import 'package:ocean_project/text.dart';
 
 import 'badge_widget.dart';

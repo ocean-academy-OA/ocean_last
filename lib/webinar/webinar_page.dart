@@ -211,6 +211,7 @@ table, th, td {
   void initState() {
     // TODO: implement initState
     super.initState();
+    retriveTime();
   }
 
   @override
