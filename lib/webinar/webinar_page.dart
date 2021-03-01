@@ -13,6 +13,7 @@ import 'package:http/http.dart' as http;
 import 'package:ocean_project/webinar/video%20test.dart';
 import 'package:ocean_project/webinar/wbinar_menubar.dart';
 import 'package:ocean_project/webinar/webinar_const.dart';
+import 'package:ocean_project/webinar/webinar_footer.dart';
 import 'package:slide_countdown_clock/slide_countdown_clock.dart';
 
 void main() {
@@ -201,7 +202,7 @@ table, th, td {
     // TODO: implement initState
     super.initState();
 
-    retriveTime();
+    // retriveTime();
   }
 
   @override
@@ -212,6 +213,7 @@ table, th, td {
           child: Column(
             children: [
               WebinarMenu(),
+              WebinarFooter(),
               Container(
                 alignment: Alignment.center,
                 height: 40,
@@ -343,7 +345,7 @@ table, th, td {
                                                       child:
                                                           SlideCountdownClock(
                                                         duration: Duration(
-                                                            seconds: sDate),
+                                                            seconds: 1000),
                                                         separator: ' : ',
                                                         textStyle: TextStyle(
                                                             fontSize: 40,
@@ -783,6 +785,7 @@ table, th, td {
                 ),
               ),
               SizedBox(height: 40),
+              WebinarFooter(),
             ],
           ),
         ),
