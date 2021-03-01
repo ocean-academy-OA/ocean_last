@@ -1,3 +1,5 @@
+import 'dart:html';
+
 import 'package:flutter/material.dart';
 
 class WebinarFooter extends StatelessWidget {
@@ -7,10 +9,12 @@ class WebinarFooter extends StatelessWidget {
       child: Row(
         children: [
           Container(
-            height: 100,
-            color: Colors.grey[200],
-            child: Image.network('images/webinar/oa logo.svg'),
-          )
+              height: 80,
+              color: Colors.grey[200],
+              child: Image(
+                image: NetworkImage('images/ss.svg'),
+                fit: BoxFit.cover,
+              )),
         ],
       ),
     );

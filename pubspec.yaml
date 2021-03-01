@@ -31,7 +31,7 @@ dependencies:
   responsive_builder: ^0.3.0
   provider: ^4.3.2+3
   font_awesome_flutter: ^8.11.0
-  readmore: ^1.0.0
+
   dropdownfield: ^1.0.3
   flutter_webview_plugin: ^0.2.1+2
   google_maps: ">=3.0.0 <4.0.0"
