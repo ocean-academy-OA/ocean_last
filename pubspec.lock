@@ -113,6 +113,20 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "2.1.1"
+  countdown_flutter:
+    dependency: "direct main"
+    description:
+      name: countdown_flutter
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "0.1.2"
+  countdown_timer_simple:
+    dependency: "direct main"
+    description:
+      name: countdown_timer_simple
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "1.0.2"
   country_code_picker:
     dependency: "direct main"
     description:

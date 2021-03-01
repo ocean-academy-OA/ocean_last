@@ -1,5 +1,6 @@
 import 'dart:html';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:countdown_timer_simple/countdown_timer_simple.dart';
 import 'package:email_validator/email_validator.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
@@ -12,6 +13,8 @@ import 'package:ocean_project/webinar/video%20test.dart';
 import 'package:ocean_project/webinar/wbinar_menubar.dart';
 import 'package:ocean_project/webinar/webinar_const.dart';
 import 'package:slide_countdown_clock/slide_countdown_clock.dart';
+
+import 'package:countdown_flutter/countdown_flutter.dart';
 
 void main() {
   runApp(MaterialApp(
@@ -28,7 +31,8 @@ class WebinarScreen extends StatefulWidget {
 
 class _WebinarScreenState extends State<WebinarScreen> {
   bool timeUp;
-  var sDate = DateTime(2021, 02, 28).difference(DateTime.now()).inDays;
+  var sDate =
+      DateTime(2021, 03, 04, 10, 30).difference(DateTime.now()).inMilliseconds;
   final sTime = DateTime(
           DateTime.now().year, DateTime.now().month, DateTime.now().day, 9, 0)
       .difference(DateTime.now())
@@ -173,26 +177,38 @@ table, th, td {
   /// Ijass work end
   /// jayalatha
   num hour;
-  num minute;
-  num second;
+  int minute;
+  num second = DateTime.now().second;
   num days;
   num month;
   num year;
   void retriveTime() async {
+    print(sDate);
+    print(sDate / (10000 * 60 * 60 * 24));
+    print((sDate / (10000 * 60 * 60)) % 24);
+    print((sDate / (10000 * 60)) % 60);
+    print((sDate / 10000) % 60);
     await for (var snapshot in _firestore
-        .collection('admin')
+        .collection('wibinar_time')
         .snapshots(includeMetadataChanges: true)) {
       for (var message in snapshot.docs) {
         //print(message.documentID);
         hour = message.data()['hour'];
-        minute = message.data()['minute'];
-        days = message.data()['day'];
+        // minute = message.data()['minute'];
+        days = message.data()['date'];
         month = message.data()['month'];
         year = message.data()['year'];
+        minute = message.data()['minute'];
 
         sDate = DateTime(year, month, days).difference(DateTime.now()).inDays;
         var a = TimeOfDay.now().hour;
-        var b = TimeOfDay.now().minute;
+        int b = TimeOfDay.now().minute;
+
+        sMinute = minute > b ? minute - b : (60 - b) + minute;
+        print('$sMinute [[[[[[[[[[[[[[[[[[[[[[[[');
+        print(b);
+        print(minute - b);
+        print(a);
         if (hour > a) {
           hour = hour - a;
           print("$hour}result");
@@ -211,6 +227,7 @@ table, th, td {
   void initState() {
     // TODO: implement initState
     super.initState();
+
     retriveTime();
   }
 
@@ -369,7 +386,8 @@ table, th, td {
                                                         shouldShowDays: true,
                                                         onDone: () {
                                                           setState(() {
-                                                            timeUp = true;
+                                                            print(
+                                                                DateTime.now());
                                                           });
                                                         },
                                                       ),
