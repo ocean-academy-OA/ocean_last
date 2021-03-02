@@ -59,7 +59,7 @@ class _EditProfileState extends State<EditProfile> {
   final _country = TextEditingController();
   final _state = TextEditingController();
   final _phoneNumber = TextEditingController();
-  final _portfolioLink = TextEditingController();
+
   List inputFormatte({@required String regExp, int length}) {
     List<TextInputFormatter> formater = [
       FilteringTextInputFormatter.allow(RegExp(regExp)),
@@ -87,7 +87,6 @@ class _EditProfileState extends State<EditProfile> {
       _country.text = detailsData['Country'];
       _state.text = detailsData['State'];
       _phoneNumber.text = detailsData['Phone Number'];
-      _portfolioLink.text = detailsData['Portfolio'];
       profilePictureLink = detailsData['Profile Picture'];
     });
   }
@@ -542,17 +541,6 @@ class _EditProfileState extends State<EditProfile> {
                               inputFormatters: inputFormatte(
                                   regExp: r'^\d+\.?\d{0,2}', length: 15),
                             ),
-                            // LableWithTextField(
-                            //   color: Colors.black,
-                            //   lableText: 'Portfolio Link',
-                            //   errorText: 'Link not Found',
-                            //   rReadOnly:
-                            //       EditProfile.readOnly == false ? false : true,
-                            //   width: 300.0,
-                            //   controller: _portfolioLink,
-                            //   visible: isPortfolioLink,
-                            //   onChanged: (value) {},
-                            // ),
                           ],
                         ),
                       ),
@@ -578,9 +566,10 @@ class _EditProfileState extends State<EditProfile> {
                                 shape: RoundedRectangleBorder(
                                     borderRadius: BorderRadius.circular(5.0)),
                                 onPressed: () {
-                                  fireStoreAdd();
-                                  registerFormValidation();
-                                  EditProfile.readOnly = true;
+                                  if (registerFormValidation() == true) {
+                                    fireStoreAdd();
+                                    EditProfile.readOnly = true;
+                                  }
                                 }),
                           ),
                         ],
@@ -650,55 +639,171 @@ class _EditProfileState extends State<EditProfile> {
     return (!regex.hasMatch(value)) ? false : true;
   }
 
-  void registerFormValidation() {
+  // void registerFormValidation() {
+  //   // first name
+  //   if (!nameValidation(_firstName.text) || _firstName.text.length < 3) {
+  //     setState(() {
+  //       isFirstName = true;
+  //     });
+  //   } else {
+  //     setState(() {
+  //       isFirstName = false;
+  //     });
+  //   }
+  //   //last name
+  //   if (!nameValidation(_lastName.text) || _lastName.text.length < 3) {
+  //     setState(() {
+  //       isLastName = true;
+  //     });
+  //   } else {
+  //     setState(() {
+  //       isLastName = false;
+  //     });
+  //   }
+  //   // gender
+  //   if (GenderDropdownField.gendVal == null) {
+  //     setState(() {
+  //       isGender = true;
+  //     });
+  //   } else {
+  //     setState(() {
+  //       isGender = false;
+  //     });
+  //   }
+  //   //date
+  //   if (_dateOfBirth.text.isEmpty || _dateOfBirth.text == null) {
+  //     setState(() {
+  //       isDateOfBirth = true;
+  //     });
+  //   } else {
+  //     setState(() {
+  //       isDateOfBirth = false;
+  //     });
+  //   }
+  //   // email
+  //   if (!validateEmail(_eMail.text)) {
+  //     setState(() {
+  //       isEmail = true;
+  //     });
+  //   } else {
+  //     setState(() {
+  //       isEmail = false;
+  //     });
+  //   }
+  //   //Company or school
+  //   if (!nameValidation(_companyOrSchool.text) ||
+  //       _companyOrSchool.text.length < 3) {
+  //     setState(() {
+  //       isCompanyOrSchool = true;
+  //     });
+  //   } else {
+  //     setState(() {
+  //       isCompanyOrSchool = false;
+  //     });
+  //   }
+  //   //Degree
+  //   if (!nameValidation(_dgree.text) || _dgree.text.length < 1) {
+  //     setState(() {
+  //       isDegree = true;
+  //     });
+  //   } else {
+  //     setState(() {
+  //       isDegree = false;
+  //     });
+  //   }
+  //   //Country
+  //   if (!nameValidation(_country.text) || _country.text.length < 3) {
+  //     setState(() {
+  //       isCountry = true;
+  //     });
+  //   } else {
+  //     setState(() {
+  //       isCountry = false;
+  //     });
+  //   }
+  //   //state
+  //   if (!nameValidation(_state.text) || _state.text.length < 3) {
+  //     setState(() {
+  //       isState = true;
+  //     });
+  //   } else {
+  //     setState(() {
+  //       isState = false;
+  //     });
+  //   }
+  //   //phonenumber
+  //   if (_phoneNumber.text.length < 6) {
+  //     setState(() {
+  //       isPhoneNumber = true;
+  //     });
+  //   } else {
+  //     setState(() {
+  //       isPhoneNumber = false;
+  //     });
+  //   }
+  //   //portfolio
+  // }
+  bool registerFormValidation() {
+    bool ifRFV = false;
+    bool elseRFV = true;
     // first name
     if (!nameValidation(_firstName.text) || _firstName.text.length < 3) {
       setState(() {
         isFirstName = true;
+        ifRFV = isFirstName;
       });
     } else {
       setState(() {
         isFirstName = false;
+        elseRFV = isFirstName;
       });
     }
     //last name
     if (!nameValidation(_lastName.text) || _lastName.text.length < 3) {
       setState(() {
         isLastName = true;
+        ifRFV = isLastName;
       });
     } else {
       setState(() {
         isLastName = false;
+        elseRFV = isLastName;
       });
     }
     // gender
     if (GenderDropdownField.gendVal == null) {
       setState(() {
         isGender = true;
+        ifRFV = isGender;
       });
     } else {
       setState(() {
         isGender = false;
+        elseRFV = isGender;
       });
     }
     //date
-    if (_dateOfBirth.text.isEmpty || _dateOfBirth.text == null) {
+    if (_dateOfBirth.text.isEmpty) {
       setState(() {
         isDateOfBirth = true;
+        ifRFV = isDateOfBirth;
       });
     } else {
       setState(() {
         isDateOfBirth = false;
+        elseRFV = isDateOfBirth;
       });
     }
     // email
     if (!validateEmail(_eMail.text)) {
       setState(() {
         isEmail = true;
+        ifRFV = isEmail;
       });
     } else {
       setState(() {
         isEmail = false;
+        elseRFV = isEmail;
       });
     }
     //Company or school
@@ -706,52 +811,63 @@ class _EditProfileState extends State<EditProfile> {
         _companyOrSchool.text.length < 3) {
       setState(() {
         isCompanyOrSchool = true;
+        ifRFV = isCompanyOrSchool;
       });
     } else {
       setState(() {
         isCompanyOrSchool = false;
+        elseRFV = isCompanyOrSchool;
       });
     }
     //Degree
     if (!nameValidation(_dgree.text) || _dgree.text.length < 1) {
       setState(() {
         isDegree = true;
+        ifRFV = isDegree;
       });
     } else {
       setState(() {
         isDegree = false;
+        elseRFV = isDegree;
       });
     }
     //Country
-    if (!nameValidation(_country.text) || _country.text.length < 3) {
+    if (_country.text.isEmpty) {
       setState(() {
         isCountry = true;
+        ifRFV = isCountry;
       });
     } else {
       setState(() {
         isCountry = false;
+        elseRFV = isCountry;
       });
     }
     //state
-    if (!nameValidation(_state.text) || _state.text.length < 3) {
+    if (_state.text.isEmpty) {
       setState(() {
         isState = true;
+        ifRFV = isState;
       });
     } else {
       setState(() {
         isState = false;
+        elseRFV = isState;
       });
     }
     //phonenumber
     if (_phoneNumber.text.length < 6) {
       setState(() {
         isPhoneNumber = true;
+        ifRFV = isPhoneNumber;
       });
     } else {
       setState(() {
         isPhoneNumber = false;
+        elseRFV = isPhoneNumber;
       });
     }
-    //portfolio
+
+    return ifRFV == elseRFV;
   }
 }

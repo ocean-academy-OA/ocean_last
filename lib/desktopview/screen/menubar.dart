@@ -7,6 +7,7 @@ import 'package:ocean_project/desktopview/Components/flash_notification.dart';
 import 'package:ocean_project/desktopview/Components/ocean_icons.dart';
 import 'package:ocean_project/desktopview/new_user_screen/log_in.dart';
 import 'package:ocean_project/desktopview/route/routing.dart';
+import 'package:ocean_project/desktopview/screen/career.dart';
 import 'package:ocean_project/desktopview/screen/contact_us.dart';
 import 'package:ocean_project/desktopview/screen/courses.dart';
 
@@ -113,22 +114,21 @@ class _NavbarState extends State<Navbar> {
                             .updateRouting(widget: Home());
                       },
                       child: Row(
-                        mainAxisAlignment: MainAxisAlignment.start,
+                        mainAxisAlignment: MainAxisAlignment.center,
                         children: <Widget>[
                           Icon(
                             Ocean.oa,
                             size: 50.0,
                             color: Colors.blue,
                           ),
-                          SizedBox(
-                            width: 10,
-                          ),
+                          SizedBox(width: 5),
                           Text(
                             "ocean academy",
                             style: TextStyle(
                                 fontWeight: FontWeight.bold,
                                 color: Color(0xFF0091D2),
-                                fontSize: 30),
+                                fontSize: 35,
+                                fontFamily: 'Ubuntu'),
                           ),
                         ],
                       ),
@@ -156,7 +156,7 @@ class _NavbarState extends State<Navbar> {
                         SizedBox(
                           width: 60.0,
                         ),
-                        menuItem(text: 'Career', widget: Home()),
+                        menuItem(text: 'Career', widget: Career()),
                         SizedBox(
                           width: 60.0,
                         ),

@@ -59,7 +59,7 @@ class _RegistrationState extends State<Registration> {
   final _country = TextEditingController();
   final _state = TextEditingController();
   final _phoneNumber = TextEditingController(text: LogIn.registerNumber);
-  final _portfolioLink = TextEditingController();
+
   List inputFormatte({@required String regExp, int length}) {
     List<TextInputFormatter> formater = [
       FilteringTextInputFormatter.allow(RegExp(regExp)),
@@ -379,14 +379,6 @@ class _RegistrationState extends State<Registration> {
                           controller: _phoneNumber,
                           onChanged: (value) {},
                         ),
-                        // LableWithTextField(
-                        //   lableText: 'Portfolio Link',
-                        //   errorText: 'Link not Found',
-                        //   width: 300.0,
-                        //   controller: _portfolioLink,
-                        //   visible: isPortfolioLink,
-                        //   onChanged: (value) {},
-                        // ),
                       ],
                     ),
                   ),
@@ -453,7 +445,6 @@ class _RegistrationState extends State<Registration> {
       'Country': country,
       'State': state,
       'Phone Number': _phoneNumber.text,
-      'Portfolio': _portfolioLink.text,
       'Courses': [],
       'batchid': [],
     });
@@ -473,7 +464,6 @@ class _RegistrationState extends State<Registration> {
     country = null;
     state = null;
     _phoneNumber.clear();
-    _portfolioLink.clear();
   }
 
   bool isEmail = false;
@@ -486,7 +476,7 @@ class _RegistrationState extends State<Registration> {
   bool isCountry = false;
   bool isState = false;
   bool isPhoneNumber = false;
-  bool isPortfolioLink = false;
+
   bool validateEmail(String value) {
     Pattern pattern =
         r'^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$';
@@ -637,18 +627,7 @@ class _RegistrationState extends State<Registration> {
         elseRFV = isPhoneNumber;
       });
     }
-    //portfolio
-    // if (!validateUrl(_portfolioLink.text)) {
-    //   setState(() {
-    //     isPortfolioLink = true;
-    //     ifRFV = isPortfolioLink;
-    //   });
-    // } else {
-    //   setState(() {
-    //     isPortfolioLink = false;
-    //     elseRFV = isPortfolioLink;
-    //   });
-    // }
+
     return ifRFV == elseRFV;
   }
 }

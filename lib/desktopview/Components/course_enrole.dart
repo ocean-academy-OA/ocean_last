@@ -10,6 +10,7 @@ import 'package:ocean_project/desktopview/Components/enrool_appbar.dart';
 import 'package:ocean_project/desktopview/Components/main_notification.dart';
 import 'package:ocean_project/desktopview/Components/payment.dart';
 import 'package:ocean_project/desktopview/Components/user_profile.dart';
+import 'package:ocean_project/desktopview/constants.dart';
 import 'package:ocean_project/desktopview/new_user_screen/log_in.dart';
 import 'package:ocean_project/desktopview/route/routing.dart';
 import 'package:ocean_project/desktopview/screen/course_details.dart';
@@ -165,7 +166,7 @@ class _CoursesViewState extends State<CoursesView> {
     // String username = (prefs.getString('user') ?? null);
     //Navbar.visiblity = false;
     return MaterialApp(
-      theme: ThemeData(fontFamily: 'Ubuntu'),
+      theme: ThemeData(fontFamily: kfontname),
       home: Scaffold(
         appBar: PreferredSize(
           preferredSize: Size.fromHeight(100),

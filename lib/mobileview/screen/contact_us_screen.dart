@@ -220,7 +220,7 @@ table, th, td {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      theme: ThemeData(fontFamily: 'Ubuntu'),
+      theme: ThemeData(fontFamily: kfontname),
       debugShowCheckedModeBanner: false,
       home: Scaffold(
         body: SingleChildScrollView(

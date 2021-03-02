@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:ocean_project/desktopview/constants.dart';
 import 'package:ocean_project/mobileview/route/routing.dart';
 import 'package:ocean_project/mobileview/screen/menubar.dart';
 import 'package:provider/provider.dart';
@@ -16,7 +17,7 @@ class OceanMobileView extends StatelessWidget {
     return ChangeNotifierProvider(
         create: (context) => Routing(),
         child: MaterialApp(
-          theme: ThemeData(fontFamily: 'Ubuntu'),
+          theme: ThemeData(fontFamily: kfontname),
           home: Navbar(),
           debugShowCheckedModeBanner: false,
         ));

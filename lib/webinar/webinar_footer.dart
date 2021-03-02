@@ -1,5 +1,3 @@
-
-
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:ocean_project/desktopview/Components/ocean_icons.dart';
@@ -19,7 +17,7 @@ class WebinarFooter extends StatelessWidget {
         children: [
           Spacer(),
           Container(
-            width: 300,
+            width: 350,
             child: Row(
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
