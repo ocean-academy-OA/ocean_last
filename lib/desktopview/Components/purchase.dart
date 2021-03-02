@@ -153,7 +153,6 @@ class Purchase extends StatelessWidget {
                     );
                     // Text('$messageText from $messageSender');
                     data.add(sample);
-                    print("jaya");
                     print(data);
                   }
                   return Column(
