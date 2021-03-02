@@ -56,10 +56,21 @@ class _NavbarState extends State<Navbar> {
   }
 
   Timestamp timestamp;
+  retriveTime() async {
+    await for (var snapshot in _firestore
+        .collection('webinar_time')
+        .snapshots(includeMetadataChanges: true)) {
+      for (var message in snapshot.docs) {
+        timestamp = message.data()['timeStamp'];
+      }
+    }
+  }
+
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
+    retriveTime();
   }
 
   @override
@@ -77,14 +88,6 @@ class _NavbarState extends State<Navbar> {
                 });
               },
               joinButton: () async {
-                await for (var snapshot in _firestore
-                    .collection('webinar_time')
-                    .snapshots(includeMetadataChanges: true)) {
-                  for (var message in snapshot.docs) {
-                    timestamp = message.data()['timeStamp'];
-                  }
-                }
-
                 Navigator.push(
                     context,
                     MaterialPageRoute(

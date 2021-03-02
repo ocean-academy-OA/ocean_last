@@ -457,7 +457,7 @@ class _EditProfileState extends State<EditProfile> {
                                     dOB = DateFormat('d-M-y')
                                         .format(selectedDate);
                                     _dateOfBirth.text = dOB;
-                                    print('${dOB}');
+                                    print(dOB);
                                   });
                                 },
                               ),

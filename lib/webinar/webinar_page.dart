@@ -203,7 +203,7 @@ table, th, td {
     // TODO: implement initState
     super.initState();
 
-    // retriveTime();
+    retriveTime();
   }
 
   @override
@@ -215,7 +215,6 @@ table, th, td {
             children: [
               WebinarMenu(),
 
-              WebinarFooter(),
               Container(
                 alignment: Alignment.center,
                 height: 40,
@@ -347,7 +346,7 @@ table, th, td {
                                                       child:
                                                           SlideCountdownClock(
                                                         duration: Duration(
-                                                            seconds: 1000),
+                                                            seconds: sDate),
                                                         separator: ' : ',
                                                         textStyle: TextStyle(
                                                             fontSize: 40,
@@ -416,18 +415,6 @@ table, th, td {
                                         ],
                                       ),
                                     ),
-                                    // Positioned(
-                                    //   bottom: 2,
-                                    //   child: Container(
-                                    //     padding: EdgeInsets.symmetric(
-                                    //         horizontal: 10),
-                                    //     color: Colors.white,
-                                    //     child: Text(
-                                    //       'Webinar Start in...',
-                                    //       style: TextStyle(fontSize: 15),
-                                    //     ),
-                                    //   ),
-                                    // ),
                                   ],
                                 ),
                               ),
@@ -463,15 +450,19 @@ table, th, td {
                           ),
                           Container(
                             margin: EdgeInsets.only(top: 0),
-                            child: FlatButton(
+                            child: MaterialButton(
                                 child: Text(
                                   'Join',
                                   style: TextStyle(
-                                      fontSize: 20, color: Colors.white),
+                                      fontSize: 20,
+                                      color: Colors.white,
+                                      fontWeight: FontWeight.bold),
                                 ),
                                 color: kBlue,
                                 minWidth: double.infinity,
                                 height: 60,
+                                elevation: 0,
+                                hoverElevation: 0,
                                 onPressed: () async {
                                   print('1');
                                   if (_formKey.currentState.validate()) {
