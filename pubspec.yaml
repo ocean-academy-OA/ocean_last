@@ -115,6 +115,7 @@ flutter:
     - images/
     - images/webinar/
     - images/download pdf/
+    - images/service images/
 
 
   # To add assets to your application, add an assets section, like this:
