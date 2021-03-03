@@ -61,7 +61,6 @@ class _WebinarMenuState extends State<WebinarMenu> {
                 GestureDetector(
                   onTap: () {
                     Navbar.visiblity = true;
-                    print("jaya");
                     Provider.of<Routing>(context, listen: false)
                         .updateRouting(widget: ContactUs());
                     Provider.of<OALive>(context, listen: false)
@@ -82,7 +81,6 @@ class _WebinarMenuState extends State<WebinarMenu> {
                   onTap: () {
                     Navbar.visiblity = true;
                     Navbar.isNotification = true;
-                    print("jaya");
                     Provider.of<Routing>(context, listen: false)
                         .updateRouting(widget: LogIn());
                     Provider.of<OALive>(context, listen: false)

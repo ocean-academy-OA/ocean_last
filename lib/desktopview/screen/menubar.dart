@@ -23,6 +23,7 @@ FirebaseFirestore _firestore = FirebaseFirestore.instance;
 
 class Navbar extends StatefulWidget {
   static bool visiblity = true;
+  static bool isNotification = true;
   @override
   _NavbarState createState() => _NavbarState();
 }
@@ -36,7 +37,7 @@ class _NavbarState extends State<Navbar> {
     'Contact Us': false,
     'Career': false,
   };
-  bool isNotification = true;
+
   // getDateFromDb() async {
   //   var timeing =
   //       await _firestore.collection('webinar').doc('free_webinar').get();
@@ -69,11 +70,11 @@ class _NavbarState extends State<Navbar> {
       body: Column(
         children: [
           Visibility(
-            visible: isNotification,
+            visible: Navbar.isNotification,
             child: FlashNotification(
               dismissNotification: () {
                 setState(() {
-                  isNotification = false;
+                  Navbar.isNotification = false;
                 });
               },
               joinButton: () async {
@@ -84,13 +85,10 @@ class _NavbarState extends State<Navbar> {
                     timestamp = message.data()['timeStamp'];
                   }
                 }
-
-                Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) => WebinarScreen(
-                              timestamp: timestamp,
-                            )));
+                Provider.of<Routing>(context, listen: false).updateRouting(
+                    widget: WebinarScreen(
+                  timestamp: timestamp,
+                ));
               },
               joinButtonName: 'Join Now',
             ),
