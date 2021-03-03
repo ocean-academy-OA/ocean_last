@@ -5,7 +5,7 @@ import 'package:ocean_project/desktopview/Components/main_title_widget.dart';
 import 'package:ocean_project/desktopview/review/reviews.dart';
 
 import 'package:readmore/readmore.dart';
-
+import 'package:smooth_star_rating/smooth_star_rating.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 final _firestore = FirebaseFirestore.instance;

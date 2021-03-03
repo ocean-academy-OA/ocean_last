@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:ocean_project/desktopview/constants.dart';
 import 'package:ocean_project/desktopview/main.dart';
 import 'package:ocean_project/mobileview/main.dart';
 import 'package:provider/provider.dart';
@@ -10,7 +11,7 @@ import 'desktopview/route/routing.dart';
 void main() {
   runApp(
     MaterialApp(
-      theme: ThemeData(fontFamily: 'Ubuntu'),
+      theme: ThemeData(fontFamily: kfontname),
       debugShowCheckedModeBanner: false,
       home: ScreenTypeLayout(),
     ),

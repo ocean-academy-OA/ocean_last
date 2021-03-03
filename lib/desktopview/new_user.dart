@@ -1,6 +1,7 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:ocean_project/desktopview/constants.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import 'package:ocean_project/desktopview/screen/home_screen.dart';
@@ -14,7 +15,7 @@ void main() async {
 
   Firebase.initializeApp();
   await runApp(MaterialApp(
-    theme: ThemeData(fontFamily: 'Ubuntu'),
+    theme: ThemeData(fontFamily: kfontname),
     supportedLocales: [
       Locale('en'),
     ],

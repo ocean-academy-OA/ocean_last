@@ -214,7 +214,8 @@ class _OnlineCourseState extends State<OnlineCourse> {
                     style: TextStyle(
                         fontSize: 20.0,
                         color: Colors.grey[600],
-                        fontFamily: 'Gilroy'),
+                        fontFamily: 'Gilroy',
+                        fontWeight: FontWeight.normal),
                   ),
                 ),
                 Padding(

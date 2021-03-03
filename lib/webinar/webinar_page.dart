@@ -12,7 +12,9 @@ import 'package:http/http.dart' as http;
 
 import 'package:ocean_project/webinar/video%20test.dart';
 import 'package:ocean_project/webinar/wbinar_menubar.dart';
+import 'package:ocean_project/webinar/webinar.dart';
 import 'package:ocean_project/webinar/webinar_const.dart';
+import 'package:ocean_project/webinar/webinar_footer.dart';
 import 'package:slide_countdown_clock/slide_countdown_clock.dart';
 
 void main() {
@@ -212,6 +214,7 @@ table, th, td {
           child: Column(
             children: [
               WebinarMenu(),
+
               Container(
                 alignment: Alignment.center,
                 height: 40,
@@ -412,18 +415,6 @@ table, th, td {
                                         ],
                                       ),
                                     ),
-                                    // Positioned(
-                                    //   bottom: 2,
-                                    //   child: Container(
-                                    //     padding: EdgeInsets.symmetric(
-                                    //         horizontal: 10),
-                                    //     color: Colors.white,
-                                    //     child: Text(
-                                    //       'Webinar Start in...',
-                                    //       style: TextStyle(fontSize: 15),
-                                    //     ),
-                                    //   ),
-                                    // ),
                                   ],
                                 ),
                               ),
@@ -459,15 +450,19 @@ table, th, td {
                           ),
                           Container(
                             margin: EdgeInsets.only(top: 0),
-                            child: FlatButton(
+                            child: MaterialButton(
                                 child: Text(
                                   'Join',
                                   style: TextStyle(
-                                      fontSize: 20, color: Colors.white),
+                                      fontSize: 20,
+                                      color: Colors.white,
+                                      fontWeight: FontWeight.bold),
                                 ),
                                 color: kBlue,
                                 minWidth: double.infinity,
                                 height: 60,
+                                elevation: 0,
+                                hoverElevation: 0,
                                 onPressed: () async {
                                   print('1');
                                   if (_formKey.currentState.validate()) {
@@ -783,6 +778,7 @@ table, th, td {
                 ),
               ),
               SizedBox(height: 40),
+              WebinarFooter(),
             ],
           ),
         ),

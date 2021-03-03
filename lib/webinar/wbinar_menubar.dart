@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:ocean_project/desktopview/Components/ocean_icons.dart';
 import 'package:ocean_project/desktopview/constants.dart';
 import 'package:ocean_project/desktopview/new_user_screen/log_in.dart';
 import 'package:ocean_project/desktopview/route/routing.dart';
@@ -20,7 +21,7 @@ class _WebinarMenuState extends State<WebinarMenu> {
     return Container(
       padding: EdgeInsets.symmetric(horizontal: 20),
       height: 80,
-      decoration: BoxDecoration(color: Colors.white, boxShadow: [
+      decoration: BoxDecoration(color: Colors.grey[100], boxShadow: [
         BoxShadow(
             color: Colors.black.withOpacity(0.5),
             blurRadius: 10,
@@ -30,11 +31,26 @@ class _WebinarMenuState extends State<WebinarMenu> {
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           Container(
-            margin: EdgeInsets.symmetric(horizontal: 15),
-            child: Image(
-              image: AssetImage('images/blue_logo.png'),
-              width: 300,
+            child: Row(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                Icon(
+                  Ocean.oa,
+                  size: 60,
+                  color: Colors.blue,
+                ),
+                Text(
+                  'ocean academy',
+                  style: TextStyle(
+                      fontFamily: 'Ubuntu',
+                      inherit: false,
+                      fontSize: 35,
+                      color: Colors.blue,
+                      fontWeight: FontWeight.bold),
+                )
+              ],
             ),
+            width: 400,
           ),
           Container(
             margin: EdgeInsets.symmetric(horizontal: 15),

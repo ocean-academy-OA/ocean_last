@@ -44,7 +44,7 @@ class AboutUs extends StatelessWidget {
                             color: Color(0xff0091d2),
                             fontSize: 25.0,
                             fontWeight: FontWeight.bold,
-                            fontFamily: "Ubuntu",
+                            fontFamily: kfontname,
                           ),
                         ),
                         SizedBox(
@@ -139,7 +139,7 @@ class AboutUs extends StatelessWidget {
                       color: Color(0xff0091d2),
                       fontSize: 30.0,
                       fontWeight: FontWeight.bold,
-                      fontFamily: "Ubuntu"),
+                      fontFamily: kfontname),
                 ),
               ],
             ),

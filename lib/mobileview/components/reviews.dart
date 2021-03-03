@@ -3,7 +3,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:ocean_project/mobileview/components/main_title_widget.dart';
-import 'package:readmore/readmore.dart';
+
 import 'package:smooth_star_rating/smooth_star_rating.dart';
 
 final _firestore = FirebaseFirestore.instance;
@@ -216,16 +216,9 @@ class ReviewLable extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Expanded(
-                      child: ReadMoreText(
+                      child: Text(
                         '$content',
-                        style: TextStyle(
-                          color: Colors.white,
-                        ),
-                        trimLength: 100,
-                        colorClickableText: Colors.white,
-                        moreStyle: TextStyle(
-                          color: Colors.white,
-                        ),
+                        style: TextStyle(color: Colors.white),
                       ),
                     ),
                   ],
