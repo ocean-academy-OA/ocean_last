@@ -34,10 +34,12 @@ class _DownloadPDFAlertState extends State<DownloadPDFAlert> {
         Column(
           children: [
             Container(
+                height: 400,
+                width: 500,
                 child: Image.network(
-              'mail.svg',
-              fit: BoxFit.contain,
-            )),
+                  'images/download pdf/mail.svg',
+                  fit: BoxFit.contain,
+                )),
           ],
         ),
       ],
