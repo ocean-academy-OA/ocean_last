@@ -20,7 +20,7 @@ class SliderWidget extends StatefulWidget {
 class _SliderWidgetState extends State<SliderWidget> {
   void getData() async {
     final message =
-        await _firestore.collection('home').doc("hSe1aStc3iVxhsfWcmxz").get();
+        await _firestore.collection('home').doc("lkAl4KhYwAkOjUpjo3SF").get();
 
     //print(courses.data()['img']);
     hometitle = message.data()['homeheading'];

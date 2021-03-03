@@ -5,6 +5,7 @@ import 'package:ocean_project/desktopview/new_user_screen/log_in.dart';
 import 'package:ocean_project/desktopview/screen/courses.dart';
 import 'package:ocean_project/desktopview/screen/home_screen.dart';
 import 'package:ocean_project/desktopview/screen/menubar.dart';
+import 'package:ocean_project/webinar/webinar_page.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
@@ -14,6 +15,15 @@ class Routing extends ChangeNotifier {
   Widget route = Home();
 
   void updateRouting({Widget widget}) {
+    route = widget;
+    notifyListeners();
+  }
+}
+
+class FreeWeb extends ChangeNotifier {
+  Widget route = Navbar();
+
+  void updateWebinarRouting({Widget widget}) {
     route = widget;
     notifyListeners();
   }

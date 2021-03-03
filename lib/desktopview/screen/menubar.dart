@@ -1,18 +1,13 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:flushbar/flushbar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
-import 'package:intl/intl.dart';
 import 'package:ocean_project/desktopview/Components/flash_notification.dart';
 import 'package:ocean_project/desktopview/Components/ocean_icons.dart';
 import 'package:ocean_project/desktopview/new_user_screen/log_in.dart';
 import 'package:ocean_project/desktopview/route/routing.dart';
 import 'package:ocean_project/desktopview/screen/contact_us.dart';
 import 'package:ocean_project/desktopview/screen/courses.dart';
-
 import 'package:ocean_project/desktopview/screen/services.dart';
-import 'package:ocean_project/webinar/countdown.dart';
-import 'package:ocean_project/webinar/get_date.dart';
 import 'package:ocean_project/webinar/webinar.dart';
 import 'package:ocean_project/webinar/webinar_page.dart';
 import 'package:provider/provider.dart';
@@ -23,6 +18,7 @@ FirebaseFirestore _firestore = FirebaseFirestore.instance;
 
 class Navbar extends StatefulWidget {
   static bool visiblity = true;
+  static bool isNotification = true;
   @override
   _NavbarState createState() => _NavbarState();
 }
@@ -36,7 +32,7 @@ class _NavbarState extends State<Navbar> {
     'Contact Us': false,
     'Career': false,
   };
-  bool isNotification = true;
+
   // getDateFromDb() async {
   //   var timeing =
   //       await _firestore.collection('webinar').doc('free_webinar').get();
@@ -56,10 +52,21 @@ class _NavbarState extends State<Navbar> {
   }
 
   Timestamp timestamp;
+  void retriveTime() async {
+    await for (var snapshot in _firestore
+        .collection('webinar_time')
+        .snapshots(includeMetadataChanges: true)) {
+      for (var message in snapshot.docs) {
+        timestamp = message.data()['timeStamp'];
+      }
+    }
+  }
+
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
+    retriveTime();
   }
 
   @override
@@ -69,28 +76,23 @@ class _NavbarState extends State<Navbar> {
       body: Column(
         children: [
           Visibility(
-            visible: isNotification,
+            visible: Navbar.isNotification,
             child: FlashNotification(
               dismissNotification: () {
                 setState(() {
-                  isNotification = false;
+                  Navbar.isNotification = false;
                 });
               },
               joinButton: () async {
-                await for (var snapshot in _firestore
-                    .collection('webinar_time')
-                    .snapshots(includeMetadataChanges: true)) {
-                  for (var message in snapshot.docs) {
-                    timestamp = message.data()['timeStamp'];
-                  }
-                }
+                setState(() {
+                  Navbar.visiblity = false;
+                  Navbar.isNotification = false;
+                });
 
-                Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) => WebinarScreen(
-                              timestamp: timestamp,
-                            )));
+                Provider.of<Routing>(context, listen: false).updateRouting(
+                    widget: WebinarScreen(
+                  timestamp: timestamp,
+                ));
               },
               joinButtonName: 'Join Now',
             ),
@@ -106,6 +108,7 @@ class _NavbarState extends State<Navbar> {
                   children: [
                     GestureDetector(
                       onTap: () {
+                        Navbar.isNotification = true;
                         Provider.of<Routing>(context, listen: false)
                             .updateRouting(widget: Home());
                       },
@@ -166,23 +169,6 @@ class _NavbarState extends State<Navbar> {
                                   BorderRadius.all(Radius.circular(30.0))),
                           onPressed: () {
                             print('${OALive.stayUser} Stay user');
-                            // if (Routing.stayUser != null) {
-                            //   setState(() {
-                            //     // print("${Navbar.visiblity}vvvvvvvvvvvvvvvvv");
-                            //     // Navbar.visiblity = false;
-                            //   });
-                            //
-                            //   ///todo:instead of resiter login will come
-                            //   Provider.of<Routing>(context, listen: false)
-                            //       .updateRouting(
-                            //           widget: CoursesView(
-                            //     userID: Routing.stayUser,
-                            //   ));
-                            // } else {
-                            //   setState(() {
-                            //     // print("${Navbar.visiblity}vvvvvvvvvvvvvvvvv");
-                            //     // Navbar.visiblity = true;
-                            //   });
 
                             ///todo:instead of resiter login will come
                             Provider.of<Routing>(context, listen: false)

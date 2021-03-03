@@ -2,6 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:ocean_project/desktopview/constants.dart';
 import 'package:ocean_project/desktopview/new_user_screen/log_in.dart';
 import 'package:ocean_project/desktopview/route/routing.dart';
+import 'package:ocean_project/desktopview/screen/contact_us.dart';
+import 'package:ocean_project/desktopview/screen/home_screen.dart';
+import 'package:ocean_project/desktopview/screen/menubar.dart';
 
 import 'package:ocean_project/webinar/webinar_const.dart';
 import 'package:provider/provider.dart';
@@ -39,28 +42,49 @@ class _WebinarMenuState extends State<WebinarMenu> {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
-                Container(
-                  child: Text(
-                    'CONTACT',
-                    style: TextStyle(
-                        color: kBlue,
-                        fontSize: 20,
-                        fontFamily: kfontname,
-                        fontWeight: FontWeight.bold),
+                GestureDetector(
+                  onTap: () {
+                    Navbar.visiblity = true;
+                    print("jaya");
+                    Provider.of<Routing>(context, listen: false)
+                        .updateRouting(widget: ContactUs());
+                    Provider.of<OALive>(context, listen: false)
+                        .updateOA(routing: Navbar());
+                  },
+                  child: Container(
+                    child: Text(
+                      'CONTACT',
+                      style: TextStyle(
+                          color: kBlue,
+                          fontSize: 20,
+                          fontFamily: kfontname,
+                          fontWeight: FontWeight.bold),
+                    ),
                   ),
                 ),
-                Container(
-                  padding: EdgeInsets.symmetric(horizontal: 20, vertical: 5),
-                  decoration: BoxDecoration(
-                      border: Border.all(color: kBlue, width: 3),
-                      borderRadius: BorderRadius.circular(100)),
-                  child: Text(
-                    'LOG IN',
-                    style: TextStyle(
-                        color: kBlue,
-                        fontSize: 20,
-                        fontFamily: kfontname,
-                        fontWeight: FontWeight.bold),
+                GestureDetector(
+                  onTap: () {
+                    Navbar.visiblity = true;
+                    Navbar.isNotification = true;
+                    print("jaya");
+                    Provider.of<Routing>(context, listen: false)
+                        .updateRouting(widget: LogIn());
+                    Provider.of<OALive>(context, listen: false)
+                        .updateOA(routing: Navbar());
+                  },
+                  child: Container(
+                    padding: EdgeInsets.symmetric(horizontal: 20, vertical: 5),
+                    decoration: BoxDecoration(
+                        border: Border.all(color: kBlue, width: 3),
+                        borderRadius: BorderRadius.circular(100)),
+                    child: Text(
+                      'LOG IN',
+                      style: TextStyle(
+                          color: kBlue,
+                          fontSize: 20,
+                          fontFamily: kfontname,
+                          fontWeight: FontWeight.bold),
+                    ),
                   ),
                 ),
               ],
