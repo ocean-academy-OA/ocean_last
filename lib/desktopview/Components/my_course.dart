@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:ocean_project/desktopview/Components/course_enrole.dart';
 
 import 'package:ocean_project/desktopview/Components/courses_widget.dart';
+import 'package:ocean_project/desktopview/new_user_screen/log_in.dart';
 import 'package:ocean_project/desktopview/route/routing.dart';
 import 'package:ocean_project/desktopview/screen/course_details.dart';
 
@@ -9,20 +11,23 @@ import 'package:provider/provider.dart';
 
 final _firestore = FirebaseFirestore.instance;
 
-class EnrollNew extends StatefulWidget {
+class MyCourse extends StatefulWidget {
   bool isEnroll = false;
 
   @override
-  _EnrollNewState createState() => _EnrollNewState();
+  _MyCourseState createState() => _MyCourseState();
 }
 
-class _EnrollNewState extends State<EnrollNew> {
+class _MyCourseState extends State<MyCourse> {
   List<String> subjects = [];
+
   @override
   void initState() {
     // TODO: implement initState
     // getMessage();
+    //batch_id();
     super.initState();
+    print('${CoursesView.batchId}batchesssss');
   }
 
   @override
@@ -44,35 +49,39 @@ class _EnrollNewState extends State<EnrollNew> {
               } else {
                 final messages = snapshot.data.docs;
 
-                List<EnrollCourseDb> courseList = [];
+                List<MyCourseDb> batchList = [];
                 for (var message in messages) {
-                  final messageText = message.data()['trainername'];
-                  final messageSender = message.data()['coursename'];
-                  final messageSession = message.data()['session'];
-                  final messageTime = message.data()['time'];
-                  final messageImage = message.data()['img'];
-                  final messageDescription =
-                      message.data()['coursedescription'];
-                  final messageBatchId = message.data()['batchid'];
+                  for (var batch in CoursesView.batchId) {
+                    if (message.id == batch) {
+                      final messageText = message.data()['trainername'];
+                      final messageSender = message.data()['coursename'];
+                      final messageSession = message.data()['session'];
+                      final messageTime = message.data()['time'];
+                      final messageImage = message.data()['img'];
+                      final messageDescription =
+                          message.data()['coursedescription'];
+                      final messageBatchId = message.data()['batchid'];
 
-                  final CourseDbVariable = EnrollCourseDb(
-                    trainername: messageText,
-                    coursename: messageSender,
-                    session: messageSession,
-                    time: messageTime,
-                    image: messageImage,
-                    description: messageDescription,
-                    batchid: messageBatchId,
-                  );
-                  // Text('$messageText from $messageSender');
-                  courseList.add(CourseDbVariable);
-                  subjects.add(message.data()["coursename"]);
-                  print(subjects);
+                      final batchDb = MyCourseDb(
+                        trainername: messageText,
+                        coursename: messageSender,
+                        session: messageSession,
+                        time: messageTime,
+                        image: messageImage,
+                        description: messageDescription,
+                        batchid: messageBatchId,
+                      );
+                      // Text('$messageText from $messageSender');
+                      batchList.add(batchDb);
+                      subjects.add(message.data()["coursename"]);
+                      print(subjects);
+                    }
+                  }
                 }
 
                 return Wrap(
                   alignment: WrapAlignment.center,
-                  children: courseList,
+                  children: batchList,
                 );
               }
             },
@@ -83,9 +92,9 @@ class _EnrollNewState extends State<EnrollNew> {
   }
 }
 
-class EnrollCourseDb extends StatefulWidget {
+class MyCourseDb extends StatefulWidget {
   static bool visiblity = false;
-  EnrollCourseDb(
+  MyCourseDb(
       {this.coursename,
       this.trainername,
       this.session,
@@ -102,16 +111,16 @@ class EnrollCourseDb extends StatefulWidget {
   final String batchid;
 
   @override
-  _EnrollCourseDbState createState() => _EnrollCourseDbState();
+  _MyCourseDbState createState() => _MyCourseDbState();
 }
 
-class _EnrollCourseDbState extends State<EnrollCourseDb> {
+class _MyCourseDbState extends State<MyCourseDb> {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
         setState(() {
-          EnrollCourseDb.visiblity = true;
+          MyCourseDb.visiblity = true;
         });
         setState(() {
           OnlineCourse.visiblity = true;

@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:ocean_project/desktopview/Components/course_enrole.dart';
 import 'package:ocean_project/desktopview/Components/enroll_new.dart';
-import 'package:ocean_project/desktopview/Components/main_notification.dart';
+import 'package:ocean_project/desktopview/Components/my_course.dart';
 import 'package:ocean_project/desktopview/Components/ocean_icons.dart';
 import 'package:ocean_project/desktopview/new_user_screen/log_in.dart';
 import 'package:ocean_project/desktopview/screen/menubar.dart';
@@ -45,6 +45,7 @@ class _AppBarWidgetState extends State<AppBarWidget> {
                   // ignore: unrelated_type_equality_checks
                   LogIn.registerNumber == message.data()) {
                 final dbImage = message.data()['Profile Picture'];
+
                 userProfile = dbImage;
               }
             }
@@ -102,7 +103,7 @@ class _AppBarWidgetState extends State<AppBarWidget> {
                   ),
                   Container(
                     // color: Colors.red,
-                    width: 500.0,
+                    width: 830.0,
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceAround,
                       children: [
@@ -112,11 +113,14 @@ class _AppBarWidgetState extends State<AppBarWidget> {
                           shape: RoundedRectangleBorder(
                               borderRadius:
                                   BorderRadius.all(Radius.circular(50.0))),
-                          onPressed: () {},
+                          onPressed: () {
+                            Provider.of<SyllabusView>(context, listen: false)
+                                .updateCourseSyllabus(routing: MyCourse());
+                          },
                           child: Row(
                             children: [
                               Icon(
-                                Icons.account_circle_outlined,
+                                Icons.view_agenda,
                                 color: Color(0xFF0091D2),
                                 size: 30.0,
                               ),
@@ -124,7 +128,37 @@ class _AppBarWidgetState extends State<AppBarWidget> {
                                 width: 10.0,
                               ),
                               Text(
-                                "My Classroom",
+                                "View My Courses",
+                                style: TextStyle(
+                                  color: Color(0xFF0091D2),
+                                  fontSize: 25.0,
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                        MaterialButton(
+                          padding: EdgeInsets.all(20.0),
+                          color: Colors.white,
+                          shape: RoundedRectangleBorder(
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(50.0))),
+                          onPressed: () {
+                            Provider.of<SyllabusView>(context, listen: false)
+                                .updateCourseSyllabus(routing: EnrollNew());
+                          },
+                          child: Row(
+                            children: [
+                              Icon(
+                                Icons.view_agenda,
+                                color: Color(0xFF0091D2),
+                                size: 30.0,
+                              ),
+                              SizedBox(
+                                width: 10.0,
+                              ),
+                              Text(
+                                "View All Courses",
                                 style: TextStyle(
                                   color: Color(0xFF0091D2),
                                   fontSize: 25.0,

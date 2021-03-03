@@ -6,7 +6,6 @@ import 'package:ocean_project/desktopview/route/routing.dart';
 import 'package:ocean_project/desktopview/screen/contact_us.dart';
 import 'package:ocean_project/desktopview/screen/home_screen.dart';
 import 'package:ocean_project/desktopview/screen/menubar.dart';
-
 import 'package:ocean_project/webinar/webinar_const.dart';
 import 'package:provider/provider.dart';
 
@@ -34,10 +33,20 @@ class _WebinarMenuState extends State<WebinarMenu> {
             child: Row(
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                Icon(
-                  Ocean.oa,
-                  size: 60,
-                  color: Colors.blue,
+                GestureDetector(
+                  onTap: () {
+                    Navbar.visiblity = true;
+                    Navbar.isNotification = true;
+                    Provider.of<Routing>(context, listen: false)
+                        .updateRouting(widget: Home());
+                    Provider.of<OALive>(context, listen: false)
+                        .updateOA(routing: Navbar());
+                  },
+                  child: Icon(
+                    Ocean.oa,
+                    size: 60,
+                    color: Colors.blue,
+                  ),
                 ),
                 Text(
                   'ocean academy',
@@ -61,6 +70,7 @@ class _WebinarMenuState extends State<WebinarMenu> {
                 GestureDetector(
                   onTap: () {
                     Navbar.visiblity = true;
+                    Navbar.isNotification = true;
                     Provider.of<Routing>(context, listen: false)
                         .updateRouting(widget: ContactUs());
                     Provider.of<OALive>(context, listen: false)

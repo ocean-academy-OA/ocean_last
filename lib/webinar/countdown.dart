@@ -9,6 +9,7 @@ import 'package:slide_countdown_clock/slide_countdown_clock.dart';
 
 FirebaseFirestore _firestore = FirebaseFirestore.instance;
 
+// ignore: must_be_immutable
 class Timer extends StatefulWidget {
   Timer({this.onPressed});
 

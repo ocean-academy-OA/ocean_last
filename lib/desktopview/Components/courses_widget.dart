@@ -293,18 +293,18 @@ class _OfflineCourseState extends State<OfflineCourse> {
   UserCredential userCredential;
   String count;
   bool isLogin = false;
-  _clickHere() async {
-    try {
-      const url = 'https://flutter.dev';
-      if (await canLaunch(url)) {
-        await launch(url);
-      } else {
-        throw 'Could not launch $url';
-      }
-    } catch (e) {
-      print(e);
-    }
-  }
+  // _clickHere() async {
+  //   try {
+  //     const url = 'https://flutter.dev';
+  //     if (await canLaunch(url)) {
+  //       await launch(url);
+  //     } else {
+  //       throw 'Could not launch $url';
+  //     }
+  //   } catch (e) {
+  //     print(e);
+  //   }
+  // }
 
   List<dynamic> otpCount(int count) {
     List<Widget> otp = [];

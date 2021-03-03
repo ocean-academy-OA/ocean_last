@@ -1,21 +1,4 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
-
 import 'package:flutter/material.dart';
-import 'package:ocean_project/desktopview/Components/course_enrole.dart';
-import 'package:ocean_project/desktopview/new_user_screen/log_in.dart';
-import 'package:ocean_project/desktopview/new_user_screen/registration.dart';
-import 'package:ocean_project/desktopview/new_user_widget/otp_inputs.dart';
-import 'package:ocean_project/desktopview/route/routing.dart';
-
-import 'package:otp_text_field/otp_field.dart';
-
-import 'package:provider/provider.dart';
-
-import 'package:shared_preferences/shared_preferences.dart';
-import 'package:url_launcher/url_launcher.dart';
-import 'package:firebase_auth/firebase_auth.dart';
-
-import 'package:timer_count_down/timer_count_down.dart';
 
 class AlertDetails extends StatefulWidget {
   static String userID;

@@ -6,7 +6,6 @@ import 'package:ocean_project/desktopview/Components/comment.dart';
 import 'package:ocean_project/desktopview/Components/main_title_widget.dart';
 import 'package:ocean_project/desktopview/route/routing.dart';
 
-import 'package:ocean_project/mobileview/components/ocean_icons.dart';
 import 'package:ocean_project/text.dart';
 import 'package:provider/provider.dart';
 
@@ -47,7 +46,7 @@ class _UpcomingCourseState extends State<UpcomingCourse> {
           child: Container(
             height: 300.0,
             child: Image(
-              image: NetworkImage('${a}'),
+              image: NetworkImage(a),
               fit: BoxFit.cover,
             ),
           ),
@@ -68,8 +67,6 @@ class _UpcomingCourseState extends State<UpcomingCourse> {
 
   var a;
   void left() {
-    // a = bubbles.removeAt(0);
-    // temp.add(a);
     bubbles.insert(0, temp[temp.length - 1]);
     temp.removeAt(temp.length - 1);
   }

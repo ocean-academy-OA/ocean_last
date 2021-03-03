@@ -30,6 +30,7 @@ class _OceanLiveState extends State<OceanLive> {
         ChangeNotifierProvider(create: (context) => FreeWeb()),
       ],
       child: MaterialApp(
+        debugShowCheckedModeBanner: false,
         theme: ThemeData(
           fontFamily: 'Gilroy',
         ),
@@ -40,7 +41,6 @@ class _OceanLiveState extends State<OceanLive> {
             },
           ),
         ),
-        debugShowCheckedModeBanner: false,
       ),
     );
   }
