@@ -4,6 +4,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:ocean_project/desktopview/Components/main_title_widget.dart';
 import 'package:ocean_project/desktopview/review/reviews.dart';
 
+import 'package:readmore/readmore.dart';
 import 'package:smooth_star_rating/smooth_star_rating.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
@@ -159,9 +160,16 @@ class ReviewLable extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Expanded(
-                    child: Text(
+                    child: ReadMoreText(
                       '$content',
-                      style: TextStyle(color: Colors.white),
+                      style: TextStyle(
+                        color: Colors.white,
+                      ),
+                      trimLines: 1,
+                      colorClickableText: Colors.white,
+                      moreStyle: TextStyle(
+                        color: Colors.white,
+                      ),
                     ),
                   ),
                 ],
