@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:ocean_project/desktopview/screen/menubar.dart';
+
 import 'package:ocean_project/desktopview/screen/footer.dart';
 
 class ThanksForPurchasing extends StatefulWidget {

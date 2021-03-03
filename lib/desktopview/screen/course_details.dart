@@ -1,13 +1,12 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:ocean_project/desktopview/Components/course_enrole.dart';
+
 import 'package:ocean_project/desktopview/Components/courses_widget.dart';
 import 'package:ocean_project/desktopview/Components/payment.dart';
 import 'package:ocean_project/desktopview/Components/thanks_purchasing.dart';
 import 'package:ocean_project/desktopview/new_user_screen/log_in.dart';
-import 'package:ocean_project/desktopview/new_user_screen/otp.dart';
+
 import 'package:ocean_project/desktopview/route/routing.dart';
 import 'package:ocean_project/desktopview/screen/about_us_screen.dart';
 import 'package:ocean_project/desktopview/screen/courses.dart';

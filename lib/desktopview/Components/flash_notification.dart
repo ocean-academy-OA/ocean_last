@@ -1,17 +1,75 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:ocean_project/desktopview/constants.dart';
 
+final _firestore = FirebaseFirestore.instance;
+
 class FlashNotification extends StatefulWidget {
-  FlashNotification(
-      {this.joinButton, this.dismissNotification, this.joinButtonName});
+  FlashNotification({
+    this.joinButton,
+    this.dismissNotification,
+    this.joinButtonName,
+    this.webinar,
+  });
   Function joinButton;
   Function dismissNotification;
   String joinButtonName = 'JOIN';
+  var webinar;
   @override
   _FlashNotificationState createState() => _FlashNotificationState();
 }
 
 class _FlashNotificationState extends State<FlashNotification> {
+  @override
+  Widget build(BuildContext context) {
+    return StreamBuilder<QuerySnapshot>(
+      stream: _firestore.collection('page').snapshots(),
+      // ignore: missing_return
+      builder: (context, snapshot) {
+        if (!snapshot.hasData) {
+          return Text("Loading.....");
+        } else {
+          final messages = snapshot.data.docs;
+          List<FlashDb> webinarContent = [];
+
+          for (var message in messages) {
+            final logoImage = message.data()['heading'];
+            final webinar = FlashDb(
+              content: logoImage,
+              joinButton: widget.joinButton,
+              dismissNotification: widget.dismissNotification,
+            );
+            // Text('$messageText from $messageSender');
+            webinarContent.add(webinar);
+          }
+          return Container(
+            child: Column(
+              children: webinarContent,
+            ),
+          );
+        }
+      },
+    );
+  }
+}
+
+class FlashDb extends StatefulWidget {
+  Function joinButton;
+  Function dismissNotification;
+  String joinButtonName = 'JOIN';
+  String content;
+  FlashDb({
+    this.content,
+    this.joinButton,
+    this.dismissNotification,
+    this.joinButtonName,
+  });
+
+  @override
+  _FlashDbState createState() => _FlashDbState();
+}
+
+class _FlashDbState extends State<FlashDb> {
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -27,7 +85,7 @@ class _FlashNotificationState extends State<FlashNotification> {
                   text: TextSpan(
                       style: TextStyle(color: Colors.white, fontSize: 20),
                       children: [
-                    TextSpan(text: 'Get free access to our'),
+                    TextSpan(text: widget.content),
                     TextSpan(
                         text: ' Value based webinar ',
                         style: TextStyle(fontWeight: FontWeight.bold)),
@@ -37,7 +95,7 @@ class _FlashNotificationState extends State<FlashNotification> {
                 padding: const EdgeInsets.all(15.0),
                 child: FlatButton(
                   child: Text(
-                    widget.joinButtonName,
+                    "Join",
                     style: TextStyle(
                         color: Colors.blue,
                         fontWeight: FontWeight.bold,
@@ -52,9 +110,8 @@ class _FlashNotificationState extends State<FlashNotification> {
             ],
           ),
           IconButton(
-            icon: Icon(Icons.close, color: Colors.white),
-            onPressed: widget.dismissNotification,
-          ),
+              icon: Icon(Icons.close, color: Colors.white),
+              onPressed: widget.dismissNotification),
         ],
       ),
     );

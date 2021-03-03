@@ -12,7 +12,7 @@ import 'package:http/http.dart' as http;
 
 import 'package:ocean_project/webinar/video%20test.dart';
 import 'package:ocean_project/webinar/wbinar_menubar.dart';
-import 'package:ocean_project/webinar/webinar.dart';
+
 import 'package:ocean_project/webinar/webinar_const.dart';
 import 'package:ocean_project/webinar/webinar_footer.dart';
 import 'package:slide_countdown_clock/slide_countdown_clock.dart';
@@ -25,9 +25,11 @@ void main() {
 
 FirebaseFirestore _firestore = FirebaseFirestore.instance;
 
+// ignore: must_be_immutable
 class WebinarScreen extends StatefulWidget {
   Timestamp timestamp;
-  WebinarScreen({this.timestamp});
+  var webinar;
+  WebinarScreen({this.timestamp, this.webinar});
   @override
   _WebinarScreenState createState() => _WebinarScreenState();
 }

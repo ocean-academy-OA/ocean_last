@@ -8,14 +8,13 @@ import 'package:ocean_project/desktopview/Components/courses_widget.dart';
 import 'package:ocean_project/desktopview/Components/enroll_new.dart';
 import 'package:ocean_project/desktopview/Components/enrool_appbar.dart';
 import 'package:ocean_project/desktopview/Components/main_notification.dart';
-import 'package:ocean_project/desktopview/Components/payment.dart';
+
 import 'package:ocean_project/desktopview/Components/user_profile.dart';
 import 'package:ocean_project/desktopview/constants.dart';
 import 'package:ocean_project/desktopview/new_user_screen/log_in.dart';
 import 'package:ocean_project/desktopview/route/routing.dart';
 import 'package:ocean_project/desktopview/screen/course_details.dart';
-import 'package:ocean_project/desktopview/screen/courses.dart';
-import 'package:ocean_project/desktopview/screen/menubar.dart';
+
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -26,19 +25,21 @@ Map<String, String> courses_icon = {
       'https://firebasestorage.googleapis.com/v0/b/ocean-live.appspot.com/o/courses_icon%2Fc.png?alt=media&token=4e2c22c6-8364-4bfc-b49e-d9fdab591bba',
 };
 final _firestore = FirebaseFirestore.instance;
+//
+// _launchURL() async {
+//   const url =
+//       'https://us04web.zoom.us/j/5175653439?pwd=MEI0R1VjQ2FDMitpbkV6RHpSWURndz09';
+//   if (await canLaunch(url)) {
+//     await launch(url);
+//   } else {
+//     throw 'Could not launch $url';
+//   }
+// }
 
-_launchURL() async {
-  const url =
-      'https://us04web.zoom.us/j/5175653439?pwd=MEI0R1VjQ2FDMitpbkV6RHpSWURndz09';
-  if (await canLaunch(url)) {
-    await launch(url);
-  } else {
-    throw 'Could not launch $url';
-  }
-}
-
+// ignore: must_be_immutable
 class HorizontalMenu extends StatefulWidget {
   List<String> courseList = [];
+  static Widget customWidget;
   Map menu = {};
   List<String> batchId = [];
   List<String> courseIcon = [];
@@ -53,44 +54,81 @@ class _HorizontalMenuState extends State<HorizontalMenu> {
     // TODO: implement initState
     super.initState();
     print('${widget.courseList} ====================================');
-    EnrollNew();
+    //HorizontalMenu.customWidget = EnrollNew();
   }
+
+  bool isTouching = false;
 
   @override
   Widget build(BuildContext context) {
+    void mouseEnter(PointerEvent details) {
+      setState(() {
+        isTouching = true;
+      });
+    }
+
+    void mouseExit(PointerEvent details) {
+      setState(() {
+        isTouching = false;
+      });
+    }
+
     return ListView.builder(
         shrinkWrap: true,
         itemCount: widget.courseList.length,
         itemBuilder: (context, index) {
-          return ListTile(
-            leading: ClipRRect(
-              child: widget.courseIcon[index] != null
-                  ? Image.network(
-                      widget.courseIcon[index],
-                      width: 30,
-                    )
-                  : Image.network(
-                      'https://firebasestorage.googleapis.com/v0/b/ocean-live.appspot.com/o/courses_icon%2Fcourse%20icon.jpg?alt=media&token=02a905c7-ba14-44c8-ab8e-f1d58a00b70a'),
-              borderRadius: BorderRadius.circular(500),
-            ),
-            title: courseEnroll(
-                text: widget.courseList[index], color: widget.menu[index]),
-            onTap: () {
-              print("welcome batchid ${widget.batchId[index]}");
-              setState(() {
-                widget.menu.updateAll((key, value) => widget.menu[key] = false);
-                widget.menu[index] = true;
-              });
-              Provider.of<SyllabusView>(context, listen: false)
-                  .updateCourseSyllabus(
-                routing: ContentWidget(
-                  course: widget.courseList[index],
-                  batchid: widget.batchId[index],
-                  //batchid: "OCNBK08",
+          return MouseRegion(
+            onEnter: mouseEnter,
+            onExit: mouseExit,
+            child: Container(
+              color: isTouching
+                  ? Colors.white.withOpacity(0.3)
+                  : Color(0xff006793),
+              child: ListTile(
+                hoverColor: Colors.yellow,
+                leading: ClipRRect(
+                  child: widget.courseIcon[index] != null
+                      ? Container(
+                          height: 40,
+                          width: 40,
+                          child: Image.network(
+                            widget.courseIcon[index],
+                            fit: BoxFit.cover,
+                            alignment: Alignment.centerLeft,
+                          ),
+                        )
+                      : Container(
+                          height: 40,
+                          width: 40,
+                          child: Image.network(
+                            'https://firebasestorage.googleapis.com/v0/b/ocean-live-project-ea2e7.appspot.com/o/Flask.png?alt=media&token=91bae082-5f81-4372-8d3a-cbf3bc14419a',
+                            fit: BoxFit.cover,
+                            alignment: Alignment.centerLeft,
+                          ),
+                        ),
+                  borderRadius: BorderRadius.circular(500),
                 ),
-              );
-            },
-            hoverColor: Colors.yellow,
+                selectedTileColor: Colors.pink,
+                title: courseEnroll(
+                    text: widget.courseList[index], color: widget.menu[index]),
+                onTap: () {
+                  print("welcome batchid ${widget.batchId[index]}");
+                  setState(() {
+                    widget.menu
+                        .updateAll((key, value) => widget.menu[key] = false);
+                    widget.menu[index] = true;
+                  });
+                  Provider.of<SyllabusView>(context, listen: false)
+                      .updateCourseSyllabus(
+                    routing: ContentWidget(
+                      course: widget.courseList[index],
+                      batchid: widget.batchId[index],
+                      //batchid: "OCNBK08",
+                    ),
+                  );
+                },
+              ),
+            ),
           );
         });
   }
@@ -106,10 +144,12 @@ Widget courseEnroll({text, color}) {
   );
 }
 
+// ignore: must_be_immutable
 class CoursesView extends StatefulWidget {
   static String courseEnroll;
   static String studentname;
   static String studentemail;
+  static List batchId = [];
   String course;
   String trainer;
   String sess;
@@ -123,6 +163,21 @@ class CoursesView extends StatefulWidget {
 }
 
 class _CoursesViewState extends State<CoursesView> {
+  void batch_id() async {
+    print("---------------------------");
+    print("${LogIn.registerNumber}register number");
+    await for (var snapshot in _firestore
+        .collection('new users')
+        .where("Phone Number", isEqualTo: LogIn.registerNumber)
+        .snapshots(includeMetadataChanges: true)) {
+      for (var message in snapshot.docs) {
+        CoursesView.batchId = message.data()['batchid'];
+        print("${CoursesView.batchId}listlistlistttttttttttttttt");
+      }
+    }
+    print("---------------------------");
+  }
+
   bool visibility = true;
 
   Map menu = {};
@@ -132,6 +187,7 @@ class _CoursesViewState extends State<CoursesView> {
     // int x = (prefs.getInt('login') ?? 0);
     LogIn.registerNumber = (prefs.getString('user') ?? null);
     userCourses();
+    batch_id();
   }
 
   @override
@@ -140,8 +196,8 @@ class _CoursesViewState extends State<CoursesView> {
 
     // TODO: implement initState
     super.initState();
-    Provider.of<SyllabusView>(context, listen: false)
-        .updateCourseSyllabus(routing: EnrollNew());
+    // Provider.of<SyllabusView>(context, listen: false)
+    //     .updateCourseSyllabus(routing: EnrollNew());
   }
 
   String batchid;
@@ -186,6 +242,7 @@ class _CoursesViewState extends State<CoursesView> {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         Container(
+                          //color: Color(0xff006793).withOpacity(0.5),
                           child: Column(
                             children: [
                               Text(
@@ -245,36 +302,6 @@ class _CoursesViewState extends State<CoursesView> {
                             ],
                           ),
                         ),
-                        Container(
-                          padding: EdgeInsets.symmetric(horizontal: 20.0),
-                          child: Column(
-                            children: [
-                              MaterialButton(
-                                splashColor: Colors.transparent,
-                                highlightColor: Colors.transparent,
-                                height: 60.0,
-                                shape: RoundedRectangleBorder(
-                                    borderRadius:
-                                        BorderRadius.all(Radius.circular(5.0))),
-                                color: Color(0xff014965),
-                                minWidth: double.infinity,
-                                onPressed: () {
-                                  print("coursesgggggggggg");
-
-                                  Provider.of<SyllabusView>(context,
-                                          listen: false)
-                                      .updateCourseSyllabus(
-                                          routing: EnrollNew());
-                                },
-                                child: Text(
-                                  "Enroll New Course",
-                                  style: TextStyle(
-                                      fontSize: 20.0, color: Colors.white),
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
                       ],
                     ),
                   ),
@@ -299,6 +326,7 @@ class _CoursesViewState extends State<CoursesView> {
   }
 }
 
+// ignore: must_be_immutable
 class ContentWidget extends StatefulWidget {
   static bool isVisible = false;
   static bool isShow = false;
@@ -490,97 +518,6 @@ class _ContentWidgetState extends State<ContentWidget> {
           ],
         ),
       ),
-    );
-  }
-}
-
-class CourseEnroll extends StatefulWidget {
-  String coursename;
-
-  static String selectedCourse;
-  static List<String> subject = [];
-  bool isColor;
-
-  CourseEnroll({this.coursename, this.isColor});
-
-  @override
-  _CourseEnrollState createState() => _CourseEnrollState();
-}
-
-class _CourseEnrollState extends State<CourseEnroll> {
-  Map menu = {};
-
-  void getMessage() async {
-    final message = await _firestore.collection('course').get();
-
-    for (var courses in message.docs) {
-      CourseEnroll.subject.add(courses.data()['coursename']);
-    }
-
-    print("${CourseEnroll.subject} thamizh");
-    List<bool> isSubject = [];
-    for (int i = 0; i < CourseEnroll.subject.length; i++) {
-      if (i == 0) {
-        isSubject.add(true);
-      }
-      isSubject.add(false);
-    }
-    print("${isSubject} bool");
-    for (int i = 0; i < CourseEnroll.subject.length; i++) {
-      menu.addAll({CourseEnroll.subject[i]: isSubject[i]});
-    }
-    print("$menu dictionary");
-  }
-
-  @override
-  void initState() {
-    // TODO: implement initState
-    super.initState();
-    getMessage();
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return Column(
-      children: [
-        buildListTile(
-            text: '${widget.coursename}',
-            widget: CourseContent(
-              coursename: "${CourseEnroll.selectedCourse}",
-            ),
-            color: widget.isColor),
-      ],
-    );
-  }
-
-  ListTile buildListTile({widget, text, color}) {
-    print("MethodListTile $text");
-    return ListTile(
-      onTap: () {
-        setState(() {
-          //contentWidget = widget
-          menu.updateAll((key, value) => menu[key] = false);
-          menu[text] = true;
-
-          //CourseEnroll.selectedCourse = text;
-          print(menu);
-        });
-        print("jayalatha ${CourseEnroll.selectedCourse}");
-        // Provider.of<Routing>(context, listen: false)
-        //     .updateRouting(widget: widget);
-      },
-      leading: Icon(
-        Icons.close,
-        size: 20.0,
-      ),
-      title: Text(
-        text,
-        style: TextStyle(
-          color: color ? Colors.blue : Colors.white,
-          fontSize: 20.0,
-        ),
-      ),
-      hoverColor: Colors.yellow,
     );
   }
 }

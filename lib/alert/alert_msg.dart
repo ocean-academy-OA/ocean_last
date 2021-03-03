@@ -10,9 +10,10 @@ import 'alert_text_field.dart';
 
 final _firestore = FirebaseFirestore.instance;
 
+// ignore: must_be_immutable
 class AlertEnquiry extends StatefulWidget {
   AlertEnquiry(
-      {@required this.buttonName = 'Submit',
+      {this.buttonName = 'Submit',
       this.queryField = true,
       this.pdfLink,
       this.keyIsFirstLoaded});

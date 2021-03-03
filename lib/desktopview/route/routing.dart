@@ -1,12 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:ocean_project/desktopview/Components/course_enrole.dart';
+
 import 'package:ocean_project/desktopview/Components/enroll_new.dart';
-import 'package:ocean_project/desktopview/new_user_screen/log_in.dart';
-import 'package:ocean_project/desktopview/screen/courses.dart';
+
 import 'package:ocean_project/desktopview/screen/home_screen.dart';
 import 'package:ocean_project/desktopview/screen/menubar.dart';
-import 'package:ocean_project/webinar/webinar_page.dart';
-import 'package:shared_preferences/shared_preferences.dart';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 final _firestore = FirebaseFirestore.instance;

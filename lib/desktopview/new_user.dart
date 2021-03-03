@@ -6,7 +6,6 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 import 'package:ocean_project/desktopview/screen/home_screen.dart';
 import 'new_user_screen/log_in.dart';
-import 'new_user_screen/otp.dart';
 
 void main() async {
   SharedPreferences prefs = await SharedPreferences.getInstance();
