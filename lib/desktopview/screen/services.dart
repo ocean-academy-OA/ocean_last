@@ -69,20 +69,20 @@ class _ServiceState extends State<Service> {
             ImageToText(
                 topic: serviceheading1,
                 content: servicecontent1,
-                photo: 'images/working.jpg'),
+                photo: 'images/service images/corporate trining.svg'),
             TextToImage(
               topic: serviceheading2,
               content: servicecontent2,
-              photo: 'images/working.jpg',
+              photo: 'images/service images/career oriented.svg',
             ),
             ImageToText(
                 topic: serviceheading3,
                 content: servicecontent3,
-                photo: 'images/working.jpg'),
+                photo: 'images/service images/workshops and value.svg'),
             TextToImage(
               topic: serviceheading4,
               content: servicecontent4,
-              photo: 'images/working.jpg',
+              photo: 'images/service images/learn new skil.svg',
             ),
             SizedBox(
               height: 20.0,
