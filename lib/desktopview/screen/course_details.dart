@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 import 'package:ocean_project/desktopview/Components/courses_widget.dart';
+import 'package:ocean_project/desktopview/Components/my_course.dart';
 import 'package:ocean_project/desktopview/Components/payment.dart';
 import 'package:ocean_project/desktopview/Components/thanks_purchasing.dart';
 import 'package:ocean_project/desktopview/new_user_screen/log_in.dart';
@@ -93,8 +94,8 @@ class _CourseDetailsState extends State<CourseDetails> {
                         children: [
                           GestureDetector(
                             onTap: () {
-                              Provider.of<Routing>(context, listen: false)
-                                  .updateRouting(widget: Course());
+                              Provider.of<SyllabusView>(context, listen: false)
+                                  .updateCourseSyllabus(routing: MyCourse());
                             },
                             child: Icon(
                               Icons.arrow_back_ios,

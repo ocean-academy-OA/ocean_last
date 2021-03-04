@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:ocean_project/desktopview/Components/course_enrole.dart';
-
 import 'package:ocean_project/desktopview/Components/courses_widget.dart';
-import 'package:ocean_project/desktopview/new_user_screen/log_in.dart';
 import 'package:ocean_project/desktopview/route/routing.dart';
 import 'package:ocean_project/desktopview/screen/course_details.dart';
 

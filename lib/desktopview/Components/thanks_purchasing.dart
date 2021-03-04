@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:ocean_project/desktopview/Components/my_course.dart';
+import 'package:ocean_project/desktopview/route/routing.dart';
 
 import 'package:ocean_project/desktopview/screen/footer.dart';
+import 'package:provider/provider.dart';
 
 class ThanksForPurchasing extends StatefulWidget {
   @override
@@ -36,7 +39,10 @@ class _ThanksForPurchasingState extends State<ThanksForPurchasing> {
               width: 200,
               child: FlatButton(
                 color: Color(0xff0091D2),
-                onPressed: () {},
+                onPressed: () {
+                  Provider.of<SyllabusView>(context, listen: false)
+                      .updateCourseSyllabus(routing: MyCourse());
+                },
                 child: Text("Go to Courses",
                     style: TextStyle(color: Colors.white, fontSize: 22)),
                 shape: RoundedRectangleBorder(
