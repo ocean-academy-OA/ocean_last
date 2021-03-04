@@ -5,6 +5,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:ocean_project/desktopview/Components/courses_widget.dart';
+import 'package:ocean_project/desktopview/Components/current_file.dart';
 import 'package:ocean_project/desktopview/Components/enroll_new.dart';
 import 'package:ocean_project/desktopview/Components/enrool_appbar.dart';
 import 'package:ocean_project/desktopview/Components/main_notification.dart';
