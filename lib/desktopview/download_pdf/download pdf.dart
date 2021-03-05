@@ -38,7 +38,7 @@ class _DownloadPDFAlertState extends State<DownloadPDFAlert> {
     });
   }
 
-  downloadAlert({widget, context}) {
+  getUserData(context) {
     return showDialog(
         context: context,
         barrierDismissible: false,
@@ -63,7 +63,84 @@ class _DownloadPDFAlertState extends State<DownloadPDFAlert> {
                     ],
                   ),
                   Container(
-                    child: widget,
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceAround,
+                      children: [
+                        Container(
+                            height: 500,
+                            width: 600,
+                            child: Image.network(
+                              'images/download pdf/mail.svg',
+                              fit: BoxFit.contain,
+                            )),
+                        Container(
+                          height: 350,
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              AlertTextField(
+                                errorText: 'invalid Name',
+                                hintText: 'Name',
+                                icon: Icon(Icons.person),
+                                controller: _name,
+                              ),
+                              AlertTextField(
+                                hintText: 'Mobile',
+                                errorText: 'Enter Valid Number',
+                                icon: Icon(Icons.phone_android),
+                                controller: _mobile,
+                              ),
+                              AlertTextField(
+                                hintText: 'Email',
+                                errorText: 'invalid Email',
+                                icon: Icon(Icons.email),
+                                controller: _email,
+                              ),
+                              Container(
+                                margin: EdgeInsets.symmetric(vertical: 8.0),
+                                decoration: BoxDecoration(
+                                  boxShadow: [
+                                    BoxShadow(
+                                        color: Colors.black.withOpacity(0.2),
+                                        offset: Offset(0, 2),
+                                        blurRadius: 5)
+                                  ],
+                                  color: Colors.white,
+                                ),
+                                child: FlatButton(
+                                  height: 60.0,
+                                  color: Colors.white,
+                                  minWidth: 360,
+                                  shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(3.0)),
+                                  child: Row(
+                                    children: [
+                                      Container(
+                                          width: 30,
+                                          height: 30,
+                                          child: Image.network(
+                                              'images/download pdf/mail service.svg')),
+                                      SizedBox(width: 6),
+                                      Text(
+                                        'Send to Mail',
+                                        style: TextStyle(
+                                            fontSize: 20.0, color: Colors.blue),
+                                      ),
+                                    ],
+                                  ),
+                                  onPressed: () async {
+                                    print(_mobile.text);
+                                    getDownloadOTP();
+                                    Navigator.pop(context);
+                                    otpPage(_mobile.text, context);
+                                  },
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ],
+                    ),
                   ),
                 ],
               ),
@@ -75,6 +152,21 @@ class _DownloadPDFAlertState extends State<DownloadPDFAlert> {
   getDownloadOTP() async {
     confirmationResult =
         await _auth.signInWithPhoneNumber('+91 ${_mobile.text}');
+  }
+
+  verifyOTP() async {
+    try {
+      userCredential = await confirmationResult.confirm(_otp.text);
+      print(userCredential);
+      print('OTP submited');
+      fireStoreAddWithDownload();
+      Navigator.pop(context);
+      fieldClear();
+    } catch (e) {
+      print('$e OTP faild');
+      Navigator.pop(context);
+      _invalidOTP();
+    }
   }
 
   Future<void> _invalidOTP() async {
@@ -112,8 +204,8 @@ class _DownloadPDFAlertState extends State<DownloadPDFAlert> {
               color: Colors.blue,
               padding: EdgeInsets.symmetric(horizontal: 20),
               onPressed: () {
-                Navigator.of(context).pop();
-                downloadAlert(context: context, widget: otpPage(_mobile.text));
+                Navigator.pop(context);
+                otpPage(_mobile.text, context);
               },
             ),
             FlatButton(
@@ -121,29 +213,14 @@ class _DownloadPDFAlertState extends State<DownloadPDFAlert> {
               color: Colors.green,
               padding: EdgeInsets.symmetric(horizontal: 20),
               onPressed: () {
-                Navigator.of(context).pop();
-                downloadAlert(context: context, widget: getUserDetails());
+                Navigator.pop(context);
+                getUserData(context);
               },
             ),
           ],
         );
       },
     );
-  }
-
-  verifyOTP() async {
-    try {
-      userCredential = await confirmationResult.confirm(_otp.text);
-      print(userCredential);
-      print('OTP submited');
-      fireStoreAddWithDownload();
-      fieldClear();
-      Navigator.pop(context);
-    } catch (e) {
-      print('$e OTP faild');
-      Navigator.of(context).pop();
-      _invalidOTP();
-    }
   }
 
   fieldClear() {
@@ -153,85 +230,128 @@ class _DownloadPDFAlertState extends State<DownloadPDFAlert> {
     _otp.clear();
   }
 
-  Widget otpPage(String userMobileNumber) {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceAround,
-      children: [
-        Container(
-            height: 500,
-            width: 600,
-            child: Image.network(
-              'images/download pdf/otp service.svg',
-              fit: BoxFit.contain,
-            )),
-        Container(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              AlertTextField(
-                errorText: 'invalid OTP',
-                hintText: 'Enter OTP',
-                icon: Icon(Icons.lock_clock),
-                controller: _otp,
-              ),
-              Container(
-                margin: EdgeInsets.symmetric(vertical: 8.0),
-                decoration: BoxDecoration(
-                  boxShadow: [
-                    BoxShadow(
-                        color: Colors.black.withOpacity(0.2),
-                        offset: Offset(0, 2),
-                        blurRadius: 5)
-                  ],
-                  color: Colors.white,
-                ),
-                child: FlatButton(
-                  height: 60.0,
-                  color: Colors.white,
-                  minWidth: 360,
-                  shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(3.0)),
-                  child: Row(
+  otpPage(String userMobileNumber, context) {
+    return showDialog(
+        context: context,
+        barrierDismissible: false,
+        builder: (BuildContext context) {
+          return AlertDialog(
+            content: Container(
+              height: 600,
+              width: 1200,
+              child: Column(
+                children: [
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.end,
                     children: [
-                      Container(
-                          width: 30,
-                          height: 30,
-                          child: Image.network(
-                              'images/download pdf/mail service.svg')),
-                      SizedBox(width: 6),
-                      Text(
-                        'submit',
-                        style: TextStyle(fontSize: 20.0, color: Colors.blue),
-                      ),
+                      IconButton(
+                        icon: Icon(Icons.close, color: Colors.grey[500]),
+                        iconSize: 30,
+                        splashRadius: 25,
+                        onPressed: () {
+                          Navigator.pop(context);
+                        },
+                      )
                     ],
                   ),
-                  onPressed: () async {
-                    verifyOTP();
-                  },
-                ),
+                  Container(
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceAround,
+                      children: [
+                        Container(
+                            height: 500,
+                            width: 600,
+                            child: Image.network(
+                              'images/download pdf/otp service.svg',
+                              fit: BoxFit.contain,
+                            )),
+                        Container(
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              AlertTextField(
+                                errorText: 'invalid OTP',
+                                hintText: 'Enter OTP',
+                                icon: Icon(Icons.lock_clock),
+                                controller: _otp,
+                              ),
+                              Container(
+                                margin: EdgeInsets.symmetric(vertical: 8.0),
+                                decoration: BoxDecoration(
+                                  boxShadow: [
+                                    BoxShadow(
+                                        color: Colors.black.withOpacity(0.2),
+                                        offset: Offset(0, 2),
+                                        blurRadius: 5)
+                                  ],
+                                  color: Colors.white,
+                                ),
+                                child: FlatButton(
+                                  height: 60.0,
+                                  color: Colors.white,
+                                  minWidth: 360,
+                                  shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(3.0)),
+                                  child: Row(
+                                    children: [
+                                      Container(
+                                          width: 30,
+                                          height: 30,
+                                          child: Image.network(
+                                              'images/download pdf/mail service.svg')),
+                                      SizedBox(width: 6),
+                                      Text(
+                                        'submit',
+                                        style: TextStyle(
+                                            fontSize: 20.0, color: Colors.blue),
+                                      ),
+                                    ],
+                                  ),
+                                  onPressed: () async {
+                                    try {
+                                      userCredential = await confirmationResult
+                                          .confirm(_otp.text);
+                                      print(userCredential);
+                                      print('OTP submited');
+                                      fireStoreAddWithDownload();
+                                      Navigator.pop(context);
+                                      fieldClear();
+                                    } catch (e) {
+                                      print('$e OTP faild');
+                                      Navigator.pop(context);
+                                      _invalidOTP();
+                                    }
+                                  },
+                                ),
+                              ),
+                              SizedBox(height: 20),
+                              RichText(
+                                text: TextSpan(
+                                    style: TextStyle(
+                                        color: Colors.grey[500], fontSize: 15),
+                                    children: [
+                                      TextSpan(text: 'Not Received OTP'),
+                                      TextSpan(
+                                          text: ' Update MobileNumber?',
+                                          style: TextStyle(color: Colors.blue),
+                                          recognizer: TapGestureRecognizer()
+                                            ..onTap = () async {
+                                              Navigator.pop(context);
+                                              getUserData(context);
+                                            }),
+                                    ]),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ],
               ),
-              SizedBox(height: 20),
-              RichText(
-                text: TextSpan(
-                    style: TextStyle(color: Colors.grey[500], fontSize: 15),
-                    children: [
-                      TextSpan(text: 'Not Received OTP'),
-                      TextSpan(
-                          text: ' Update MobileNumber?',
-                          style: TextStyle(color: Colors.blue),
-                          recognizer: TapGestureRecognizer()
-                            ..onTap = () async {
-                              Navigator.pop(context);
-                              await downloadAlert(
-                                  context: context, widget: getUserDetails());
-                            }),
-                    ]),
-              ),
-            ],
-          ),
-        ),
-      ],
-    );
+            ),
+          );
+        });
   }
 
   Widget getUserDetails() {
@@ -300,10 +420,8 @@ class _DownloadPDFAlertState extends State<DownloadPDFAlert> {
                     ],
                   ),
                   onPressed: () async {
-                    Navigator.pop(context);
                     getDownloadOTP();
-                    await downloadAlert(
-                        context: context, widget: otpPage(_mobile.text));
+                    Navigator.pop(context);
                   },
                 ),
               ),
@@ -315,7 +433,6 @@ class _DownloadPDFAlertState extends State<DownloadPDFAlert> {
   }
 
   @override
-  @override
   Widget build(BuildContext context) {
     return MaterialApp(
       home: Scaffold(
@@ -324,7 +441,7 @@ class _DownloadPDFAlertState extends State<DownloadPDFAlert> {
           child: TextButton(
             child: Text('DOENLOAD'),
             onPressed: () async {
-              await downloadAlert(widget: getUserDetails(), context: context);
+              await getUserData(context);
             },
           ),
         ),

@@ -1,5 +1,9 @@
 import 'dart:html';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/gestures.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:ocean_project/alert/alert_text_field.dart';
+import 'package:ocean_project/desktopview/download_pdf/download%20pdf.dart';
 import 'package:ocean_project/desktopview/new_user_widget/otp_inputs.dart';
 import 'package:otp_text_field/otp_text_field.dart';
 import 'package:timer_count_down/timer_count_down.dart';
@@ -286,466 +290,350 @@ class OfflineCourse extends StatefulWidget {
 }
 
 class _OfflineCourseState extends State<OfflineCourse> {
-  FirebaseAuth auth = FirebaseAuth.instance;
-  FirebaseFirestore _firestore = FirebaseFirestore.instance;
-  String otp;
-  TextEditingController _otp = TextEditingController();
+  ConfirmationResult confirmationResult;
+  FirebaseAuth _auth = FirebaseAuth.instance;
   UserCredential userCredential;
-  String count;
-  bool isLogin = false;
-  // _clickHere() async {
-  //   try {
-  //     const url = 'https://flutter.dev';
-  //     if (await canLaunch(url)) {
-  //       await launch(url);
-  //     } else {
-  //       throw 'Could not launch $url';
-  //     }
-  //   } catch (e) {
-  //     print(e);
-  //   }
-  // }
-
-  List<dynamic> otpCount(int count) {
-    List<Widget> otp = [];
-    for (int i = 0; i < count; i++) {
-      otp.add(OTPInput());
-    }
-    otp.insert(0, SizedBox(width: 5));
-    int lis = otp.length;
-    otp.insert(lis, SizedBox(width: 5));
-    return otp;
+  final TextEditingController _name = TextEditingController();
+  final TextEditingController _mobile = TextEditingController();
+  final TextEditingController _email = TextEditingController();
+  final TextEditingController _otp = TextEditingController();
+  void fireStoreAddWithDownload() {
+    _firestore.collection('download pdf').doc('+91 ${_mobile.text}').set({
+      'name': _name.text,
+      'email': _email.text,
+      'mobile number': '+91 ${_mobile.text}',
+    });
   }
 
-  session() async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    await prefs.setInt('login', 1);
-    await prefs.setString('user', LogIn.registerNumber);
-    print('Otp Submited');
-  }
-
-  _verifyPhone() async {
-    try {
-      setState(() {
-        // Navbar.visiblity = false;
-      });
-      userCredential = await LogIn.confirmationResult.confirm(_otp.text);
-
-      OfflineCourse.userID = LogIn.confirmationResult.toString();
-      OfflineCourse.userID = LogIn.registerNumber;
-      print('${OfflineCourse.userID} ppppppppppppppppppp');
-      userSession = await _firestore
-          .collection('new users')
-          .doc(OfflineCourse.userID)
-          .get();
-
-      if (userSession.data() != null) {
-        setState(() {
-          isLogin = true;
-        });
-
-        // Navigator.push(
-        //     context, MaterialPageRoute(builder: (context) => CoursesView()));
-        Provider.of<OALive>(context, listen: false)
-            .updateOA(routing: CoursesView());
-
-        print('Otp.................got');
-
-        //CoursesView() insted of Home,
-
-        session();
-      } else {
-        Provider.of<Routing>(context, listen: false)
-            .updateRouting(widget: Registration());
-      }
-    } catch (e) {
-      print(e);
-      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-          content: Row(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Text(
-            'OTP Invalid',
-            style: TextStyle(fontSize: 30.0),
-          ),
-        ],
-      )));
-    }
-  }
-
-  var userSession;
-  getData() async {
-    print(userSession.data() != null);
-  }
-
-  //////////////////////
-
-  String phoneNumber;
-  bool isNumValid = false;
-  //FirebaseAuth auth = FirebaseAuth.instance;
-
-  TextEditingController _phoneNumberController = TextEditingController();
-  String countryCode;
-  List<Map<String, String>> contri = codes;
-  @override
-  void initState() {
-    // TODO: implement initState
-    super.initState();
-
-    //studentId();
-  }
-
-  List getContryCode() {
-    List<String> contryCode = [];
-    for (var cCode in contri) {
-      contryCode.add(cCode['code']);
-    }
-    return contryCode;
-  }
-
-  getOTP() async {
-    LogIn.confirmationResult = await auth.signInWithPhoneNumber(
-        '${countryCode.toString()} ${_phoneNumberController.text}');
-  }
-
-  Future<void> _showOtp() async {
-    showDialog(
-      context: context,
-      barrierDismissible: true,
-      builder: (BuildContext context1) {
-        // return object of type Dialog
-        return AlertDialog(
-          backgroundColor: Color(0xff2B9DD1),
-          content: Container(
-            color: Color(0xff2B9DD1),
-            width: double.infinity,
-            height: 500,
-            child: Center(
+  getUserData(context) {
+    return showDialog(
+        context: context,
+        barrierDismissible: false,
+        builder: (BuildContext context) {
+          return AlertDialog(
+            content: Container(
+              height: 600,
+              width: 1200,
               child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
                 children: [
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    children: [
+                      IconButton(
+                        icon: Icon(Icons.close, color: Colors.grey[500]),
+                        iconSize: 30,
+                        splashRadius: 25,
+                        onPressed: () {
+                          Navigator.pop(context);
+                        },
+                      )
+                    ],
+                  ),
                   Container(
-                    width: 600.0,
-                    height: 500.0,
-                    padding:
-                        EdgeInsets.symmetric(horizontal: 0.0, vertical: 20.0),
-                    decoration: BoxDecoration(
-                        color: Color(0xff006793),
-                        borderRadius: BorderRadius.circular(6.0)),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceAround,
                       children: [
-                        Text(
-                          'Welcome Back',
-                          style: TextStyle(
-                              fontSize: 40.0,
-                              color: Colors.white,
-                              fontWeight: FontWeight.bold),
-                        ),
+                        Container(
+                            height: 500,
+                            width: 600,
+                            child: Image.network(
+                              'images/download pdf/mail.svg',
+                              fit: BoxFit.contain,
+                            )),
                         Container(
                           height: 350,
                           child: Column(
-                            mainAxisAlignment: MainAxisAlignment.spaceAround,
-                            crossAxisAlignment: CrossAxisAlignment.center,
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
-                              Spacer(),
-                              Row(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  Container(
-                                    height: 55.0,
-                                    width: 450,
-                                    decoration: BoxDecoration(
-                                        borderRadius:
-                                            BorderRadius.circular(5.0)),
-                                    child: OTPTextField(
-                                      length: 6,
-                                      width: MediaQuery.of(context).size.width,
-                                      textFieldAlignment:
-                                          MainAxisAlignment.spaceAround,
-                                      fieldWidth: 50,
-                                      onChanged: (value) {
-                                        print(value);
-                                      },
-                                      style: TextStyle(
-                                        fontSize: 20,
-                                        color: Colors.white,
-                                        fontWeight: FontWeight.bold,
-                                      ),
-                                      onCompleted: (value) {
-                                        _otp.text = value;
-                                      },
-                                    ),
-                                  ),
-                                ],
-                                // children: otpCount(6),
+                              AlertTextField(
+                                errorText: 'invalid Name',
+                                hintText: 'Name',
+                                icon: Icon(Icons.person),
+                                controller: _name,
                               ),
-                              Spacer(),
-                              Row(
-                                mainAxisAlignment: MainAxisAlignment.end,
-                                children: [
-                                  Countdown(
-                                    seconds: 600,
-                                    build:
-                                        (BuildContext context, double time) =>
-                                            Text(
-                                      '${(time ~/ 60).toString().length == 1 ? "0" + (time ~/ 60).toString() : (time ~/ 60)} : ${(time % 60).toString().length == 1 ? "0" + (time % 60).toString() : (time % 60)}',
-                                      style: TextStyle(
-                                        color: Colors.white,
-                                        fontSize: 23.0,
-                                      ),
-                                    ),
-                                    onFinished: () {},
-                                  ),
-                                  SizedBox(
-                                    width: 40.0,
-                                  )
-                                ],
+                              AlertTextField(
+                                hintText: 'Mobile',
+                                errorText: 'Enter Valid Number',
+                                icon: Icon(Icons.phone_android),
+                                controller: _mobile,
                               ),
-                              Spacer(),
-                              Row(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  RawMaterialButton(
-                                    child: Container(
-                                      decoration: BoxDecoration(
-                                          color: Color(0xff014965),
-                                          borderRadius:
-                                              BorderRadius.circular(5.0)),
-                                      alignment: Alignment.center,
-                                      padding:
-                                          EdgeInsets.symmetric(vertical: 15.0),
-                                      width: 450.0,
-                                      child: Text(
-                                        'NEXT',
+                              AlertTextField(
+                                hintText: 'Email',
+                                errorText: 'invalid Email',
+                                icon: Icon(Icons.email),
+                                controller: _email,
+                              ),
+                              Container(
+                                margin: EdgeInsets.symmetric(vertical: 8.0),
+                                decoration: BoxDecoration(
+                                  boxShadow: [
+                                    BoxShadow(
+                                        color: Colors.black.withOpacity(0.2),
+                                        offset: Offset(0, 2),
+                                        blurRadius: 5)
+                                  ],
+                                  color: Colors.white,
+                                ),
+                                child: FlatButton(
+                                  height: 60.0,
+                                  color: Colors.white,
+                                  minWidth: 360,
+                                  shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(3.0)),
+                                  child: Row(
+                                    children: [
+                                      Container(
+                                          width: 30,
+                                          height: 30,
+                                          child: Image.network(
+                                              'images/download pdf/mail service.svg')),
+                                      SizedBox(width: 6),
+                                      Text(
+                                        'Send to Mail',
                                         style: TextStyle(
-                                          fontSize: 20.0,
-                                          color: Colors.white,
-                                        ),
+                                            fontSize: 20.0, color: Colors.blue),
                                       ),
-                                    ),
-                                    elevation: 0.0,
-                                    onPressed: () async {
-                                      _verifyPhone();
-                                    },
+                                    ],
                                   ),
-                                ],
-                              ),
-                              Spacer(),
-                              Row(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  MaterialButton(
-                                    child: Icon(
-                                      Icons.chevron_left,
-                                      color: Color(0xff006793),
-                                      size: 35.0,
-                                    ),
-                                    color: Colors.white,
-                                    minWidth: 70.0,
-                                    height: 70.0,
-                                    shape: RoundedRectangleBorder(
-                                        borderRadius:
-                                            BorderRadius.circular(70.0)),
-                                    onPressed: () {
-                                      setState(() {
-                                        Navigator.pop(context);
-                                      });
-                                      _showDialog();
-                                    },
-                                  ),
-                                ],
+                                  onPressed: () {
+                                    print(_mobile.text);
+                                    getDownloadOTP();
+                                    Navigator.pop(context);
+                                    otpPage(_mobile.text, context);
+                                  },
+                                ),
                               ),
                             ],
                           ),
                         ),
-                        SizedBox(height: 10.0),
                       ],
                     ),
                   ),
                 ],
               ),
             ),
-          ),
-        );
-      },
-    );
+          );
+        });
   }
 
-  Future<void> _showDialog() async {
+  getDownloadOTP() async {
+    confirmationResult =
+        await _auth.signInWithPhoneNumber('+91 ${_mobile.text}');
+  }
+
+  verifyOTP() async {
+    if (_mobile.text.length > 10) {
+      try {
+        userCredential = await confirmationResult.confirm(_otp.text);
+        print(userCredential);
+        print(confirmationResult);
+        print('OTP submited');
+        fireStoreAddWithDownload();
+
+        fieldClear();
+        Navigator.pop(context);
+      } catch (e) {
+        print('$e OTP faild');
+        Navigator.pop(context);
+        _invalidOTP();
+      }
+    } else {
+      Navigator.pop(context);
+      _invalidOTP();
+    }
+  }
+
+  Future<void> _invalidOTP() async {
     return showDialog<void>(
       context: context,
-      barrierDismissible: true,
+      barrierDismissible: false, // user must tap button!
       builder: (BuildContext context) {
         return AlertDialog(
-          title: Text("jaya"),
-          content: Container(
-            width: 600.0,
-            height: 450.0,
-            padding: EdgeInsets.symmetric(horizontal: 20.0, vertical: 20.0),
-            decoration: BoxDecoration(
-                color: Color(0xff006793),
-                borderRadius: BorderRadius.circular(6.0)),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
+          title: Row(
+            children: [
+              Text(
+                'Sorry',
+                style: TextStyle(color: Colors.red, fontSize: 20),
+              ),
+              SizedBox(width: 15),
+              Icon(
+                FontAwesomeIcons.frown,
+                color: Colors.red,
+              )
+            ],
+          ),
+          content: SingleChildScrollView(
+            child: ListBody(
+              children: <Widget>[
                 Text(
-                  'Welcome Back!',
-                  style: TextStyle(
-                      fontSize: 30.0,
-                      color: Colors.white,
-                      fontWeight: FontWeight.bold),
-                ),
-                Container(
-                  height: 250,
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      SizedBox(
-                        height: 10.0,
-                      ),
-                      Text(
-                        'Mobile Number',
-                        style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 18.0,
-                            fontWeight: FontWeight.bold),
-                      ),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Container(
-                            height: 50.0,
-                            padding: EdgeInsets.symmetric(
-                                horizontal: 5.0, vertical: 5.0),
-                            decoration: BoxDecoration(
-                                color: Colors.white,
-                                borderRadius: BorderRadius.circular(3.0)),
-                            child: CountryCodePicker(
-                              backgroundColor: Colors.transparent,
-                              onChanged: print,
-                              // Initial selection and favorite can be one of code ('IT') OR dial_code('+39')
-                              initialSelection: getContryCode()[
-                                  getContryCode().indexOf('IN')],
-                              countryFilter: getContryCode(),
-                              showFlagDialog: true,
-                              showDropDownButton: true,
-                              hideSearch: true,
-                              dialogSize: Size(300.0, 550.0),
-                              onInit: (code) {
-                                countryCode = '+91';
-                                print('${countryCode.toString()}');
-                              },
-
-                              dialogTextStyle: TextStyle(color: Colors.white),
-                              enabled: true,
-                              boxDecoration: BoxDecoration(
-                                color: Colors.blue,
-                              ),
-                            ),
-                          ),
-                          Container(
-                            height: 70.0,
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                Container(
-                                  height: 50.0,
-                                  width: 400.0,
-                                  decoration: BoxDecoration(
-                                      color: Colors.white,
-                                      borderRadius: BorderRadius.circular(3.0)),
-                                  child: TextField(
-                                    decoration: InputDecoration(
-                                        fillColor: Colors.white,
-                                        border: OutlineInputBorder()),
-                                    controller: _phoneNumberController,
-                                    inputFormatters: [
-                                      FilteringTextInputFormatter.allow(
-                                          RegExp(r'^\d+\.?\d{0,1}')),
-                                      LengthLimitingTextInputFormatter(13),
-                                    ],
-                                    onChanged: (value) {
-                                      setState(() {
-                                        phoneNumber = value;
-                                      });
-                                    },
-                                  ),
-                                ),
-                                Visibility(
-                                    visible: isNumValid,
-                                    child: Text(
-                                      'Enter valid PhoneNumber',
-                                      style: TextStyle(
-                                          color: Colors.red, fontSize: 15.0),
-                                    )),
-                              ],
-                            ),
-                          ),
-                        ],
-                      ),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          RawMaterialButton(
-                              child: Container(
-                                decoration: BoxDecoration(
-                                    color: Color(0xff014965),
-                                    borderRadius: BorderRadius.circular(5.0)),
-                                alignment: Alignment.center,
-                                padding: EdgeInsets.symmetric(vertical: 15.0),
-                                width: 450.0,
-                                child: Text(
-                                  'NEXT',
-                                  style: TextStyle(
-                                    fontSize: 20.0,
-                                    color: Colors.white,
-                                  ),
-                                ),
-                              ),
-                              elevation: 0.0,
-                              onPressed: () {
-                                Navigator.pop(context);
-                                _showOtp();
-// print(
-//     "${_phoneNumberController.text}phonemunber");
-// setState(() {
-//   //Navbar.visiblity = false;
-//   LogIn.registerNumber =
-//       '${countryCode.toString()} ${_phoneNumberController.text}';
-//   OALive.stayUser = LogIn.registerNumber;
-// });
-//
-// if (_phoneNumberController.text.length >=
-//     10) {
-//
-//   ///todo remove the hide get otp
-//
-//   //getOTP()
-// } else {
-//   isNumValid = true;
-//
-                              }),
-                        ],
-                      ),
-                    ],
-                  ),
+                  'Enter valid OTP or Update Mobile Number',
+                  style: TextStyle(color: Colors.grey[500], fontSize: 25),
                 ),
               ],
             ),
           ),
+          actions: <Widget>[
+            FlatButton(
+              child: Text('Enter OTP'),
+              color: Colors.blue,
+              padding: EdgeInsets.symmetric(horizontal: 20),
+              onPressed: () {
+                Navigator.pop(context);
+                otpPage(_mobile.text, context);
+              },
+            ),
+            FlatButton(
+              child: Text('Update Number'),
+              color: Colors.green,
+              padding: EdgeInsets.symmetric(horizontal: 20),
+              onPressed: () {
+                Navigator.pop(context);
+                getUserData(context);
+              },
+            ),
+          ],
         );
       },
     );
   }
 
-  final _email = TextEditingController();
-  final _name = TextEditingController();
-  final _mobile = TextEditingController();
+  fieldClear() {
+    _mobile.clear();
+    _email.clear();
+    _name.clear();
+    _otp.clear();
+  }
+
+  otpPage(String userMobileNumber, context) {
+    return showDialog(
+        context: context,
+        barrierDismissible: false,
+        builder: (BuildContext context) {
+          return AlertDialog(
+            content: Container(
+              height: 600,
+              width: 1200,
+              child: Column(
+                children: [
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    children: [
+                      IconButton(
+                        icon: Icon(Icons.close, color: Colors.grey[500]),
+                        iconSize: 30,
+                        splashRadius: 25,
+                        onPressed: () {
+                          Navigator.pop(context);
+                        },
+                      )
+                    ],
+                  ),
+                  Container(
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceAround,
+                      children: [
+                        Container(
+                            height: 500,
+                            width: 600,
+                            child: Image.network(
+                              'images/download pdf/otp service.svg',
+                              fit: BoxFit.contain,
+                            )),
+                        Container(
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              AlertTextField(
+                                errorText: 'invalid OTP',
+                                hintText: 'Enter OTP',
+                                icon: Icon(Icons.lock_clock),
+                                controller: _otp,
+                              ),
+                              Container(
+                                margin: EdgeInsets.symmetric(vertical: 8.0),
+                                decoration: BoxDecoration(
+                                  boxShadow: [
+                                    BoxShadow(
+                                        color: Colors.black.withOpacity(0.2),
+                                        offset: Offset(0, 2),
+                                        blurRadius: 5)
+                                  ],
+                                  color: Colors.white,
+                                ),
+                                child: FlatButton(
+                                  height: 60.0,
+                                  color: Colors.white,
+                                  minWidth: 360,
+                                  shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(3.0)),
+                                  child: Row(
+                                    children: [
+                                      Container(
+                                          width: 30,
+                                          height: 30,
+                                          child: Image.network(
+                                              'images/download pdf/mail service.svg')),
+                                      SizedBox(width: 6),
+                                      Text(
+                                        'submit',
+                                        style: TextStyle(
+                                            fontSize: 20.0, color: Colors.blue),
+                                      ),
+                                    ],
+                                  ),
+                                  onPressed: () async {
+                                    if (_mobile.text.length >= 10) {
+                                      try {
+                                        userCredential =
+                                            await confirmationResult
+                                                .confirm(_otp.text);
+                                        print(userCredential);
+                                        print('OTP submited');
+                                        fireStoreAddWithDownload();
+                                        Navigator.pop(context);
+                                        fieldClear();
+                                      } catch (e) {
+                                        print('$e OTP faild');
+                                        Navigator.pop(context);
+                                        _invalidOTP();
+                                      }
+                                    } else {
+                                      Navigator.pop(context);
+                                      _invalidOTP();
+                                    }
+                                  },
+                                ),
+                              ),
+                              SizedBox(height: 20),
+                              RichText(
+                                text: TextSpan(
+                                    style: TextStyle(
+                                        color: Colors.grey[500], fontSize: 15),
+                                    children: [
+                                      TextSpan(text: 'Not Received OTP'),
+                                      TextSpan(
+                                          text: ' Update MobileNumber?',
+                                          style: TextStyle(color: Colors.blue),
+                                          recognizer: TapGestureRecognizer()
+                                            ..onTap = () async {
+                                              Navigator.pop(context);
+                                              getUserData(context);
+                                            }),
+                                    ]),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          );
+        });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -809,8 +697,8 @@ class _OfflineCourseState extends State<OfflineCourse> {
                       shape: RoundedRectangleBorder(
                           borderRadius:
                               BorderRadius.all(Radius.circular(05.0))),
-                      onPressed: () {
-                        _showDialog();
+                      onPressed: () async {
+                        await getUserData(context);
                       },
                       child: Row(
                         children: [
@@ -836,83 +724,5 @@ class _OfflineCourseState extends State<OfflineCourse> {
         ],
       ),
     );
-  }
-
-  //alert starts from here..
-  Future<void> _showMyDialog() async {
-    return showDialog<void>(
-      context: context,
-      barrierDismissible: false,
-      //this means the user must tap a button to exit the Alert Dialog
-      builder: (BuildContext context) {
-        return AlertEnquiry(
-          queryField: false,
-          buttonName: 'download',
-          pdfLink: widget.pdflink,
-        );
-      },
-    );
-  }
-
-  bool isEmail = false;
-  bool isName = false;
-  bool isPhonenumber = false;
-
-  bool validateEmail(String value) {
-    Pattern pattern =
-        r'^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$';
-    RegExp regex = new RegExp(pattern);
-    return (!regex.hasMatch(value)) ? false : true;
-  }
-
-  bool nameValidation(String value) {
-    Pattern pattern = r"[a-zA-Z]+|\s";
-    RegExp regex = new RegExp(pattern);
-    return (!regex.hasMatch(value)) ? false : true;
-  }
-
-  bool phoneNumberValidation(String value) {
-    Pattern pattern = r'^\d+\.?\d{0,2}';
-    RegExp regex = new RegExp(pattern);
-    return (!regex.hasMatch(value)) ? false : true;
-  }
-
-  bool formValidation() {
-    bool ifval = false;
-    bool elseval = true;
-    if (!nameValidation(_name.text) || _name.text.length < 3) {
-      setState(() {
-        isName = true;
-        ifval = isName;
-      });
-    } else {
-      setState(() {
-        isName = false;
-        elseval = isName;
-      });
-    }
-    if (!validateEmail(_email.text)) {
-      setState(() {
-        isEmail = true;
-        ifval = isEmail;
-      });
-    } else {
-      setState(() {
-        isEmail = false;
-        elseval = isEmail;
-      });
-    }
-    if (_mobile.text.length < 6) {
-      setState(() {
-        isPhonenumber = true;
-        ifval = isPhonenumber;
-      });
-    } else {
-      setState(() {
-        isPhonenumber = false;
-        elseval = isPhonenumber;
-      });
-    }
-    return ifval == elseval;
   }
 }
