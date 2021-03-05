@@ -1,7 +1,11 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+
 import 'package:ocean_project/alert/alert_text_field.dart';
-import 'package:ocean_project/desktopview/download_pdf/download_alert.dart';
 
 void main() {
   runApp(MaterialApp(
@@ -22,59 +26,208 @@ class _DownloadPDFAlertState extends State<DownloadPDFAlert> {
   final TextEditingController _name = TextEditingController();
   final TextEditingController _mobile = TextEditingController();
   final TextEditingController _email = TextEditingController();
-
   final TextEditingController _otp = TextEditingController();
-
-  bool isEmail = false;
-  bool isName = false;
-  bool isPhoneNumber = false;
-  bool isQuery = false;
-
-  bool isOTP = false;
-
-  bool validateEmail(String value) {
-    Pattern pattern =
-        r'^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$';
-    RegExp regex = new RegExp(pattern);
-    return (!regex.hasMatch(value)) ? false : true;
-  }
-
-  bool nameValidation(String value) {
-    Pattern pattern = r"[a-zA-Z]+|\s";
-    RegExp regex = new RegExp(pattern);
-    return (!regex.hasMatch(value)) ? false : true;
-  }
-
-  bool phoneNumberValidation(String value) {
-    Pattern pattern = r'^\d+\.?\d{0,2}';
-    RegExp regex = new RegExp(pattern);
-    return (!regex.hasMatch(value)) ? false : true;
-  }
 
   _downloadAlert({widget, context}) {
     return showDialog(
         context: context,
+        barrierDismissible: false,
         builder: (BuildContext context) {
           return AlertDialog(
             content: Container(
-              height: 650,
+              height: 600,
               width: 1200,
-              child: widget,
+              child: Column(
+                children: [
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    children: [
+                      IconButton(
+                        icon: Icon(Icons.close, color: Colors.grey[500]),
+                        iconSize: 30,
+                        splashRadius: 25,
+                        onPressed: () {
+                          Navigator.pop(context);
+                        },
+                      )
+                    ],
+                  ),
+                  Container(
+                    child: widget,
+                  ),
+                ],
+              ),
             ),
           );
         });
   }
 
-  void fireStoreAddWithDownload() {
-    _firestore.collection('download pdf').doc().set({
-      'name': _name.text,
-      'email': _email.text,
-      'phonenumber': _mobile.text,
-    });
+  ConfirmationResult confirmationResult;
+  FirebaseAuth _auth = FirebaseAuth.instance;
+  UserCredential userCredential;
+  getDownloadOTP() async {
+    confirmationResult =
+        await _auth.signInWithPhoneNumber('+91 ${_mobile.text}');
+  }
+
+  Future<void> _invalidOTP() async {
+    return showDialog<void>(
+      context: context,
+      barrierDismissible: false, // user must tap button!
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: Row(
+            children: [
+              Text(
+                'Sorry',
+                style: TextStyle(color: Colors.red, fontSize: 20),
+              ),
+              SizedBox(width: 15),
+              Icon(
+                FontAwesomeIcons.frown,
+                color: Colors.red,
+              )
+            ],
+          ),
+          content: SingleChildScrollView(
+            child: ListBody(
+              children: <Widget>[
+                Text(
+                  'Enter valid OTP or Update Mobile Number',
+                  style: TextStyle(color: Colors.grey[500], fontSize: 25),
+                ),
+              ],
+            ),
+          ),
+          actions: <Widget>[
+            FlatButton(
+              child: Text('Enter OTP'),
+              color: Colors.blue,
+              padding: EdgeInsets.symmetric(horizontal: 20),
+              onPressed: () {
+                Navigator.of(context).pop();
+                _downloadAlert(context: context, widget: otpPage(_mobile.text));
+              },
+            ),
+            FlatButton(
+              child: Text('Update Number'),
+              color: Colors.green,
+              padding: EdgeInsets.symmetric(horizontal: 20),
+              onPressed: () {
+                Navigator.of(context).pop();
+                _downloadAlert(context: context, widget: getUserDetails());
+              },
+            ),
+          ],
+        );
+      },
+    );
+  }
+
+  verifyOTP() async {
+    try {
+      userCredential = await confirmationResult.confirm(_otp.text);
+      print(userCredential);
+      print('OTP submited');
+      fireStoreAddWithDownload();
+      fieldClear();
+      Navigator.pop(context);
+    } catch (e) {
+      print('$e OTP faild');
+      Navigator.of(context).pop();
+      _invalidOTP();
+    }
+  }
+
+  fieldClear() {
+    _mobile.clear();
+    _email.clear();
+    _name.clear();
+    _otp.clear();
+  }
+
+  Widget otpPage(String userMobileNumber) {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceAround,
+      children: [
+        Container(
+            height: 500,
+            width: 600,
+            child: Image.network(
+              'images/download pdf/otp service.svg',
+              fit: BoxFit.contain,
+            )),
+        Container(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              AlertTextField(
+                errorText: 'invalid OTP',
+                hintText: 'Enter OTP',
+                icon: Icon(Icons.lock_clock),
+                controller: _otp,
+              ),
+              Container(
+                margin: EdgeInsets.symmetric(vertical: 8.0),
+                decoration: BoxDecoration(
+                  boxShadow: [
+                    BoxShadow(
+                        color: Colors.black.withOpacity(0.2),
+                        offset: Offset(0, 2),
+                        blurRadius: 5)
+                  ],
+                  color: Colors.white,
+                ),
+                child: FlatButton(
+                  height: 60.0,
+                  color: Colors.white,
+                  minWidth: 360,
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(3.0)),
+                  child: Row(
+                    children: [
+                      Container(
+                          width: 30,
+                          height: 30,
+                          child: Image.network(
+                              'images/download pdf/mail service.svg')),
+                      SizedBox(width: 6),
+                      Text(
+                        'submit',
+                        style: TextStyle(fontSize: 20.0, color: Colors.blue),
+                      ),
+                    ],
+                  ),
+                  onPressed: () async {
+                    verifyOTP();
+                  },
+                ),
+              ),
+              SizedBox(height: 20),
+              RichText(
+                text: TextSpan(
+                    style: TextStyle(color: Colors.grey[500], fontSize: 15),
+                    children: [
+                      TextSpan(text: 'Not Received OTP'),
+                      TextSpan(
+                          text: ' Update MobileNumber?',
+                          style: TextStyle(color: Colors.blue),
+                          recognizer: TapGestureRecognizer()
+                            ..onTap = () async {
+                              Navigator.pop(context);
+                              await _downloadAlert(
+                                  context: context, widget: getUserDetails());
+                            }),
+                    ]),
+              ),
+            ],
+          ),
+        ),
+      ],
+    );
   }
 
   Widget getUserDetails() {
-    bool isEmpty = true;
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceAround,
       children: [
@@ -114,15 +267,15 @@ class _DownloadPDFAlertState extends State<DownloadPDFAlert> {
                   boxShadow: [
                     BoxShadow(
                         color: Colors.black.withOpacity(0.2),
-                        offset: Offset(0, 3),
-                        blurRadius: 6)
+                        offset: Offset(0, 2),
+                        blurRadius: 5)
                   ],
                   color: Colors.white,
                 ),
                 child: FlatButton(
                   height: 60.0,
                   color: Colors.white,
-                  minWidth: 355,
+                  minWidth: 360,
                   shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(3.0)),
                   child: Row(
@@ -134,54 +287,18 @@ class _DownloadPDFAlertState extends State<DownloadPDFAlert> {
                               'images/download pdf/mail service.svg')),
                       SizedBox(width: 6),
                       Text(
-                        'submit',
+                        'Send to Mail',
                         style: TextStyle(fontSize: 20.0, color: Colors.blue),
                       ),
                     ],
                   ),
                   onPressed: () async {
-                    if (validateEmail(_email.text) &&
-                        _mobile.text.length >= 10 &&
-                        nameValidation(_name.text) &&
-                        _name.text.length > 3) {
-                      print('without query field');
-                      fireStoreAddWithDownload();
-                      Navigator.pop(context);
-                    } else {
-                      setState(() {
-                        isEmpty = false;
-                      });
-                      Navigator.pop(context);
-                      print('fill all field');
-                    }
+                    getDownloadOTP();
+                    Navigator.pop(context);
+                    await _downloadAlert(
+                        context: context, widget: otpPage(_mobile.text));
                   },
                 ),
-              ),
-            ],
-          ),
-        ),
-      ],
-    );
-  }
-
-  Widget getOTP() {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceAround,
-      children: [
-        Container(
-            height: 500,
-            width: 600,
-            child: Image.network(
-              'images/download pdf/mail.svg',
-              fit: BoxFit.contain,
-            )),
-        Container(
-          child: Column(
-            children: [
-              AlertTextField(
-                errorText: 'invalid OTP',
-                hintText: 'Enter OTP',
-                icon: Icon(Icons.lock_clock),
               ),
             ],
           ),
@@ -202,12 +319,53 @@ class _DownloadPDFAlertState extends State<DownloadPDFAlert> {
             child: Text('Download'),
             onPressed: () async {
               await _downloadAlert(context: context, widget: getUserDetails());
-              await _downloadAlert(context: context, widget: getOTP());
-              print('ddddddddddddddddd');
+
+              // await _downloadAlert(
+              //     context: context, widget: );
             },
           ),
         ),
+        StreamBuilder(
+          stream: _firestore.collection('download pdf').snapshots(),
+          builder: (context, snapshots) {
+            if (!snapshots.hasData) {
+              return Text('Waiting for data');
+            } else {
+              List<Widget> content = [];
+              final userData = snapshots.data.docs;
+              print(userData);
+              for (var particularUser in userData) {
+                final DBuserName = particularUser.data()['name'];
+                final DBUserNumber = particularUser.data()['mobile number'];
+                final DBUserEmail = particularUser.data()['email'];
+                Container singleUser = Container(
+                  color: Colors.red,
+                  height: 100,
+                  width: 300,
+                  margin: EdgeInsets.all(20),
+                  child: Column(
+                    children: [
+                      Text(DBuserName),
+                      Text(DBUserNumber),
+                      Text(DBUserEmail),
+                    ],
+                  ),
+                );
+                content.add(singleUser);
+              }
+              return Column(children: content);
+            }
+          },
+        )
       ],
     ));
+  }
+
+  void fireStoreAddWithDownload() {
+    _firestore.collection('download pdf').doc('+91 ${_mobile.text}').set({
+      'name': _name.text,
+      'email': _email.text,
+      'mobile number': '+91 ${_mobile.text}',
+    });
   }
 }
