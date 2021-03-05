@@ -1,12 +1,10 @@
 import 'dart:html';
-import 'dart:ui' as ui;
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:ocean_project/desktopview/Components/courses_widget.dart';
-import 'package:ocean_project/desktopview/Components/current_file.dart';
-import 'package:ocean_project/desktopview/Components/enroll_new.dart';
 import 'package:ocean_project/desktopview/Components/enrool_appbar.dart';
 import 'package:ocean_project/desktopview/Components/main_notification.dart';
 
@@ -18,7 +16,6 @@ import 'package:ocean_project/desktopview/screen/course_details.dart';
 
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:url_launcher/url_launcher.dart';
 import 'zoom_integration.dart';
 
 Map<String, String> courses_icon = {
@@ -157,8 +154,15 @@ class CoursesView extends StatefulWidget {
   String desc;
   bool isEnroll = false;
   String userID;
+  bool visible;
 
-  CoursesView({this.course, this.sess, this.trainer, this.desc, this.userID});
+  CoursesView(
+      {this.course,
+      this.sess,
+      this.trainer,
+      this.desc,
+      this.userID,
+      this.visible});
   @override
   _CoursesViewState createState() => _CoursesViewState();
 }
@@ -218,10 +222,6 @@ class _CoursesViewState extends State<CoursesView> {
 
   @override
   Widget build(BuildContext context) {
-    // SharedPreferences prefs = await SharedPreferences.getInstance();
-    // // int x = (prefs.getInt('login') ?? 0);
-    // String username = (prefs.getString('user') ?? null);
-    //Navbar.visiblity = false;
     return MaterialApp(
       theme: ThemeData(fontFamily: kfontname),
       home: Scaffold(
@@ -384,8 +384,6 @@ class _ContentWidgetState extends State<ContentWidget> {
         child: Column(
           children: [
             Row(
-              //crossAxisAlignment: CrossAxisAlignment.baseline,
-              //textBaseline: TextBaseline.ideographic,
               children: [
                 Text(
                   "☺",
@@ -409,7 +407,6 @@ class _ContentWidgetState extends State<ContentWidget> {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               textBaseline: TextBaseline.ideographic,
-              //crossAxisAlignment: CrossAxisAlignment.baseline,
               children: [
                 Row(
                   children: [
@@ -436,8 +433,6 @@ class _ContentWidgetState extends State<ContentWidget> {
                           desc: description,
                           batch: widget.batchid,
                         ));
-                        print("${widget.course} gomathi");
-                        print("${widget.trainername} gomathi");
                       },
                       child: Row(
                         children: [

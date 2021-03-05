@@ -16,6 +16,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 final _firestore = FirebaseFirestore.instance;
 
+// ignore: must_be_immutable
 class Home extends StatelessWidget {
   GlobalKey<FormState> formKeyAlert = GlobalKey<FormState>();
   // final GlobalKey<FormState> _formKeyAlert = GlobalKey<FormState>();

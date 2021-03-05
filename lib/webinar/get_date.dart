@@ -22,7 +22,7 @@ class GetDate {
     // print(formatTimes(date));
   }
 
-  int formatTimes(Timestamp timestamp) {
+  formatTimes(Timestamp timestamp) {
     var year = DateFormat('y');
     var month = DateFormat('MM');
     var day = DateFormat('d');

@@ -8,6 +8,10 @@ import 'package:url_launcher/url_launcher.dart';
 
 final _firestore = FirebaseFirestore.instance;
 
+void main() {
+  runApp(MaterialApp(home: Certificate()));
+}
+
 class Certificate extends StatefulWidget {
   @override
   _CertificateState createState() => _CertificateState();
@@ -85,8 +89,8 @@ class CertificateDb extends StatefulWidget {
 }
 
 class _CertificateDbState extends State<CertificateDb> {
-  @override
   bool isVisible = false;
+  bool isTouching = false;
 
   launchURL() async {
     final url = '${widget.image}';
@@ -97,84 +101,105 @@ class _CertificateDbState extends State<CertificateDb> {
     }
   }
 
+  void mouseEnter(PointerEvent details) {
+    setState(() {
+      isTouching = true;
+    });
+  }
+
+  void mouseExit(PointerEvent details) {
+    setState(() {
+      isTouching = false;
+    });
+  }
+
   Widget build(BuildContext context) {
-    return Container(
-      height: 270,
-      width: 350,
-      decoration: BoxDecoration(
-        color: Colors.white,
-        boxShadow: [
-          BoxShadow(color: Colors.grey, blurRadius: 20, spreadRadius: 0.8),
-        ],
-      ),
-      child: Column(
-        children: [
-          GestureDetector(
-            child: InkWell(
-              onTap: () {},
-              onHover: (isHovering) {
-                if (isHovering) {
-                  print("Mouse over");
-                  setState(() {
-                    isVisible = true;
-                  });
-                } else {
-                  print("mouse out");
-                  setState(() {
-                    isVisible = false;
-                  });
-                }
-              },
-              child: Stack(
-                children: [
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
+    return Column(
+      children: [
+        Container(
+          width: 350,
+          decoration: BoxDecoration(
+            color: Colors.white,
+            boxShadow: [
+              BoxShadow(color: Colors.grey, blurRadius: 20, spreadRadius: 0.8),
+            ],
+          ),
+          child: Column(
+            children: [
+              GestureDetector(
+                child: MouseRegion(
+                  onEnter: mouseEnter,
+                  onExit: mouseExit,
+                  child: Stack(
                     children: [
-                      Container(
-                          padding: EdgeInsets.all(20),
-                          height: 210,
-                          width: 350,
-                          child: Image.network('${widget.image}')),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Container(
+                              padding: EdgeInsets.all(20),
+                              height: 210,
+                              width: 350,
+                              child: Image.network('${widget.image}')),
+                        ],
+                      ),
+                      isTouching
+                          ? Visibility(
+                              child: Center(
+                                child: Container(
+                                  margin: EdgeInsets.only(top: 20),
+                                  height: 180,
+                                  width: 300,
+                                  color: Colors.black54,
+                                  child: GestureDetector(
+                                      onTap: () {
+                                        launchURL();
+                                      },
+                                      child: Icon(Icons.download_rounded,
+                                          color: Colors.white)),
+                                ),
+                              ),
+                            )
+                          : Visibility(
+                              visible: isVisible,
+                              child: Center(
+                                child: Positioned(
+                                  child: Container(
+                                    margin: EdgeInsets.only(top: 20),
+                                    height: 180,
+                                    width: 300,
+                                    color: Colors.black54,
+                                    child: GestureDetector(
+                                        onTap: () {
+                                          launchURL();
+                                        },
+                                        child: Icon(Icons.download_rounded,
+                                            color: Colors.white)),
+                                  ),
+                                ),
+                              ),
+                            )
                     ],
                   ),
-                  Visibility(
-                    visible: isVisible,
-                    child: Center(
-                      child: Positioned(
-                        child: Container(
-                          margin: EdgeInsets.only(top: 20),
-                          height: 180,
-                          width: 300,
-                          color: Colors.black54,
-                          child: GestureDetector(
-                              onTap: () {
-                                launchURL();
-                              },
-                              child: Icon(Icons.download_rounded,
-                                  color: Colors.white)),
-                        ),
-                      ),
+                ),
+              ),
+              SizedBox(height: 10),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Container(
+                    alignment: Alignment.bottomCenter,
+                    child: Text(
+                      '${widget.course} Certificate',
+                      style:
+                          TextStyle(fontSize: 18, fontWeight: FontWeight.w600),
                     ),
                   )
                 ],
               ),
-            ),
-          ),
-          SizedBox(height: 10),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Container(
-                alignment: Alignment.bottomCenter,
-                child: Text(
-                  '${widget.course} Certificate',
-                  style: TextStyle(fontSize: 18, fontWeight: FontWeight.w600),
-                ),
-              )
             ],
           ),
-        ],
-      ),
+        ),
+      ],
     );
   }
 }

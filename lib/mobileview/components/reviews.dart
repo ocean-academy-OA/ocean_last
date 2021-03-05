@@ -35,6 +35,7 @@ class _ReviewsSectionState extends State<ReviewsSection> {
   }
 
   @override
+  // ignore: must_call_super
   void initState() {
     // TODO: implement initState
   }
@@ -179,6 +180,7 @@ class _ReviewsSectionState extends State<ReviewsSection> {
   }
 }
 
+// ignore: must_be_immutable
 class ReviewLable extends StatelessWidget {
   ReviewLable({this.color, this.content, this.name, this.reviewtaken});
   final Color color;

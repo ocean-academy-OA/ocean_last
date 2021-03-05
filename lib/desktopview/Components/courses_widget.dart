@@ -1,4 +1,3 @@
-import 'dart:html';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:ocean_project/desktopview/new_user_widget/otp_inputs.dart';
 import 'package:otp_text_field/otp_text_field.dart';
@@ -18,7 +17,6 @@ import 'package:ocean_project/desktopview/screen/course_details.dart';
 import 'package:ocean_project/desktopview/screen/courses.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:url_launcher/url_launcher.dart';
 
 final _firestore = FirebaseFirestore.instance;
 

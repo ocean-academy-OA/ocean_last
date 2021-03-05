@@ -24,7 +24,6 @@ class ContactUs extends StatefulWidget {
 }
 
 class _ContactUsState extends State<ContactUs> {
-  @override
   dynamic getDate() async {
     return DateTime.now();
   }
@@ -450,7 +449,7 @@ table, th, td {
                               alwaysUse24HourFormat: false);
 
                           date = DateFormat("d-M-y").format(DateTime.now());
-                          print('${time} < Current Time >');
+                          print('$time < Current Time >');
                           if (_formKey.currentState.validate()) {
                             _formKey.currentState.save();
                             if (enquiry != null &&

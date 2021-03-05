@@ -16,6 +16,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 final _firestore = FirebaseFirestore.instance;
 
+// ignore: must_be_immutable, camel_case_types
 class User_Profile extends StatefulWidget {
   bool isVisible;
   User_Profile({this.isVisible});
@@ -29,6 +30,7 @@ class User_Profile extends StatefulWidget {
   _User_ProfileState createState() => _User_ProfileState();
 }
 
+// ignore: camel_case_types
 class _User_ProfileState extends State<User_Profile> {
   @override
   getSession() async {

@@ -399,7 +399,6 @@ class _CourseDetailsState extends State<CourseDetails> {
                               }
 
                               print("${widget.course} jaya");
-                              print("${courseImage}");
                               return Column(
                                 children: courseImage,
                               );

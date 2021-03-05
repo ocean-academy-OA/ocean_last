@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:ocean_project/mobileview/screen/courses_screen.dart';
 
+// ignore: must_be_immutable
 class CourseWidget extends StatelessWidget {
   final _firestore = FirebaseFirestore.instance;
   List<String> subjects = [];

@@ -139,6 +139,7 @@ class _EditProfileState extends State<EditProfile> {
                         onPressed: () {
                           Provider.of<OALive>(context, listen: false)
                               .updateOA(routing: CoursesView());
+                          //Navigator.pop(context);
                         },
                       ),
                       Text(
