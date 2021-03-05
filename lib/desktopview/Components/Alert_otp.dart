@@ -12,7 +12,6 @@ import 'package:otp_text_field/otp_field.dart';
 import 'package:provider/provider.dart';
 
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:url_launcher/url_launcher.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:timer_count_down/timer_count_down.dart';
 
@@ -30,18 +29,6 @@ class _AlertOtpState extends State<AlertOtp> {
   UserCredential userCredential;
   String count;
   bool isLogin = false;
-  _clickHere() async {
-    try {
-      const url = 'https://flutter.dev';
-      if (await canLaunch(url)) {
-        await launch(url);
-      } else {
-        throw 'Could not launch $url';
-      }
-    } catch (e) {
-      print(e);
-    }
-  }
 
   List<dynamic> otpCount(int count) {
     List<Widget> otp = [];

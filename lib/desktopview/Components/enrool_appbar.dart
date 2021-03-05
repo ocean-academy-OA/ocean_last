@@ -4,6 +4,8 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:ocean_project/desktopview/Components/course_enrole.dart';
 import 'package:ocean_project/desktopview/Components/enroll_new.dart';
 import 'package:ocean_project/desktopview/Components/my_course.dart';
+import 'package:ocean_project/desktopview/Components/main_notification.dart';
+import 'package:ocean_project/desktopview/Components/user_profile.dart';
 import 'package:ocean_project/desktopview/Components/ocean_icons.dart';
 import 'package:ocean_project/desktopview/new_user_screen/log_in.dart';
 import 'package:ocean_project/desktopview/screen/menubar.dart';
@@ -176,9 +178,14 @@ class _AppBarWidgetState extends State<AppBarWidget> {
                                   BorderRadius.all(Radius.circular(600.0))),
                           onPressed: () {
                             setState(() {
-                              Provider.of<OALive>(context, listen: false)
-                                  .updateOA(routing: CoursesView());
                               ContentWidget.isShow = !ContentWidget.isShow;
+                              // Provider.of<SyllabusView>(context, listen: false)
+                              //     .updateCourseSyllabus(routing: MyCourse());
+                              Provider.of<OALive>(context, listen: false)
+                                  .updateOA(
+                                      routing: CoursesView(
+                                visible: ContentWidget.isShow,
+                              ));
                             });
                           },
                           child: userProfile != null
@@ -202,10 +209,14 @@ class _AppBarWidgetState extends State<AppBarWidget> {
                                   BorderRadius.all(Radius.circular(600.0))),
                           onPressed: () {
                             setState(() {
-                              Provider.of<OALive>(context, listen: false)
-                                  .updateOA(routing: CoursesView());
                               ContentWidget.isVisible =
                                   !ContentWidget.isVisible;
+                              Provider.of<OALive>(context, listen: false)
+                                  .updateOA(routing: CoursesView());
+                              // Provider.of<SyllabusView>(context, listen: false)
+                              //     .updateCourseSyllabus(
+                              //         routing: Notification_onclick(
+                              //             isVisible: ContentWidget.isVisible));
                             });
                           },
                           child: Icon(

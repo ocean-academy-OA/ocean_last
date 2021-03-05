@@ -247,7 +247,7 @@ class _RegistrationState extends State<Registration> {
                                   children: [
                                     profilePictureLink != null
                                         ? Image.network(
-                                            '${profilePictureLink}',
+                                            profilePictureLink,
                                             width: 500.0,
                                             height: 500.0,
                                             fit: BoxFit.cover,

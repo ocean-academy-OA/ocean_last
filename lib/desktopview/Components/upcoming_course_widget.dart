@@ -55,7 +55,6 @@ class _UpcomingCourseState extends State<UpcomingCourse> {
 
       bubbles.add(coursIMG);
     }
-    print('${bubbles} kkkkkkkkkkkkkkkkkk');
   }
 
   @override

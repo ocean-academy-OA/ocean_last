@@ -15,6 +15,7 @@ const kcontent = TextStyle(
   color: Colors.black45,
 );
 
+// ignore: must_be_immutable
 class AboutUs extends StatelessWidget {
   final _firestore = FirebaseFirestore.instance;
   var myGroup = AutoSizeGroup();

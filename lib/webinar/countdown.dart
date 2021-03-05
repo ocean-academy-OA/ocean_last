@@ -3,7 +3,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:ocean_project/desktopview/constants.dart';
-import 'package:ocean_project/webinar/get_date.dart';
 import 'package:ocean_project/webinar/webinar_const.dart';
 import 'package:slide_countdown_clock/slide_countdown_clock.dart';
 
