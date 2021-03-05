@@ -1,8 +1,11 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flushbar/flushbar.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:get/get.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get_core/src/get_main.dart';
+import 'package:get/get_navigation/src/root/get_material_app.dart';
 import 'package:ocean_project/alert/alert_text_field.dart';
 
 void main() {
@@ -68,6 +71,60 @@ class _DownloadPDFAlertState extends State<DownloadPDFAlert> {
         await _auth.signInWithPhoneNumber('+91 ${_mobile.text}');
   }
 
+  Future<void> _invalidOTP() async {
+    return showDialog<void>(
+      context: context,
+      barrierDismissible: false, // user must tap button!
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: Row(
+            children: [
+              Text(
+                'Sorry',
+                style: TextStyle(color: Colors.red, fontSize: 20),
+              ),
+              SizedBox(width: 15),
+              Icon(
+                FontAwesomeIcons.frown,
+                color: Colors.red,
+              )
+            ],
+          ),
+          content: SingleChildScrollView(
+            child: ListBody(
+              children: <Widget>[
+                Text(
+                  'Enter valid OTP or Update Mobile Number',
+                  style: TextStyle(color: Colors.grey[500], fontSize: 25),
+                ),
+              ],
+            ),
+          ),
+          actions: <Widget>[
+            FlatButton(
+              child: Text('Enter OTP'),
+              color: Colors.blue,
+              padding: EdgeInsets.symmetric(horizontal: 20),
+              onPressed: () {
+                Navigator.of(context).pop();
+                _downloadAlert(context: context, widget: otpPage(_mobile.text));
+              },
+            ),
+            FlatButton(
+              child: Text('Update Number'),
+              color: Colors.green,
+              padding: EdgeInsets.symmetric(horizontal: 20),
+              onPressed: () {
+                Navigator.of(context).pop();
+                _downloadAlert(context: context, widget: getUserDetails());
+              },
+            ),
+          ],
+        );
+      },
+    );
+  }
+
   verifyOTP() async {
     try {
       userCredential = await confirmationResult.confirm(_otp.text);
@@ -78,22 +135,8 @@ class _DownloadPDFAlertState extends State<DownloadPDFAlert> {
       Navigator.pop(context);
     } catch (e) {
       print('$e OTP faild');
-      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-        onVisible: () {
-          Navigator.pop(context);
-          _otp.clear();
-          _downloadAlert(context: context, widget: getUserDetails());
-        },
-        content: Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Text(
-              'Invalid OTP',
-              style: TextStyle(color: Colors.white),
-            )
-          ],
-        ),
-      ));
+      Navigator.of(context).pop();
+      _invalidOTP();
     }
   }
 
