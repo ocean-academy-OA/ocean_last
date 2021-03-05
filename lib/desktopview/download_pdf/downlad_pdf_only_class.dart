@@ -300,8 +300,8 @@ class _DownloadPDFAlertState extends State<DownloadPDFAlert> {
                     ],
                   ),
                   onPressed: () async {
-                    Navigator.pop(context);
                     getDownloadOTP();
+                    Navigator.pop(context);
                     await downloadAlert(
                         context: context, widget: otpPage(_mobile.text));
                   },
@@ -315,70 +315,22 @@ class _DownloadPDFAlertState extends State<DownloadPDFAlert> {
   }
 
   @override
-  @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      home: Scaffold(
-        backgroundColor: Colors.lightBlue,
-        body: Center(
-          child: TextButton(
-            child: Text('DOENLOAD'),
-            onPressed: () async {
-              await downloadAlert(widget: getUserDetails(), context: context);
-            },
-          ),
+    return Scaffold(
+      body: Center(
+          child: Container(
+        height: 50,
+        width: 300,
+        child: TextButton(
+          child: Text('Download'),
+          onPressed: () async {
+            await downloadAlert(context: context, widget: getUserDetails());
+
+            // await _downloadAlert(
+            //     context: context, widget: );
+          },
         ),
-      ),
+      )),
     );
-    //   Center(
-    //     child: Column(
-    //   children: [
-    //     Container(
-    //       height: 50,
-    //       width: 300,
-    //       child: TextButton(
-    //         child: Text('Download'),
-    //         onPressed: () async {
-    //           await downloadAlert(context: context, widget: getUserDetails());
-    //
-    //           // await _downloadAlert(
-    //           //     context: context, widget: );
-    //         },
-    //       ),
-    //     ),
-    //     StreamBuilder(
-    //       stream: _firestore.collection('download pdf').snapshots(),
-    //       builder: (context, snapshots) {
-    //         if (!snapshots.hasData) {
-    //           return Text('Waiting for data');
-    //         } else {
-    //           List<Widget> content = [];
-    //           final userData = snapshots.data.docs;
-    //           print(userData);
-    //           for (var particularUser in userData) {
-    //             final DBuserName = particularUser.data()['name'];
-    //             final DBUserNumber = particularUser.data()['mobile number'];
-    //             final DBUserEmail = particularUser.data()['email'];
-    //             Container singleUser = Container(
-    //               color: Colors.red,
-    //               height: 100,
-    //               width: 300,
-    //               margin: EdgeInsets.all(20),
-    //               child: Column(
-    //                 children: [
-    //                   Text(DBuserName),
-    //                   Text(DBUserNumber),
-    //                   Text(DBUserEmail),
-    //                 ],
-    //               ),
-    //             );
-    //             content.add(singleUser);
-    //           }
-    //           return Column(children: content);
-    //         }
-    //       },
-    //     )
-    //   ],
-    // ));
   }
 }

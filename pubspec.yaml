@@ -67,6 +67,7 @@ dependencies:
   flutter_countdown_timer: ^3.0.1
   countdown_flutter: ^0.1.2
   countdown_timer_simple: ^1.0.2
+  get: ^3.26.0
 
 
 
