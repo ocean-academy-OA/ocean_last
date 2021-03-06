@@ -2,7 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:ocean_project/desktopview/Components/course_enrole.dart';
-import 'package:ocean_project/desktopview/Components/enrool_appbar.dart';
+import 'package:ocean_project/desktopview/Components/my_course.dart';
 import 'package:ocean_project/desktopview/new_user_screen/log_in.dart';
 import 'package:ocean_project/desktopview/route/routing.dart';
 import 'package:provider/provider.dart';
@@ -13,10 +13,6 @@ class Purchase extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: PreferredSize(
-        child: AppBarWidget(),
-        preferredSize: Size.fromHeight(100),
-      ),
       body: SingleChildScrollView(
         child: Column(
           children: [
@@ -32,9 +28,15 @@ class Purchase extends StatelessWidget {
                   iconSize: 50,
                   splashRadius: 30,
                   onPressed: () {
-                    Provider.of<OALive>(context, listen: false)
-                        .updateOA(routing: CoursesView());
-                    //Navigator.pop(context);
+                    CoursesView.isCheckCourse = true;
+                    Provider.of<CourseProvide>(context, listen: false)
+                        .updateCourseName(
+                            routing: CourseList(),
+                            isCheck: CoursesView.isCheckCourse);
+                    Provider.of<SyllabusView>(context, listen: false)
+                        .updateCourseSyllabus(
+                      routing: MyCourse(),
+                    );
                   },
                 ),
                 Text(

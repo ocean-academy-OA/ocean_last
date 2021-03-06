@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:ocean_project/desktopview/Components/enroll_new.dart';
 import 'package:ocean_project/desktopview/Components/certificates.dart';
 
 import 'package:ocean_project/desktopview/Components/purchase.dart';
@@ -20,11 +21,6 @@ final _firestore = FirebaseFirestore.instance;
 class User_Profile extends StatefulWidget {
   bool isVisible;
   User_Profile({this.isVisible});
-  getSession() async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    // int x = (prefs.getInt('login') ?? 0);
-    LogIn.registerNumber = (prefs.getString('user') ?? null);
-  }
 
   @override
   _User_ProfileState createState() => _User_ProfileState();
@@ -47,11 +43,13 @@ class _User_ProfileState extends State<User_Profile> {
 
   @override
   Widget build(BuildContext context) {
+    print("Checkkkkkkk${widget.isVisible}");
+
     return Positioned(
       top: 0,
       right: 150,
       child: Visibility(
-        visible: widget.isVisible,
+        visible: ContentWidget.isShow,
         child: Container(
           width: 200,
           child: Column(
@@ -73,19 +71,35 @@ class _User_ProfileState extends State<User_Profile> {
                     FlatButton(
                       child: Text('Certificates'),
                       onPressed: () {
-                        Provider.of<OALive>(context, listen: false)
-                            .updateOA(routing: Certificate());
                         setState(() {
                           ContentWidget.isShow = !ContentWidget.isShow;
+                          CoursesView.isCheckCourse = false;
                         });
+                        print("isCheckCourse${CoursesView.isCheckCourse}");
+                        Provider.of<CourseProvide>(context, listen: false)
+                            .updateCourseName(
+                                routing: CourseList(),
+                                isCheck: CoursesView.isCheckCourse);
+
+                        Provider.of<SyllabusView>(context, listen: false)
+                            .updateCourseSyllabus(routing: Certificate());
                       },
                     ),
                     SizedBox(height: 10),
                     FlatButton(
                       child: Text('My profile'),
                       onPressed: () {
-                        Provider.of<OALive>(context, listen: false)
-                            .updateOA(routing: EditProfile());
+                        setState(() {
+                          CoursesView.isCheckCourse = false;
+                        });
+                        print("isCheckCourse${CoursesView.isCheckCourse}");
+                        Provider.of<CourseProvide>(context, listen: false)
+                            .updateCourseName(
+                                routing: CourseList(),
+                                isCheck: CoursesView.isCheckCourse);
+
+                        Provider.of<SyllabusView>(context, listen: false)
+                            .updateCourseSyllabus(routing: EditProfile());
                         setState(() {
                           ContentWidget.isShow = !ContentWidget.isShow;
                         });
@@ -95,8 +109,17 @@ class _User_ProfileState extends State<User_Profile> {
                     FlatButton(
                       child: Text('Purchase'),
                       onPressed: () {
-                        Provider.of<OALive>(context, listen: false)
-                            .updateOA(routing: Purchase());
+                        setState(() {
+                          CoursesView.isCheckCourse = false;
+                        });
+                        print("isCheckCourse${CoursesView.isCheckCourse}");
+                        Provider.of<CourseProvide>(context, listen: false)
+                            .updateCourseName(
+                                routing: CourseList(),
+                                isCheck: CoursesView.isCheckCourse);
+
+                        Provider.of<SyllabusView>(context, listen: false)
+                            .updateCourseSyllabus(routing: Purchase());
                         setState(() {
                           ContentWidget.isShow = !ContentWidget.isShow;
                         });

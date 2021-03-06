@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 
 import 'package:ocean_project/desktopview/Components/enroll_new.dart';
+import 'package:ocean_project/desktopview/Components/course_enrole.dart';
+import 'package:ocean_project/desktopview/Components/user_profile.dart';
 
 import 'package:ocean_project/desktopview/screen/home_screen.dart';
 import 'package:ocean_project/desktopview/screen/menubar.dart';
@@ -28,16 +30,18 @@ class FreeWeb extends ChangeNotifier {
 }
 
 class CourseProvide extends ChangeNotifier {
-  String courseName;
-  void updateCourseName({String course}) {
-    courseName = course;
+  Widget routing = CourseList();
+  void updateCourseName({Widget routing, bool isCheck}) {
+    this.routing = routing;
     notifyListeners();
   }
 }
 
 class SyllabusView extends ChangeNotifier {
   Widget routing = EnrollNew();
-  void updateCourseSyllabus({Widget routing}) {
+  void updateCourseSyllabus({
+    Widget routing,
+  }) {
     this.routing = routing;
     notifyListeners();
   }
@@ -63,9 +67,9 @@ class OALive extends ChangeNotifier {
 }
 
 class UserProfiles extends ChangeNotifier {
-  Widget route = Navbar();
+  Widget route = User_Profile();
 
-  void updateOA({Widget routing}) {
+  void updateUser({Widget routing}) {
     this.route = routing;
     notifyListeners();
   }
