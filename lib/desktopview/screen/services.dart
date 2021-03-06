@@ -42,26 +42,32 @@ class _ServiceState extends State<Service> {
                   ContainerServiceWidget(
                     title: ourservicesheading1,
                     content: ourservices1,
+                    icon: 'images/campus-training.png',
                   ),
                   ContainerServiceWidget(
                     title: ourservicesheading2,
                     content: ourservices2,
+                    icon: 'images/software devolopment.png',
                   ),
                   ContainerServiceWidget(
                     title: ourservicesheading3,
                     content: ourservices3,
+                    icon: 'images/technical workshop.png',
                   ),
                   ContainerServiceWidget(
                     title: ourservicesheading4,
                     content: ourservices4,
+                    icon: 'images/counseling.png',
                   ),
                   ContainerServiceWidget(
-                    title: "aaa",
-                    content: "bbb",
+                    title: "Title",
+                    content: "Subtitle",
+                    icon: '',
                   ),
                   ContainerServiceWidget(
-                    title: "aaa",
-                    content: "bbb",
+                    title: "Title",
+                    content: "Subtitle",
+                    icon: '',
                   ),
                 ],
               ),

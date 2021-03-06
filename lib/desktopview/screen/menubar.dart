@@ -8,6 +8,7 @@ import 'package:ocean_project/desktopview/route/routing.dart';
 import 'package:ocean_project/desktopview/screen/contact_us.dart';
 import 'package:ocean_project/desktopview/screen/courses.dart';
 import 'package:ocean_project/desktopview/screen/services.dart';
+import 'package:ocean_project/webinar/upcoming_webinar.dart';
 import 'package:ocean_project/webinar/webinar.dart';
 import 'package:ocean_project/webinar/webinar_page.dart';
 import 'package:provider/provider.dart';
@@ -77,6 +78,10 @@ class _NavbarState extends State<Navbar> {
                 ));
               },
               joinButtonName: 'Join Now',
+              upcomingButton: () {
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => UpcomingWebinar()));
+              },
             ),
           ),
           Visibility(
