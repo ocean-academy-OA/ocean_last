@@ -139,6 +139,7 @@ Widget courseEnroll({text, color}) {
 class CoursesView extends StatefulWidget {
   static String courseEnroll;
   static String studentname;
+  static bool isCheckCourse = true;
   static String studentemail;
   static List batchId = [];
   String course;
@@ -178,11 +179,8 @@ class _CoursesViewState extends State<CoursesView> {
 
   bool visibility = true;
 
-  Map menu = {};
-
   getSession() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    // int x = (prefs.getInt('login') ?? 0);
     LogIn.registerNumber = (prefs.getString('user') ?? null);
     userCourses();
     batch_id();
@@ -194,8 +192,6 @@ class _CoursesViewState extends State<CoursesView> {
 
     // TODO: implement initState
     super.initState();
-    // Provider.of<SyllabusView>(context, listen: false)
-    //     .updateCourseSyllabus(routing: EnrollNew());
   }
 
   String batchid;
@@ -207,9 +203,7 @@ class _CoursesViewState extends State<CoursesView> {
         .doc(LogIn.registerNumber)
         .get();
     CoursesView.courseEnroll = course.data()["First Name"];
-    //CoursesView.studentname = course.data()["First Name"];
     CoursesView.studentemail = course.data()["E Mail"];
-    //batchid = course.data()["batchid"];
     print('${CoursesView.courseEnroll}jjjjjjjjjjj');
   }
 
@@ -229,75 +223,10 @@ class _CoursesViewState extends State<CoursesView> {
                 Expanded(
                   flex: 1,
                   child: Container(
-                    padding: EdgeInsets.symmetric(vertical: 10.0),
-                    //width: 250.0,
-                    color: Color(0xff006793),
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Container(
-                          //color: Color(0xff006793).withOpacity(0.5),
-                          child: Column(
-                            children: [
-                              Text(
-                                "Courses",
-                                style: TextStyle(
-                                  fontSize: 30.0,
-                                  color: Colors.white,
-                                  fontWeight: FontWeight.w500,
-                                ),
-                              ),
-                              StreamBuilder<QuerySnapshot>(
-                                stream: _firestore
-                                    .collection('new users')
-                                    .snapshots(),
-                                // ignore: missing_return
-                                builder: (context1, snapshot) {
-                                  if (!snapshot.hasData) {
-                                    return Text("Loading.....");
-                                  } else {
-                                    final messages = snapshot.data.docs;
-
-                                    //userCourses();
-                                    int pos = 0;
-                                    List<String> courseList = [];
-                                    List<String> courseIconList = [];
-                                    List<String> batchId = [];
-
-                                    for (var message in messages) {
-                                      if (message.id == LogIn.registerNumber) {
-                                        final messageSender =
-                                            message.data()['Courses'];
-
-                                        final batch = message.data()['batchid'];
-                                        print(batch);
-                                        print(messageSender);
-
-                                        for (var i in messageSender) {
-                                          menu[pos++] = false;
-                                          courseList.add(i);
-                                          courseIconList.add(courses_icon[i]);
-                                        }
-                                        for (var i in batch) {
-                                          batchId.add(i);
-                                        }
-                                      }
-                                    }
-
-                                    return HorizontalMenu(
-                                      courseList: courseList,
-                                      menu: menu,
-                                      batchId: batchId,
-                                      courseIcon: courseIconList,
-                                    );
-                                  }
-                                },
-                              ),
-                            ],
-                          ),
-                        ),
-                      ],
-                    ),
+                    child: Consumer<CourseProvide>(
+                        builder: (context, routing, child) {
+                      return routing.routing;
+                    }),
                   ),
                 ),
                 Expanded(
@@ -311,8 +240,9 @@ class _CoursesViewState extends State<CoursesView> {
                 )
               ],
             ),
-            Notification_onclick(isVisible: ContentWidget.isVisible),
-            User_Profile(isVisible: ContentWidget.isShow),
+            Consumer<UserProfiles>(builder: (context, routing, child) {
+              return routing.route;
+            }),
           ],
         ),
       ),
@@ -646,6 +576,89 @@ class _CourseContentState extends State<CourseContent> {
           ),
         ),
       ],
+    );
+  }
+}
+
+class CourseList extends StatefulWidget {
+  @override
+  _CourseListState createState() => _CourseListState();
+}
+
+class _CourseListState extends State<CourseList> {
+  Map menu = {};
+  @override
+  Widget build(BuildContext context) {
+    return Visibility(
+      visible: CoursesView.isCheckCourse,
+      child: Container(
+        padding: EdgeInsets.symmetric(vertical: 10.0),
+        //width: 250.0,
+        color: Color(0xff006793),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Container(
+              //color: Color(0xff006793).withOpacity(0.5),
+              child: Column(
+                children: [
+                  Text(
+                    "Courses",
+                    style: TextStyle(
+                      fontSize: 30.0,
+                      color: Colors.white,
+                      fontWeight: FontWeight.w500,
+                    ),
+                  ),
+                  StreamBuilder<QuerySnapshot>(
+                    stream: _firestore.collection('new users').snapshots(),
+                    // ignore: missing_return
+                    builder: (context1, snapshot) {
+                      if (!snapshot.hasData) {
+                        return Text("Loading.....");
+                      } else {
+                        final messages = snapshot.data.docs;
+
+                        //userCourses();
+                        int pos = 0;
+                        List<String> courseList = [];
+                        List<String> courseIconList = [];
+                        List<String> batchId = [];
+
+                        for (var message in messages) {
+                          if (message.id == LogIn.registerNumber) {
+                            final messageSender = message.data()['Courses'];
+
+                            final batch = message.data()['batchid'];
+                            print(batch);
+                            print(messageSender);
+
+                            for (var i in messageSender) {
+                              menu[pos++] = false;
+                              courseList.add(i);
+                              courseIconList.add(courses_icon[i]);
+                            }
+                            for (var i in batch) {
+                              batchId.add(i);
+                            }
+                          }
+                        }
+
+                        return HorizontalMenu(
+                          courseList: courseList,
+                          menu: menu,
+                          batchId: batchId,
+                          courseIcon: courseIconList,
+                        );
+                      }
+                    },
+                  ),
+                ],
+              ),
+            ),
+          ],
+        ),
+      ),
     );
   }
 }

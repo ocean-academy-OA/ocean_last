@@ -1,16 +1,16 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:ocean_project/desktopview/Components/course_enrole.dart';
-import 'package:ocean_project/desktopview/Components/enrool_appbar.dart';
+import 'package:ocean_project/desktopview/Components/my_course.dart';
 import 'package:ocean_project/desktopview/route/routing.dart';
 import 'package:provider/provider.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 final _firestore = FirebaseFirestore.instance;
 
-void main() {
-  runApp(MaterialApp(home: Certificate()));
-}
+// void main() {
+//   runApp(MaterialApp(home: Certificate()));
+// }
 
 class Certificate extends StatefulWidget {
   @override
@@ -19,12 +19,15 @@ class Certificate extends StatefulWidget {
 
 class _CertificateState extends State<Certificate> {
   @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    CoursesView.isCheckCourse = false;
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: PreferredSize(
-        child: AppBarWidget(),
-        preferredSize: Size.fromHeight(100),
-      ),
       body: SingleChildScrollView(
         child: Column(
           children: [
@@ -33,8 +36,15 @@ class _CertificateState extends State<Certificate> {
               children: [
                 GestureDetector(
                     onTap: () {
-                      Provider.of<OALive>(context, listen: false)
-                          .updateOA(routing: CoursesView());
+                      CoursesView.isCheckCourse = true;
+                      Provider.of<CourseProvide>(context, listen: false)
+                          .updateCourseName(
+                              routing: CourseList(),
+                              isCheck: CoursesView.isCheckCourse);
+                      Provider.of<SyllabusView>(context, listen: false)
+                          .updateCourseSyllabus(
+                        routing: MyCourse(),
+                      );
                     },
                     child:
                         Icon(Icons.chevron_left, size: 70, color: Colors.blue)),

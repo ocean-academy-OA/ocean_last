@@ -11,6 +11,8 @@ import 'package:ocean_project/desktopview/new_user_screen/log_in.dart';
 import 'package:ocean_project/desktopview/screen/menubar.dart';
 import 'package:ocean_project/desktopview/route/routing.dart';
 import 'package:ocean_project/desktopview/screen/home_screen.dart';
+
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:provider/provider.dart';
 
 final _firestore = FirebaseFirestore.instance;
@@ -24,12 +26,20 @@ class AppBarWidget extends StatefulWidget {
 
 class _AppBarWidgetState extends State<AppBarWidget> {
   String userProfile;
+  session() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    await prefs.setInt('login', 1);
+    await prefs.setString('user', OALive.stayUser);
+    print("${OALive.stayUser}dddddddddddddddddddddddddddddddddddddd");
+    print('Otp Submited');
+    getProfilePicture();
+  }
+
   getProfilePicture() async {
-    var details = await _firestore
-        .collection('new users')
-        .doc(OALive.stayUser != null ? OALive.stayUser : LogIn.registerNumber)
-        .get(); // 8015122373 insted of  LogIn.userNum
+    var details =
+        await _firestore.collection('new users').doc(OALive.stayUser).get();
     userProfile = details.data()['Profile Picture'];
+    print(userProfile);
   }
 
   getImage() async {
@@ -43,9 +53,7 @@ class _AppBarWidgetState extends State<AppBarWidget> {
             final messages = snapshot.data.docs;
             for (var message in messages) {
               // ignore: unrelated_type_equality_checks
-              if (OALive.stayUser == message.data() ||
-                  // ignore: unrelated_type_equality_checks
-                  LogIn.registerNumber == message.data()) {
+              if (OALive.stayUser == message.data().id) {
                 final dbImage = message.data()['Profile Picture'];
 
                 userProfile = dbImage;
@@ -59,7 +67,11 @@ class _AppBarWidgetState extends State<AppBarWidget> {
   void initState() {
     // TODO: implement initState
     super.initState();
-    getProfilePicture();
+    print(OALive.stayUser);
+    print('88888888888');
+    session();
+
+    //getImage();
   }
 
   @override
@@ -179,14 +191,14 @@ class _AppBarWidgetState extends State<AppBarWidget> {
                           onPressed: () {
                             setState(() {
                               ContentWidget.isShow = !ContentWidget.isShow;
-                              // Provider.of<SyllabusView>(context, listen: false)
-                              //     .updateCourseSyllabus(routing: MyCourse());
-                              Provider.of<OALive>(context, listen: false)
-                                  .updateOA(
-                                      routing: CoursesView(
-                                visible: ContentWidget.isShow,
-                              ));
                             });
+
+                            Provider.of<UserProfiles>(context, listen: false)
+                                .updateUser(
+                                    routing: User_Profile(
+                              isVisible: ContentWidget.isShow,
+                            ));
+                            print("${ContentWidget.isShow}show");
                           },
                           child: userProfile != null
                               ? ClipRRect(
@@ -211,13 +223,12 @@ class _AppBarWidgetState extends State<AppBarWidget> {
                             setState(() {
                               ContentWidget.isVisible =
                                   !ContentWidget.isVisible;
-                              Provider.of<OALive>(context, listen: false)
-                                  .updateOA(routing: CoursesView());
-                              // Provider.of<SyllabusView>(context, listen: false)
-                              //     .updateCourseSyllabus(
-                              //         routing: Notification_onclick(
-                              //             isVisible: ContentWidget.isVisible));
                             });
+                            Provider.of<UserProfiles>(context, listen: false)
+                                .updateUser(
+                                    routing: Notification_onclick(
+                              isVisible: ContentWidget.isVisible,
+                            ));
                           },
                           child: Icon(
                             Icons.notifications_none_outlined,
@@ -294,3 +305,45 @@ class TraingleClipPath extends CustomClipper<Path> {
     return false;
   }
 }
+
+// class ProfilePictureDb extends StatefulWidget {
+//   @override
+//   _ProfilePictureDbState createState() => _ProfilePictureDbState();
+// }
+
+// class _ProfilePictureDbState extends State<ProfilePictureDb> {
+//   @override
+//   Widget build(BuildContext context) {
+//     return MaterialButton(
+//       padding: EdgeInsets.all(10.0),
+//       minWidth: 10.0,
+//       hoverColor: Colors.white10,
+//       shape: RoundedRectangleBorder(
+//           borderRadius:
+//           BorderRadius.all(Radius.circular(600.0))),
+//       onPressed: () {
+//         setState(() {
+//           ContentWidget.isShow = !ContentWidget.isShow;
+//         });
+//
+//         Provider.of<UserProfiles>(context, listen: false)
+//             .updateUser(
+//             routing: User_Profile(
+//               isVisible: ContentWidget.isShow,
+//             ));
+//         print("${ContentWidget.isShow}show");
+//       },
+//       child: userProfile != null
+//           ? ClipRRect(
+//         borderRadius: BorderRadius.circular(100.0),
+//         child: Image.network(userProfile,
+//             height: 60, width: 60, fit: BoxFit.cover),
+//       )
+//           : Icon(
+//         FontAwesomeIcons.solidUserCircle,
+//         size: 60,
+//         color: Colors.white,
+//       ),
+//     );
+//   }
+// }
