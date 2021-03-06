@@ -47,13 +47,6 @@ class _LogInState extends State<LogIn> {
     await prefs.setInt('login', 1);
     await prefs.setString('user', _phoneNumberController.text);
     print('Otp Submited');
-    _firestore
-        .collection("session")
-        .doc('$countryCode ${_phoneNumberController.text}')
-        .set({
-      "session": true,
-      "sessionNumber": '$countryCode ${_phoneNumberController.text}'
-    });
   }
 
   List getContryCode() {

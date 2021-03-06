@@ -157,7 +157,8 @@ class Footer extends StatelessWidget {
                     GestureDetector(
                       onTap: () {
                         Provider.of<Routing>(context, listen: false)
-                            .updateRouting(widget: ContactUs());
+                            .updateRouting(
+                                widget: ContactUs(), text: "Contact Us");
                       },
                       child: Container(
                           child: Text(

@@ -12,7 +12,7 @@ final _firestore = FirebaseFirestore.instance;
 class Routing extends ChangeNotifier {
   Widget route = Home();
 
-  void updateRouting({Widget widget}) {
+  void updateRouting({Widget widget, String text}) {
     route = widget;
     notifyListeners();
   }

@@ -540,9 +540,6 @@ class _VisibleWidgetState extends State<VisibleWidget> {
               child: new Text("Close"),
               onPressed: () {
                 Navigator.of(context1).pop();
-                setState(() {});
-                Provider.of<SyllabusView>(context, listen: false)
-                    .updateCourseSyllabus(routing: ThanksForPurchasing());
               },
             ),
           ],
@@ -610,6 +607,7 @@ class _VisibleWidgetState extends State<VisibleWidget> {
                         borderRadius: BorderRadius.circular(50.0),
                         side: BorderSide(color: Colors.blue, width: 2.0)),
                     onPressed: () async {
+                      print("OALIVE ${OALive.stayUser}");
                       var userSession = await _firestore
                           .collection('new users')
                           .doc(OALive.stayUser != null

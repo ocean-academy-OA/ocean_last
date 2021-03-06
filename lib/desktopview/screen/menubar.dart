@@ -8,6 +8,7 @@ import 'package:ocean_project/desktopview/route/routing.dart';
 import 'package:ocean_project/desktopview/screen/contact_us.dart';
 import 'package:ocean_project/desktopview/screen/courses.dart';
 import 'package:ocean_project/desktopview/screen/services.dart';
+import 'package:ocean_project/webinar/webinar.dart';
 import 'package:ocean_project/webinar/webinar_page.dart';
 import 'package:provider/provider.dart';
 import 'home_screen.dart';
@@ -23,7 +24,6 @@ class Navbar extends StatefulWidget {
 }
 
 class _NavbarState extends State<Navbar> {
-  var webinarList;
   Map menu = {
     'Home': true,
     'About Us': false,
@@ -44,20 +44,11 @@ class _NavbarState extends State<Navbar> {
     }
   }
 
-  void getWebinar() async {
-    webinarList = await _firestore.collection('page').get();
-    print("=====================");
-    print(webinarList);
-    print("=====================");
-  }
-
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
     retriveTime();
-
-    getWebinar();
   }
 
   @override
@@ -69,7 +60,6 @@ class _NavbarState extends State<Navbar> {
           Visibility(
             visible: Navbar.isNotification,
             child: FlashNotification(
-              webinar: webinarList,
               dismissNotification: () {
                 setState(() {
                   Navbar.isNotification = false;
@@ -162,7 +152,7 @@ class _NavbarState extends State<Navbar> {
                           onPressed: () {
                             print('${OALive.stayUser} Stay user');
 
-                            ///todo:instead of regsiter login will come
+                            ///todo:instead of resiter login will come
                             Provider.of<Routing>(context, listen: false)
                                 .updateRouting(widget: LogIn());
                           },

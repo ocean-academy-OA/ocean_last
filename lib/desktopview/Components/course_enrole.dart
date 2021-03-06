@@ -23,16 +23,6 @@ Map<String, String> courses_icon = {
       'https://firebasestorage.googleapis.com/v0/b/ocean-live.appspot.com/o/courses_icon%2Fc.png?alt=media&token=4e2c22c6-8364-4bfc-b49e-d9fdab591bba',
 };
 final _firestore = FirebaseFirestore.instance;
-//
-// _launchURL() async {
-//   const url =
-//       'https://us04web.zoom.us/j/5175653439?pwd=MEI0R1VjQ2FDMitpbkV6RHpSWURndz09';
-//   if (await canLaunch(url)) {
-//     await launch(url);
-//   } else {
-//     throw 'Could not launch $url';
-//   }
-// }
 
 // ignore: must_be_immutable
 class HorizontalMenu extends StatefulWidget {
@@ -82,49 +72,52 @@ class _HorizontalMenuState extends State<HorizontalMenu> {
               color: isTouching
                   ? Colors.white.withOpacity(0.3)
                   : Color(0xff006793),
-              child: ListTile(
-                hoverColor: Colors.yellow,
-                leading: ClipRRect(
-                  child: widget.courseIcon[index] != null
-                      ? Container(
-                          height: 40,
-                          width: 40,
-                          child: Image.network(
-                            widget.courseIcon[index],
-                            fit: BoxFit.cover,
-                            alignment: Alignment.centerLeft,
+              child: MouseRegion(
+                child: ListTile(
+                  hoverColor: Colors.yellow,
+                  leading: ClipRRect(
+                    child: widget.courseIcon[index] != null
+                        ? Container(
+                            height: 40,
+                            width: 40,
+                            child: Image.network(
+                              widget.courseIcon[index],
+                              fit: BoxFit.cover,
+                              alignment: Alignment.centerLeft,
+                            ),
+                          )
+                        : Container(
+                            height: 40,
+                            width: 40,
+                            child: Image.network(
+                              'https://firebasestorage.googleapis.com/v0/b/ocean-live-project-ea2e7.appspot.com/o/Flask.png?alt=media&token=91bae082-5f81-4372-8d3a-cbf3bc14419a',
+                              fit: BoxFit.cover,
+                              alignment: Alignment.centerLeft,
+                            ),
                           ),
-                        )
-                      : Container(
-                          height: 40,
-                          width: 40,
-                          child: Image.network(
-                            'https://firebasestorage.googleapis.com/v0/b/ocean-live-project-ea2e7.appspot.com/o/Flask.png?alt=media&token=91bae082-5f81-4372-8d3a-cbf3bc14419a',
-                            fit: BoxFit.cover,
-                            alignment: Alignment.centerLeft,
-                          ),
-                        ),
-                  borderRadius: BorderRadius.circular(500),
+                    borderRadius: BorderRadius.circular(500),
+                  ),
+                  selectedTileColor: Colors.pink,
+                  title: courseEnroll(
+                      text: widget.courseList[index],
+                      color: widget.menu[index]),
+                  onTap: () {
+                    print("welcome batchid ${widget.batchId[index]}");
+                    setState(() {
+                      widget.menu
+                          .updateAll((key, value) => widget.menu[key] = false);
+                      widget.menu[index] = true;
+                    });
+                    Provider.of<SyllabusView>(context, listen: false)
+                        .updateCourseSyllabus(
+                      routing: ContentWidget(
+                        course: widget.courseList[index],
+                        batchid: widget.batchId[index],
+                        //batchid: "OCNBK08",
+                      ),
+                    );
+                  },
                 ),
-                selectedTileColor: Colors.pink,
-                title: courseEnroll(
-                    text: widget.courseList[index], color: widget.menu[index]),
-                onTap: () {
-                  print("welcome batchid ${widget.batchId[index]}");
-                  setState(() {
-                    widget.menu
-                        .updateAll((key, value) => widget.menu[key] = false);
-                    widget.menu[index] = true;
-                  });
-                  Provider.of<SyllabusView>(context, listen: false)
-                      .updateCourseSyllabus(
-                    routing: ContentWidget(
-                      course: widget.courseList[index],
-                      batchid: widget.batchId[index],
-                      //batchid: "OCNBK08",
-                    ),
-                  );
-                },
               ),
             ),
           );
