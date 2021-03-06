@@ -10,8 +10,14 @@ import 'package:ocean_project/desktopview/screen/courses.dart';
 import 'package:ocean_project/desktopview/screen/services.dart';
 import 'home_screen.dart';
 import 'about_us_screen.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+
+final _firestore = FirebaseFirestore.instance;
+
+subscribeDialog(context) {}
 
 class Footer extends StatelessWidget {
+  TextEditingController _subscribe = TextEditingController();
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -73,6 +79,9 @@ class Footer extends StatelessWidget {
                               Container(
                                 width: 300.0,
                                 child: TextField(
+                                  style: TextStyle(
+                                      color: Colors.white, fontSize: 20),
+                                  controller: _subscribe,
                                   decoration: InputDecoration(
                                     hintText: 'Enter your Email',
                                     hintStyle: kbottom,
@@ -100,7 +109,6 @@ class Footer extends StatelessWidget {
                                 color: Colors.white,
                                 minWidth: 1.0,
                                 height: 60.0,
-                                onPressed: () {},
                                 child: Text(
                                   'SUBSCRIBE',
                                   style: TextStyle(
@@ -116,6 +124,14 @@ class Footer extends StatelessWidget {
                                       color: Colors.white,
                                       width: 2.0,
                                     )),
+                                onPressed: () {
+                                  _firestore
+                                      .collection('subscribed user')
+                                      .doc(_subscribe.text)
+                                      .set({
+                                    'Email': _subscribe.text,
+                                  });
+                                },
                               ),
                             ],
                           ),

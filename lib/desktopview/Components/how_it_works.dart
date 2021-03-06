@@ -51,7 +51,7 @@ class HowItWorks extends StatelessWidget {
                       Padding(
                         padding: const EdgeInsets.all(10.0),
                         child: Text(
-                          'Offline Training',
+                          'Offline Classroom Training',
                           style: otherSmallHeaddingTextStyle,
                         ),
                       ),
@@ -102,7 +102,7 @@ class HowItWorks extends StatelessWidget {
                       ),
                       Padding(
                         padding: const EdgeInsets.all(10.0),
-                        child: Text('Online Video Training',
+                        child: Text('Online Video Courses',
                             style: otherSmallHeaddingTextStyle),
                       ),
                       Container(
