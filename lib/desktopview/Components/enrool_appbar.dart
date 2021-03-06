@@ -53,7 +53,7 @@ class _AppBarWidgetState extends State<AppBarWidget> {
             final messages = snapshot.data.docs;
             for (var message in messages) {
               // ignore: unrelated_type_equality_checks
-              if (OALive.stayUser == message.data().id) {
+              if (OALive.stayUser == message.id) {
                 final dbImage = message.data()['Profile Picture'];
 
                 userProfile = dbImage;
