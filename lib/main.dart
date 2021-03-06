@@ -29,24 +29,24 @@ class _ScreenTypeLayoutState extends State<ScreenTypeLayout> {
   final Widget tablet = OceanMobileView();
   final Widget desktop = OceanLive();
   Widget route;
-  myfunction() async {
+  sessionfunction() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    // int x = (prefs.getInt('login') ?? 0);
     String username = (prefs.getString('user') ?? null);
-    print("${username}name");
+    print("${username}mainpage name");
 
     route = username != null
         ? CoursesView(
             userID: username,
           )
         : OceanLive();
+    print("${username}session mainpage");
   }
 
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
-    myfunction();
+    sessionfunction();
   }
 
   @override

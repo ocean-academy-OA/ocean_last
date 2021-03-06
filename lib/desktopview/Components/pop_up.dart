@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-void main()
+void main() {}
 
 class MyPage extends StatelessWidget {
   final GlobalKey<PopupMenuButtonState<int>> _key = GlobalKey();

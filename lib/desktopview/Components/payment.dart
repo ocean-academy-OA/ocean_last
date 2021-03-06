@@ -8,6 +8,8 @@ import 'package:ocean_project/desktopview/new_user_screen/log_in.dart';
 import 'package:ocean_project/desktopview/route/routing.dart';
 import 'package:provider/provider.dart';
 
+import 'package:shared_preferences/shared_preferences.dart';
+
 // ignore: avoid_web_libraries_in_flutter
 import 'dart:html';
 
@@ -44,11 +46,21 @@ class _RazorPayWebState extends State<RazorPayWeb> {
   TextEditingController email = TextEditingController();
   TextEditingController name;
   TextEditingController mobilenumber;
+  session() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    await prefs.setInt('login', 1);
+    await prefs.setString('user', LogIn.registerNumber);
+    print('Otp Submited');
+    print('000000000000');
+    print(LogIn.registerNumber);
+  }
+
   // TextEditingController duration = TextEditingController();
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
+    session();
     var test = DateTime.now();
     date = (DateFormat("dd-MM-y").format(test));
     print(date);
@@ -59,7 +71,7 @@ class _RazorPayWebState extends State<RazorPayWeb> {
   }
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context2) {
     //final provider = // Provider.of<SyllabusView>(context, listen: false)
     //     .updateCourseSyllabus(routing: ThanksForPurchasing());
     print(widget.amount);
@@ -69,26 +81,18 @@ class _RazorPayWebState extends State<RazorPayWeb> {
       window.onMessage.forEach((element) {
         print('Event Received in callback: ${element.data}');
         if (element.data == 'MODAL_CLOSED') {
-          Navigator.pop(context);
+          Navigator.pop(context2);
         } else if (element.data == 'SUCCESS') {
           print('PAYMENT SUCCESSFULL!!!!!!!');
-
           print('${widget.course} wwwwwwwwwwwwwwwwwww');
-          _firestore
-              .collection("new users")
-              .doc(OALive.stayUser != null
-                  ? OALive.stayUser
-                  : LogIn.registerNumber)
-              .update({
+          _firestore.collection("new users").doc(LogIn.registerNumber).update({
             "Courses": FieldValue.arrayUnion(widget.course),
             "batchid": FieldValue.arrayUnion(widget.batchid),
           });
 
           _firestore
               .collection("new users")
-              .doc(OALive.stayUser != null
-                  ? OALive.stayUser
-                  : LogIn.registerNumber)
+              .doc(LogIn.registerNumber)
               .collection("payment")
               .add({
             "coursename": widget.courseName,
@@ -98,11 +102,10 @@ class _RazorPayWebState extends State<RazorPayWeb> {
             "paid_via": "debit card",
             "status": "Completed",
           });
-
-          //
+          Navigator.pop(context2);
           Provider.of<SyllabusView>(context, listen: false)
               .updateCourseSyllabus(routing: ThanksForPurchasing());
-          print('PAYMENT SUCCESSFULL!!!!!!!');
+          print('PAYMENT SUCCESSFULL !!!!!!!');
         }
       });
 

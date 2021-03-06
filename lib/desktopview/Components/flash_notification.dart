@@ -14,7 +14,7 @@ class FlashNotification extends StatefulWidget {
   Function joinButton;
   Function dismissNotification;
   String joinButtonName = 'JOIN';
-  var webinar;
+  Map webinar;
   @override
   _FlashNotificationState createState() => _FlashNotificationState();
 }
@@ -22,8 +22,11 @@ class FlashNotification extends StatefulWidget {
 class _FlashNotificationState extends State<FlashNotification> {
   @override
   Widget build(BuildContext context) {
+    print('@@@@@@@@@@@@@@@@@@@@@@@@@@@@');
+    print(widget.webinar);
+
     return StreamBuilder<QuerySnapshot>(
-      stream: _firestore.collection('page').snapshots(),
+      stream: _firestore.collection('Webinar').snapshots(),
       // ignore: missing_return
       builder: (context, snapshot) {
         if (!snapshot.hasData) {
@@ -33,14 +36,24 @@ class _FlashNotificationState extends State<FlashNotification> {
           List<FlashDb> webinarContent = [];
 
           for (var message in messages) {
-            final logoImage = message.data()['heading'];
-            final webinar = FlashDb(
-              content: logoImage,
-              joinButton: widget.joinButton,
-              dismissNotification: widget.dismissNotification,
-            );
-            // Text('$messageText from $messageSender');
-            webinarContent.add(webinar);
+            if (message.id == 'free_webinar') {
+              final freeWebinarContent = message.data()['free'];
+              final webinar = FlashDb(
+                content: freeWebinarContent,
+                joinButton: widget.joinButton,
+                dismissNotification: widget.dismissNotification,
+              );
+              // Text('$messageText from $messageSender');
+              webinarContent.add(webinar);
+            } else {
+              final paidWebinarContent = message.data()['paid'];
+              final webinar = FlashDb(
+                content: paidWebinarContent,
+                joinButton: widget.joinButton,
+                dismissNotification: widget.dismissNotification,
+              );
+              webinarContent.add(webinar);
+            }
           }
           return Container(
             child: Column(
