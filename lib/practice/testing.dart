@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:ocean_project/webinar/single_wbinar.dart';
 
 void main() {
   runApp(
@@ -16,6 +17,26 @@ FirebaseFirestore _firestore = FirebaseFirestore.instance;
 class TextingFirebase extends StatefulWidget {
   @override
   _TextingFirebaseState createState() => _TextingFirebaseState();
+}
+
+getDbData() async {
+  var webinarCollection = await _firestore.collection('Webinar');
+  var webinar = await webinarCollection.get();
+
+  for (var a in webinar.docs) {
+    print(a.id);
+
+    var b = a.data();
+
+    for (var c in b.entries) {
+      print(c.value);
+      var subCollection =
+          await webinarCollection.doc(a.id).collection(c.value).get();
+      for (var d in subCollection.docs) {
+        print(d.data()['payment']);
+      }
+    }
+  }
 }
 
 subscribeDialog(context) {
@@ -61,24 +82,19 @@ class _TextingFirebaseState extends State<TextingFirebase> {
       child: TextButton(
         child: Text('test'),
         onPressed: () async {
-          subscribeDialog(context);
-          var webinarCollection = await _firestore.collection('Webinar');
-          var webinar = await webinarCollection.get();
-
-          for (var a in webinar.docs) {
-            print(a.id);
-
-            var b = a.data();
-
-            for (var c in b.entries) {
-              print(c.value);
-              var subCollection =
-                  await webinarCollection.doc(a.id).collection(c.value).get();
-              for (var d in subCollection.docs) {
-                print(d.data()['payment']);
-              }
-            }
-          }
+          var time = await _firestore
+              .collection('webinar_time')
+              .doc('free_wbinar')
+              .get();
+          print(
+            time.data()['timestamp'],
+          );
+          Navigator.push(
+              context,
+              MaterialPageRoute(
+                  builder: (context) => SingleWebinarScreen(
+                        timestamp: time.data()['timestamp'],
+                      )));
         },
       ),
     );
