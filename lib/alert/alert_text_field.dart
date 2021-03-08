@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/painting.dart';
+import 'package:flutter/services.dart';
 
 class AlertTextField extends StatefulWidget {
   AlertTextField(
@@ -9,14 +10,18 @@ class AlertTextField extends StatefulWidget {
       this.lines,
       this.errorText,
       this.suffixIcon,
-      this.onChanged});
+      this.onChanged,
+      this.letterSpacing,
+      this.inputFormatters});
   final controller;
   final String hintText;
   final Icon icon;
   final int lines;
   final String errorText;
+  List<TextInputFormatter> inputFormatters;
   final Function onChanged;
   final Icon suffixIcon;
+  double letterSpacing;
   @override
   _AlertTextFieldState createState() => _AlertTextFieldState();
 }
@@ -54,16 +59,17 @@ class _AlertTextFieldState extends State<AlertTextField> {
         onChanged: widget.onChanged,
         textAlignVertical: TextAlignVertical.center,
         maxLines: widget.lines,
+        style: TextStyle(letterSpacing: widget.letterSpacing),
         focusNode: focusNode,
         controller: widget.controller,
+        inputFormatters: widget.inputFormatters,
         decoration: InputDecoration(
           border: InputBorder.none,
           prefixIcon: widget.icon,
           suffixIcon: widget.suffixIcon,
           hintText: widget.hintText,
-          helperStyle: TextStyle(
-            fontSize: 25.0,
-          ),
+          hintStyle: TextStyle(letterSpacing: 0.0),
+          helperStyle: TextStyle(fontSize: 25.0),
           fillColor: Colors.white,
         ),
       ),

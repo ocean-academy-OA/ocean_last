@@ -64,17 +64,18 @@ class _TextingFirebaseState extends State<TextingFirebase> {
           subscribeDialog(context);
           var webinarCollection = await _firestore.collection('Webinar');
           var webinar = await webinarCollection.get();
-          print(webinar.docs);
+
           for (var a in webinar.docs) {
             print(a.id);
 
             var b = a.data();
-            print(b);
+
             for (var c in b.entries) {
+              print(c.value);
               var subCollection =
                   await webinarCollection.doc(a.id).collection(c.value).get();
               for (var d in subCollection.docs) {
-                print(d.data()['name']);
+                print(d.data()['payment']);
               }
             }
           }
