@@ -70,6 +70,8 @@ dependencies:
   countdown_flutter: ^0.1.2
   countdown_timer_simple: ^1.0.2
   get: ^3.26.0
+  cool_alert: ^1.0.3
+  flutter_gifimage: ^1.0.1
 
 
 
@@ -117,6 +119,7 @@ flutter:
 
   assets:
     - images/
+    - images/contactus_alert/
     - images/webinar/
 
 
