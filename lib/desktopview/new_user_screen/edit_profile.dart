@@ -18,7 +18,7 @@ import 'package:ocean_project/desktopview/route/routing.dart';
 
 import 'package:path/path.dart';
 import 'package:firebase_storage/firebase_storage.dart';
-import 'package:ocean_project/desktopview/Components/enrool_appbar.dart';
+import 'package:ocean_project/desktopview/Components/my_course.dart';
 import 'package:provider/provider.dart';
 
 class EditProfile extends StatefulWidget {
@@ -105,486 +105,484 @@ class _EditProfileState extends State<EditProfile> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: PreferredSize(
-          child: AppBarWidget(),
-          preferredSize: Size.fromHeight(100),
-        ),
         body: Center(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              SizedBox(
-                height: 10.0,
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          SizedBox(
+            height: 10.0,
+          ),
+          GestureDetector(
+            onTap: () {
+              setState(() {
+                // TODO: Navigator to back
+              });
+            },
+            child: Container(
+              child: Row(
+                children: [
+                  SizedBox(
+                    width: 100.0,
+                  ),
+                  IconButton(
+                    icon: Icon(
+                      Icons.chevron_left,
+                    ),
+                    color: Colors.blue,
+                    iconSize: 50,
+                    splashRadius: 30,
+                    onPressed: () {
+                      CoursesView.isCheckCourse = true;
+                      Provider.of<CourseProvide>(context, listen: false)
+                          .updateCourseName(
+                              routing: CourseList(),
+                              isCheck: CoursesView.isCheckCourse);
+                      Provider.of<SyllabusView>(context, listen: false)
+                          .updateCourseSyllabus(
+                        routing: MyCourse(),
+                      );
+                    },
+                  ),
+                  Text(
+                    'My Profile',
+                    style: TextStyle(fontSize: 30.0, color: Colors.blue),
+                  )
+                ],
               ),
-              GestureDetector(
-                onTap: () {
-                  setState(() {
-                    // TODO: Navigator to back
-                  });
-                },
-                child: Container(
-                  child: Row(
+            ),
+          ),
+          Container(
+            width: 1500,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Container(
+                  alignment: Alignment.centerLeft,
+                  height: 200,
+                  child: Wrap(
+                    alignment: WrapAlignment.start,
+                    crossAxisAlignment: WrapCrossAlignment.center,
                     children: [
-                      SizedBox(
-                        width: 100.0,
-                      ),
-                      IconButton(
-                        icon: Icon(
-                          Icons.chevron_left,
+                      Container(
+                        margin: EdgeInsets.symmetric(horizontal: 10.0),
+                        padding: EdgeInsets.all(5.0),
+                        decoration: BoxDecoration(
+                            color: Colors.white,
+                            borderRadius: BorderRadius.circular(500.0),
+                            boxShadow: [
+                              BoxShadow(
+                                  color: Colors.black.withOpacity(0.3),
+                                  blurRadius: 8.0,
+                                  offset: Offset(4.0, 4.0))
+                            ]),
+                        child: GestureDetector(
+                          onTap: () async {
+                            FilePickerResult result = await FilePicker.platform
+                                .pickFiles(type: FileType.image);
+                            if (result != null) {
+                              uploadFile = result.files.single.bytes;
+                              fileName = basename(result.files.single.name);
+                              print(fileName);
+                            } else {
+                              print('pick image');
+                            }
+                            // Upload to  firebase Storage
+                            Future uploadProfilePicture(
+                                BuildContext context) async {
+                              Reference firebaseStorageRef = FirebaseStorage
+                                  .instance
+                                  .ref()
+                                  .child(fileName);
+                              UploadTask uploadTask =
+                                  firebaseStorageRef.putData(uploadFile);
+                              // SnakBar Message
+                              TaskSnapshot taskSnapShot =
+                                  await uploadTask.whenComplete(() {
+                                setState(() {
+                                  print('Profile Picuter Upload Complete');
+                                  ScaffoldMessenger.of(context).showSnackBar(
+                                      SnackBar(
+                                          content: Text(
+                                              'Profile picture Uploaded')));
+                                  // get Link
+                                  uploadTask.snapshot.ref
+                                      .getDownloadURL()
+                                      .then((value) {
+                                    setState(() {
+                                      profilePictureLink = value;
+                                    });
+                                    print(profilePictureLink);
+                                  });
+                                });
+                              });
+                            }
+
+                            uploadProfilePicture(
+                                context); // call upload function
+                          },
+                          child: CircleAvatar(
+                            child: ClipRRect(
+                              borderRadius: BorderRadius.circular(500.0),
+                              child: Container(
+                                color: Colors.white,
+                                width: 300.0,
+                                height: 300.0,
+                                child: Stack(
+                                  alignment: Alignment.center,
+                                  children: [
+                                    profilePictureLink != null
+                                        ? Image.network(
+                                            '${profilePictureLink}',
+                                            width: 500.0,
+                                            height: 500.0,
+                                            fit: BoxFit.cover,
+                                          )
+                                        : Icon(
+                                            Icons.add_a_photo,
+                                            color: Colors.blue,
+                                          ),
+                                  ],
+                                ),
+                              ),
+                            ),
+                            radius: 50.0,
+                          ),
                         ),
-                        color: Colors.blue,
-                        iconSize: 50,
-                        splashRadius: 30,
-                        onPressed: () {
-                          Provider.of<OALive>(context, listen: false)
-                              .updateOA(routing: CoursesView());
-                          //Navigator.pop(context);
-                        },
                       ),
-                      Text(
-                        'My Profile',
-                        style: TextStyle(fontSize: 30.0, color: Colors.blue),
+                      Visibility(
+                        child: EditProfile.readOnly != false
+                            ? GestureDetector(
+                                onTap: () {
+                                  setState(() {
+                                    EditProfile.readOnly = false;
+                                    print(EditProfile.readOnly);
+                                  });
+                                },
+                                child: Container(
+                                  margin:
+                                      EdgeInsets.symmetric(horizontal: 50.0),
+                                  alignment: Alignment.center,
+                                  child: Text(
+                                    'Edit Account',
+                                    style: TextStyle(
+                                      fontSize: 18,
+                                      color: Colors.white,
+                                    ),
+                                  ),
+                                  width: 150.0,
+                                  height: 50.0,
+                                  decoration: BoxDecoration(
+                                      color: Colors.blue,
+                                      borderRadius:
+                                          BorderRadius.circular(50.0)),
+                                ),
+                              )
+                            : GestureDetector(
+                                onTap: () async {
+                                  FilePickerResult result = await FilePicker
+                                      .platform
+                                      .pickFiles(type: FileType.image);
+                                  if (result != null) {
+                                    uploadFile = result.files.single.bytes;
+                                    fileName =
+                                        basename(result.files.single.name);
+                                    print(fileName);
+                                  } else {
+                                    print('pick image');
+                                  }
+                                  // Upload to  firebase Storage
+                                  Future uploadProfilePicture(
+                                      BuildContext context) async {
+                                    Reference firebaseStorageRef =
+                                        FirebaseStorage.instance
+                                            .ref()
+                                            .child(fileName);
+                                    UploadTask uploadTask =
+                                        firebaseStorageRef.putData(uploadFile);
+                                    // SnakBar Message
+                                    TaskSnapshot taskSnapShot =
+                                        await uploadTask.whenComplete(() {
+                                      setState(() {
+                                        print(
+                                            'Profile Picuter Upload Complete');
+                                        ScaffoldMessenger.of(context)
+                                            .showSnackBar(SnackBar(
+                                                content: Text(
+                                                    'Profile picture Uploaded')));
+                                        // get Link
+                                      });
+                                    });
+                                  }
+
+                                  uploadProfilePicture(
+                                      context); // call upload function
+                                },
+                                child: Container(
+                                  margin:
+                                      EdgeInsets.symmetric(horizontal: 50.0),
+                                  alignment: Alignment.center,
+                                  child: Text(
+                                    'Upload Photos',
+                                    style: TextStyle(
+                                      fontSize: 18.0,
+                                      color: Colors.white,
+                                    ),
+                                  ),
+                                  width: 150.0,
+                                  height: 50.0,
+                                  decoration: BoxDecoration(
+                                      color: Colors.blue,
+                                      borderRadius:
+                                          BorderRadius.circular(50.0)),
+                                ),
+                              ),
+                      ),
+                      Visibility(
+                        visible: EditProfile.readOnly != false,
+                        child: Container(
+                          margin: EdgeInsets.symmetric(horizontal: 20.0),
+                          decoration: BoxDecoration(
+                              color: Colors.blue,
+                              borderRadius: BorderRadius.circular(10.0)),
+                          width: 150.0,
+                          height: 150.0,
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Text(
+                                'Courses Enrolled',
+                                style: TextStyle(
+                                  fontSize: 23,
+                                  color: Colors.white,
+                                ),
+                                textAlign: TextAlign.center,
+                              ),
+                              Text(
+                                '28',
+                                style: TextStyle(
+                                    fontSize: 50,
+                                    color: Colors.white,
+                                    fontWeight: FontWeight.bold),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
+                      Visibility(
+                        visible: EditProfile.readOnly != false,
+                        child: Container(
+                          margin: EdgeInsets.symmetric(horizontal: 20.0),
+                          decoration: BoxDecoration(
+                              color: Colors.blue,
+                              borderRadius: BorderRadius.circular(10.0)),
+                          width: 150.0,
+                          height: 150.0,
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Text(
+                                'Courses Completed',
+                                style: TextStyle(
+                                  fontSize: 23,
+                                  color: Colors.white,
+                                ),
+                                textAlign: TextAlign.center,
+                              ),
+                              Text(
+                                '02',
+                                style: TextStyle(
+                                    fontSize: 50,
+                                    color: Colors.white,
+                                    fontWeight: FontWeight.bold),
+                              ),
+                            ],
+                          ),
+                        ),
                       )
                     ],
                   ),
                 ),
-              ),
-              Container(
-                width: 1500,
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Container(
-                      alignment: Alignment.centerLeft,
-                      height: 200,
-                      child: Wrap(
-                        alignment: WrapAlignment.start,
-                        crossAxisAlignment: WrapCrossAlignment.center,
-                        children: [
-                          Container(
-                            margin: EdgeInsets.symmetric(horizontal: 10.0),
-                            padding: EdgeInsets.all(5.0),
-                            decoration: BoxDecoration(
-                                color: Colors.white,
-                                borderRadius: BorderRadius.circular(500.0),
-                                boxShadow: [
-                                  BoxShadow(
-                                      color: Colors.black.withOpacity(0.3),
-                                      blurRadius: 8.0,
-                                      offset: Offset(4.0, 4.0))
-                                ]),
-                            child: GestureDetector(
-                              onTap: () async {
-                                FilePickerResult result = await FilePicker
-                                    .platform
-                                    .pickFiles(type: FileType.image);
-                                if (result != null) {
-                                  uploadFile = result.files.single.bytes;
-                                  fileName = basename(result.files.single.name);
-                                  print(fileName);
-                                } else {
-                                  print('pick image');
-                                }
-                                // Upload to  firebase Storage
-                                Future uploadProfilePicture(
-                                    BuildContext context) async {
-                                  Reference firebaseStorageRef = FirebaseStorage
-                                      .instance
-                                      .ref()
-                                      .child(fileName);
-                                  UploadTask uploadTask =
-                                      firebaseStorageRef.putData(uploadFile);
-                                  // SnakBar Message
-                                  TaskSnapshot taskSnapShot =
-                                      await uploadTask.whenComplete(() {
-                                    setState(() {
-                                      print('Profile Picuter Upload Complete');
-                                      ScaffoldMessenger.of(context)
-                                          .showSnackBar(SnackBar(
-                                              content: Text(
-                                                  'Profile picture Uploaded')));
-                                      // get Link
-                                      uploadTask.snapshot.ref
-                                          .getDownloadURL()
-                                          .then((value) {
-                                        setState(() {
-                                          profilePictureLink = value;
-                                        });
-                                        print(profilePictureLink);
-                                      });
-                                    });
-                                  });
-                                }
-
-                                uploadProfilePicture(
-                                    context); // call upload function
-                              },
-                              child: CircleAvatar(
-                                child: ClipRRect(
-                                  borderRadius: BorderRadius.circular(500.0),
-                                  child: Container(
-                                    color: Colors.white,
-                                    width: 300.0,
-                                    height: 300.0,
-                                    child: Stack(
-                                      alignment: Alignment.center,
-                                      children: [
-                                        profilePictureLink != null
-                                            ? Image.network(
-                                                '${profilePictureLink}',
-                                                width: 500.0,
-                                                height: 500.0,
-                                                fit: BoxFit.cover,
-                                              )
-                                            : Icon(
-                                                Icons.add_a_photo,
-                                                color: Colors.blue,
-                                              ),
-                                      ],
-                                    ),
-                                  ),
-                                ),
-                                radius: 50.0,
-                              ),
-                            ),
-                          ),
-                          Visibility(
-                            child: EditProfile.readOnly != false
-                                ? GestureDetector(
-                                    onTap: () {
-                                      setState(() {
-                                        EditProfile.readOnly = false;
-                                        print(EditProfile.readOnly);
-                                      });
-                                    },
-                                    child: Container(
-                                      margin: EdgeInsets.symmetric(
-                                          horizontal: 50.0),
-                                      alignment: Alignment.center,
-                                      child: Text(
-                                        'Edit Account',
-                                        style: TextStyle(
-                                          fontSize: 18,
-                                          color: Colors.white,
-                                        ),
-                                      ),
-                                      width: 150.0,
-                                      height: 50.0,
-                                      decoration: BoxDecoration(
-                                          color: Colors.blue,
-                                          borderRadius:
-                                              BorderRadius.circular(50.0)),
-                                    ),
-                                  )
-                                : GestureDetector(
-                                    onTap: () async {
-                                      FilePickerResult result = await FilePicker
-                                          .platform
-                                          .pickFiles(type: FileType.image);
-                                      if (result != null) {
-                                        uploadFile = result.files.single.bytes;
-                                        fileName =
-                                            basename(result.files.single.name);
-                                        print(fileName);
-                                      } else {
-                                        print('pick image');
-                                      }
-                                      // Upload to  firebase Storage
-                                      Future uploadProfilePicture(
-                                          BuildContext context) async {
-                                        Reference firebaseStorageRef =
-                                            FirebaseStorage.instance
-                                                .ref()
-                                                .child(fileName);
-                                        UploadTask uploadTask =
-                                            firebaseStorageRef
-                                                .putData(uploadFile);
-                                        // SnakBar Message
-                                        TaskSnapshot taskSnapShot =
-                                            await uploadTask.whenComplete(() {
-                                          setState(() {
-                                            print(
-                                                'Profile Picuter Upload Complete');
-                                            ScaffoldMessenger.of(context)
-                                                .showSnackBar(SnackBar(
-                                                    content: Text(
-                                                        'Profile picture Uploaded')));
-                                            // get Link
-                                          });
-                                        });
-                                      }
-
-                                      uploadProfilePicture(
-                                          context); // call upload function
-                                    },
-                                    child: Container(
-                                      margin: EdgeInsets.symmetric(
-                                          horizontal: 50.0),
-                                      alignment: Alignment.center,
-                                      child: Text(
-                                        'Upload Photos',
-                                        style: TextStyle(
-                                          fontSize: 18.0,
-                                          color: Colors.white,
-                                        ),
-                                      ),
-                                      width: 150.0,
-                                      height: 50.0,
-                                      decoration: BoxDecoration(
-                                          color: Colors.blue,
-                                          borderRadius:
-                                              BorderRadius.circular(50.0)),
-                                    ),
-                                  ),
-                          ),
-                          Visibility(
-                            visible: EditProfile.readOnly != false,
-                            child: Container(
-                              margin: EdgeInsets.symmetric(horizontal: 20.0),
-                              decoration: BoxDecoration(
-                                  color: Colors.blue,
-                                  borderRadius: BorderRadius.circular(10.0)),
-                              width: 150.0,
-                              height: 150.0,
-                              child: Column(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  Text(
-                                    'Courses Enrolled',
-                                    style: TextStyle(
-                                      fontSize: 23,
-                                      color: Colors.white,
-                                    ),
-                                    textAlign: TextAlign.center,
-                                  ),
-                                  Text(
-                                    '28',
-                                    style: TextStyle(
-                                        fontSize: 50,
-                                        color: Colors.white,
-                                        fontWeight: FontWeight.bold),
-                                  ),
-                                ],
-                              ),
-                            ),
-                          ),
-                          Visibility(
-                            visible: EditProfile.readOnly != false,
-                            child: Container(
-                              margin: EdgeInsets.symmetric(horizontal: 20.0),
-                              decoration: BoxDecoration(
-                                  color: Colors.blue,
-                                  borderRadius: BorderRadius.circular(10.0)),
-                              width: 150.0,
-                              height: 150.0,
-                              child: Column(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  Text(
-                                    'Courses Completed',
-                                    style: TextStyle(
-                                      fontSize: 23,
-                                      color: Colors.white,
-                                    ),
-                                    textAlign: TextAlign.center,
-                                  ),
-                                  Text(
-                                    '02',
-                                    style: TextStyle(
-                                        fontSize: 50,
-                                        color: Colors.white,
-                                        fontWeight: FontWeight.bold),
-                                  ),
-                                ],
-                              ),
-                            ),
-                          )
-                        ],
-                      ),
-                    ),
-                    SizedBox(
-                      height: 50.0,
-                    ),
-                    Container(
-                      width: double.infinity,
-                      child: Form(
-                        // key: formkey,
-                        child: Wrap(
-                          alignment: WrapAlignment.start,
-                          children: [
-                            LableWithTextField(
-                              color: Colors.black,
-                              lableText: 'First Name',
-                              errorText: 'Enter First Name',
-                              rReadOnly:
-                                  EditProfile.readOnly == false ? false : true,
-                              width: 300.0,
-                              controller: _firstName,
-                              visible: isFirstName,
-                              onChanged: (value) {},
-                              inputFormatters: inputFormatte(
-                                  regExp: r"[a-zA-Z]+|\s", length: 15),
-                            ),
-                            LableWithTextField(
-                                color: Colors.black,
-                                lableText: 'Last Name',
-                                errorText: 'Enter Last Name',
-                                rReadOnly: EditProfile.readOnly == false
-                                    ? false
-                                    : true,
-                                width: 300.0,
-                                visible: isLastName,
-                                controller: _lastName,
-                                onChanged: (value) {},
-                                inputFormatters: inputFormatte(
-                                    regExp: r"[a-zA-Z]+|\s", length: 15)),
-                            GenderDropdownField(
-                              visible: isGender,
-                              errorText: 'Select',
-                              color: Colors.black,
-                            ),
-                            DatePicker(
-                              color: Colors.black,
-                              errorText: 'Date Required',
-                              datePickerIcon: IconButton(
-                                icon: Icon(Icons.date_range),
-                                onPressed: () async {
-                                  final selectedDate =
-                                      await _selectDateTime(context);
-                                  setState(() {
-                                    dOB = DateFormat('d-M-y')
-                                        .format(selectedDate);
-                                    _dateOfBirth.text = dOB;
-                                    print(dOB);
-                                  });
-                                },
-                              ),
-                              controller: _dateOfBirth,
-                              visible: isDateOfBirth,
-                              onChanged: (value) {
-                                setState(() {
-                                  _dateOfBirth.text = value;
-                                });
-                              },
-                            ),
-                            LableWithTextField(
-                              color: Colors.black,
-                              lableText: 'E-Mail Adsress',
-                              errorText: 'Invalid Email Adress',
-                              rReadOnly:
-                                  EditProfile.readOnly == false ? false : true,
-                              visible: isEmail,
-                              width: 300.0,
-                              controller: _eMail,
-                              onChanged: (value) {},
-                            ),
-                            LableWithTextField(
-                              color: Colors.black,
-                              lableText: 'Company/School',
-                              errorText: 'Your Company/School Name',
-                              rReadOnly:
-                                  EditProfile.readOnly == false ? false : true,
-                              width: 300.0,
-                              visible: isCompanyOrSchool,
-                              controller: _companyOrSchool,
-                              inputFormatters:
-                                  inputFormatte(regExp: r"[a-zA-Z]+|\s"),
-                              onChanged: (value) {},
-                            ),
-                            LableWithTextField(
-                              color: Colors.black,
-                              lableText: 'Degree',
-                              errorText: 'Enter your Education Qualification',
-                              rReadOnly:
-                                  EditProfile.readOnly == false ? false : true,
-                              width: 250.0,
-                              visible: isDegree,
-                              controller: _dgree,
-                              onChanged: (value) {},
-                            ),
-                            LableWithTextField(
-                              color: Colors.black,
-                              lableText: 'Country',
-                              errorText: 'Enter Your Country',
-                              rReadOnly:
-                                  EditProfile.readOnly == false ? false : true,
-                              width: 250.0,
-                              visible: isCountry,
-                              controller: _country,
-                              inputFormatters:
-                                  inputFormatte(regExp: r"[a-zA-Z]+|\s"),
-                              onChanged: (value) {},
-                            ),
-                            LableWithTextField(
-                              color: Colors.black,
-                              lableText: 'State',
-                              errorText: 'Enter Your State',
-                              rReadOnly:
-                                  EditProfile.readOnly == false ? false : true,
-                              width: 250.0,
-                              visible: isState,
-                              controller: _state,
-                              inputFormatters:
-                                  inputFormatte(regExp: r"[a-zA-Z]+|\s"),
-                              onChanged: (value) {},
-                            ),
-                            LableWithTextField(
-                              color: Colors.black,
-                              lableText: 'Phone Number',
-                              errorText: 'Invalid Phonenumber',
-                              width: 250.0,
-                              rReadOnly: true,
-                              visible: isPhoneNumber,
-                              controller: _phoneNumber,
-                              onChanged: (value) {},
-                              inputFormatters: inputFormatte(
-                                  regExp: r'^\d+\.?\d{0,2}', length: 15),
-                            ),
-                          ],
-                        ),
-                      ),
-                    ),
-                    Container(
-                      height: 100.0,
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Visibility(
-                            visible: EditProfile.readOnly == false,
-                            child: FlatButton(
-                                minWidth: 300.0,
-                                child: Padding(
-                                  padding: const EdgeInsets.all(8.0),
-                                  child: Text(
-                                    'Update',
-                                    style: TextStyle(
-                                        color: Colors.white, fontSize: 25.0),
-                                  ),
-                                ),
-                                color: Colors.blue,
-                                shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(5.0)),
-                                onPressed: () {
-                                  if (registerFormValidation() == true) {
-                                    fireStoreAdd();
-                                    EditProfile.readOnly = true;
-                                  }
-                                }),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ],
+                SizedBox(
+                  height: 50.0,
                 ),
-              ),
-              SizedBox(
-                height: 10.0,
-              )
-            ],
+                Container(
+                  width: double.infinity,
+                  child: Form(
+                    // key: formkey,
+                    child: Wrap(
+                      alignment: WrapAlignment.start,
+                      children: [
+                        LableWithTextField(
+                          color: Colors.black,
+                          lableText: 'First Name',
+                          errorText: 'Enter First Name',
+                          rReadOnly:
+                              EditProfile.readOnly == false ? false : true,
+                          width: 300.0,
+                          controller: _firstName,
+                          visible: isFirstName,
+                          onChanged: (value) {},
+                          inputFormatters: inputFormatte(
+                              regExp: r"[a-zA-Z]+|\s", length: 15),
+                        ),
+                        LableWithTextField(
+                            color: Colors.black,
+                            lableText: 'Last Name',
+                            errorText: 'Enter Last Name',
+                            rReadOnly:
+                                EditProfile.readOnly == false ? false : true,
+                            width: 300.0,
+                            visible: isLastName,
+                            controller: _lastName,
+                            onChanged: (value) {},
+                            inputFormatters: inputFormatte(
+                                regExp: r"[a-zA-Z]+|\s", length: 15)),
+                        GenderDropdownField(
+                          visible: isGender,
+                          errorText: 'Select',
+                          color: Colors.black,
+                        ),
+                        DatePicker(
+                          color: Colors.black,
+                          errorText: 'Date Required',
+                          datePickerIcon: IconButton(
+                            icon: Icon(Icons.date_range),
+                            onPressed: () async {
+                              final selectedDate =
+                                  await _selectDateTime(context);
+                              setState(() {
+                                dOB = DateFormat('d-M-y').format(selectedDate);
+                                _dateOfBirth.text = dOB;
+                                print(dOB);
+                              });
+                            },
+                          ),
+                          controller: _dateOfBirth,
+                          visible: isDateOfBirth,
+                          onChanged: (value) {
+                            setState(() {
+                              _dateOfBirth.text = value;
+                            });
+                          },
+                        ),
+                        LableWithTextField(
+                          color: Colors.black,
+                          lableText: 'E-Mail Adsress',
+                          errorText: 'Invalid Email Adress',
+                          rReadOnly:
+                              EditProfile.readOnly == false ? false : true,
+                          visible: isEmail,
+                          width: 300.0,
+                          controller: _eMail,
+                          onChanged: (value) {},
+                        ),
+                        LableWithTextField(
+                          color: Colors.black,
+                          lableText: 'Company/School',
+                          errorText: 'Your Company/School Name',
+                          rReadOnly:
+                              EditProfile.readOnly == false ? false : true,
+                          width: 300.0,
+                          visible: isCompanyOrSchool,
+                          controller: _companyOrSchool,
+                          inputFormatters:
+                              inputFormatte(regExp: r"[a-zA-Z]+|\s"),
+                          onChanged: (value) {},
+                        ),
+                        LableWithTextField(
+                          color: Colors.black,
+                          lableText: 'Degree',
+                          errorText: 'Enter your Education Qualification',
+                          rReadOnly:
+                              EditProfile.readOnly == false ? false : true,
+                          width: 250.0,
+                          visible: isDegree,
+                          controller: _dgree,
+                          onChanged: (value) {},
+                        ),
+                        LableWithTextField(
+                          color: Colors.black,
+                          lableText: 'Country',
+                          errorText: 'Enter Your Country',
+                          rReadOnly:
+                              EditProfile.readOnly == false ? false : true,
+                          width: 250.0,
+                          visible: isCountry,
+                          controller: _country,
+                          inputFormatters:
+                              inputFormatte(regExp: r"[a-zA-Z]+|\s"),
+                          onChanged: (value) {},
+                        ),
+                        LableWithTextField(
+                          color: Colors.black,
+                          lableText: 'State',
+                          errorText: 'Enter Your State',
+                          rReadOnly:
+                              EditProfile.readOnly == false ? false : true,
+                          width: 250.0,
+                          visible: isState,
+                          controller: _state,
+                          inputFormatters:
+                              inputFormatte(regExp: r"[a-zA-Z]+|\s"),
+                          onChanged: (value) {},
+                        ),
+                        LableWithTextField(
+                          color: Colors.black,
+                          lableText: 'Phone Number',
+                          errorText: 'Invalid Phonenumber',
+                          width: 250.0,
+                          rReadOnly: true,
+                          visible: isPhoneNumber,
+                          controller: _phoneNumber,
+                          onChanged: (value) {},
+                          inputFormatters: inputFormatte(
+                              regExp: r'^\d+\.?\d{0,2}', length: 15),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+                Container(
+                  height: 100.0,
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Visibility(
+                        visible: EditProfile.readOnly == false,
+                        child: FlatButton(
+                            minWidth: 300.0,
+                            child: Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: Text(
+                                'Update',
+                                style: TextStyle(
+                                    color: Colors.white, fontSize: 25.0),
+                              ),
+                            ),
+                            color: Colors.blue,
+                            shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(5.0)),
+                            onPressed: () {
+                              if (registerFormValidation() == true) {
+                                fireStoreAdd();
+                                EditProfile.readOnly = true;
+                              }
+                            }),
+                      ),
+                    ],
+                  ),
+                ),
+              ],
+            ),
           ),
-        ));
+          SizedBox(
+            height: 10.0,
+          )
+        ],
+      ),
+    ));
   }
 
   void fireStoreAdd() {

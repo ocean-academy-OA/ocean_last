@@ -1,5 +1,4 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-
 import 'package:email_validator/email_validator.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
@@ -9,18 +8,10 @@ import 'package:intl/intl.dart';
 import 'package:ocean_project/desktopview/constants.dart';
 import 'package:http/http.dart' as http;
 
-import 'package:ocean_project/webinar/video%20test.dart';
 import 'package:ocean_project/webinar/wbinar_menubar.dart';
-
 import 'package:ocean_project/webinar/webinar_const.dart';
 import 'package:ocean_project/webinar/webinar_footer.dart';
 import 'package:slide_countdown_clock/slide_countdown_clock.dart';
-
-void main() {
-  runApp(MaterialApp(
-    home: WebinarScreen(),
-  ));
-}
 
 FirebaseFirestore _firestore = FirebaseFirestore.instance;
 
@@ -509,11 +500,6 @@ table, th, td {
                                         recognizer: TapGestureRecognizer()
                                           ..onTap = () {
                                             print('Terms of Use taped');
-                                            Navigator.push(
-                                                context,
-                                                MaterialPageRoute(
-                                                    builder: (context) =>
-                                                        VideoTest()));
                                           },
                                         text: 'Terms of Use',
                                         style: TextStyle(color: kBlue)),

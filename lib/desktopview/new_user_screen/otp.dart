@@ -58,7 +58,8 @@ class _OTPState extends State<OTP> {
   session() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     await prefs.setInt('login', 1);
-    await prefs.setString('user', LogIn.registerNumber);
+    await prefs.setString('user', OALive.stayUser);
+    print("${OALive.stayUser}");
     print('Otp Submited');
   }
 

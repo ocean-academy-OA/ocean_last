@@ -1,3 +1,5 @@
+import 'dart:html';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -10,8 +12,88 @@ import 'package:ocean_project/desktopview/screen/courses.dart';
 import 'package:ocean_project/desktopview/screen/services.dart';
 import 'home_screen.dart';
 import 'about_us_screen.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+
+final _firestore = FirebaseFirestore.instance;
+
+subscribeDialog(context) {
+  return showDialog(
+    context: context,
+    builder: (BuildContext context) {
+      Future.delayed(Duration(seconds: 3), () {
+        Navigator.pop(context);
+      });
+      return AlertDialog(
+        contentPadding: EdgeInsets.zero,
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
+        backgroundColor: Colors.transparent,
+        content: Container(
+          height: 300,
+          width: 250,
+          decoration: BoxDecoration(
+              color: Colors.grey[200], borderRadius: BorderRadius.circular(20)),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Text(
+                'Thanks for Subscribe',
+                style: TextStyle(fontSize: 25, color: Colors.grey),
+              ),
+              SizedBox(
+                height: 20,
+              ),
+              Image.network(
+                  'https://tetranoodle.com/wp-content/uploads/2018/07/tick-gif.gif'),
+            ],
+          ),
+        ),
+      );
+    },
+  );
+}
+
+subscribeFaildDialog(context) {
+  return showDialog(
+    context: context,
+    builder: (BuildContext context) {
+      Future.delayed(Duration(seconds: 3), () {
+        Navigator.pop(context);
+      });
+      return AlertDialog(
+        contentPadding: EdgeInsets.zero,
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
+        backgroundColor: Colors.transparent,
+        content: Container(
+          height: 300,
+          width: 250,
+          decoration: BoxDecoration(
+              color: Colors.grey[200], borderRadius: BorderRadius.circular(20)),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Text(
+                'Check your Email',
+                style: TextStyle(fontSize: 25, color: Colors.grey),
+              ),
+              Image.network(
+                  'https://www.peppynite.com/templates/worlddealer/assets/img/wrong-symbol.gif'),
+            ],
+          ),
+        ),
+      );
+    },
+  );
+}
 
 class Footer extends StatelessWidget {
+  TextEditingController _subscribe = TextEditingController();
+  bool validateEmail(String value) {
+    Pattern pattern =
+        r'^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$';
+    RegExp regex = new RegExp(pattern);
+    return (!regex.hasMatch(value)) ? false : true;
+  }
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -73,6 +155,9 @@ class Footer extends StatelessWidget {
                               Container(
                                 width: 300.0,
                                 child: TextField(
+                                  style: TextStyle(
+                                      color: Colors.white, fontSize: 20),
+                                  controller: _subscribe,
                                   decoration: InputDecoration(
                                     hintText: 'Enter your Email',
                                     hintStyle: kbottom,
@@ -100,7 +185,6 @@ class Footer extends StatelessWidget {
                                 color: Colors.white,
                                 minWidth: 1.0,
                                 height: 60.0,
-                                onPressed: () {},
                                 child: Text(
                                   'SUBSCRIBE',
                                   style: TextStyle(
@@ -116,6 +200,20 @@ class Footer extends StatelessWidget {
                                       color: Colors.white,
                                       width: 2.0,
                                     )),
+                                onPressed: () {
+                                  if (validateEmail(_subscribe.text)) {
+                                    _firestore
+                                        .collection('subscribed user')
+                                        .doc(_subscribe.text)
+                                        .set({
+                                      'Email': _subscribe.text,
+                                    });
+                                    subscribeDialog(context);
+                                    _subscribe.clear();
+                                  } else {
+                                    subscribeFaildDialog(context);
+                                  }
+                                },
                               ),
                             ],
                           ),
@@ -157,7 +255,8 @@ class Footer extends StatelessWidget {
                     GestureDetector(
                       onTap: () {
                         Provider.of<Routing>(context, listen: false)
-                            .updateRouting(widget: ContactUs());
+                            .updateRouting(
+                                widget: ContactUs(), text: "Contact Us");
                       },
                       child: Container(
                           child: Text(
