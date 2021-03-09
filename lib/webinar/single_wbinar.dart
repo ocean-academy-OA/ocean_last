@@ -1,3 +1,4 @@
+import 'package:better_player/better_player.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:email_validator/email_validator.dart';
 import 'package:flutter/gestures.dart';
@@ -11,6 +12,7 @@ import 'package:ocean_project/webinar/webinar_const.dart';
 
 import 'package:slide_countdown_clock/slide_countdown_clock.dart';
 import 'package:http/http.dart' as http;
+import 'package:video_player/video_player.dart';
 
 FirebaseFirestore _firestore = FirebaseFirestore.instance;
 
@@ -27,6 +29,8 @@ class SingleWebinarScreen extends StatefulWidget {
 class _SingleWebinarScreenState extends State<SingleWebinarScreen> {
   bool timeUp;
   var sDate;
+
+  bool isPlaying = false;
 
   /// Ijass work start
   String name;
@@ -117,39 +121,7 @@ class _SingleWebinarScreenState extends State<SingleWebinarScreen> {
 
   void getData() async {
     http.Response response = await http.get(
-        """https://us-central1-ocean-live-project-ea2e7.cloudfunctions.net/sendMail?dest=fotic78205@geeky83.com&sub=Zoom Link&html= <!DOCTYPE html>
-<html>
-<style>
-table, th, td {
-  border: 1px solid red;
-  border-collapse: collapse;
-}
-</style>
-<body>
-
-<table border="outline">
-<tbody>
-
-<tr>
-<td style="font-weight:bold;width:180px">Full Name</td>
-<td>$name</td>
-</tr>
-
-<tr>
-<td style="font-weight:bold;width:180px">Phone Number</td>
-<td>$phoneNumber</td>
-</tr>
-
-<tr>
-<td style="font-weight:bold;width:180px">Email</td>
-<td>$email</td>
-</tr>
-
-</tbody>
-</table>
-
-</body>
-</html>""");
+        """ https://shrouded-fjord-03855.herokuapp.com/?name=$name&des=query&mobile=$phoneNumber&email=$email&date=date time &type=enquiry""");
 
     if (response.statusCode == 200) {
       String data = response.body;
@@ -190,17 +162,13 @@ table, th, td {
 
   /// jayalatha
 
-  @override
-  void initState() {
-    // TODO: implement initState
-    super.initState();
-
-    retriveTime();
-  }
-
-  getWbinarInfo(String subCollection) async {
-    await _firestore.collection('free_wbinar').doc(subCollection);
-  }
+  // @override
+  // void initState() {
+  //   // TODO: implement initState
+  //   super.initState();
+  //
+  //   retriveTime();
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -220,6 +188,17 @@ table, th, td {
                     final getFreeWebinar = snapshot.data;
 
                     for (var a in getFreeWebinar.docs) {
+                      VideoPlayerController _videoController;
+                      Future<void> _initializeVideoPlayerFuture;
+
+                      final webinarVideo = a.data()['webinar video'];
+                      _videoController =
+                          VideoPlayerController.network(webinarVideo);
+
+                      _initializeVideoPlayerFuture =
+                          _videoController.initialize();
+                      _videoController.setLooping(true);
+
                       List<Widget> allTopics = [];
                       Timestamp timestamp = a.data()['timestamp'];
                       var year = DateFormat('y');
@@ -573,14 +552,11 @@ table, th, td {
                                               elevation: 0,
                                               hoverElevation: 0,
                                               onPressed: () async {
-                                                print('1');
                                                 if (_formKey.currentState
                                                     .validate()) {
-                                                  print('2');
                                                   if (name != null &&
                                                       email != null &&
                                                       phoneNumber != null) {
-                                                    print('3');
                                                     _firestore
                                                         .collection(
                                                             'webinar Users')
@@ -589,7 +565,11 @@ table, th, td {
                                                       'name': name,
                                                       'email': email,
                                                       'Phone_Number':
-                                                          phoneNumber
+                                                          phoneNumber,
+                                                      'payment':
+                                                          payment == 'free'
+                                                              ? 'free'
+                                                              : payment
                                                     });
                                                     _firestore
                                                         .collection(payment ==
@@ -789,10 +769,56 @@ table, th, td {
                               style: kTitle,
                             ),
                             SizedBox(height: 20),
-                            Container(
-                              height: 510,
-                              width: 870,
-                              color: Colors.lightBlue[100],
+                            FutureBuilder(
+                              future: _initializeVideoPlayerFuture,
+                              builder: (context, snapshot) {
+                                if (snapshot.connectionState ==
+                                    ConnectionState.done) {
+                                  return Container(
+                                    height: 650,
+                                    width: 870,
+                                    child: Stack(
+                                      alignment: Alignment.center,
+                                      children: [
+                                        Column(
+                                          children: [
+                                            AspectRatio(
+                                              aspectRatio: _videoController
+                                                  .value.aspectRatio,
+                                              child:
+                                                  VideoPlayer(_videoController),
+                                            ),
+                                            VideoProgressIndicator(
+                                              _videoController,
+                                              allowScrubbing: true,
+                                            ),
+                                          ],
+                                        ),
+                                        Positioned(
+                                          top: 0,
+                                          child: GestureDetector(
+                                            child: Container(
+                                              height: 490,
+                                              width: 870,
+                                              color: Colors.transparent,
+                                            ),
+                                            onTap: () {
+                                              if (_videoController
+                                                  .value.isPlaying) {
+                                                _videoController.pause();
+                                              } else {
+                                                _videoController.play();
+                                              }
+                                            },
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  );
+                                } else {
+                                  return Text('Video Getting');
+                                }
+                              },
                             ),
                             SizedBox(height: 40),
                             Text(
@@ -860,7 +886,6 @@ table, th, td {
                           ],
                         );
                         wbinars.add(singleWebinar);
-                        break;
                       }
                     }
                     return Column(children: wbinars);
