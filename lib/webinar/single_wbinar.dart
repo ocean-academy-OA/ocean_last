@@ -1,4 +1,3 @@
-import 'package:better_player/better_player.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:email_validator/email_validator.dart';
 import 'package:flutter/gestures.dart';
@@ -33,103 +32,6 @@ class _SingleWebinarScreenState extends State<SingleWebinarScreen> {
   bool isPlaying = false;
 
   /// Ijass work start
-  String name;
-  String phoneNumber;
-  String email;
-
-  static GlobalKey<FormState> _formKey = GlobalKey<FormState>();
-  final nameController = TextEditingController();
-  final emailController = TextEditingController();
-  final phoneNumberController = TextEditingController();
-
-  Widget _buildName() {
-    return TextFormField(
-      inputFormatters: <TextInputFormatter>[
-        FilteringTextInputFormatter.allow(RegExp(r"[a-zA-Z]+|\s")),
-        LengthLimitingTextInputFormatter(40),
-      ],
-      validator: (value) {
-        if (value.isEmpty) {
-          return 'name is required';
-        } else if (value.length < 3) {
-          return 'character should be morethan 2';
-        }
-        return null;
-      },
-      decoration: InputDecoration(
-        prefixIcon: Icon(Icons.drive_file_rename_outline),
-        errorStyle: TextStyle(color: Colors.redAccent, fontSize: 12),
-        border: OutlineInputBorder(),
-        hintText: "enter your name",
-        labelText: 'Name',
-      ),
-      controller: nameController,
-      onChanged: (value) {
-        name = value;
-      },
-    );
-  }
-
-  Widget _buildphonenumber() {
-    return TextFormField(
-      inputFormatters: <TextInputFormatter>[
-        FilteringTextInputFormatter.allow(
-          RegExp(r"^\d+\.?\d{0,2}"),
-        ),
-        LengthLimitingTextInputFormatter(10),
-      ],
-      validator: (value) {
-        if (value.isEmpty) {
-          return 'phone_number is required';
-        } else if (value.length < 10) {
-          return 'invalid phone_number';
-        }
-        return null;
-      },
-      decoration: InputDecoration(
-        prefixIcon: Icon(Icons.phone_android_outlined),
-        errorStyle: TextStyle(color: Colors.redAccent, fontSize: 12),
-        border: OutlineInputBorder(),
-        hintText: 'Enter Your Number',
-        labelText: 'Phone Number',
-      ),
-      controller: phoneNumberController,
-      onChanged: (value) {
-        phoneNumber = value;
-      },
-    );
-  }
-
-  Widget _buildEmail() {
-    return TextFormField(
-      inputFormatters: [FilteringTextInputFormatter.deny(RegExp(r"\s"))],
-      validator: (value) =>
-          EmailValidator.validate(value) ? null : "please enter a valid email",
-      decoration: InputDecoration(
-        prefixIcon: Icon(Icons.email_outlined),
-        errorStyle: TextStyle(color: Colors.redAccent, fontSize: 12),
-        border: OutlineInputBorder(),
-        hintText: 'Enter Your Email',
-        labelText: 'Email',
-      ),
-      controller: emailController,
-      onChanged: (value) {
-        email = value;
-      },
-    );
-  }
-
-  void getData() async {
-    http.Response response = await http.get(
-        """ https://shrouded-fjord-03855.herokuapp.com/?name=$name&des=query&mobile=$phoneNumber&email=$email&date=date time &type=enquiry""");
-
-    if (response.statusCode == 200) {
-      String data = response.body;
-      print(data);
-    } else {
-      print(response.statusCode);
-    }
-  }
 
   /// Ijass work end
   /// jayalatha
@@ -188,6 +90,111 @@ class _SingleWebinarScreenState extends State<SingleWebinarScreen> {
                     final getFreeWebinar = snapshot.data;
 
                     for (var a in getFreeWebinar.docs) {
+                      String name;
+                      String phoneNumber;
+                      String email;
+
+                      GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+                      final nameController = TextEditingController();
+                      final emailController = TextEditingController();
+                      final phoneNumberController = TextEditingController();
+
+                      Widget _buildName() {
+                        return TextFormField(
+                          inputFormatters: <TextInputFormatter>[
+                            FilteringTextInputFormatter.allow(
+                                RegExp(r"[a-zA-Z]+|\s")),
+                            LengthLimitingTextInputFormatter(40),
+                          ],
+                          validator: (value) {
+                            if (value.isEmpty) {
+                              return 'name is required';
+                            } else if (value.length < 3) {
+                              return 'character should be morethan 2';
+                            }
+                            return null;
+                          },
+                          decoration: InputDecoration(
+                            prefixIcon: Icon(Icons.drive_file_rename_outline),
+                            errorStyle: TextStyle(
+                                color: Colors.redAccent, fontSize: 12),
+                            border: OutlineInputBorder(),
+                            hintText: "enter your name",
+                            labelText: 'Name',
+                          ),
+                          controller: nameController,
+                          onChanged: (value) {
+                            name = value;
+                          },
+                        );
+                      }
+
+                      Widget _buildphonenumber() {
+                        return TextFormField(
+                          inputFormatters: <TextInputFormatter>[
+                            FilteringTextInputFormatter.allow(
+                              RegExp(r"^\d+\.?\d{0,2}"),
+                            ),
+                            LengthLimitingTextInputFormatter(10),
+                          ],
+                          validator: (value) {
+                            if (value.isEmpty) {
+                              return 'phone_number is required';
+                            } else if (value.length < 10) {
+                              return 'invalid phone_number';
+                            }
+                            return null;
+                          },
+                          decoration: InputDecoration(
+                            prefixIcon: Icon(Icons.phone_android_outlined),
+                            errorStyle: TextStyle(
+                                color: Colors.redAccent, fontSize: 12),
+                            border: OutlineInputBorder(),
+                            hintText: 'Enter Your Number',
+                            labelText: 'Phone Number',
+                          ),
+                          controller: phoneNumberController,
+                          onChanged: (value) {
+                            phoneNumber = value;
+                          },
+                        );
+                      }
+
+                      Widget _buildEmail() {
+                        return TextFormField(
+                          inputFormatters: [
+                            FilteringTextInputFormatter.deny(RegExp(r"\s"))
+                          ],
+                          validator: (value) => EmailValidator.validate(value)
+                              ? null
+                              : "please enter a valid email",
+                          decoration: InputDecoration(
+                            prefixIcon: Icon(Icons.email_outlined),
+                            errorStyle: TextStyle(
+                                color: Colors.redAccent, fontSize: 12),
+                            border: OutlineInputBorder(),
+                            hintText: 'Enter Your Email',
+                            labelText: 'Email',
+                          ),
+                          controller: emailController,
+                          onChanged: (value) {
+                            email = value;
+                          },
+                        );
+                      }
+
+                      void getData() async {
+                        http.Response response = await http.get(
+                            """ https://shrouded-fjord-03855.herokuapp.com/?name=$name&des=query&mobile=$phoneNumber&email=$email&date=date time &type=enquiry""");
+
+                        if (response.statusCode == 200) {
+                          String data = response.body;
+                          print(data);
+                        } else {
+                          print(response.statusCode);
+                        }
+                      }
+
                       VideoPlayerController _videoController;
                       Future<void> _initializeVideoPlayerFuture;
 
