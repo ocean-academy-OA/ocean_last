@@ -90,6 +90,12 @@ class _WebinarCardState extends State<WebinarCard> {
                     mentorImage: trainerImage,
                     date: date.toString(),
                     time: timing.toString(),
+                    onPressed: () async {
+                      var getThisWbinarDetails = await _firestore
+                          .collection('free_webinar')
+                          .doc(courseName)
+                          .get();
+                    },
                   );
 
                   courseList.add(webinar);
@@ -116,8 +122,10 @@ class WebinarCardDb extends StatefulWidget {
       this.mentorDesignation,
       this.mentorName,
       this.mentorImage,
-      this.webinarType});
+      this.webinarType,
+      this.onPressed});
   String mentorName;
+  Function onPressed;
   String mentorDesignation;
   String time;
   String date;
@@ -233,7 +241,7 @@ class _WebinarCardDbState extends State<WebinarCardDb> {
                             fontFamily: "Gilroy"),
                       ),
                       color: Color(0xFF36BAFF),
-                      onPressed: () {}),
+                      onPressed: widget.onPressed),
                 ),
               ],
             ),
