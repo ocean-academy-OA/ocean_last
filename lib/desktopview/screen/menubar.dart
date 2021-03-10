@@ -73,8 +73,6 @@ class _NavbarState extends State<Navbar> {
                   Navbar.visiblity = false;
                   Navbar.isNotification = false;
                 });
-                Provider.of<Routing>(context, listen: false)
-                    .updateRouting(widget: UpcomingWebinar());
               },
             ),
           ),

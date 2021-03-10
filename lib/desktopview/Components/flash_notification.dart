@@ -4,6 +4,7 @@ import 'package:ocean_project/desktopview/constants.dart';
 import 'package:ocean_project/desktopview/route/routing.dart';
 import 'package:ocean_project/desktopview/screen/menubar.dart';
 import 'package:ocean_project/webinar/single_wbinar.dart';
+import 'package:ocean_project/webinar/upcoming_webinar.dart';
 import 'package:provider/provider.dart';
 
 final _firestore = FirebaseFirestore.instance;
@@ -90,7 +91,10 @@ class _FlashNotificationState extends State<FlashNotification> {
                   ),
                   height: 40,
                   color: Colors.white,
-                  onPressed: widget.upcomingButton,
+                  onPressed: () {
+                    Provider.of<Routing>(context, listen: false)
+                        .updateRouting(widget: UpcomingWebinar());
+                  },
                 ),
               ),
             ],
@@ -153,11 +157,6 @@ class _FlashDbState extends State<FlashDb> {
             color: Colors.white,
             onPressed: () {
               {
-                setState(() {
-                  Navbar.visiblity = false;
-                  Navbar.isNotification = false;
-                });
-
                 Provider.of<Routing>(context, listen: false).updateRouting(
                     widget: SingleWebinarScreen(
                   topic: widget.content,
