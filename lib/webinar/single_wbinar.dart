@@ -74,14 +74,6 @@ class _SingleWebinarScreenState extends State<SingleWebinarScreen> {
 
   /// jayalatha
 
-  // @override
-  // void initState() {
-  //   // TODO: implement initState
-  //   super.initState();
-  //
-  //   retriveTime();
-  // }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -89,7 +81,7 @@ class _SingleWebinarScreenState extends State<SingleWebinarScreen> {
         child: SingleChildScrollView(
           child: Column(
             children: [
-              widget.payment == "free_webinar"
+              widget.payment == "free"
                   ? StreamBuilder<QuerySnapshot>(
                       stream: _firestore.collection('free_webinar').snapshots(),
                       builder: (context, snapshot) {
