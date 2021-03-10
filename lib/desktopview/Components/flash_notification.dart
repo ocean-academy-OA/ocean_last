@@ -1,6 +1,10 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:ocean_project/desktopview/constants.dart';
+import 'package:ocean_project/desktopview/route/routing.dart';
+import 'package:ocean_project/desktopview/screen/menubar.dart';
+import 'package:ocean_project/webinar/single_wbinar.dart';
+import 'package:provider/provider.dart';
 
 final _firestore = FirebaseFirestore.instance;
 
@@ -136,7 +140,19 @@ class _FlashDbState extends State<FlashDb> {
             ),
             height: 40,
             color: Colors.white,
-            onPressed: widget.joinButton,
+            onPressed: () {
+              {
+                setState(() {
+                  Navbar.visiblity = false;
+                  Navbar.isNotification = false;
+                });
+
+                Provider.of<Routing>(context, listen: false).updateRouting(
+                    widget: SingleWebinarScreen(
+                  topic: widget.content,
+                ));
+              }
+            },
           ),
         ),
       ],

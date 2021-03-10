@@ -266,7 +266,7 @@ class _SingleWebinarScreenState extends State<SingleWebinarScreen> {
 
                       if (sDate > 0) {
                         int wbinarTime = sDate;
-                        if (course == "Flutter") {
+                        if (course == widget.topic) {
                           Column singleWebinar = Column(
                             children: [
                               Container(
