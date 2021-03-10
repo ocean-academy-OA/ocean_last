@@ -8,6 +8,7 @@ import 'package:ocean_project/desktopview/route/routing.dart';
 import 'package:ocean_project/desktopview/screen/contact_us.dart';
 import 'package:ocean_project/desktopview/screen/courses.dart';
 import 'package:ocean_project/desktopview/screen/services.dart';
+import 'package:ocean_project/webinar/single_wbinar.dart';
 import 'package:ocean_project/webinar/upcoming_webinar.dart';
 import 'package:ocean_project/webinar/webinar.dart';
 import 'package:ocean_project/webinar/webinar_list.dart';
@@ -74,7 +75,7 @@ class _NavbarState extends State<Navbar> {
                 });
 
                 Provider.of<Routing>(context, listen: false).updateRouting(
-                    widget: WebinarScreen(
+                    widget: SingleWebinarScreen(
                   timestamp: timestamp,
                 ));
               },

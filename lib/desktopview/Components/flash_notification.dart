@@ -35,7 +35,7 @@ class _FlashNotificationState extends State<FlashNotification> {
           Row(
             children: [
               StreamBuilder<QuerySnapshot>(
-                stream: _firestore.collection('Webinar').snapshots(),
+                stream: _firestore.collection('free_webinar').snapshots(),
                 // ignore: missing_return
                 builder: (context, snapshot) {
                   if (!snapshot.hasData) {
@@ -45,22 +45,14 @@ class _FlashNotificationState extends State<FlashNotification> {
                     List<FlashDb> webinarContent = [];
 
                     for (var message in messages) {
-                      if (message.id == 'free_webinar') {
-                        final freeWebinarContent = message.data()['free'];
+                      if (message.id == 'Flutter') {
+                        final freeWebinarContent = message.data()['course'];
                         final webinar = FlashDb(
                           content: freeWebinarContent,
                           joinButton: widget.joinButton,
                           dismissNotification: widget.dismissNotification,
                         );
                         // Text('$messageText from $messageSender');
-                        webinarContent.add(webinar);
-                      } else {
-                        final paidWebinarContent = message.data()['paid'];
-                        final webinar = FlashDb(
-                          content: paidWebinarContent,
-                          joinButton: widget.joinButton,
-                          dismissNotification: widget.dismissNotification,
-                        );
                         webinarContent.add(webinar);
                       }
                     }
