@@ -33,6 +33,36 @@ class _AppBarWidgetState extends State<AppBarWidget> {
     print("${OALive.stayUser}dddddddddddddddddddddddddddddddddddddd");
     OALive.stayUser = LogIn.registerNumber;
     print('Otp Submited');
+
+    getProfilePicture();
+  }
+
+  getProfilePicture() async {
+    var details =
+        await _firestore.collection('new users').doc(OALive.stayUser).get();
+    userProfile = details.data()['Profile Picture'];
+    print(userProfile);
+  }
+
+  getImage() async {
+    StreamBuilder<QuerySnapshot>(
+        stream: _firestore.collection('new users').snapshots(),
+        // ignore: missing_return
+        builder: (context, snapshot) {
+          if (!snapshot.hasData) {
+            return Text("Loading.....");
+          } else {
+            final messages = snapshot.data.docs;
+            for (var message in messages) {
+              // ignore: unrelated_type_equality_checks
+              if (OALive.stayUser == message.id) {
+                final dbImage = message.data()['Profile Picture'];
+
+                userProfile = dbImage;
+              }
+            }
+          }
+        });
   }
 
   @override

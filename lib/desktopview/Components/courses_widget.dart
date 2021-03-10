@@ -1,29 +1,20 @@
 import 'dart:html';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/gestures.dart';
+
 import 'package:flutter/rendering.dart';
+
+import 'package:flutter/services.dart';
+
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:ocean_project/alert/alert_text_field.dart';
-import 'package:ocean_project/desktopview/download_pdf/download%20pdf.dart';
-import 'package:ocean_project/desktopview/new_user_widget/otp_inputs.dart';
-import 'package:otp_text_field/otp_text_field.dart';
-import 'package:timer_count_down/timer_count_down.dart';
-import 'package:country_code_picker/country_code_picker.dart';
-import 'package:country_code_picker/country_codes.dart';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:flutter/services.dart';
-import 'package:ocean_project/alert/alert_msg.dart';
-import 'package:ocean_project/desktopview/Components/course_enrole.dart';
 import 'package:ocean_project/desktopview/constants.dart';
-import 'package:ocean_project/desktopview/new_user_screen/log_in.dart';
-import 'package:ocean_project/desktopview/new_user_screen/registration.dart';
 import 'package:ocean_project/desktopview/route/routing.dart';
 import 'package:ocean_project/desktopview/screen/course_details.dart';
 import 'package:ocean_project/desktopview/screen/courses.dart';
 import 'package:provider/provider.dart';
-import 'package:shared_preferences/shared_preferences.dart';
-import 'package:url_launcher/url_launcher.dart';
 
 final _firestore = FirebaseFirestore.instance;
 
@@ -309,6 +300,16 @@ class _OfflineCourseState extends State<OfflineCourse> {
     });
   }
 
+  bool validateEmail(String value) {
+    Pattern pattern =
+        r'^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$';
+    RegExp regex = new RegExp(pattern);
+    return (!regex.hasMatch(value)) ? false : true;
+  }
+
+  bool isName = true;
+  bool isEmail = true;
+  bool isNumber = true;
   getUserData(context) {
     return showDialog(
         context: context,
@@ -341,7 +342,7 @@ class _OfflineCourseState extends State<OfflineCourse> {
                             height: 500,
                             width: 600,
                             child: Image.network(
-                              'images/download pdf/mail.svg',
+                              'https://firebasestorage.googleapis.com/v0/b/ocean-live-project-ea2e7.appspot.com/o/download%20pdf%20svgs%2Fmail.svg?alt=media&token=ee065fd0-9616-43b1-9316-f31399fb9442',
                               fit: BoxFit.contain,
                             )),
                         Container(
@@ -350,20 +351,41 @@ class _OfflineCourseState extends State<OfflineCourse> {
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
                               AlertTextField(
-                                errorText: 'invalid Name',
+                                suffixIcon: isName
+                                    ? null
+                                    : Icon(
+                                        Icons.close,
+                                        color: Colors.red,
+                                      ),
                                 hintText: 'Name',
                                 icon: Icon(Icons.person),
                                 controller: _name,
                               ),
                               AlertTextField(
+                                suffixIcon: isNumber
+                                    ? null
+                                    : Icon(
+                                        Icons.close,
+                                        color: Colors.red,
+                                      ),
                                 hintText: 'Mobile',
                                 errorText: 'Enter Valid Number',
                                 icon: Icon(Icons.phone_android),
+                                inputFormatters: [
+                                  FilteringTextInputFormatter(
+                                      RegExp(r'^\d+\.?\d{0,2}'),
+                                      allow: true),
+                                ],
                                 controller: _mobile,
                               ),
                               AlertTextField(
                                 hintText: 'Email',
-                                errorText: 'invalid Email',
+                                suffixIcon: isEmail
+                                    ? null
+                                    : Icon(
+                                        Icons.close,
+                                        color: Colors.red,
+                                      ),
                                 icon: Icon(Icons.email),
                                 controller: _email,
                               ),
@@ -390,7 +412,7 @@ class _OfflineCourseState extends State<OfflineCourse> {
                                           width: 30,
                                           height: 30,
                                           child: Image.network(
-                                              'images/download pdf/mail service.svg')),
+                                              'https://firebasestorage.googleapis.com/v0/b/ocean-live-project-ea2e7.appspot.com/o/download%20pdf%20svgs%2Fmail%20service.svg?alt=media&token=49ae698d-0e63-453e-ac4d-f45924d51b9b')),
                                       SizedBox(width: 6),
                                       Text(
                                         'Send to Mail',
@@ -399,11 +421,25 @@ class _OfflineCourseState extends State<OfflineCourse> {
                                       ),
                                     ],
                                   ),
-                                  onPressed: () {
-                                    print(_mobile.text);
-                                    getDownloadOTP();
-                                    Navigator.pop(context);
-                                    otpPage(_mobile.text, context);
+                                  onPressed: () async {
+                                    if (validateEmail(_email.text) &&
+                                        _mobile.text.length == 10 &&
+                                        (_name.text.length > 3)) {
+                                      print(_mobile.text);
+                                      getDownloadOTP();
+                                      Navigator.pop(context);
+                                      otpPage(_mobile.text, context);
+                                    } else if (_email.text.isEmpty &&
+                                        _mobile.text.isEmpty &&
+                                        _name.text.isEmpty) {
+                                      fillAllFieldsDialog(context);
+                                    } else if (_name.text.length < 3) {
+                                      invalidNameDialog(context);
+                                    } else if (_mobile.text.length != 10) {
+                                      invalidNumberDialog(context);
+                                    } else if (!validateEmail(_email.text)) {
+                                      invalidMailDialog(context);
+                                    }
                                   },
                                 ),
                               ),
@@ -540,7 +576,7 @@ class _OfflineCourseState extends State<OfflineCourse> {
                             height: 500,
                             width: 600,
                             child: Image.network(
-                              'images/download pdf/otp service.svg',
+                              'https://firebasestorage.googleapis.com/v0/b/ocean-live-project-ea2e7.appspot.com/o/download%20pdf%20svgs%2Fotp%20service.svg?alt=media&token=d5935912-85b6-447d-b495-ef8fbd1de381',
                               fit: BoxFit.contain,
                             )),
                         Container(
@@ -551,6 +587,7 @@ class _OfflineCourseState extends State<OfflineCourse> {
                                 errorText: 'invalid OTP',
                                 hintText: 'Enter OTP',
                                 icon: Icon(Icons.lock_clock),
+                                letterSpacing: 20,
                                 controller: _otp,
                               ),
                               Container(
@@ -576,7 +613,7 @@ class _OfflineCourseState extends State<OfflineCourse> {
                                           width: 30,
                                           height: 30,
                                           child: Image.network(
-                                              'images/download pdf/mail service.svg')),
+                                              'https://firebasestorage.googleapis.com/v0/b/ocean-live-project-ea2e7.appspot.com/o/download%20pdf%20svgs%2Fmail%20service.svg?alt=media&token=49ae698d-0e63-453e-ac4d-f45924d51b9b')),
                                       SizedBox(width: 6),
                                       Text(
                                         'submit',
@@ -591,11 +628,11 @@ class _OfflineCourseState extends State<OfflineCourse> {
                                         userCredential =
                                             await confirmationResult
                                                 .confirm(_otp.text);
-                                        print(userCredential);
                                         print('OTP submited');
                                         fireStoreAddWithDownload();
                                         Navigator.pop(context);
                                         fieldClear();
+                                        mailSendedDialog(context);
                                       } catch (e) {
                                         print('$e OTP faild');
                                         Navigator.pop(context);
@@ -636,6 +673,170 @@ class _OfflineCourseState extends State<OfflineCourse> {
             ),
           );
         });
+  }
+
+  mailSendedDialog(context) {
+    return showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        Future.delayed(Duration(seconds: 3), () {
+          Navigator.pop(context);
+        });
+        return AlertDialog(
+          contentPadding: EdgeInsets.zero,
+          shape:
+              RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
+          backgroundColor: Colors.transparent,
+          content: Container(
+            height: 300,
+            width: 250,
+            decoration: BoxDecoration(
+                color: Colors.grey[200],
+                borderRadius: BorderRadius.circular(20)),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Text(
+                  'Mail has been send',
+                  style: TextStyle(fontSize: 25, color: Colors.grey),
+                ),
+                SizedBox(
+                  height: 20,
+                ),
+                Image.network(
+                    'https://cdn.dribbble.com/users/493409/screenshots/3070302/043_success-mail.gif'),
+              ],
+            ),
+          ),
+        );
+      },
+    );
+  }
+
+  invalidMailDialog(context) {
+    return showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        Future.delayed(Duration(seconds: 3), () {
+          Navigator.pop(context);
+        });
+        return AlertDialog(
+          contentPadding: EdgeInsets.zero,
+          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(5)),
+          backgroundColor: Colors.transparent,
+          content: Container(
+            height: 50,
+            width: 250,
+            decoration: BoxDecoration(
+                color: Colors.grey[200],
+                borderRadius: BorderRadius.circular(5)),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Text(
+                  'Invalid E-Mail',
+                  style: TextStyle(fontSize: 25, color: Colors.grey),
+                ),
+              ],
+            ),
+          ),
+        );
+      },
+    );
+  }
+
+  invalidNumberDialog(context) {
+    return showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        Future.delayed(Duration(seconds: 3), () {
+          Navigator.pop(context);
+        });
+        return AlertDialog(
+          contentPadding: EdgeInsets.zero,
+          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(5)),
+          backgroundColor: Colors.transparent,
+          content: Container(
+            height: 50,
+            width: 250,
+            decoration: BoxDecoration(
+                color: Colors.grey[200],
+                borderRadius: BorderRadius.circular(5)),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Text(
+                  'Invalid Mobile Number',
+                  style: TextStyle(fontSize: 25, color: Colors.grey),
+                ),
+              ],
+            ),
+          ),
+        );
+      },
+    );
+  }
+
+  invalidNameDialog(context) {
+    return showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        Future.delayed(Duration(seconds: 3), () {
+          Navigator.pop(context);
+        });
+        return AlertDialog(
+          contentPadding: EdgeInsets.zero,
+          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(5)),
+          backgroundColor: Colors.transparent,
+          content: Container(
+            height: 50,
+            decoration: BoxDecoration(
+                color: Colors.grey[200],
+                borderRadius: BorderRadius.circular(5)),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Text(
+                  'Name should be Greaterthan 3 letter',
+                  style: TextStyle(fontSize: 25, color: Colors.grey),
+                ),
+              ],
+            ),
+          ),
+        );
+      },
+    );
+  }
+
+  fillAllFieldsDialog(context) {
+    return showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        Future.delayed(Duration(seconds: 3), () {
+          Navigator.pop(context);
+        });
+        return AlertDialog(
+          contentPadding: EdgeInsets.zero,
+          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(5)),
+          backgroundColor: Colors.transparent,
+          content: Container(
+            height: 50,
+            decoration: BoxDecoration(
+                color: Colors.grey[200],
+                borderRadius: BorderRadius.circular(5)),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Text(
+                  'Fill All the Fields',
+                  style: TextStyle(fontSize: 25, color: Colors.grey),
+                ),
+              ],
+            ),
+          ),
+        );
+      },
+    );
   }
 
   @override

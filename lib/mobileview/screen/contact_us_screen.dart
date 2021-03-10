@@ -30,51 +30,7 @@ class _ContactUsState extends State<ContactUs> {
 
   void getData() async {
     http.Response response = await http.get(
-        """https://us-central1-ocean-live-project-ea2e7.cloudfunctions.net/sendMail?dest=jass07rtr@gmail.com&sub=OA COURSE ENQUIRY - $date $time&html= <!DOCTYPE html>
-<html>
-<style>
-table, th, td {
-  border: 1px solid red;
-  border-collapse: collapse;
-}
-</style>
-<body>
-
-
-
-<table border="outline">
-<tbody>
-
-<tr>
-<td style="font-weight:bold;width:180px">Enquiry</td>
-<td>$enquiry</td>
-</tr>
-
-<tr>
-<td style="font-weight:bold;width:180px">Full Name</td>
-<td>$fullname</td>
-</tr>
-
-<tr>
-<td style="font-weight:bold;width:180px">Phone Number</td>
-<td>$phoneNumber</td>
-</tr>
-
-<tr>
-<td style="font-weight:bold;width:180px">Email</td>
-<td>$email</td>
-</tr>
-
-<tr>
-<td style="font-weight:bold;width:180px">Query</td>
-<td>$query</td>
-</tr>
-
-</tbody>
-</table>
-
-</body>
-</html>""");
+        """https://shrouded-fjord-03855.herokuapp.com/?name=$fullname&des=$query&mobile=$phoneNumber&email=$email&date=$date $time &type=$enquiry""");
 
     if (response.statusCode == 200) {
       String data = response.body;

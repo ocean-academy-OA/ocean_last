@@ -75,20 +75,24 @@ class _ServiceState extends State<Service> {
             ImageToText(
                 topic: serviceheading1,
                 content: servicecontent1,
-                photo: 'images/service images/corporate trining.svg'),
+                photo:
+                    'https://firebasestorage.googleapis.com/v0/b/ocean-live-project-ea2e7.appspot.com/o/service%20images%20svgs%2Fcorporate%20trining.svg?alt=media&token=73464595-cf57-4c7e-b7c6-5dea4d5009ae'),
             TextToImage(
               topic: serviceheading2,
               content: servicecontent2,
-              photo: 'images/service images/career oriented.svg',
+              photo:
+                  'https://firebasestorage.googleapis.com/v0/b/ocean-live-project-ea2e7.appspot.com/o/service%20images%20svgs%2Fcareer%20oriented.svg?alt=media&token=7dcee29f-ecea-4ed4-b4a5-485a90bdc3b2',
             ),
             ImageToText(
                 topic: serviceheading3,
                 content: servicecontent3,
-                photo: 'images/service images/workshops and value.svg'),
+                photo:
+                    'https://firebasestorage.googleapis.com/v0/b/ocean-live-project-ea2e7.appspot.com/o/service%20images%20svgs%2Fworkshops%20and%20value.svg?alt=media&token=6a4cc10d-a9c4-43f0-bf46-f0d6077a8456'),
             TextToImage(
               topic: serviceheading4,
               content: servicecontent4,
-              photo: 'images/service images/learn new skil.svg',
+              photo:
+                  'https://firebasestorage.googleapis.com/v0/b/ocean-live-project-ea2e7.appspot.com/o/service%20images%20svgs%2Flearn%20new%20skil.svg?alt=media&token=1d608f76-07dc-48f2-951f-819cee6f0b92',
             ),
             SizedBox(
               height: 20.0,
