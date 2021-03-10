@@ -20,7 +20,8 @@ class SingleWebinarScreen extends StatefulWidget {
   Timestamp timestamp;
   //= (10, 2021 at 10:30:00 AM UTC+5:30);
   var webinar;
-  SingleWebinarScreen({this.timestamp});
+  SingleWebinarScreen({this.timestamp, this.topic});
+  String topic;
   @override
   _SingleWebinarScreenState createState() => _SingleWebinarScreenState();
 }
@@ -93,7 +94,6 @@ class _SingleWebinarScreenState extends State<SingleWebinarScreen> {
                       String name;
                       String phoneNumber;
                       String email;
-
                       GlobalKey<FormState> _formKey = GlobalKey<FormState>();
                       final nameController = TextEditingController();
                       final emailController = TextEditingController();
@@ -266,633 +266,645 @@ class _SingleWebinarScreenState extends State<SingleWebinarScreen> {
 
                       if (sDate > 0) {
                         int wbinarTime = sDate;
-                        Column singleWebinar = Column(
-                          children: [
-                            Container(
-                              padding: EdgeInsets.symmetric(
-                                  horizontal: 15, vertical: 15),
-                              alignment: Alignment.center,
-                              color: Colors.blue,
-                              child: Text(supperTitle,
+                        if (course == "Flutter") {
+                          Column singleWebinar = Column(
+                            children: [
+                              Container(
+                                padding: EdgeInsets.symmetric(
+                                    horizontal: 15, vertical: 15),
+                                alignment: Alignment.center,
+                                color: Colors.blue,
+                                child: Text(supperTitle,
+                                    textAlign: TextAlign.center,
+                                    style: TextStyle(
+                                        fontSize: 18, color: Colors.white)),
+                              ),
+                              SizedBox(height: 20),
+                              Container(
+                                margin: EdgeInsets.symmetric(vertical: 5),
+                                width: 1000,
+                                child: Text(
+                                  mainTitle,
+                                  style: kHeaddingTitle,
                                   textAlign: TextAlign.center,
+                                ),
+                              ),
+                              Container(
+                                width: 1000,
+                                child: Text(
+                                  mainSubtitle,
                                   style: TextStyle(
-                                      fontSize: 18, color: Colors.white)),
-                            ),
-                            SizedBox(height: 20),
-                            Container(
-                              margin: EdgeInsets.symmetric(vertical: 5),
-                              width: 1000,
-                              child: Text(
-                                mainTitle,
-                                style: kHeaddingTitle,
-                                textAlign: TextAlign.center,
+                                      inherit: false,
+                                      fontSize: 20,
+                                      color: Color(0xffFF757575),
+                                      fontFamily: kfontname,
+                                      fontWeight: FontWeight.normal),
+                                  textAlign: TextAlign.center,
+                                ),
                               ),
-                            ),
-                            Container(
-                              width: 1000,
-                              child: Text(
-                                mainSubtitle,
-                                style: TextStyle(
-                                    inherit: false,
-                                    fontSize: 20,
-                                    color: Color(0xffFF757575),
-                                    fontFamily: kfontname,
-                                    fontWeight: FontWeight.normal),
-                                textAlign: TextAlign.center,
-                              ),
-                            ),
-                            SizedBox(height: 30),
-                            //mentor image and name and login
-                            Container(
-                              child: Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceAround,
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Spacer(flex: 3),
-                                  Container(
-                                      decoration: BoxDecoration(
-                                        borderRadius: BorderRadius.circular(5),
-                                      ),
-                                      child: Column(
-                                        children: [
-                                          Container(
-                                            height: 550,
-                                            width: 800,
-                                            child: ClipRRect(
-                                              borderRadius:
-                                                  BorderRadius.circular(5),
-                                              child: Image.network(
-                                                trainerImage,
-                                                fit: BoxFit.cover,
-                                                alignment: Alignment.topCenter,
-                                              ),
-                                            ),
-                                          ),
-                                          Container(
-                                            alignment: Alignment.center,
-                                            width: 800,
-                                            height: 70,
-                                            color: Colors.grey[200],
-                                            margin: EdgeInsets.symmetric(
-                                                vertical: 10),
-                                            child: Text(
-                                              'With $trainerName',
-                                              style: TextStyle(
-                                                  inherit: false,
-                                                  fontSize: 30,
-                                                  color: Colors.grey[700],
-                                                  fontFamily: kfontname,
-                                                  fontWeight:
-                                                      FontWeight.normal),
-                                              textAlign: TextAlign.center,
-                                            ),
-                                          ),
-                                        ],
-                                      )),
-                                  Spacer(),
-                                  // Join and timer
-                                  Container(
-                                    width: 450,
-                                    height: 630,
-                                    decoration: BoxDecoration(
-                                        color: Colors.white,
-                                        borderRadius: BorderRadius.circular(10),
-                                        // border: Border.all(color: kBlue, width: 3),
-                                        boxShadow: [
-                                          BoxShadow(
-                                              color:
-                                                  Colors.black.withOpacity(0.2),
-                                              blurRadius: 8,
-                                              offset: Offset(0, 4))
-                                        ]),
-                                    child: Column(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceBetween,
-                                      children: [
-                                        ///TODO TextField and timer join button
-                                        //timer
-                                        Column(
+                              SizedBox(height: 30),
+                              //mentor image and name and login
+                              Container(
+                                child: Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceAround,
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Spacer(flex: 3),
+                                    Container(
+                                        decoration: BoxDecoration(
+                                          borderRadius:
+                                              BorderRadius.circular(5),
+                                        ),
+                                        child: Column(
                                           children: [
                                             Container(
-                                              width: 600,
-                                              height: 100,
-                                              child: Stack(
-                                                alignment: Alignment.center,
-                                                children: [
-                                                  Container(
-                                                    height: 110,
-                                                    decoration: BoxDecoration(
-
-                                                        // border: Border.all(
-                                                        //     color: kBlue, width: 3),
-                                                        borderRadius:
-                                                            BorderRadius
-                                                                .circular(5)),
-                                                    child: Column(
-                                                      mainAxisAlignment:
-                                                          MainAxisAlignment
-                                                              .spaceAround,
-                                                      crossAxisAlignment:
-                                                          CrossAxisAlignment
-                                                              .center,
-                                                      children: [
-                                                        Column(
-                                                          mainAxisAlignment:
-                                                              MainAxisAlignment
-                                                                  .center,
-                                                          children: [
-                                                            Container(
-                                                              height: 47,
-                                                              child: Stack(
-                                                                alignment:
-                                                                    Alignment
-                                                                        .center,
-                                                                children: [
-                                                                  Positioned(
-                                                                    bottom: 0,
-                                                                    child:
-                                                                        SlideCountdownClock(
-                                                                      duration: Duration(
-                                                                          seconds:
-                                                                              wbinarTime),
-                                                                      separator:
-                                                                          ' : ',
-                                                                      textStyle: TextStyle(
-                                                                          fontSize:
-                                                                              40,
-                                                                          fontFamily:
-                                                                              kfontname,
-                                                                          color:
-                                                                              kBlue),
-                                                                      separatorTextStyle: TextStyle(
-                                                                          fontSize:
-                                                                              35,
-                                                                          color:
-                                                                              kBlue),
-                                                                      shouldShowDays:
-                                                                          true,
-                                                                      onDone:
-                                                                          () {
-                                                                        setState(
-                                                                            () {
-                                                                          print(
-                                                                              DateTime.now());
-                                                                        });
-                                                                      },
-                                                                    ),
-                                                                  ),
-                                                                ],
-                                                              ),
-                                                            ),
-                                                            Container(
-                                                              width: 290,
-                                                              child: Row(
-                                                                mainAxisAlignment:
-                                                                    MainAxisAlignment
-                                                                        .spaceBetween,
-                                                                children: [
-                                                                  Text(
-                                                                    'DAYS',
-                                                                    style: TextStyle(
-                                                                        fontSize:
-                                                                            18,
-                                                                        fontFamily:
-                                                                            kfontname,
-                                                                        color:
-                                                                            kBlue),
-                                                                  ),
-                                                                  SizedBox(
-                                                                      width: 1),
-                                                                  Text(
-                                                                    'HRS',
-                                                                    style: TextStyle(
-                                                                        fontSize:
-                                                                            18,
-                                                                        fontFamily:
-                                                                            kfontname,
-                                                                        color:
-                                                                            kBlue),
-                                                                  ),
-                                                                  SizedBox(
-                                                                      width: 1),
-                                                                  Text(
-                                                                    'MIN',
-                                                                    style: TextStyle(
-                                                                        fontSize:
-                                                                            18,
-                                                                        fontFamily:
-                                                                            kfontname,
-                                                                        color:
-                                                                            kBlue),
-                                                                  ),
-                                                                  SizedBox(
-                                                                      width: 1),
-                                                                  Text(
-                                                                    'SEC',
-                                                                    style: TextStyle(
-                                                                        fontSize:
-                                                                            18,
-                                                                        fontFamily:
-                                                                            kfontname,
-                                                                        color:
-                                                                            kBlue),
-                                                                  ),
-                                                                ],
-                                                              ),
-                                                            ),
-                                                          ],
-                                                        ),
-                                                      ],
-                                                    ),
-                                                  ),
-                                                ],
+                                              height: 550,
+                                              width: 800,
+                                              child: ClipRRect(
+                                                borderRadius:
+                                                    BorderRadius.circular(5),
+                                                child: Image.network(
+                                                  trainerImage,
+                                                  fit: BoxFit.cover,
+                                                  alignment:
+                                                      Alignment.topCenter,
+                                                ),
                                               ),
                                             ),
                                             Container(
                                               alignment: Alignment.center,
-                                              height: 40,
+                                              width: 800,
+                                              height: 70,
+                                              color: Colors.grey[200],
+                                              margin: EdgeInsets.symmetric(
+                                                  vertical: 10),
                                               child: Text(
-                                                'Webinar Start In...',
+                                                'With $trainerName',
                                                 style: TextStyle(
-                                                    fontSize: 18,
-                                                    color: Colors.white),
-                                              ),
-                                              color: Colors.blue,
-                                              width: double.infinity,
-                                            ),
-                                          ],
-                                        ),
-
-                                        Form(
-                                          key: _formKey,
-                                          child: Container(
-                                            height: 240,
-                                            padding: EdgeInsets.symmetric(
-                                                horizontal: 20),
-                                            child: Column(
-                                              mainAxisAlignment:
-                                                  MainAxisAlignment
-                                                      .spaceBetween,
-                                              children: [
-                                                _buildName(),
-                                                _buildphonenumber(),
-                                                _buildEmail(),
-                                              ],
-                                            ),
-                                          ),
-                                        ),
-                                        Container(
-                                          margin: EdgeInsets.only(top: 0),
-                                          child: MaterialButton(
-                                              child: Text(
-                                                'Join',
-                                                style: TextStyle(
-                                                    fontSize: 20,
-                                                    color: Colors.white,
+                                                    inherit: false,
+                                                    fontSize: 30,
+                                                    color: Colors.grey[700],
+                                                    fontFamily: kfontname,
                                                     fontWeight:
-                                                        FontWeight.bold),
+                                                        FontWeight.normal),
+                                                textAlign: TextAlign.center,
                                               ),
-                                              color: kBlue,
-                                              minWidth: double.infinity,
-                                              height: 60,
-                                              elevation: 0,
-                                              hoverElevation: 0,
-                                              onPressed: () async {
-                                                if (_formKey.currentState
-                                                    .validate()) {
-                                                  if (name != null &&
-                                                      email != null &&
-                                                      phoneNumber != null) {
-                                                    _firestore
-                                                        .collection(
-                                                            'webinar Users')
-                                                        .doc(phoneNumber)
-                                                        .set({
-                                                      'name': name,
-                                                      'email': email,
-                                                      'Phone_Number':
-                                                          phoneNumber,
-                                                      'payment':
-                                                          payment == 'free'
-                                                              ? 'free'
-                                                              : payment
-                                                    });
-                                                    _firestore
-                                                        .collection(payment ==
-                                                                'free'
-                                                            ? 'free_webinar'
-                                                            : 'paid_webinar')
-                                                        .doc(course)
-                                                        .update({
-                                                      'student enrolled':
-                                                          studentEnrolled + 1
-                                                    });
-                                                  }
-                                                  getData();
-                                                  nameController.clear();
-                                                  emailController.clear();
-                                                  phoneNumberController.clear();
-                                                }
-                                              }),
-                                        ),
-                                        Container(
-                                          padding: EdgeInsets.symmetric(
-                                              horizontal: 15),
-                                          child: RichText(
-                                            text: TextSpan(
-                                                style: TextStyle(
-                                                    color: Colors.grey[500],
-                                                    fontSize: 16),
-                                                text:
-                                                    'By clicking the button above, you are creating an account with Ocean Academy and agree to our ',
-                                                children: [
-                                                  TextSpan(
-                                                      recognizer:
-                                                          TapGestureRecognizer()
-                                                            ..onTap = () {
-                                                              print(
-                                                                  'Privacy Policy taped');
-                                                            },
-                                                      text: 'Privacy Policy',
-                                                      style: TextStyle(
-                                                          color: kBlue)),
-                                                  TextSpan(text: ' and '),
-                                                  TextSpan(
-                                                      recognizer:
-                                                          TapGestureRecognizer()
-                                                            ..onTap = () {
-                                                              print(
-                                                                  'Terms of Use taped');
-                                                            },
-                                                      text: 'Terms of Use',
-                                                      style: TextStyle(
-                                                          color: kBlue)),
-                                                  TextSpan(
-                                                      text:
-                                                          ', including receiving emails. '),
-                                                ]),
-                                            textAlign: TextAlign.justify,
-                                          ),
-                                        ),
-                                        SizedBox(height: 10),
-                                      ],
-                                    ),
-                                  ),
-                                  Spacer(flex: 3)
-                                ],
-                              ),
-                            ),
-                            SizedBox(height: 40),
-                            Container(
-                              alignment: Alignment.center,
-                              height: 200,
-                              color: Colors.grey[200],
-                              child: Column(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  Container(
-                                    alignment: Alignment.center,
-                                    width: 1000,
-                                    child: Row(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.center,
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceBetween,
-                                      children: [
-                                        Column(
-                                          children: [
-                                            Row(
-                                              children: [
-                                                Icon(
-                                                  Icons.group,
-                                                  size: 40,
-                                                  color: Colors.grey[800],
-                                                ),
-                                                SizedBox(
-                                                  width: 10,
-                                                ),
-                                                Text(
-                                                  '$studentEnrolled+',
-                                                  style: TextStyle(
-                                                      fontSize: 35,
-                                                      fontWeight:
-                                                          FontWeight.bold,
-                                                      inherit: false,
-                                                      color: Colors.grey[800]),
-                                                ),
-                                              ],
-                                            ),
-                                            Text(
-                                              'STUDENTS ENROLLED',
-                                              style: kContentSubtitle,
-                                            )
-                                          ],
-                                        ),
-                                        SizedBox(
-                                          height: 60,
-                                          child: Divider(
-                                            thickness: 60,
-                                            color: Colors.grey[500],
-                                          ),
-                                          width: 3,
-                                        ),
-                                        Column(
-                                          children: [
-                                            Row(
-                                              children: [
-                                                Icon(
-                                                  Icons.timer,
-                                                  size: 40,
-                                                  color: Colors.grey[800],
-                                                ),
-                                                SizedBox(
-                                                  width: 10,
-                                                ),
-                                                Text(
-                                                  '$webinarDuration Minutes',
-                                                  style: TextStyle(
-                                                      fontSize: 30,
-                                                      fontWeight:
-                                                          FontWeight.bold,
-                                                      inherit: false,
-                                                      color: Colors.grey[800]),
-                                                ),
-                                              ],
-                                            ),
-                                            Text(
-                                              'MASTERCLASS',
-                                              style: kContentSubtitle,
-                                            )
-                                          ],
-                                        ),
-                                        SizedBox(
-                                          height: 60,
-                                          child: Divider(
-                                            thickness: 60,
-                                            color: Colors.grey[500],
-                                          ),
-                                          width: 3,
-                                        ),
-                                        Column(
-                                          children: [
-                                            Row(
-                                              children: [
-                                                Icon(
-                                                  FontAwesomeIcons.award,
-                                                  size: 35,
-                                                  color: Colors.grey[800],
-                                                ),
-                                                SizedBox(
-                                                  width: 10,
-                                                ),
-                                                Text(
-                                                  '1,000+',
-                                                  style: TextStyle(
-                                                      fontSize: 35,
-                                                      fontWeight:
-                                                          FontWeight.bold,
-                                                      inherit: false,
-                                                      color: Colors.grey[800]),
-                                                ),
-                                              ],
-                                            ),
-                                            Text(
-                                              'STORIES ON OCEAN ACADEMY',
-                                              style: kContentSubtitle,
-                                            )
-                                          ],
-                                        ),
-                                      ],
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ),
-                            SizedBox(height: 40),
-                            //Watch The Preview For This Masterclass
-                            Text(
-                              'Watch The Preview For This Webinar',
-                              style: kTitle,
-                            ),
-                            SizedBox(height: 20),
-                            FutureBuilder(
-                              future: _initializeVideoPlayerFuture,
-                              builder: (context, snapshot) {
-                                if (snapshot.connectionState ==
-                                    ConnectionState.done) {
-                                  return Container(
-                                    height: 650,
-                                    width: 870,
-                                    child: Stack(
-                                      alignment: Alignment.center,
-                                      children: [
-                                        Column(
-                                          children: [
-                                            AspectRatio(
-                                              aspectRatio: _videoController
-                                                  .value.aspectRatio,
-                                              child:
-                                                  VideoPlayer(_videoController),
-                                            ),
-                                            VideoProgressIndicator(
-                                              _videoController,
-                                              allowScrubbing: true,
                                             ),
                                           ],
-                                        ),
-                                        Positioned(
-                                          top: 0,
-                                          child: GestureDetector(
-                                            child: Container(
-                                              height: 490,
-                                              width: 870,
-                                              color: Colors.transparent,
-                                            ),
-                                            onTap: () {
-                                              if (_videoController
-                                                  .value.isPlaying) {
-                                                _videoController.pause();
-                                              } else {
-                                                _videoController.play();
-                                              }
-                                            },
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                  );
-                                } else {
-                                  return Text('Video Getting');
-                                }
-                              },
-                            ),
-                            SizedBox(height: 40),
-                            Text(
-                              'What You’ll Learn',
-                              style: kTitle,
-                            ),
-                            SizedBox(height: 40),
-                            Column(children: allTopics),
+                                        )),
+                                    Spacer(),
+                                    // Join and timer
+                                    Container(
+                                      width: 450,
+                                      height: 630,
+                                      decoration: BoxDecoration(
+                                          color: Colors.white,
+                                          borderRadius:
+                                              BorderRadius.circular(10),
+                                          // border: Border.all(color: kBlue, width: 3),
+                                          boxShadow: [
+                                            BoxShadow(
+                                                color: Colors.black
+                                                    .withOpacity(0.2),
+                                                blurRadius: 8,
+                                                offset: Offset(0, 4))
+                                          ]),
+                                      child: Column(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceBetween,
+                                        children: [
+                                          ///TODO TextField and timer join button
+                                          //timer
+                                          Column(
+                                            children: [
+                                              Container(
+                                                width: 600,
+                                                height: 100,
+                                                child: Stack(
+                                                  alignment: Alignment.center,
+                                                  children: [
+                                                    Container(
+                                                      height: 110,
+                                                      decoration: BoxDecoration(
 
-                            SizedBox(height: 40),
-                            Container(
-                              padding: EdgeInsets.symmetric(vertical: 50),
-                              color: Colors.grey[200],
-                              child: Column(
-                                children: [
-                                  Row(
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    children: [
-                                      Text(
-                                        'About Mentor',
-                                        style: TextStyle(
-                                            fontSize: 30,
-                                            fontWeight: FontWeight.bold),
-                                      )
-                                    ],
-                                  ),
-                                  SizedBox(height: 50),
-                                  Row(
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    children: [
-                                      Container(
-                                        color: Colors.grey[100],
-                                        height: 650,
-                                        width: 500,
-                                        child: Column(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.center,
-                                          children: [
-                                            Padding(
-                                              padding:
-                                                  const EdgeInsets.all(15.0),
-                                              child: Text(
-                                                aboutMentor,
-                                                style: kContentSubtitle,
+                                                          // border: Border.all(
+                                                          //     color: kBlue, width: 3),
+                                                          borderRadius:
+                                                              BorderRadius
+                                                                  .circular(5)),
+                                                      child: Column(
+                                                        mainAxisAlignment:
+                                                            MainAxisAlignment
+                                                                .spaceAround,
+                                                        crossAxisAlignment:
+                                                            CrossAxisAlignment
+                                                                .center,
+                                                        children: [
+                                                          Column(
+                                                            mainAxisAlignment:
+                                                                MainAxisAlignment
+                                                                    .center,
+                                                            children: [
+                                                              Container(
+                                                                height: 47,
+                                                                child: Stack(
+                                                                  alignment:
+                                                                      Alignment
+                                                                          .center,
+                                                                  children: [
+                                                                    Positioned(
+                                                                      bottom: 0,
+                                                                      child:
+                                                                          SlideCountdownClock(
+                                                                        duration:
+                                                                            Duration(seconds: wbinarTime),
+                                                                        separator:
+                                                                            ' : ',
+                                                                        textStyle: TextStyle(
+                                                                            fontSize:
+                                                                                40,
+                                                                            fontFamily:
+                                                                                kfontname,
+                                                                            color:
+                                                                                kBlue),
+                                                                        separatorTextStyle: TextStyle(
+                                                                            fontSize:
+                                                                                35,
+                                                                            color:
+                                                                                kBlue),
+                                                                        shouldShowDays:
+                                                                            true,
+                                                                        onDone:
+                                                                            () {
+                                                                          setState(
+                                                                              () {
+                                                                            print(DateTime.now());
+                                                                          });
+                                                                        },
+                                                                      ),
+                                                                    ),
+                                                                  ],
+                                                                ),
+                                                              ),
+                                                              Container(
+                                                                width: 290,
+                                                                child: Row(
+                                                                  mainAxisAlignment:
+                                                                      MainAxisAlignment
+                                                                          .spaceBetween,
+                                                                  children: [
+                                                                    Text(
+                                                                      'DAYS',
+                                                                      style: TextStyle(
+                                                                          fontSize:
+                                                                              18,
+                                                                          fontFamily:
+                                                                              kfontname,
+                                                                          color:
+                                                                              kBlue),
+                                                                    ),
+                                                                    SizedBox(
+                                                                        width:
+                                                                            1),
+                                                                    Text(
+                                                                      'HRS',
+                                                                      style: TextStyle(
+                                                                          fontSize:
+                                                                              18,
+                                                                          fontFamily:
+                                                                              kfontname,
+                                                                          color:
+                                                                              kBlue),
+                                                                    ),
+                                                                    SizedBox(
+                                                                        width:
+                                                                            1),
+                                                                    Text(
+                                                                      'MIN',
+                                                                      style: TextStyle(
+                                                                          fontSize:
+                                                                              18,
+                                                                          fontFamily:
+                                                                              kfontname,
+                                                                          color:
+                                                                              kBlue),
+                                                                    ),
+                                                                    SizedBox(
+                                                                        width:
+                                                                            1),
+                                                                    Text(
+                                                                      'SEC',
+                                                                      style: TextStyle(
+                                                                          fontSize:
+                                                                              18,
+                                                                          fontFamily:
+                                                                              kfontname,
+                                                                          color:
+                                                                              kBlue),
+                                                                    ),
+                                                                  ],
+                                                                ),
+                                                              ),
+                                                            ],
+                                                          ),
+                                                        ],
+                                                      ),
+                                                    ),
+                                                  ],
+                                                ),
                                               ),
-                                            )
-                                          ],
-                                        ),
+                                              Container(
+                                                alignment: Alignment.center,
+                                                height: 40,
+                                                child: Text(
+                                                  'Webinar Start In...',
+                                                  style: TextStyle(
+                                                      fontSize: 18,
+                                                      color: Colors.white),
+                                                ),
+                                                color: Colors.blue,
+                                                width: double.infinity,
+                                              ),
+                                            ],
+                                          ),
+
+                                          Form(
+                                            key: _formKey,
+                                            child: Container(
+                                              height: 240,
+                                              padding: EdgeInsets.symmetric(
+                                                  horizontal: 20),
+                                              child: Column(
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment
+                                                        .spaceBetween,
+                                                children: [
+                                                  _buildName(),
+                                                  _buildphonenumber(),
+                                                  _buildEmail(),
+                                                ],
+                                              ),
+                                            ),
+                                          ),
+                                          Container(
+                                            margin: EdgeInsets.only(top: 0),
+                                            child: MaterialButton(
+                                                child: Text(
+                                                  'Join',
+                                                  style: TextStyle(
+                                                      fontSize: 20,
+                                                      color: Colors.white,
+                                                      fontWeight:
+                                                          FontWeight.bold),
+                                                ),
+                                                color: kBlue,
+                                                minWidth: double.infinity,
+                                                height: 60,
+                                                elevation: 0,
+                                                hoverElevation: 0,
+                                                onPressed: () async {
+                                                  if (_formKey.currentState
+                                                      .validate()) {
+                                                    if (name != null &&
+                                                        email != null &&
+                                                        phoneNumber != null) {
+                                                      _firestore
+                                                          .collection(
+                                                              'webinar Users')
+                                                          .doc(phoneNumber)
+                                                          .set({
+                                                        'name': name,
+                                                        'email': email,
+                                                        'Phone_Number':
+                                                            phoneNumber,
+                                                        'payment':
+                                                            payment == 'free'
+                                                                ? 'free'
+                                                                : payment
+                                                      });
+                                                      _firestore
+                                                          .collection(payment ==
+                                                                  'free'
+                                                              ? 'free_webinar'
+                                                              : 'paid_webinar')
+                                                          .doc(course)
+                                                          .update({
+                                                        'student enrolled':
+                                                            studentEnrolled + 1
+                                                      });
+                                                    }
+                                                    getData();
+                                                    nameController.clear();
+                                                    emailController.clear();
+                                                    phoneNumberController
+                                                        .clear();
+                                                  }
+                                                }),
+                                          ),
+                                          Container(
+                                            padding: EdgeInsets.symmetric(
+                                                horizontal: 15),
+                                            child: RichText(
+                                              text: TextSpan(
+                                                  style: TextStyle(
+                                                      color: Colors.grey[500],
+                                                      fontSize: 16),
+                                                  text:
+                                                      'By clicking the button above, you are creating an account with Ocean Academy and agree to our ',
+                                                  children: [
+                                                    TextSpan(
+                                                        recognizer:
+                                                            TapGestureRecognizer()
+                                                              ..onTap = () {
+                                                                print(
+                                                                    'Privacy Policy taped');
+                                                              },
+                                                        text: 'Privacy Policy',
+                                                        style: TextStyle(
+                                                            color: kBlue)),
+                                                    TextSpan(text: ' and '),
+                                                    TextSpan(
+                                                        recognizer:
+                                                            TapGestureRecognizer()
+                                                              ..onTap = () {
+                                                                print(
+                                                                    'Terms of Use taped');
+                                                              },
+                                                        text: 'Terms of Use',
+                                                        style: TextStyle(
+                                                            color: kBlue)),
+                                                    TextSpan(
+                                                        text:
+                                                            ', including receiving emails. '),
+                                                  ]),
+                                              textAlign: TextAlign.justify,
+                                            ),
+                                          ),
+                                          SizedBox(height: 10),
+                                        ],
                                       ),
-                                      SizedBox(width: 50),
-                                      Container(
-                                        height: 650,
-                                        width: 500,
-                                        child: Image(
-                                          image: NetworkImage(mentorImage),
-                                          fit: BoxFit.cover,
-                                        ),
-                                      )
-                                    ],
-                                  )
-                                ],
+                                    ),
+                                    Spacer(flex: 3)
+                                  ],
+                                ),
                               ),
-                            ),
-                            SizedBox(height: 40),
-                          ],
-                        );
-                        wbinars.add(singleWebinar);
+                              SizedBox(height: 40),
+                              Container(
+                                alignment: Alignment.center,
+                                height: 200,
+                                color: Colors.grey[200],
+                                child: Column(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    Container(
+                                      alignment: Alignment.center,
+                                      width: 1000,
+                                      child: Row(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.center,
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceBetween,
+                                        children: [
+                                          Column(
+                                            children: [
+                                              Row(
+                                                children: [
+                                                  Icon(
+                                                    Icons.group,
+                                                    size: 40,
+                                                    color: Colors.grey[800],
+                                                  ),
+                                                  SizedBox(
+                                                    width: 10,
+                                                  ),
+                                                  Text(
+                                                    '$studentEnrolled+',
+                                                    style: TextStyle(
+                                                        fontSize: 35,
+                                                        fontWeight:
+                                                            FontWeight.bold,
+                                                        inherit: false,
+                                                        color:
+                                                            Colors.grey[800]),
+                                                  ),
+                                                ],
+                                              ),
+                                              Text(
+                                                'STUDENTS ENROLLED',
+                                                style: kContentSubtitle,
+                                              )
+                                            ],
+                                          ),
+                                          SizedBox(
+                                            height: 60,
+                                            child: Divider(
+                                              thickness: 60,
+                                              color: Colors.grey[500],
+                                            ),
+                                            width: 3,
+                                          ),
+                                          Column(
+                                            children: [
+                                              Row(
+                                                children: [
+                                                  Icon(
+                                                    Icons.timer,
+                                                    size: 40,
+                                                    color: Colors.grey[800],
+                                                  ),
+                                                  SizedBox(
+                                                    width: 10,
+                                                  ),
+                                                  Text(
+                                                    '$webinarDuration Minutes',
+                                                    style: TextStyle(
+                                                        fontSize: 30,
+                                                        fontWeight:
+                                                            FontWeight.bold,
+                                                        inherit: false,
+                                                        color:
+                                                            Colors.grey[800]),
+                                                  ),
+                                                ],
+                                              ),
+                                              Text(
+                                                'MASTERCLASS',
+                                                style: kContentSubtitle,
+                                              )
+                                            ],
+                                          ),
+                                          SizedBox(
+                                            height: 60,
+                                            child: Divider(
+                                              thickness: 60,
+                                              color: Colors.grey[500],
+                                            ),
+                                            width: 3,
+                                          ),
+                                          Column(
+                                            children: [
+                                              Row(
+                                                children: [
+                                                  Icon(
+                                                    FontAwesomeIcons.award,
+                                                    size: 35,
+                                                    color: Colors.grey[800],
+                                                  ),
+                                                  SizedBox(
+                                                    width: 10,
+                                                  ),
+                                                  Text(
+                                                    '1,000+',
+                                                    style: TextStyle(
+                                                        fontSize: 35,
+                                                        fontWeight:
+                                                            FontWeight.bold,
+                                                        inherit: false,
+                                                        color:
+                                                            Colors.grey[800]),
+                                                  ),
+                                                ],
+                                              ),
+                                              Text(
+                                                'STORIES ON OCEAN ACADEMY',
+                                                style: kContentSubtitle,
+                                              )
+                                            ],
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                              SizedBox(height: 40),
+                              //Watch The Preview For This Masterclass
+                              Text(
+                                'Watch The Preview For This Webinar',
+                                style: kTitle,
+                              ),
+                              SizedBox(height: 20),
+                              FutureBuilder(
+                                future: _initializeVideoPlayerFuture,
+                                builder: (context, snapshot) {
+                                  if (snapshot.connectionState ==
+                                      ConnectionState.done) {
+                                    return Container(
+                                      height: 650,
+                                      width: 870,
+                                      child: Stack(
+                                        alignment: Alignment.center,
+                                        children: [
+                                          Column(
+                                            children: [
+                                              AspectRatio(
+                                                aspectRatio: _videoController
+                                                    .value.aspectRatio,
+                                                child: VideoPlayer(
+                                                    _videoController),
+                                              ),
+                                              VideoProgressIndicator(
+                                                _videoController,
+                                                allowScrubbing: true,
+                                              ),
+                                            ],
+                                          ),
+                                          Positioned(
+                                            top: 0,
+                                            child: GestureDetector(
+                                              child: Container(
+                                                height: 490,
+                                                width: 870,
+                                                color: Colors.transparent,
+                                              ),
+                                              onTap: () {
+                                                if (_videoController
+                                                    .value.isPlaying) {
+                                                  _videoController.pause();
+                                                } else {
+                                                  _videoController.play();
+                                                }
+                                              },
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                    );
+                                  } else {
+                                    return Text('Video Getting');
+                                  }
+                                },
+                              ),
+                              SizedBox(height: 40),
+                              Text(
+                                'What You’ll Learn',
+                                style: kTitle,
+                              ),
+                              SizedBox(height: 40),
+                              Column(children: allTopics),
+
+                              SizedBox(height: 40),
+                              Container(
+                                padding: EdgeInsets.symmetric(vertical: 50),
+                                color: Colors.grey[200],
+                                child: Column(
+                                  children: [
+                                    Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
+                                      children: [
+                                        Text(
+                                          'About Mentor',
+                                          style: TextStyle(
+                                              fontSize: 30,
+                                              fontWeight: FontWeight.bold),
+                                        )
+                                      ],
+                                    ),
+                                    SizedBox(height: 50),
+                                    Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
+                                      children: [
+                                        Container(
+                                          color: Colors.grey[100],
+                                          height: 650,
+                                          width: 500,
+                                          child: Column(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.center,
+                                            children: [
+                                              Padding(
+                                                padding:
+                                                    const EdgeInsets.all(15.0),
+                                                child: Text(
+                                                  aboutMentor,
+                                                  style: kContentSubtitle,
+                                                ),
+                                              )
+                                            ],
+                                          ),
+                                        ),
+                                        SizedBox(width: 50),
+                                        Container(
+                                          height: 650,
+                                          width: 500,
+                                          child: Image(
+                                            image: NetworkImage(mentorImage),
+                                            fit: BoxFit.cover,
+                                          ),
+                                        )
+                                      ],
+                                    )
+                                  ],
+                                ),
+                              ),
+                              SizedBox(height: 40),
+                            ],
+                          );
+                          wbinars.add(singleWebinar);
+                        }
                       }
                     }
                     return Column(children: wbinars);
