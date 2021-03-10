@@ -28,8 +28,6 @@ class FlashNotification extends StatefulWidget {
 class _FlashNotificationState extends State<FlashNotification> {
   @override
   void initState() {
-    Navbar.visiblity = false;
-    Navbar.isNotification = false;
     // TODO: implement initState
     super.initState();
   }
