@@ -161,6 +161,7 @@ class _FlashDbState extends State<FlashDb> {
                 Provider.of<Routing>(context, listen: false).updateRouting(
                     widget: SingleWebinarScreen(
                   topic: widget.content,
+                  payment: widget.payment,
                 ));
               }
             },
