@@ -952,7 +952,7 @@ class _SingleWebinarScreenState extends State<SingleWebinarScreen> {
                       },
                     )
                   : StreamBuilder<QuerySnapshot>(
-                      stream: _firestore.collection('free_webinar').snapshots(),
+                      stream: _firestore.collection('paid_webinar').snapshots(),
                       builder: (context, snapshot) {
                         if (!snapshot.hasData) {
                           return Text('getting data');
