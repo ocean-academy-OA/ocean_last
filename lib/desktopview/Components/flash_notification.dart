@@ -34,7 +34,7 @@ class _FlashNotificationState extends State<FlashNotification> {
 
   @override
   Widget build(BuildContext context) {
-    print('@@@@@@@@@@@@@@@@@@@@@@@@@@@@');
+    print('@@@@@@@@@@@@@@@@@@@@@@@@');
     print(widget.webinar);
 
     return Container(
