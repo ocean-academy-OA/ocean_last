@@ -1,7 +1,9 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:ocean_project/desktopview/route/routing.dart';
 import 'package:ocean_project/webinar/single_wbinar.dart';
+import 'package:provider/provider.dart';
 
 FirebaseFirestore _firestore = FirebaseFirestore.instance;
 
@@ -50,13 +52,12 @@ class _WebinarCardState extends State<WebinarCard> {
                     time: timing.toString(),
                     onPressed: () async {
                       print(payment);
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => SingleWebinarScreen(
-                                    topic: courseName,
-                                    payment: payment,
-                                  )));
+                      Provider.of<Routing>(context, listen: false)
+                          .updateRouting(
+                              widget: SingleWebinarScreen(
+                        topic: courseName,
+                        payment: payment,
+                      ));
                     },
                   );
 
@@ -103,13 +104,13 @@ class _WebinarCardState extends State<WebinarCard> {
                     time: timing.toString(),
                     onPressed: () async {
                       print(payment);
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => SingleWebinarScreen(
-                                    topic: courseName,
-                                    payment: payment,
-                                  )));
+
+                      Provider.of<Routing>(context, listen: false)
+                          .updateRouting(
+                              widget: SingleWebinarScreen(
+                        topic: courseName,
+                        payment: payment,
+                      ));
                     },
                   );
 
