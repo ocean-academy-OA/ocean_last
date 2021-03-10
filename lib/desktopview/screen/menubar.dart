@@ -68,18 +68,6 @@ class _NavbarState extends State<Navbar> {
                   Navbar.isNotification = false;
                 });
               },
-              joinButton: () async {
-                setState(() {
-                  Navbar.visiblity = false;
-                  Navbar.isNotification = false;
-                });
-
-                Provider.of<Routing>(context, listen: false).updateRouting(
-                    widget: SingleWebinarScreen(
-                  timestamp: timestamp,
-                ));
-              },
-              joinButtonName: 'Join Now',
               upcomingButton: () {
                 setState(() {
                   Navbar.visiblity = false;

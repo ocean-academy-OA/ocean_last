@@ -20,11 +20,20 @@ class FlashNotification extends StatefulWidget {
   Function dismissNotification;
   String joinButtonName = 'JOIN';
   Map webinar;
+
   @override
   _FlashNotificationState createState() => _FlashNotificationState();
 }
 
 class _FlashNotificationState extends State<FlashNotification> {
+  @override
+  void initState() {
+    Navbar.visiblity = false;
+    Navbar.isNotification = false;
+    // TODO: implement initState
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     print('@@@@@@@@@@@@@@@@@@@@@@@@@@@@');
