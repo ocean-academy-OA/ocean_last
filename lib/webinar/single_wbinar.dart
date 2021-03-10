@@ -89,7 +89,7 @@ class _SingleWebinarScreenState extends State<SingleWebinarScreen> {
         child: SingleChildScrollView(
           child: Column(
             children: [
-              widget.payment == "free_webinar"
+              widget.payment == "free"
                   ? StreamBuilder<QuerySnapshot>(
                       stream: _firestore.collection('free_webinar').snapshots(),
                       builder: (context, snapshot) {
@@ -952,7 +952,7 @@ class _SingleWebinarScreenState extends State<SingleWebinarScreen> {
                       },
                     )
                   : StreamBuilder<QuerySnapshot>(
-                      stream: _firestore.collection('free_webinar').snapshots(),
+                      stream: _firestore.collection('paid_webinar').snapshots(),
                       builder: (context, snapshot) {
                         if (!snapshot.hasData) {
                           return Text('getting data');
