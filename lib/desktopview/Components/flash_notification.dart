@@ -58,10 +58,12 @@ class _FlashNotificationState extends State<FlashNotification> {
                     for (var message in messages) {
                       if (message.id == 'Flutter') {
                         final freeWebinarContent = message.data()['course'];
+                        final payment = message.data()['payment'];
                         final webinar = FlashDb(
                           content: freeWebinarContent,
                           joinButton: widget.joinButton,
                           dismissNotification: widget.dismissNotification,
+                          payment: payment,
                         );
                         // Text('$messageText from $messageSender');
                         webinarContent.add(webinar);
@@ -108,11 +110,13 @@ class FlashDb extends StatefulWidget {
   Function dismissNotification;
   String joinButtonName = 'JOIN';
   String content;
+  String payment;
   FlashDb(
       {this.content,
       this.joinButton,
       this.dismissNotification,
       this.joinButtonName,
+      this.payment,
       this.upcomingButton});
 
   @override
