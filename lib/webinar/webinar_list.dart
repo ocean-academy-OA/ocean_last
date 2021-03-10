@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:ocean_project/webinar/single_wbinar.dart';
 
 FirebaseFirestore _firestore = FirebaseFirestore.instance;
 
@@ -47,6 +48,16 @@ class _WebinarCardState extends State<WebinarCard> {
                     mentorImage: trainerImage,
                     date: date.toString(),
                     time: timing.toString(),
+                    onPressed: () async {
+                      print(payment);
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => SingleWebinarScreen(
+                                    topic: courseName,
+                                    payment: payment,
+                                  )));
+                    },
                   );
 
                   courseList.add(webinar);
@@ -91,10 +102,14 @@ class _WebinarCardState extends State<WebinarCard> {
                     date: date.toString(),
                     time: timing.toString(),
                     onPressed: () async {
-                      var getThisWbinarDetails = await _firestore
-                          .collection('free_webinar')
-                          .doc(courseName)
-                          .get();
+                      print(payment);
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => SingleWebinarScreen(
+                                    topic: courseName,
+                                    payment: payment,
+                                  )));
                     },
                   );
 
