@@ -1,6 +1,7 @@
 import 'dart:html';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/gestures.dart';
+import 'package:flutter/rendering.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:ocean_project/alert/alert_text_field.dart';
 import 'package:ocean_project/desktopview/download_pdf/download%20pdf.dart';
@@ -178,92 +179,95 @@ class _OnlineCourseState extends State<OnlineCourse> {
           desc: widget.description,
         ));
       },
-      child: Container(
-        margin: EdgeInsets.all(35.0),
-        //padding: const EdgeInsets.symmetric(horizontal: 30.0, vertical: 10.0),
-        height: 330.0,
-        width: 350.0,
-        decoration: BoxDecoration(
-            color: Colors.white,
-            boxShadow: [
-              BoxShadow(
-                color: Colors.black.withOpacity(0.1),
-                spreadRadius: 5,
-                blurRadius: 7,
-                offset: Offset(0, 3), // changes position of shadow
-              ),
-            ],
-            borderRadius: BorderRadius.circular(15.0)),
-        child: Column(
-          children: [
-            Container(
-              height: 200,
-              width: 350,
-              child: ClipRRect(
-                borderRadius: BorderRadius.circular(15.0),
-                child: Image.network(
-                  widget.image,
-                  fit: BoxFit.cover,
-                  alignment: Alignment.centerRight,
-                ),
-              ),
-            ),
-            Column(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Padding(
-                  padding: const EdgeInsets.all(15.0),
-                  child: Text(
-                    "${widget.coursename} full package course | ${widget.trainername} | Ocean Academy",
-                    style: TextStyle(
-                        fontSize: 20.0,
-                        color: Colors.grey[600],
-                        fontFamily: 'Gilroy',
-                        fontWeight: FontWeight.normal),
-                  ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.all(5.0),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceAround,
-                    children: [
-                      Icon(
-                        Icons.schedule,
-                        color: Color(0xff3B7EB6),
-                      ),
-                      Text(
-                        "${widget.duration} hr",
-                        style: otherSmallContentTextStyle,
-                      ),
-                      Icon(
-                        Icons.web_sharp,
-                        color: Color(0xff3B7EB6),
-                      ),
-                      Text(
-                        "${widget.date}",
-                        style: otherSmallContentTextStyle,
-                      ),
-                      Icon(
-                        Icons.video_call,
-                        color: Color(0xff3B7EB6),
-                      ),
-                      Text(
-                        "${widget.time} P.M",
-                        style: otherSmallContentTextStyle,
-                      ),
-                      // Text(
-                      //   "Click Here",
-                      //   style: TextStyle(
-                      //       color: Color(0xff3B7EB6),
-                      //       fontWeight: FontWeight.bold,
-                      //       fontFamily: kfontname),
-                      // ),
-                    ],
-                  ),
+      child: MouseRegion(
+        cursor: SystemMouseCursors.click,
+        child: Container(
+          margin: EdgeInsets.all(35.0),
+          //padding: const EdgeInsets.symmetric(horizontal: 30.0, vertical: 10.0),
+          height: 330.0,
+          width: 350.0,
+          decoration: BoxDecoration(
+              color: Colors.white,
+              boxShadow: [
+                BoxShadow(
+                  color: Colors.black.withOpacity(0.1),
+                  spreadRadius: 5,
+                  blurRadius: 7,
+                  offset: Offset(0, 3), // changes position of shadow
                 ),
               ],
-            ),
-          ],
+              borderRadius: BorderRadius.circular(15.0)),
+          child: Column(
+            children: [
+              Container(
+                height: 200,
+                width: 350,
+                child: ClipRRect(
+                  borderRadius: BorderRadius.circular(15.0),
+                  child: Image.network(
+                    widget.image,
+                    fit: BoxFit.cover,
+                    alignment: Alignment.centerRight,
+                  ),
+                ),
+              ),
+              Column(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.all(15.0),
+                    child: Text(
+                      "${widget.coursename} full package course | ${widget.trainername} | Ocean Academy",
+                      style: TextStyle(
+                          fontSize: 20.0,
+                          color: Colors.grey[600],
+                          fontFamily: 'Gilroy',
+                          fontWeight: FontWeight.normal),
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.all(5.0),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceAround,
+                      children: [
+                        Icon(
+                          Icons.schedule,
+                          color: Color(0xff3B7EB6),
+                        ),
+                        Text(
+                          "${widget.duration} hr",
+                          style: otherSmallContentTextStyle,
+                        ),
+                        Icon(
+                          Icons.web_sharp,
+                          color: Color(0xff3B7EB6),
+                        ),
+                        Text(
+                          "${widget.date}",
+                          style: otherSmallContentTextStyle,
+                        ),
+                        Icon(
+                          Icons.video_call,
+                          color: Color(0xff3B7EB6),
+                        ),
+                        Text(
+                          "${widget.time} P.M",
+                          style: otherSmallContentTextStyle,
+                        ),
+                        // Text(
+                        //   "Click Here",
+                        //   style: TextStyle(
+                        //       color: Color(0xff3B7EB6),
+                        //       fontWeight: FontWeight.bold,
+                        //       fontFamily: kfontname),
+                        // ),
+                      ],
+                    ),
+                  ),
+                ],
+              ),
+            ],
+          ),
         ),
       ),
     );

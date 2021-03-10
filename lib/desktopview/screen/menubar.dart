@@ -10,6 +10,7 @@ import 'package:ocean_project/desktopview/screen/courses.dart';
 import 'package:ocean_project/desktopview/screen/services.dart';
 import 'package:ocean_project/webinar/upcoming_webinar.dart';
 import 'package:ocean_project/webinar/webinar.dart';
+import 'package:ocean_project/webinar/webinar_list.dart';
 import 'package:ocean_project/webinar/webinar_page.dart';
 import 'package:provider/provider.dart';
 import 'home_screen.dart';
@@ -20,12 +21,7 @@ FirebaseFirestore _firestore = FirebaseFirestore.instance;
 class Navbar extends StatefulWidget {
   static bool visiblity = true;
   static bool isNotification = true;
-  @override
-  _NavbarState createState() => _NavbarState();
-}
-
-class _NavbarState extends State<Navbar> {
-  Map menu = {
+  static Map menu = {
     'Home': true,
     'About Us': false,
     'Services': false,
@@ -34,6 +30,11 @@ class _NavbarState extends State<Navbar> {
     'Career': false,
   };
 
+  @override
+  _NavbarState createState() => _NavbarState();
+}
+
+class _NavbarState extends State<Navbar> {
   Timestamp timestamp;
   void retriveTime() async {
     await for (var snapshot in _firestore
@@ -79,8 +80,12 @@ class _NavbarState extends State<Navbar> {
               },
               joinButtonName: 'Join Now',
               upcomingButton: () {
-                Navigator.push(context,
-                    MaterialPageRoute(builder: (context) => UpcomingWebinar()));
+                setState(() {
+                  Navbar.visiblity = false;
+                  Navbar.isNotification = false;
+                });
+                Provider.of<Routing>(context, listen: false)
+                    .updateRouting(widget: UpcomingWebinar());
               },
             ),
           ),
@@ -197,16 +202,16 @@ class _NavbarState extends State<Navbar> {
         child: Text(
           text,
           style: TextStyle(
-              color: menu[text] ? Colors.blue : Color(0xFF155575),
+              color: Navbar.menu[text] ? Colors.blue : Color(0xFF155575),
               fontSize: 20.0,
               fontWeight: FontWeight.bold,
               fontFamily: "Gilroy"),
         ),
         onTap: () {
           setState(() {
-            //contentWidget = widget
-            menu.updateAll((key, value) => menu[key] = false);
-            menu[text] = true;
+            Navbar.menu.updateAll((key, value) => Navbar.menu[key] = false);
+            Navbar.menu[text] = true;
+            print(text);
           });
           Provider.of<Routing>(context, listen: false)
               .updateRouting(widget: widget);

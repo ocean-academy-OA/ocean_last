@@ -45,79 +45,61 @@ class _HorizontalMenuState extends State<HorizontalMenu> {
     //HorizontalMenu.customWidget = EnrollNew();
   }
 
-  bool isTouching = false;
-
   @override
   Widget build(BuildContext context) {
-    void mouseEnter(PointerEvent details) {
-      setState(() {
-        isTouching = true;
-      });
-    }
-
-    void mouseExit(PointerEvent details) {
-      setState(() {
-        isTouching = false;
-      });
-    }
-
     return ListView.builder(
         shrinkWrap: true,
         itemCount: widget.courseList.length,
         itemBuilder: (context, index) {
-          return MouseRegion(
-            onEnter: mouseEnter,
-            onExit: mouseExit,
-            child: Container(
-              color: isTouching
-                  ? Colors.white.withOpacity(0.3)
-                  : Color(0xff006793),
-              child: MouseRegion(
-                child: ListTile(
-                  hoverColor: Colors.yellow,
-                  leading: ClipRRect(
-                    child: widget.courseIcon[index] != null
-                        ? Container(
-                            height: 40,
-                            width: 40,
-                            child: Image.network(
-                              widget.courseIcon[index],
-                              fit: BoxFit.cover,
-                              alignment: Alignment.centerLeft,
-                            ),
-                          )
-                        : Container(
-                            height: 40,
-                            width: 40,
-                            child: Image.network(
-                              'https://firebasestorage.googleapis.com/v0/b/ocean-live-project-ea2e7.appspot.com/o/Flask.png?alt=media&token=91bae082-5f81-4372-8d3a-cbf3bc14419a',
-                              fit: BoxFit.cover,
-                              alignment: Alignment.centerLeft,
-                            ),
+          return Container(
+            margin: EdgeInsets.all(10.0),
+            child: MouseRegion(
+              child: ListTile(
+                hoverColor: Colors.white,
+                leading: ClipRRect(
+                  child: widget.courseIcon[index] != null
+                      ? Container(
+                          height: 40,
+                          width: 40,
+                          child: Image.network(
+                            widget.courseIcon[index],
+                            fit: BoxFit.cover,
+                            alignment: Alignment.centerLeft,
                           ),
-                    borderRadius: BorderRadius.circular(500),
-                  ),
-                  selectedTileColor: Colors.pink,
-                  title: courseEnroll(
-                      text: widget.courseList[index],
-                      color: widget.menu[index]),
-                  onTap: () {
-                    print("welcome batchid ${widget.batchId[index]}");
-                    setState(() {
-                      widget.menu
-                          .updateAll((key, value) => widget.menu[key] = false);
-                      widget.menu[index] = true;
-                    });
-                    Provider.of<SyllabusView>(context, listen: false)
-                        .updateCourseSyllabus(
-                      routing: ContentWidget(
-                        course: widget.courseList[index],
-                        batchid: widget.batchId[index],
-                        //batchid: "OCNBK08",
-                      ),
-                    );
-                  },
+                        )
+                      : Container(
+                          height: 40,
+                          width: 40,
+                          child: Image.network(
+                            'https://firebasestorage.googleapis.com/v0/b/ocean-live-project-ea2e7.appspot.com/o/Flask.png?alt=media&token=91bae082-5f81-4372-8d3a-cbf3bc14419a',
+                            fit: BoxFit.cover,
+                            alignment: Alignment.centerLeft,
+                          ),
+                        ),
+                  borderRadius: BorderRadius.circular(500),
                 ),
+                title: MouseRegion(
+                  child: courseEnroll(
+                    text: widget.courseList[index],
+                    color: widget.menu[index],
+                  ),
+                ),
+                onTap: () {
+                  print("welcome batchid ${widget.batchId[index]}");
+                  setState(() {
+                    widget.menu
+                        .updateAll((key, value) => widget.menu[key] = false);
+                    widget.menu[index] = true;
+                  });
+                  Provider.of<SyllabusView>(context, listen: false)
+                      .updateCourseSyllabus(
+                    routing: ContentWidget(
+                      course: widget.courseList[index],
+                      batchid: widget.batchId[index],
+                      //batchid: "OCNBK08",
+                    ),
+                  );
+                },
               ),
             ),
           );
@@ -657,6 +639,98 @@ class _CourseListState extends State<CourseList> {
               ),
             ),
           ],
+        ),
+      ),
+    );
+  }
+}
+
+class CourseEnroll extends StatefulWidget {
+  String coursename;
+
+  static String selectedCourse;
+  static List<String> subject = [];
+  bool isColor;
+
+  CourseEnroll({this.coursename, this.isColor});
+
+  @override
+  _CourseEnrollState createState() => _CourseEnrollState();
+}
+
+class _CourseEnrollState extends State<CourseEnroll> {
+  Map menu = {};
+
+  void getMessage() async {
+    final message = await _firestore.collection('course').get();
+
+    for (var courses in message.docs) {
+      CourseEnroll.subject.add(courses.data()['coursename']);
+    }
+
+    print("${CourseEnroll.subject} thamizh");
+    List<bool> isSubject = [];
+    for (int i = 0; i < CourseEnroll.subject.length; i++) {
+      if (i == 0) {
+        isSubject.add(true);
+      }
+      isSubject.add(false);
+    }
+    print("${isSubject} bool");
+    for (int i = 0; i < CourseEnroll.subject.length; i++) {
+      menu.addAll({CourseEnroll.subject[i]: isSubject[i]});
+    }
+    print("$menu dictionary");
+  }
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    getMessage();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      children: [
+        buildListTile(
+            text: '${widget.coursename}',
+            widget: CourseContent(
+              coursename: "${CourseEnroll.selectedCourse}",
+            ),
+            color: widget.isColor),
+      ],
+    );
+  }
+
+  ListTile buildListTile({widget, text, color}) {
+    print("MethodListTile $text");
+    return ListTile(
+      onTap: () {
+        setState(() {
+          //contentWidget = widget
+          menu.updateAll((key, value) => menu[key] = false);
+          menu[text] = true;
+
+          //CourseEnroll.selectedCourse = text;
+          print(menu);
+        });
+        print("jayalatha ${CourseEnroll.selectedCourse}");
+        // Provider.of<Routing>(context, listen: false)
+        //     .updateRouting(widget: widget);
+      },
+      leading: Icon(
+        Icons.close,
+        size: 20.0,
+      ),
+      title: MouseRegion(
+        child: Text(
+          text,
+          style: TextStyle(
+            color: color ? Colors.blue : Colors.white,
+            fontSize: 20.0,
+          ),
         ),
       ),
     );

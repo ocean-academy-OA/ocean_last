@@ -14,7 +14,7 @@ final _firestore = FirebaseFirestore.instance;
 class Routing extends ChangeNotifier {
   Widget route = Home();
 
-  void updateRouting({Widget widget, String text}) {
+  void updateRouting({Widget widget, String name}) {
     route = widget;
     notifyListeners();
   }
@@ -31,7 +31,7 @@ class FreeWeb extends ChangeNotifier {
 
 class CourseProvide extends ChangeNotifier {
   Widget routing = CourseList();
-  void updateCourseName({Widget routing, bool isCheck}) {
+  void updateCourseName({Widget routing, bool isCheck, int flex}) {
     this.routing = routing;
     notifyListeners();
   }

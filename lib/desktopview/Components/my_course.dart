@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter/rendering.dart';
 import 'package:ocean_project/desktopview/Components/course_enrole.dart';
 import 'package:ocean_project/desktopview/Components/courses_widget.dart';
 import 'package:ocean_project/desktopview/route/routing.dart';
@@ -154,16 +155,19 @@ class _MyCourseDbState extends State<MyCourseDb> {
             borderRadius: BorderRadius.circular(15.0)),
         child: Column(
           children: [
-            Container(
-              width: 350,
-              height: 200,
-              child: ClipRRect(
-                borderRadius: BorderRadius.circular(15.0),
-                child: Image(
-                  image: NetworkImage('${widget.image}'),
-                  fit: BoxFit.cover,
-                  // width: 350.0,
-                  // height: 100.0,
+            MouseRegion(
+              cursor: SystemMouseCursors.click,
+              child: Container(
+                width: 350,
+                height: 200,
+                child: ClipRRect(
+                  borderRadius: BorderRadius.circular(15.0),
+                  child: Image(
+                    image: NetworkImage('${widget.image}'),
+                    fit: BoxFit.cover,
+                    // width: 350.0,
+                    // height: 100.0,
+                  ),
                 ),
               ),
             ),

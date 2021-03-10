@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 import 'package:ocean_project/desktopview/Components/courses_widget.dart';
@@ -92,15 +93,18 @@ class _CourseDetailsState extends State<CourseDetails> {
                     children: [
                       Row(
                         children: [
-                          GestureDetector(
-                            onTap: () {
-                              Provider.of<SyllabusView>(context, listen: false)
-                                  .updateCourseSyllabus(routing: MyCourse());
-                            },
-                            child: Icon(
-                              Icons.arrow_back_ios,
-                              color: Colors.white,
-                              size: 20.0,
+                          MouseRegion(
+                            cursor: SystemMouseCursors.click,
+                            child: GestureDetector(
+                              onTap: () {
+                                Provider.of<Routing>(context, listen: false)
+                                    .updateRouting(widget: Course());
+                              },
+                              child: Icon(
+                                Icons.arrow_back_ios,
+                                color: Colors.white,
+                                size: 20.0,
+                              ),
                             ),
                           ),
                           Text(

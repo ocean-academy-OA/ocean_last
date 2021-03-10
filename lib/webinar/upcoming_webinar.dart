@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:ocean_project/webinar/webinar_list.dart';
 
 class UpcomingWebinar extends StatefulWidget {
   @override
@@ -9,7 +10,7 @@ class _UpcomingWebinarState extends State<UpcomingWebinar> {
   @override
   Widget build(BuildContext context) {
     return Center(
-      child: Image.network('https://ey5me.csb.app/happy.svg'),
+      child: WebinarCard(),
     );
   }
 }

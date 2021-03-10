@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:ocean_project/desktopview/Components/course_enrole.dart';
 
 import 'package:ocean_project/desktopview/Components/notification.dart';
 import 'package:ocean_project/desktopview/new_user_screen/log_in.dart';
@@ -74,7 +75,10 @@ class _Notification_onclickState extends State<Notification_onclick> {
                           // ignore: missing_return
                           builder: (context, snapshot) {
                             if (!snapshot.hasData) {
-                              return Text("Loading.....");
+                              return Container(
+                                child: Text(
+                                    " there are no notification send for you"),
+                              );
                             } else {
                               final messages = snapshot.data.docs;
                               List<UserNotificationDb> notifyData = [];
@@ -90,6 +94,9 @@ class _Notification_onclickState extends State<Notification_onclick> {
                                   notifyData.add(sampleNotify);
                                 }
                               }
+                              print("rrrrrrrrrrrrrrrr");
+                              print(notifyData);
+
                               return Column(
                                 children: notifyData,
                               );
@@ -109,7 +116,8 @@ class _Notification_onclickState extends State<Notification_onclick> {
                           // ignore: missing_return
                           builder: (context, snapshot) {
                             if (!snapshot.hasData) {
-                              return Text("Loading.....");
+                              return Text(
+                                  " there are no notification send for you");
                             } else {
                               final messages = snapshot.data.docs;
                               List<UserNotificationDb> notifyData = [];
@@ -144,7 +152,8 @@ class _Notification_onclickState extends State<Notification_onclick> {
                           // ignore: missing_return
                           builder: (context, snapshot) {
                             if (!snapshot.hasData) {
-                              return Text("Loading.....");
+                              return Text(
+                                  " there are no notification send for you");
                             } else {
                               final messages = snapshot.data.docs;
                               List<UserNotificationDb> notifyData = [];
@@ -160,9 +169,11 @@ class _Notification_onclickState extends State<Notification_onclick> {
                                   notifyData.add(sampleNotify);
                                 }
                               }
-                              return Column(
-                                children: notifyData,
-                              );
+                              return notifyData.isNotEmpty
+                                  ? Column(
+                                      children: notifyData,
+                                    )
+                                  : Text("theare are no notification");
                             }
                           },
                         ),
@@ -184,8 +195,14 @@ class _Notification_onclickState extends State<Notification_onclick> {
                 minWidth: 200,
                 color: Colors.blue[100],
                 onPressed: () {
-                  Provider.of<OALive>(context, listen: false)
-                      .updateOA(routing: User());
+                  setState(() {
+                    ContentWidget.isVisible = !ContentWidget.isVisible;
+                  });
+                  print("isCheckCourse${CoursesView.isCheckCourse}");
+                  Provider.of<SyllabusView>(context, listen: false)
+                      .updateCourseSyllabus(routing: User());
+                  Provider.of<CourseProvide>(context, listen: false)
+                      .updateCourseName(routing: CourseList(), isCheck: false);
                 },
               ),
               SizedBox(

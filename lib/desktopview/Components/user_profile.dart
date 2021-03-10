@@ -33,6 +33,7 @@ class _User_ProfileState extends State<User_Profile> {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     // int x = (prefs.getInt('login') ?? 0);
     LogIn.registerNumber = (prefs.getString('user') ?? null);
+    OALive.stayUser = LogIn.registerNumber;
   }
 
   void initState() {
@@ -73,13 +74,11 @@ class _User_ProfileState extends State<User_Profile> {
                       onPressed: () {
                         setState(() {
                           ContentWidget.isShow = !ContentWidget.isShow;
-                          CoursesView.isCheckCourse = false;
                         });
                         print("isCheckCourse${CoursesView.isCheckCourse}");
                         Provider.of<CourseProvide>(context, listen: false)
                             .updateCourseName(
-                                routing: CourseList(),
-                                isCheck: CoursesView.isCheckCourse);
+                                routing: CourseList(), isCheck: false);
 
                         Provider.of<SyllabusView>(context, listen: false)
                             .updateCourseSyllabus(routing: Certificate());
@@ -91,6 +90,7 @@ class _User_ProfileState extends State<User_Profile> {
                       onPressed: () {
                         setState(() {
                           CoursesView.isCheckCourse = false;
+                          ContentWidget.isShow = !ContentWidget.isShow;
                         });
                         print("isCheckCourse${CoursesView.isCheckCourse}");
                         Provider.of<CourseProvide>(context, listen: false)
@@ -111,6 +111,7 @@ class _User_ProfileState extends State<User_Profile> {
                       onPressed: () {
                         setState(() {
                           CoursesView.isCheckCourse = false;
+                          ContentWidget.isShow = !ContentWidget.isShow;
                         });
                         print("isCheckCourse${CoursesView.isCheckCourse}");
                         Provider.of<CourseProvide>(context, listen: false)
@@ -129,22 +130,25 @@ class _User_ProfileState extends State<User_Profile> {
                     FlatButton(
                       child: Text('Log Out'),
                       onPressed: () async {
-                        Provider.of<Routing>(context, listen: false)
-                            .updateRouting(widget: Home());
-                        Provider.of<OALive>(context, listen: false)
-                            .updateOA(routing: Navbar());
                         SharedPreferences prefs =
                             await SharedPreferences.getInstance();
 
                         await prefs.setInt('login', 0);
                         await prefs.setString('user', null);
+                        LogIn.registerNumber = null;
                         OALive.stayUser = null;
-                        print('SingOut Code');
+                        setState(() {
+                          ContentWidget.isShow = !ContentWidget.isShow;
 
-                        _firestore
-                            .collection("session")
-                            .doc(LogIn.registerNumber)
-                            .delete();
+                          Provider.of<SyllabusView>(context, listen: false)
+                              .updateCourseSyllabus(
+                            routing: Home(),
+                          );
+                          Provider.of<OALive>(context, listen: false)
+                              .updateOA(routing: Navbar());
+                        });
+                        print('SingOut Code');
+                        print(OALive.stayUser);
                       },
                     ),
                     SizedBox(height: 10),

@@ -274,11 +274,10 @@ class _OTPState extends State<OTP> {
                                                     BorderRadius.circular(
                                                         70.0)),
                                             onPressed: () {
-                                              Navigator.push(
-                                                  context,
-                                                  MaterialPageRoute(
-                                                      builder: (context) =>
-                                                          LogIn()));
+                                              Provider.of<Routing>(context,
+                                                      listen: false)
+                                                  .updateRouting(
+                                                      widget: LogIn());
                                             },
                                           ),
                                         ],

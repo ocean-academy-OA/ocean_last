@@ -2,9 +2,11 @@ import 'dart:html';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:ocean_project/desktopview/Components/material_button.dart';
 import 'package:ocean_project/desktopview/constants.dart';
+import 'package:ocean_project/desktopview/screen/menubar.dart';
 import 'package:provider/provider.dart';
 import 'package:ocean_project/desktopview/route/routing.dart';
 import 'package:ocean_project/desktopview/screen/contact_us.dart';
@@ -85,8 +87,14 @@ subscribeFaildDialog(context) {
   );
 }
 
-class Footer extends StatelessWidget {
+class Footer extends StatefulWidget {
+  @override
+  _FooterState createState() => _FooterState();
+}
+
+class _FooterState extends State<Footer> {
   TextEditingController _subscribe = TextEditingController();
+
   bool validateEmail(String value) {
     Pattern pattern =
         r'^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$';
@@ -252,45 +260,60 @@ class Footer extends StatelessWidget {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    GestureDetector(
-                      onTap: () {
-                        Provider.of<Routing>(context, listen: false)
-                            .updateRouting(
-                                widget: ContactUs(), text: "Contact Us");
-                      },
-                      child: Container(
-                          child: Text(
-                        'CONTACT US',
-                        style: kbottom,
-                      )),
+                    MouseRegion(
+                      cursor: SystemMouseCursors.click,
+                      child: GestureDetector(
+                        onTap: () {
+                          setState(() {
+                            Navbar.menu.updateAll(
+                                (key, value) => Navbar.menu[key] = false);
+                            Navbar.menu["Contact Us"] = true;
+                          });
+                          Provider.of<Routing>(context, listen: false)
+                              .updateRouting(
+                            widget: ContactUs(),
+                          );
+                        },
+                        child: Container(
+                            child: Text(
+                          'CONTACT US',
+                          style: kbottom,
+                        )),
+                      ),
                     ),
                     SizedBox(
                       height: 20.0,
                     ),
-                    GestureDetector(
-                      onTap: () {
-                        Provider.of<Routing>(context, listen: false)
-                            .updateRouting(widget: Service());
-                      },
-                      child: Container(
-                          child: Text(
-                        'SERVICES',
-                        style: kbottom,
-                      )),
+                    MouseRegion(
+                      cursor: SystemMouseCursors.click,
+                      child: GestureDetector(
+                        onTap: () {
+                          Provider.of<Routing>(context, listen: false)
+                              .updateRouting(widget: Service());
+                        },
+                        child: Container(
+                            child: Text(
+                          'SERVICES',
+                          style: kbottom,
+                        )),
+                      ),
                     ),
                     SizedBox(
                       height: 20.0,
                     ),
-                    GestureDetector(
-                      onTap: () {
-                        Provider.of<Routing>(context, listen: false)
-                            .updateRouting(widget: Course());
-                      },
-                      child: Container(
-                          child: Text(
-                        'COURSES',
-                        style: kbottom,
-                      )),
+                    MouseRegion(
+                      cursor: SystemMouseCursors.click,
+                      child: GestureDetector(
+                        onTap: () {
+                          Provider.of<Routing>(context, listen: false)
+                              .updateRouting(widget: Course());
+                        },
+                        child: Container(
+                            child: Text(
+                          'COURSES',
+                          style: kbottom,
+                        )),
+                      ),
                     ),
                     SizedBox(
                       height: 20.0,
@@ -315,49 +338,23 @@ class Footer extends StatelessWidget {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    GestureDetector(
-                      onTap: () {
-                        Provider.of<Routing>(context, listen: false)
-                            .updateRouting(widget: AboutUs());
-                      },
-                      child: Container(
-                          child: Text(
-                        'ABOUT US',
-                        style: kbottom,
-                      )),
-                    ),
+                    FooterMouseRegion(text: "ABOUT US", widget: AboutUs()),
                     SizedBox(
                       height: 20.0,
                     ),
-                    Container(
-                        child: Text(
-                      'WORK WITH US',
-                      style: kbottom,
-                    )),
+                    FooterMouseRegion(text: "WORK WITH US"),
                     SizedBox(
                       height: 20.0,
                     ),
-                    Container(
-                        child: Text(
-                      'PRIVATE POLICIES',
-                      style: kbottom,
-                    )),
+                    FooterMouseRegion(text: "PRIVATE POLICIES"),
                     SizedBox(
                       height: 20.0,
                     ),
-                    Container(
-                        child: Text(
-                      'TERMS AND CONDITIONS',
-                      style: kbottom,
-                    )),
+                    FooterMouseRegion(text: "TERMS AND CONDITIONS"),
                     SizedBox(
                       height: 20.0,
                     ),
-                    Container(
-                        child: Text(
-                      'PRESS ENQUIRES',
-                      style: kbottom,
-                    )),
+                    FooterMouseRegion(text: "PRESS ENQUIRES"),
                   ],
                 ),
               ),
@@ -388,6 +385,23 @@ class Footer extends StatelessWidget {
             ],
           )
         ],
+      ),
+    );
+  }
+
+  MouseRegion FooterMouseRegion({text, widget}) {
+    return MouseRegion(
+      cursor: SystemMouseCursors.click,
+      child: GestureDetector(
+        onTap: () {
+          Provider.of<Routing>(context, listen: false)
+              .updateRouting(widget: widget);
+        },
+        child: Container(
+            child: Text(
+          text,
+          style: kbottom,
+        )),
       ),
     );
   }
