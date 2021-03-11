@@ -6,6 +6,7 @@ import 'package:ocean_project/desktopview/route/routing.dart';
 import 'package:ocean_project/desktopview/screen/menubar.dart';
 import 'package:ocean_project/webinar/single_wbinar.dart';
 import 'package:ocean_project/webinar/upcoming_webinar.dart';
+import 'package:ocean_project/webinar/webinar_live.dart';
 import 'package:provider/provider.dart';
 
 final _firestore = FirebaseFirestore.instance;
@@ -59,6 +60,7 @@ class _FlashNotificationState extends State<FlashNotification> {
                     List<FlashDb> courseList = [];
                     List<int> timingList = [];
                     Map<int, Widget> courseMap = {};
+                    List<Widget> currentWebinar = [];
 
                     for (var message in messages) {
                       Timestamp time = message.data()['timestamp'];
@@ -96,23 +98,39 @@ class _FlashNotificationState extends State<FlashNotification> {
                           .difference(DateTime.now())
                           .inSeconds;
 
-                      final webinar = FlashDb(
-                        content: freeWebinarContent,
-                        joinButton: widget.joinButton,
-                        dismissNotification: widget.dismissNotification,
-                        payment: payment,
-                      );
-                      timingList.add(defrenceTime);
-                      timingList.sort();
+                      if (defrenceTime > 0) {
+                        final webinar = FlashDb(
+                          content: freeWebinarContent,
+                          joinButton: widget.joinButton,
+                          dismissNotification: widget.dismissNotification,
+                          payment: payment,
+                          wbinarLive: currentWebinar,
+                        );
+                        timingList.add(defrenceTime);
+                        timingList.sort();
 
-                      courseMap.addAll({defrenceTime: webinar});
+                        courseMap.addAll({defrenceTime: webinar});
+                      } else {
+                        final webinar = FlashDb(
+                          content: freeWebinarContent,
+                          joinButton: widget.joinButton,
+                          dismissNotification: widget.dismissNotification,
+                          payment: payment,
+                          wbinarLive: currentWebinar,
+                        );
+                        currentWebinar.add(webinar);
+                      }
                     }
                     for (var i in timingList) {
                       courseList.add(courseMap[i]);
                     }
                     return Container(
                       child: Column(
-                        children: [courseList[0]],
+                        children: [
+                          currentWebinar.isEmpty
+                              ? courseList[0]
+                              : currentWebinar[0]
+                        ],
                       ),
                     );
                   }
@@ -153,6 +171,7 @@ class FlashDb extends StatefulWidget {
   Function upcomingButton;
   Function dismissNotification;
   String joinButtonName = 'JOIN';
+  List<Widget> wbinarLive;
   String content;
   String payment;
   FlashDb(
@@ -161,7 +180,8 @@ class FlashDb extends StatefulWidget {
       this.dismissNotification,
       this.joinButtonName,
       this.payment,
-      this.upcomingButton});
+      this.upcomingButton,
+      this.wbinarLive});
 
   @override
   _FlashDbState createState() => _FlashDbState();
@@ -198,9 +218,11 @@ class _FlashDbState extends State<FlashDb> {
             onPressed: () {
               {
                 Provider.of<Routing>(context, listen: false).updateRouting(
-                    widget: SingleWebinarScreen(
-                  topic: widget.content,
-                ));
+                    widget: widget.wbinarLive.isEmpty
+                        ? SingleWebinarScreen(
+                            topic: widget.content,
+                          )
+                        : LiveWebinar());
               }
             },
           ),
