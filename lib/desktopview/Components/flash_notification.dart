@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:ocean_project/desktopview/constants.dart';
 import 'package:ocean_project/desktopview/route/routing.dart';
-import 'package:ocean_project/desktopview/screen/menubar.dart';
+import 'package:ocean_project/webinar/wbinar_menubar.dart';
 import 'package:ocean_project/webinar/single_wbinar.dart';
 import 'package:ocean_project/webinar/upcoming_webinar.dart';
 import 'package:ocean_project/webinar/webinar_live.dart';
@@ -223,6 +223,8 @@ class _FlashDbState extends State<FlashDb> {
                             topic: widget.content,
                           )
                         : LiveWebinar());
+                Provider.of<MenuBar>(context, listen: false)
+                    .updateMenu(widget: WebinarMenu());
               }
             },
           ),
