@@ -334,6 +334,21 @@ class _SingleWebinarDBState extends State<SingleWebinarDB> {
         });
   }
 
+  showJoinPaymentDialog(context) {
+    return showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return AlertDialog(
+            content: TextButton(
+              child: Text('Pay'),
+              onPressed: () {
+                Navigator.pop(context);
+              },
+            ),
+          );
+        });
+  }
+
   @override
   void initState() {
     // TODO: implement initState
@@ -596,6 +611,9 @@ class _SingleWebinarDBState extends State<SingleWebinarDB> {
                               elevation: 0,
                               hoverElevation: 0,
                               onPressed: () async {
+                                if (widget.payment != 'free') {
+                                  await showJoinPaymentDialog(context);
+                                }
                                 showJoinDialog(context);
                                 if (_formKey.currentState.validate()) {
                                   if (widget.name != null &&
