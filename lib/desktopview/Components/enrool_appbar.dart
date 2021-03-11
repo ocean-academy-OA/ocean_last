@@ -7,6 +7,7 @@ import 'package:ocean_project/desktopview/Components/my_course.dart';
 import 'package:ocean_project/desktopview/Components/main_notification.dart';
 import 'package:ocean_project/desktopview/Components/user_profile.dart';
 import 'package:ocean_project/desktopview/Components/ocean_icons.dart';
+import 'package:ocean_project/desktopview/Components/certificates.dart';
 import 'package:ocean_project/desktopview/new_user_screen/log_in.dart';
 import 'package:ocean_project/desktopview/screen/menubar.dart';
 import 'package:ocean_project/desktopview/route/routing.dart';
@@ -29,9 +30,9 @@ class _AppBarWidgetState extends State<AppBarWidget> {
   session() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     await prefs.setInt('login', 1);
-    await prefs.setString('user', OALive.stayUser);
-    print("${OALive.stayUser}dddddddddddddddddddddddddddddddddddddd");
-    OALive.stayUser = LogIn.registerNumber;
+    await prefs.setString('user', MenuBar.stayUser);
+    print("${MenuBar.stayUser}dddddddddddddddddddddddddddddddddddddd");
+    MenuBar.stayUser = LogIn.registerNumber;
     print('Otp Submited');
 
     getProfilePicture();
@@ -39,7 +40,7 @@ class _AppBarWidgetState extends State<AppBarWidget> {
 
   getProfilePicture() async {
     var details =
-        await _firestore.collection('new users').doc(OALive.stayUser).get();
+        await _firestore.collection('new users').doc(MenuBar.stayUser).get();
     userProfile = details.data()['Profile Picture'];
     print(userProfile);
   }
@@ -55,7 +56,7 @@ class _AppBarWidgetState extends State<AppBarWidget> {
             final messages = snapshot.data.docs;
             for (var message in messages) {
               // ignore: unrelated_type_equality_checks
-              if (OALive.stayUser == message.id) {
+              if (MenuBar.stayUser == message.id) {
                 final dbImage = message.data()['Profile Picture'];
 
                 userProfile = dbImage;
@@ -69,7 +70,7 @@ class _AppBarWidgetState extends State<AppBarWidget> {
   void initState() {
     // TODO: implement initState
     super.initState();
-    print(OALive.stayUser);
+    print(MenuBar.stayUser);
     print('88888888888');
     print(LogIn.registerNumber);
     session();
@@ -131,8 +132,12 @@ class _AppBarWidgetState extends State<AppBarWidget> {
                               borderRadius:
                                   BorderRadius.all(Radius.circular(50.0))),
                           onPressed: () {
+                            Provider.of<Routing>(context, listen: false)
+                                .updateRouting(widget: CoursesView());
                             Provider.of<SyllabusView>(context, listen: false)
                                 .updateCourseSyllabus(routing: MyCourse());
+                            Provider.of<MenuBar>(context, listen: false)
+                                .updateMenu(widget: AppBarWidget());
                           },
                           child: Row(
                             children: [
@@ -161,8 +166,12 @@ class _AppBarWidgetState extends State<AppBarWidget> {
                               borderRadius:
                                   BorderRadius.all(Radius.circular(50.0))),
                           onPressed: () {
+                            Provider.of<Routing>(context, listen: false)
+                                .updateRouting(widget: CoursesView());
                             Provider.of<SyllabusView>(context, listen: false)
                                 .updateCourseSyllabus(routing: EnrollNew());
+                            Provider.of<MenuBar>(context, listen: false)
+                                .updateMenu(widget: AppBarWidget());
                           },
                           child: Row(
                             children: [
@@ -196,8 +205,8 @@ class _AppBarWidgetState extends State<AppBarWidget> {
                               List<ProfilePictureDb> profile = [];
 
                               for (var message in messages) {
-                                var id = OALive.stayUser != null
-                                    ? OALive.stayUser
+                                var id = MenuBar.stayUser != null
+                                    ? MenuBar.stayUser
                                     : LogIn.registerNumber;
                                 print("id variable");
                                 print(id);
@@ -212,6 +221,9 @@ class _AppBarWidgetState extends State<AppBarWidget> {
                                         ContentWidget.isShow =
                                             !ContentWidget.isShow;
                                       });
+                                      Provider.of<Routing>(context,
+                                              listen: false)
+                                          .updateRouting(widget: CoursesView());
 
                                       Provider.of<UserProfiles>(context,
                                               listen: false)
@@ -245,6 +257,8 @@ class _AppBarWidgetState extends State<AppBarWidget> {
                               ContentWidget.isVisible =
                                   !ContentWidget.isVisible;
                             });
+                            Provider.of<Routing>(context, listen: false)
+                                .updateRouting(widget: CoursesView());
                             Provider.of<UserProfiles>(context, listen: false)
                                 .updateUser(
                                     routing: Notification_onclick(

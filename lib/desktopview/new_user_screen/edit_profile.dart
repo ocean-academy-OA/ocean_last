@@ -72,7 +72,7 @@ class _EditProfileState extends State<EditProfile> {
   editProfile() async {
     var details = await _firestore
         .collection('new users')
-        .doc(OALive.stayUser != null ? OALive.stayUser : LogIn.registerNumber)
+        .doc(MenuBar.stayUser != null ? MenuBar.stayUser : LogIn.registerNumber)
         .get(); // 8015122373 insted of  LogIn.userNum
     var detailsData = details.data();
 
@@ -134,7 +134,6 @@ class _EditProfileState extends State<EditProfile> {
                     iconSize: 50,
                     splashRadius: 30,
                     onPressed: () {
-                      CoursesView.isCheckCourse = true;
                       Provider.of<Routing>(context, listen: false)
                           .updateRouting(widget: CoursesView());
                     },

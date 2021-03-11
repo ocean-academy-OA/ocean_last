@@ -197,9 +197,9 @@ class _Notification_onclickState extends State<Notification_onclick> {
                 color: Colors.blue[100],
                 onPressed: () {
                   setState(() {
-                    ContentWidget.isVisible = !ContentWidget.isVisible;
+                    ContentWidget.isVisible = false;
                   });
-                  print("isCheckCourse${CoursesView.isCheckCourse}");
+
                   Provider.of<Routing>(context, listen: false)
                       .updateRouting(widget: User());
                   Provider.of<MenuBar>(context, listen: false)

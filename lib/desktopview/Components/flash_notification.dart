@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:ocean_project/desktopview/constants.dart';
+import 'package:ocean_project/desktopview/screen/menubar.dart';
 import 'package:ocean_project/desktopview/route/routing.dart';
 import 'package:ocean_project/webinar/wbinar_menubar.dart';
 import 'package:ocean_project/webinar/single_wbinar.dart';
@@ -152,6 +153,8 @@ class _FlashNotificationState extends State<FlashNotification> {
                   onPressed: () {
                     Provider.of<Routing>(context, listen: false)
                         .updateRouting(widget: UpcomingWebinar());
+                    Provider.of<MenuBar>(context, listen: false)
+                        .updateMenu(widget: WebinarMenu());
                   },
                 ),
               ),
@@ -159,7 +162,11 @@ class _FlashNotificationState extends State<FlashNotification> {
           ),
           IconButton(
               icon: Icon(Icons.close, color: Colors.white),
-              onPressed: widget.dismissNotification),
+              onPressed: () {
+                setState(() {
+                  Navbar.isNotification = false;
+                });
+              }),
         ],
       ),
     );
@@ -216,16 +223,17 @@ class _FlashDbState extends State<FlashDb> {
             height: 40,
             color: Colors.white,
             onPressed: () {
-              {
-                Provider.of<Routing>(context, listen: false).updateRouting(
-                    widget: widget.wbinarLive.isEmpty
-                        ? SingleWebinarScreen(
-                            topic: widget.content,
-                          )
-                        : LiveWebinar());
-                Provider.of<MenuBar>(context, listen: false)
-                    .updateMenu(widget: WebinarMenu());
-              }
+              setState(() {
+                Navbar.isNotification = false;
+              });
+              Provider.of<Routing>(context, listen: false).updateRouting(
+                  widget: widget.wbinarLive.isEmpty
+                      ? SingleWebinarScreen(
+                          topic: widget.content,
+                        )
+                      : LiveWebinar());
+              Provider.of<MenuBar>(context, listen: false)
+                  .updateMenu(widget: WebinarMenu());
             },
           ),
         ),

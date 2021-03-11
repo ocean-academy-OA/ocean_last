@@ -54,9 +54,10 @@ class _JoinSuccessfullyState extends State<JoinSuccessfully> {
                     borderRadius: BorderRadius.circular(100)),
                 color: Colors.white,
                 onPressed: () {
-                  // Provider.of<Routing>(context, listen: false)
-                  //     .updateRouting(widget: UpcomingWebinar());
-                  // Provider.of<MenuBar>(context,listen: false).updateMenu(widget: UpcomingWebinar());
+                  Provider.of<Routing>(context, listen: false)
+                      .updateRouting(widget: UpcomingWebinar());
+                  Provider.of<MenuBar>(context, listen: false)
+                      .updateMenu(widget: UpcomingWebinar());
                 },
               ),
               SizedBox(),

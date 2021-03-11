@@ -18,7 +18,6 @@ class _CertificateState extends State<Certificate> {
   void initState() {
     // TODO: implement initState
     super.initState();
-    CoursesView.isCheckCourse = false;
   }
 
   @override
@@ -32,7 +31,6 @@ class _CertificateState extends State<Certificate> {
               children: [
                 GestureDetector(
                     onTap: () {
-                      CoursesView.isCheckCourse = true;
                       Provider.of<Routing>(context, listen: false)
                           .updateRouting(widget: CoursesView());
                     },
