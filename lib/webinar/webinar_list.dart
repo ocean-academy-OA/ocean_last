@@ -20,7 +20,7 @@ class _WebinarCardState extends State<WebinarCard> {
         alignment: WrapAlignment.center,
         children: [
           StreamBuilder<QuerySnapshot>(
-            stream: _firestore.collection('free_webinar').snapshots(),
+            stream: _firestore.collection('Webinar').snapshots(),
             // ignore: missing_return
             builder: (context, snapshot) {
               if (!snapshot.hasData) {
@@ -29,18 +29,50 @@ class _WebinarCardState extends State<WebinarCard> {
                 final messages = snapshot.data.docs;
 
                 List<WebinarCardDb> courseList = [];
+                List<int> timingList = [];
+                Map<int, Widget> courseMap = {};
                 for (var message in messages) {
+                  Timestamp time = message.data()['timestamp'];
+
                   final courseName = message.data()['course'];
                   final trainerName = message.data()['trainer name'];
-                  Timestamp time = message.data()['timestamp'];
+
                   final payment = message.data()['payment'];
                   final designation = message.data()['designation'];
                   final trainerImage = message.data()['trainer image'];
                   print(time);
-                  var date = DateFormat.yMd().format(time.toDate());
-                  print(date);
-                  var timing = DateFormat.jms().format(time.toDate());
-                  print(timing);
+                  print(DateTime.now().millisecond);
+
+                  int yearFormat;
+                  int monthFormat;
+                  int dayFormat;
+                  int hourFormat;
+                  int minuteFormat;
+                  int secondsFormat;
+
+                  var year = DateFormat('y');
+                  var month = DateFormat('MM');
+                  var day = DateFormat('d');
+                  var hour = DateFormat('hh');
+                  var minute = DateFormat('mm');
+                  var seconds = DateFormat('s');
+
+                  yearFormat = int.parse(year.format(time.toDate()));
+                  monthFormat = int.parse(month.format(time.toDate()));
+                  dayFormat = int.parse(day.format(time.toDate()));
+                  hourFormat = int.parse(hour.format(time.toDate()));
+                  minuteFormat = int.parse(minute.format(time.toDate()));
+                  secondsFormat = int.parse(seconds.format(time.toDate()));
+
+                  var defrenceTime = DateTime(yearFormat, monthFormat,
+                          dayFormat, hourFormat, minuteFormat, secondsFormat)
+                      .difference(DateTime.now())
+                      .inSeconds;
+                  print('${defrenceTime} oooooooooooooooooo');
+
+                  var date = DateFormat('d/MM/y').format(time.toDate());
+
+                  var timing = DateFormat.jm().format(time.toDate());
 
                   final webinar = WebinarCardDb(
                     topic: courseName,
@@ -56,65 +88,21 @@ class _WebinarCardState extends State<WebinarCard> {
                           .updateRouting(
                               widget: SingleWebinarScreen(
                         topic: courseName,
-                        payment: payment,
                       ));
                     },
                   );
+                  if (defrenceTime > 0) {
+                    timingList.add(defrenceTime);
+                    timingList.sort();
 
-                  courseList.add(webinar);
+                    courseMap.addAll({defrenceTime: webinar});
+                  }
                 }
+                print(timingList);
+                for (var i in timingList) {
+                  print(i);
 
-                return Wrap(
-                  alignment: WrapAlignment.center,
-                  children: courseList,
-                );
-              }
-            },
-          ),
-          StreamBuilder<QuerySnapshot>(
-            stream: _firestore.collection('paid_webinar').snapshots(),
-            // ignore: missing_return
-            builder: (context, snapshot) {
-              if (!snapshot.hasData) {
-                return Text("Loading.....");
-              } else {
-                final messages = snapshot.data.docs;
-
-                List<WebinarCardDb> courseList = [];
-                for (var message in messages) {
-                  final courseName = message.data()['course'];
-                  final trainerName = message.data()['trainer name'];
-                  Timestamp time = message.data()['timestamp'];
-                  final payment = message.data()['payment'];
-                  final designation = message.data()['designation'];
-                  final trainerImage = message.data()['trainer image'];
-                  print(time);
-                  var date = DateFormat.yMd().format(time.toDate());
-                  print(date);
-                  var timing = DateFormat.jms().format(time.toDate());
-                  print(timing);
-
-                  final webinar = WebinarCardDb(
-                    topic: courseName,
-                    webinarType: payment,
-                    mentorDesignation: designation,
-                    mentorName: trainerName,
-                    mentorImage: trainerImage,
-                    date: date.toString(),
-                    time: timing.toString(),
-                    onPressed: () async {
-                      print(payment);
-
-                      Provider.of<Routing>(context, listen: false)
-                          .updateRouting(
-                              widget: SingleWebinarScreen(
-                        topic: courseName,
-                        payment: payment,
-                      ));
-                    },
-                  );
-
-                  courseList.add(webinar);
+                  courseList.add(courseMap[i]);
                 }
 
                 return Wrap(

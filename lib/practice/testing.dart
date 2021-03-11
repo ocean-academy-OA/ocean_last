@@ -75,6 +75,16 @@ subscribeDialog(context) {
   );
 }
 
+showJoinDialog(context) {
+  return showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          content: Text('hi'),
+        );
+      });
+}
+
 class _TextingFirebaseState extends State<TextingFirebase> {
   @override
   Widget build(BuildContext context) {
@@ -82,19 +92,20 @@ class _TextingFirebaseState extends State<TextingFirebase> {
       child: TextButton(
         child: Text('test'),
         onPressed: () async {
-          var time = await _firestore
-              .collection('webinar_time')
-              .doc('free_wbinar')
-              .get();
-          print(
-            time.data()['timestamp'],
-          );
-          Navigator.push(
-              context,
-              MaterialPageRoute(
-                  builder: (context) => SingleWebinarScreen(
-                        timestamp: time.data()['timestamp'],
-                      )));
+          showJoinDialog(context);
+          // var time = await _firestore
+          //     .collection('webinar_time')
+          //     .doc('free_wbinar')
+          //     .get();
+          // print(
+          //   time.data()['timestamp'],
+          // );
+          // Navigator.push(
+          //     context,
+          //     MaterialPageRoute(
+          //         builder: (context) => SingleWebinarScreen(
+          //               timestamp: time.data()['timestamp'],
+          //             )));
         },
       ),
     );

@@ -1,7 +1,8 @@
 {
   "projects": {
     "oa": "ocean-live-project-ea2e7",
-    "default": "ocean-live-project-ea2e7"
+    "default": "ocean-live-project-ea2e7",
+    "oa user": "ocean-live-project-ea2e7"
   },
   "targets": {
     "ocean-live-project-ea2e7": {

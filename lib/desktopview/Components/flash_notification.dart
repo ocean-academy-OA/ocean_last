@@ -1,11 +1,12 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:ocean_project/desktopview/constants.dart';
-import 'package:ocean_project/desktopview/screen/menubar.dart';
 import 'package:ocean_project/desktopview/route/routing.dart';
-import 'package:ocean_project/webinar/wbinar_menubar.dart';
+import 'package:ocean_project/desktopview/screen/menubar.dart';
 import 'package:ocean_project/webinar/single_wbinar.dart';
 import 'package:ocean_project/webinar/upcoming_webinar.dart';
+import 'package:ocean_project/webinar/webinar_live.dart';
 import 'package:provider/provider.dart';
 
 final _firestore = FirebaseFirestore.instance;
@@ -48,32 +49,88 @@ class _FlashNotificationState extends State<FlashNotification> {
           Row(
             children: [
               StreamBuilder<QuerySnapshot>(
-                stream: _firestore.collection('free_webinar').snapshots(),
+                stream: _firestore.collection('Webinar').snapshots(),
                 // ignore: missing_return
                 builder: (context, snapshot) {
                   if (!snapshot.hasData) {
                     return Text("Loading.....");
                   } else {
                     final messages = snapshot.data.docs;
-                    List<FlashDb> webinarContent = [];
+
+                    List<FlashDb> courseList = [];
+                    List<int> timingList = [];
+                    Map<int, Widget> courseMap = {};
+                    List<Widget> currentWebinar = [];
 
                     for (var message in messages) {
-                      if (message.id == 'Flutter') {
-                        final freeWebinarContent = message.data()['course'];
-                        final payment = message.data()['payment'];
+                      Timestamp time = message.data()['timestamp'];
+                      final freeWebinarContent = message.data()['course'];
+                      final payment = message.data()['payment'];
+
+                      int yearFormat;
+                      int monthFormat;
+                      int dayFormat;
+                      int hourFormat;
+                      int minuteFormat;
+                      int secondsFormat;
+
+                      var year = DateFormat('y');
+                      var month = DateFormat('MM');
+                      var day = DateFormat('d');
+                      var hour = DateFormat('hh');
+                      var minute = DateFormat('mm');
+                      var seconds = DateFormat('s');
+
+                      yearFormat = int.parse(year.format(time.toDate()));
+                      monthFormat = int.parse(month.format(time.toDate()));
+                      dayFormat = int.parse(day.format(time.toDate()));
+                      hourFormat = int.parse(hour.format(time.toDate()));
+                      minuteFormat = int.parse(minute.format(time.toDate()));
+                      secondsFormat = int.parse(seconds.format(time.toDate()));
+
+                      var defrenceTime = DateTime(
+                              yearFormat,
+                              monthFormat,
+                              dayFormat,
+                              hourFormat,
+                              minuteFormat,
+                              secondsFormat)
+                          .difference(DateTime.now())
+                          .inSeconds;
+
+                      if (defrenceTime > 0) {
                         final webinar = FlashDb(
                           content: freeWebinarContent,
                           joinButton: widget.joinButton,
                           dismissNotification: widget.dismissNotification,
                           payment: payment,
+                          wbinarLive: currentWebinar,
                         );
-                        // Text('$messageText from $messageSender');
-                        webinarContent.add(webinar);
+                        timingList.add(defrenceTime);
+                        timingList.sort();
+
+                        courseMap.addAll({defrenceTime: webinar});
+                      } else {
+                        final webinar = FlashDb(
+                          content: freeWebinarContent,
+                          joinButton: widget.joinButton,
+                          dismissNotification: widget.dismissNotification,
+                          payment: payment,
+                          wbinarLive: currentWebinar,
+                        );
+                        currentWebinar.add(webinar);
                       }
+                    }
+                    for (var i in timingList) {
+                      courseList.add(courseMap[i]);
                     }
                     return Container(
                       child: Column(
-                        children: webinarContent,
+                        children: [
+                          currentWebinar.isEmpty
+                              ? courseList[0]
+                              : currentWebinar[0]
+                        ],
                       ),
                     );
                   }
@@ -95,8 +152,6 @@ class _FlashNotificationState extends State<FlashNotification> {
                   onPressed: () {
                     Provider.of<Routing>(context, listen: false)
                         .updateRouting(widget: UpcomingWebinar());
-                    Provider.of<MenuBar>(context, listen: false)
-                        .updateMenu(widget: WebinarMenu());
                   },
                 ),
               ),
@@ -116,6 +171,7 @@ class FlashDb extends StatefulWidget {
   Function upcomingButton;
   Function dismissNotification;
   String joinButtonName = 'JOIN';
+  List<Widget> wbinarLive;
   String content;
   String payment;
   FlashDb(
@@ -124,7 +180,8 @@ class FlashDb extends StatefulWidget {
       this.dismissNotification,
       this.joinButtonName,
       this.payment,
-      this.upcomingButton});
+      this.upcomingButton,
+      this.wbinarLive});
 
   @override
   _FlashDbState createState() => _FlashDbState();
@@ -160,16 +217,12 @@ class _FlashDbState extends State<FlashDb> {
             color: Colors.white,
             onPressed: () {
               {
-                setState(() {
-                  Navbar.isNotification = false;
-                });
                 Provider.of<Routing>(context, listen: false).updateRouting(
-                    widget: SingleWebinarScreen(
-                  topic: widget.content,
-                  payment: widget.payment,
-                ));
-                Provider.of<MenuBar>(context, listen: false)
-                    .updateMenu(widget: WebinarMenu());
+                    widget: widget.wbinarLive.isEmpty
+                        ? SingleWebinarScreen(
+                            topic: widget.content,
+                          )
+                        : LiveWebinar());
               }
             },
           ),

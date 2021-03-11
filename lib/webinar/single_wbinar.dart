@@ -6,11 +6,7 @@ import 'package:flutter/services.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:intl/intl.dart';
 import 'package:ocean_project/desktopview/constants.dart';
-import 'package:ocean_project/desktopview/screen/menubar.dart';
-import 'package:ocean_project/webinar/wbinar_menubar.dart';
-
 import 'package:ocean_project/webinar/webinar_const.dart';
-
 import 'package:slide_countdown_clock/slide_countdown_clock.dart';
 import 'package:http/http.dart' as http;
 import 'package:video_player/video_player.dart';
@@ -22,7 +18,7 @@ class SingleWebinarScreen extends StatefulWidget {
   Timestamp timestamp;
   //= (10, 2021 at 10:30:00 AM UTC+5:30);
   var webinar;
-  SingleWebinarScreen({this.timestamp, this.topic, this.payment});
+  SingleWebinarScreen({this.timestamp, this.topic});
   String topic;
   String payment;
   @override
@@ -35,270 +31,137 @@ class _SingleWebinarScreenState extends State<SingleWebinarScreen> {
 
   bool isPlaying = false;
 
-  /// Ijass work start
-
-  /// Ijass work end
-  /// jayalatha
-
   int yearFormat;
   int monthFormat;
   int dayFormat;
   int hourFormat;
   int minuteFormat;
-  // @override
-  // void initState() {
-  //   // TODO: implement initState
-  //   super.initState();
-  //   Navbar.visiblity = false;
-  //   Navbar.isNotification = false;
-  // }
-  //
-  // void retriveTime() {
-  //   print('=============');
-  //   var year = DateFormat('y');
-  //   var month = DateFormat('MM');
-  //   var day = DateFormat('d');
-  //   var hour = DateFormat('hh');
-  //   var minute = DateFormat('mm');
-  //
-  //   yearFormat = int.parse(year.format(widget.timestamp.toDate()));
-  //   monthFormat = int.parse(month.format(widget.timestamp.toDate()));
-  //   dayFormat = int.parse(day.format(widget.timestamp.toDate()));
-  //   hourFormat = int.parse(hour.format(widget.timestamp.toDate()));
-  //   minuteFormat = int.parse(minute.format(widget.timestamp.toDate()));
-  //
-  //   sDate =
-  //       DateTime(yearFormat, monthFormat, dayFormat, hourFormat, minuteFormat)
-  //           .difference(DateTime.now())
-  //           .inSeconds;
-  // }
-
-  /// jayalatha
-
-  @override
-  void initState() {
-    // TODO: implement initState
-    super.initState();
-
-    Navbar.isNotification = false;
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      // appBar: PreferredSize(
-      //   preferredSize: Size.fromHeight(100),
-      //   child: WebinarMenu(),
-      // ),
       body: Container(
         child: SingleChildScrollView(
           child: Column(
             children: [
-              widget.payment == "free"
-                  ? StreamBuilder<QuerySnapshot>(
-                      stream: _firestore.collection('free_webinar').snapshots(),
-                      builder: (context, snapshot) {
-                        if (!snapshot.hasData) {
-                          return Text('getting data');
-                        } else {
-                          List<Map> upcoming = [];
-                          List<Widget> wbinars = [];
-                          final getFreeWebinar = snapshot.data;
+              StreamBuilder<QuerySnapshot>(
+                stream: _firestore.collection('Webinar').snapshots(),
+                builder: (context, snapshot) {
+                  if (!snapshot.hasData) {
+                    return LinearProgressIndicator();
+                  } else {
+                    List<Widget> currentWebinar = [];
+                    List<Widget> wbinars = [];
+                    final getFreeWebinar = snapshot.data;
 
-                          for (var a in getFreeWebinar.docs) {
-                            List<Widget> allTopics = [];
-                            Timestamp timestamp = a.data()['timestamp'];
-                            var year = DateFormat('y');
-                            var month = DateFormat('MM');
-                            var day = DateFormat('d');
-                            var hour = DateFormat('hh');
-                            var minute = DateFormat('mm');
-                            yearFormat =
-                                int.parse(year.format(timestamp.toDate()));
-                            monthFormat =
-                                int.parse(month.format(timestamp.toDate()));
-                            dayFormat =
-                                int.parse(day.format(timestamp.toDate()));
-                            hourFormat =
-                                int.parse(hour.format(timestamp.toDate()));
-                            minuteFormat =
-                                int.parse(minute.format(timestamp.toDate()));
+                    for (var a in getFreeWebinar.docs) {
+                      List<Widget> allTopics = [];
+                      Timestamp timestamp = a.data()['timestamp'];
+                      var year = DateFormat('y');
+                      var month = DateFormat('MM');
+                      var day = DateFormat('d');
+                      var hour = DateFormat('hh');
+                      var minute = DateFormat('mm');
+                      yearFormat = int.parse(year.format(timestamp.toDate()));
+                      monthFormat = int.parse(month.format(timestamp.toDate()));
+                      dayFormat = int.parse(day.format(timestamp.toDate()));
+                      hourFormat = int.parse(hour.format(timestamp.toDate()));
+                      minuteFormat =
+                          int.parse(minute.format(timestamp.toDate()));
 
-                            sDate = DateTime(yearFormat, monthFormat, dayFormat,
-                                    hourFormat, minuteFormat)
-                                .difference(DateTime.now())
-                                .inSeconds;
-                            final topicSubtitle = a.data()['topic subtitle'];
-                            final topicTitle = a.data()['topic title'];
-                            print(topicTitle.length);
-                            for (var i = 0; i < topicTitle.length; i++) {
-                              Column topics = Column(
-                                children: [
-                                  Container(
-                                    margin: EdgeInsets.only(top: 15),
-                                    width: 1000,
-                                    child: Text(
-                                      topicTitle[i],
-                                      style: kContentTitle,
-                                    ),
-                                  ),
-                                  Container(
-                                    margin: EdgeInsets.symmetric(vertical: 5),
-                                    padding: EdgeInsets.only(left: 18),
-                                    width: 1000,
-                                    child: Text(
-                                      topicSubtitle[i],
-                                      style: kContentSubtitle,
-                                    ),
-                                  )
-                                ],
-                              );
-                              allTopics.add(topics);
-                            }
-                            final webinarVideo = a.data()['webinar video'];
-                            final DBcourse = a.data()['course'];
-                            final DBsuperTitle = a.data()['super title'];
-                            final DBmainSubtitle = a.data()['main subtitle'];
-                            final DBmainTitle = a.data()['main title'];
-                            final DBtrainerImage = a.data()['trainer image'];
-                            final DBtrainerName = a.data()['trainer name'];
-                            final DBpayment = a.data()['payment'];
-                            final DBstudentEnrolled =
-                                a.data()['student enrolled'];
-                            final DBwebinarDuration =
-                                a.data()['webinar duration'];
-                            final DBmentorImage = a.data()['mentor image'];
-                            final DBaboutMentor = a.data()['about mentor'];
+                      sDate = DateTime(yearFormat, monthFormat, dayFormat,
+                              hourFormat, minuteFormat)
+                          .difference(DateTime.now())
+                          .inSeconds;
+                      final topicSubtitle = a.data()['topic subtitle'];
+                      final topicTitle = a.data()['topic title'];
+                      print(topicTitle.length);
+                      for (var i = 0; i < topicTitle.length; i++) {
+                        Column topics = Column(
+                          children: [
+                            Container(
+                              margin: EdgeInsets.only(top: 15),
+                              width: 1000,
+                              child: Text(
+                                topicTitle[i],
+                                style: kContentTitle,
+                              ),
+                            ),
+                            Container(
+                              margin: EdgeInsets.symmetric(vertical: 5),
+                              padding: EdgeInsets.only(left: 18),
+                              width: 1000,
+                              child: Text(
+                                topicSubtitle[i],
+                                style: kContentSubtitle,
+                              ),
+                            )
+                          ],
+                        );
+                        allTopics.add(topics);
+                      }
+                      final webinarVideo = a.data()['webinar video'];
+                      final DBcourse = a.data()['course'];
+                      final DBsuperTitle = a.data()['super title'];
+                      final DBmainSubtitle = a.data()['main subtitle'];
+                      final DBmainTitle = a.data()['main title'];
+                      final DBtrainerImage = a.data()['trainer image'];
+                      final DBtrainerName = a.data()['trainer name'];
+                      final DBpayment = a.data()['payment'];
+                      final DBstudentEnrolled = a.data()['student enrolled'];
+                      final DBwebinarDuration = a.data()['webinar duration'];
+                      final DBmentorImage = a.data()['mentor image'];
+                      final DBaboutMentor = a.data()['about mentor'];
 
-                            if (sDate > 0) {
-                              int DBwbinarTime = sDate;
-                              if (DBcourse == widget.topic) {
-                                SingleWebinarDB singleWebinar = SingleWebinarDB(
-                                  superTitle: DBsuperTitle,
-                                  mainTitle: DBmainTitle,
-                                  mainSubtitle: DBmainSubtitle,
-                                  trainerImage: DBtrainerImage,
-                                  trainerName: DBtrainerName,
-                                  course: DBcourse,
-                                  payment: DBpayment,
-                                  studentEnrolled: DBstudentEnrolled,
-                                  webinarDuration: DBwebinarDuration,
-                                  webinarTime: DBwbinarTime,
-                                  mentorImage: DBmentorImage,
-                                  aboutMentor: DBaboutMentor,
-                                  allTopics: allTopics,
-                                  webinarVideo: webinarVideo,
-                                );
-                                wbinars.add(singleWebinar);
-                              }
-                            }
-                          }
-                          return Column(children: wbinars);
+                      if (sDate > 0) {
+                        int DBwbinarTime = sDate;
+                        if (DBcourse == widget.topic) {
+                          SingleWebinarDB singleWebinar = SingleWebinarDB(
+                            superTitle: DBsuperTitle,
+                            mainTitle: DBmainTitle,
+                            mainSubtitle: DBmainSubtitle,
+                            trainerImage: DBtrainerImage,
+                            trainerName: DBtrainerName,
+                            course: DBcourse,
+                            payment: DBpayment,
+                            studentEnrolled: DBstudentEnrolled,
+                            webinarDuration: DBwebinarDuration,
+                            webinarTime: DBwbinarTime,
+                            mentorImage: DBmentorImage,
+                            aboutMentor: DBaboutMentor,
+                            allTopics: allTopics,
+                            webinarVideo: webinarVideo,
+                          );
+                          wbinars.add(singleWebinar);
                         }
-                      },
-                    )
-                  : StreamBuilder<QuerySnapshot>(
-                      stream: _firestore.collection('paid_webinar').snapshots(),
-                      builder: (context, snapshot) {
-                        if (!snapshot.hasData) {
-                          return Text('getting data');
-                        } else {
-                          List<Map> upcoming = [];
-                          List<Widget> wbinars = [];
-                          final getFreeWebinar = snapshot.data;
-
-                          for (var a in getFreeWebinar.docs) {
-                            List<Widget> allTopics = [];
-                            Timestamp timestamp = a.data()['timestamp'];
-                            var year = DateFormat('y');
-                            var month = DateFormat('MM');
-                            var day = DateFormat('d');
-                            var hour = DateFormat('hh');
-                            var minute = DateFormat('mm');
-                            yearFormat =
-                                int.parse(year.format(timestamp.toDate()));
-                            monthFormat =
-                                int.parse(month.format(timestamp.toDate()));
-                            dayFormat =
-                                int.parse(day.format(timestamp.toDate()));
-                            hourFormat =
-                                int.parse(hour.format(timestamp.toDate()));
-                            minuteFormat =
-                                int.parse(minute.format(timestamp.toDate()));
-
-                            sDate = DateTime(yearFormat, monthFormat, dayFormat,
-                                    hourFormat, minuteFormat)
-                                .difference(DateTime.now())
-                                .inSeconds;
-                            final topicSubtitle = a.data()['topic subtitle'];
-                            final topicTitle = a.data()['topic title'];
-                            print(topicTitle.length);
-                            for (var i = 0; i < topicTitle.length; i++) {
-                              Column topics = Column(
-                                children: [
-                                  Container(
-                                    margin: EdgeInsets.only(top: 15),
-                                    width: 1000,
-                                    child: Text(
-                                      topicTitle[i],
-                                      style: kContentTitle,
-                                    ),
-                                  ),
-                                  Container(
-                                    margin: EdgeInsets.symmetric(vertical: 5),
-                                    padding: EdgeInsets.only(left: 18),
-                                    width: 1000,
-                                    child: Text(
-                                      topicSubtitle[i],
-                                      style: kContentSubtitle,
-                                    ),
-                                  )
-                                ],
-                              );
-                              allTopics.add(topics);
-                            }
-                            final webinarVideo = a.data()['webinar video'];
-                            final DBcourse = a.data()['course'];
-                            final DBsuperTitle = a.data()['super title'];
-                            final DBmainSubtitle = a.data()['main subtitle'];
-                            final DBmainTitle = a.data()['main title'];
-                            final DBtrainerImage = a.data()['trainer image'];
-                            final DBtrainerName = a.data()['trainer name'];
-                            final DBpayment = a.data()['payment'];
-                            final DBstudentEnrolled =
-                                a.data()['student enrolled'];
-                            final DBwebinarDuration =
-                                a.data()['webinar duration'];
-                            final DBmentorImage = a.data()['mentor image'];
-                            final DBaboutMentor = a.data()['about mentor'];
-
-                            if (sDate > 0) {
-                              int DBwbinarTime = sDate;
-                              if (DBcourse == widget.topic) {
-                                SingleWebinarDB singleWebinar = SingleWebinarDB(
-                                  superTitle: DBsuperTitle,
-                                  mainTitle: DBmainTitle,
-                                  mainSubtitle: DBmainSubtitle,
-                                  trainerImage: DBtrainerImage,
-                                  trainerName: DBtrainerName,
-                                  course: DBcourse,
-                                  payment: DBpayment,
-                                  studentEnrolled: DBstudentEnrolled,
-                                  webinarDuration: DBwebinarDuration,
-                                  webinarTime: DBwbinarTime,
-                                  mentorImage: DBmentorImage,
-                                  aboutMentor: DBaboutMentor,
-                                  allTopics: allTopics,
-                                  webinarVideo: webinarVideo,
-                                );
-                                wbinars.add(singleWebinar);
-                              }
-                            }
-                          }
-                          return Column(children: wbinars);
+                      } else {
+                        int DBwbinarTime = sDate;
+                        if (DBcourse == widget.topic) {
+                          SingleWebinarDB singleWebinar = SingleWebinarDB(
+                            superTitle: DBsuperTitle,
+                            mainTitle: DBmainTitle,
+                            mainSubtitle: DBmainSubtitle,
+                            trainerImage: DBtrainerImage,
+                            trainerName: DBtrainerName,
+                            course: DBcourse,
+                            payment: DBpayment,
+                            studentEnrolled: DBstudentEnrolled,
+                            webinarDuration: DBwebinarDuration,
+                            webinarTime: DBwbinarTime,
+                            mentorImage: DBmentorImage,
+                            aboutMentor: DBaboutMentor,
+                            allTopics: allTopics,
+                            webinarVideo: webinarVideo,
+                          );
+                          currentWebinar.add(singleWebinar);
                         }
-                      },
-                    )
+                      }
+                    }
+                    return currentWebinar.isNotEmpty
+                        ? Column(children: currentWebinar)
+                        : Column(children: wbinars);
+                  }
+                },
+              )
             ],
           ),
         ),
@@ -353,11 +216,10 @@ class SingleWebinarDB extends StatefulWidget {
 
 class _SingleWebinarDBState extends State<SingleWebinarDB> {
   GlobalKey<FormState> _formKey = GlobalKey<FormState>();
-
   final nameController = TextEditingController();
   final emailController = TextEditingController();
   final phoneNumberController = TextEditingController();
-
+  bool isPlay = false;
   Widget _buildName() {
     return TextFormField(
       inputFormatters: <TextInputFormatter>[
@@ -445,6 +307,31 @@ class _SingleWebinarDBState extends State<SingleWebinarDB> {
     } else {
       print(response.statusCode);
     }
+  }
+
+  bool isMouse = false;
+  onenter(PointerEvent details) {
+    setState(() {
+      isMouse = true;
+      print(details);
+    });
+  }
+
+  onout(PointerEvent details) {
+    setState(() {
+      isMouse = false;
+      print(details);
+    });
+  }
+
+  showJoinDialog(context) {
+    return showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return AlertDialog(
+            content: Text('hi'),
+          );
+        });
   }
 
   @override
@@ -709,6 +596,7 @@ class _SingleWebinarDBState extends State<SingleWebinarDB> {
                               elevation: 0,
                               hoverElevation: 0,
                               onPressed: () async {
+                                showJoinDialog(context);
                                 if (_formKey.currentState.validate()) {
                                   if (widget.name != null &&
                                       widget.email != null &&
@@ -914,44 +802,75 @@ class _SingleWebinarDBState extends State<SingleWebinarDB> {
                   return Container(
                     height: 510,
                     width: 870,
-                    child: Stack(
-                      alignment: Alignment.center,
-                      children: [
-                        Column(
-                          children: [
-                            AspectRatio(
-                              aspectRatio:
-                                  widget._videoController.value.aspectRatio,
-                              child: VideoPlayer(widget._videoController),
-                            ),
-                            VideoProgressIndicator(
-                              widget._videoController,
-                              allowScrubbing: true,
-                            ),
-                          ],
-                        ),
-                        Positioned(
-                          top: 0,
-                          child: GestureDetector(
-                            child: Container(
-                              height: 490,
-                              width: 870,
-                              color: Colors.transparent,
-                            ),
-                            onTap: () {
-                              if (widget._videoController.value.isPlaying) {
-                                widget._videoController.pause();
-                              } else {
-                                widget._videoController.play();
-                              }
-                            },
+                    child: MouseRegion(
+                      onEnter: onenter,
+                      onExit: onout,
+                      child: Stack(
+                        alignment: Alignment.center,
+                        children: [
+                          Column(
+                            children: [
+                              AspectRatio(
+                                aspectRatio:
+                                    widget._videoController.value.aspectRatio,
+                                child: VideoPlayer(widget._videoController),
+                              ),
+                              VideoProgressIndicator(
+                                widget._videoController,
+                                colors: VideoProgressColors(
+                                    playedColor: Colors.blue,
+                                    bufferedColor: Colors.lightBlue[100]),
+                                allowScrubbing: true,
+                              ),
+                            ],
                           ),
-                        ),
-                      ],
+                          AnimatedOpacity(
+                            opacity: isMouse ? 1 : 0,
+                            duration: Duration(seconds: 1),
+                            child: Padding(
+                              padding: const EdgeInsets.only(bottom: 20),
+                              child: Stack(
+                                alignment: Alignment.center,
+                                children: [
+                                  Container(
+                                    height: 110,
+                                    width: 110,
+                                    decoration: BoxDecoration(
+                                        color: Colors.black38,
+                                        borderRadius: BorderRadius.circular(5)),
+                                  ),
+                                  IconButton(
+                                    iconSize: 100,
+                                    highlightColor: Colors.red,
+                                    color: Colors.white,
+                                    icon: isPlay
+                                        ? Icon(Icons.pause)
+                                        : Icon(Icons.play_arrow),
+                                    onPressed: () {
+                                      if (widget
+                                          ._videoController.value.isPlaying) {
+                                        setState(() {
+                                          isPlay = false;
+                                          widget._videoController.pause();
+                                        });
+                                      } else {
+                                        setState(() {
+                                          isPlay = true;
+                                          widget._videoController.play();
+                                        });
+                                      }
+                                    },
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
                     ),
                   );
                 } else {
-                  return Text('Video Getting');
+                  return LinearProgressIndicator();
                 }
               },
             ),
