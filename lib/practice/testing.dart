@@ -1,5 +1,8 @@
+import 'dart:html';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:ocean_project/webinar/join_successfully.dart';
 import 'package:ocean_project/webinar/single_wbinar.dart';
 
 void main() {
@@ -81,6 +84,17 @@ showJoinDialog(context) {
       builder: (BuildContext context) {
         return AlertDialog(
           content: Text('hi'),
+          actions: [
+            TextButton(
+              child: Text('Join'),
+              onPressed: () {
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => JoinSuccessfully()));
+              },
+            )
+          ],
         );
       });
 }
