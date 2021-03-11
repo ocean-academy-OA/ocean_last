@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:ocean_project/desktopview/constants.dart';
 import 'package:ocean_project/desktopview/route/routing.dart';
 import 'package:ocean_project/desktopview/screen/menubar.dart';
@@ -47,32 +48,71 @@ class _FlashNotificationState extends State<FlashNotification> {
           Row(
             children: [
               StreamBuilder<QuerySnapshot>(
-                stream: _firestore.collection('free_webinar').snapshots(),
+                stream: _firestore.collection('Webinar').snapshots(),
                 // ignore: missing_return
                 builder: (context, snapshot) {
                   if (!snapshot.hasData) {
                     return Text("Loading.....");
                   } else {
                     final messages = snapshot.data.docs;
-                    List<FlashDb> webinarContent = [];
+
+                    List<FlashDb> courseList = [];
+                    List<int> timingList = [];
+                    Map<int, Widget> courseMap = {};
 
                     for (var message in messages) {
-                      if (message.id == 'Flutter') {
-                        final freeWebinarContent = message.data()['course'];
-                        final payment = message.data()['payment'];
-                        final webinar = FlashDb(
-                          content: freeWebinarContent,
-                          joinButton: widget.joinButton,
-                          dismissNotification: widget.dismissNotification,
-                          payment: payment,
-                        );
-                        // Text('$messageText from $messageSender');
-                        webinarContent.add(webinar);
-                      }
+                      Timestamp time = message.data()['timestamp'];
+                      final freeWebinarContent = message.data()['course'];
+                      final payment = message.data()['payment'];
+
+                      int yearFormat;
+                      int monthFormat;
+                      int dayFormat;
+                      int hourFormat;
+                      int minuteFormat;
+                      int secondsFormat;
+
+                      var year = DateFormat('y');
+                      var month = DateFormat('MM');
+                      var day = DateFormat('d');
+                      var hour = DateFormat('hh');
+                      var minute = DateFormat('mm');
+                      var seconds = DateFormat('s');
+
+                      yearFormat = int.parse(year.format(time.toDate()));
+                      monthFormat = int.parse(month.format(time.toDate()));
+                      dayFormat = int.parse(day.format(time.toDate()));
+                      hourFormat = int.parse(hour.format(time.toDate()));
+                      minuteFormat = int.parse(minute.format(time.toDate()));
+                      secondsFormat = int.parse(seconds.format(time.toDate()));
+
+                      var defrenceTime = DateTime(
+                              yearFormat,
+                              monthFormat,
+                              dayFormat,
+                              hourFormat,
+                              minuteFormat,
+                              secondsFormat)
+                          .difference(DateTime.now())
+                          .inSeconds;
+
+                      final webinar = FlashDb(
+                        content: freeWebinarContent,
+                        joinButton: widget.joinButton,
+                        dismissNotification: widget.dismissNotification,
+                        payment: payment,
+                      );
+                      timingList.add(defrenceTime);
+                      timingList.sort();
+
+                      courseMap.addAll({defrenceTime: webinar});
+                    }
+                    for (var i in timingList) {
+                      courseList.add(courseMap[i]);
                     }
                     return Container(
                       child: Column(
-                        children: webinarContent,
+                        children: [courseList[0]],
                       ),
                     );
                   }
@@ -160,7 +200,6 @@ class _FlashDbState extends State<FlashDb> {
                 Provider.of<Routing>(context, listen: false).updateRouting(
                     widget: SingleWebinarScreen(
                   topic: widget.content,
-                  payment: widget.payment,
                 ));
               }
             },
