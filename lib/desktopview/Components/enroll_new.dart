@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/rendering.dart';
-
+import 'package:ocean_project/desktopview/screen/course_details.dart';
 import 'package:ocean_project/desktopview/Components/courses_widget.dart';
 import 'package:ocean_project/desktopview/route/routing.dart';
-import 'package:ocean_project/desktopview/screen/course_details.dart';
+import 'package:ocean_project/desktopview/Components/course_enrole.dart';
 
 import 'package:provider/provider.dart';
 
@@ -12,6 +12,7 @@ final _firestore = FirebaseFirestore.instance;
 
 class EnrollNew extends StatefulWidget {
   bool isEnroll = false;
+  static List availableBatch = [];
 
   @override
   _EnrollNewState createState() => _EnrollNewState();
@@ -19,15 +20,52 @@ class EnrollNew extends StatefulWidget {
 
 class _EnrollNewState extends State<EnrollNew> {
   List<String> subjects = [];
+
+  String courseId;
+  List totalCourse = [];
+
+  void available_batch() async {
+    print("---------------------------");
+    await for (var snapshot in _firestore
+        .collection('course')
+        .snapshots(includeMetadataChanges: true)) {
+      for (var message in snapshot.docs) {
+        courseId = message.id;
+        totalCourse.add(courseId);
+        print("${CoursesView.batchId}listlistlistttttttttttttttt");
+      }
+
+      for (final e in totalCourse) {
+        bool found = false;
+        for (final f in CoursesView.batchId) {
+          if (e == f) {
+            found = true;
+            break;
+          }
+        }
+        if (!found) {
+          EnrollNew.availableBatch.add(e);
+        }
+        print("---------------------------${EnrollNew.availableBatch}");
+      }
+    }
+
+    print("---------------------------");
+    print("---------------------------");
+  }
+
   @override
   void initState() {
     // TODO: implement initState
     // getMessage();
+    print("${CoursesView.batchId}@@@@@@@@@@@@@@@@@@@");
+    available_batch();
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
+    print('${EnrollNew.availableBatch}FRIENDS');
     return Container(
       decoration: BoxDecoration(
           image: DecorationImage(
@@ -47,34 +85,40 @@ class _EnrollNewState extends State<EnrollNew> {
 
                 List<EnrollCourseDb> courseList = [];
                 for (var message in messages) {
-                  final messageText = message.data()['trainername'];
-                  final messageSender = message.data()['coursename'];
-                  final messageSession = message.data()['session'];
-                  final messageTime = message.data()['time'];
-                  final messageImage = message.data()['img'];
-                  final messageDescription =
-                      message.data()['coursedescription'];
-                  final messageBatchId = message.data()['batchid'];
+                  for (var batch in EnrollNew.availableBatch) {
+                    if (message.id == batch) {
+                      print("message1111111111111111111");
+                      print(message.id);
+                      final messageText = message.data()['trainername'];
+                      final messageSender = message.data()['coursename'];
+                      final messageSession = message.data()['session'];
+                      final messageTime = message.data()['time'];
+                      final messageImage = message.data()['img'];
+                      final messageDescription =
+                          message.data()['coursedescription'];
+                      final messageBatchId = message.data()['batchid'];
 
-                  final CourseDbVariable = EnrollCourseDb(
-                    trainername: messageText,
-                    coursename: messageSender,
-                    session: messageSession,
-                    time: messageTime,
-                    image: messageImage,
-                    description: messageDescription,
-                    batchid: messageBatchId,
-                  );
-                  // Text('$messageText from $messageSender');
-                  courseList.add(CourseDbVariable);
-                  subjects.add(message.data()["coursename"]);
-                  print(subjects);
+                      final CourseDbVariable = EnrollCourseDb(
+                        trainername: messageText,
+                        coursename: messageSender,
+                        session: messageSession,
+                        time: messageTime,
+                        image: messageImage,
+                        description: messageDescription,
+                        batchid: messageBatchId,
+                      );
+                      // Text('$messageText from $messageSender');
+                      courseList.add(CourseDbVariable);
+                      subjects.add(message.data()["coursename"]);
+                      print(subjects);
+                    }
+
+                    return Wrap(
+                      alignment: WrapAlignment.center,
+                      children: courseList,
+                    );
+                  }
                 }
-
-                return Wrap(
-                  alignment: WrapAlignment.center,
-                  children: courseList,
-                );
               }
             },
           ),

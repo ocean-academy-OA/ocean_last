@@ -228,7 +228,7 @@ class _LogInState extends State<LogIn> {
                                           //Navbar.visiblity = false;
                                           LogIn.registerNumber =
                                               '${countryCode.toString()} ${_phoneNumberController.text}';
-                                          OALive.stayUser =
+                                          MenuBar.stayUser =
                                               LogIn.registerNumber;
                                         });
 

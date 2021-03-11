@@ -36,7 +36,7 @@ class _User_ProfileState extends State<User_Profile> {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     // int x = (prefs.getInt('login') ?? 0);
     LogIn.registerNumber = (prefs.getString('user') ?? null);
-    OALive.stayUser = LogIn.registerNumber;
+    MenuBar.stayUser = LogIn.registerNumber;
   }
 
   void initState() {
@@ -78,7 +78,6 @@ class _User_ProfileState extends State<User_Profile> {
                         setState(() {
                           ContentWidget.isShow = !ContentWidget.isShow;
                         });
-                        print("isCheckCourse${CoursesView.isCheckCourse}");
 
                         Provider.of<Routing>(context, listen: false)
                             .updateRouting(widget: Certificate());
@@ -91,10 +90,9 @@ class _User_ProfileState extends State<User_Profile> {
                       child: Text('My profile'),
                       onPressed: () {
                         setState(() {
-                          CoursesView.isCheckCourse = false;
                           ContentWidget.isShow = !ContentWidget.isShow;
                         });
-                        print("isCheckCourse${CoursesView.isCheckCourse}");
+
                         Provider.of<Routing>(context, listen: false)
                             .updateRouting(widget: EditProfile());
                         Provider.of<MenuBar>(context, listen: false)
@@ -106,10 +104,9 @@ class _User_ProfileState extends State<User_Profile> {
                       child: Text('Purchase'),
                       onPressed: () {
                         setState(() {
-                          CoursesView.isCheckCourse = false;
                           ContentWidget.isShow = !ContentWidget.isShow;
                         });
-                        print("isCheckCourse${CoursesView.isCheckCourse}");
+
                         Provider.of<Routing>(context, listen: false)
                             .updateRouting(widget: Purchase());
                         Provider.of<MenuBar>(context, listen: false)
@@ -126,7 +123,7 @@ class _User_ProfileState extends State<User_Profile> {
                         await prefs.setInt('login', 0);
                         await prefs.setString('user', null);
                         LogIn.registerNumber = null;
-                        OALive.stayUser = null;
+                        MenuBar.stayUser = null;
                         setState(() {
                           ContentWidget.isShow = !ContentWidget.isShow;
 
@@ -136,7 +133,7 @@ class _User_ProfileState extends State<User_Profile> {
                               .updateMenu(widget: NavbarRouting());
                         });
                         print('SingOut Code');
-                        print(OALive.stayUser);
+                        print(MenuBar.stayUser);
                       },
                     ),
                     SizedBox(height: 10),

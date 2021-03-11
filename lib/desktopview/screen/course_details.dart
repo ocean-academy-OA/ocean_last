@@ -612,11 +612,11 @@ class _VisibleWidgetState extends State<VisibleWidget> {
                         borderRadius: BorderRadius.circular(50.0),
                         side: BorderSide(color: Colors.blue, width: 2.0)),
                     onPressed: () async {
-                      print("OALIVE ${OALive.stayUser}");
+                      print("OALIVE ${MenuBar.stayUser}");
                       var userSession = await _firestore
                           .collection('new users')
-                          .doc(OALive.stayUser != null
-                              ? OALive.stayUser
+                          .doc(MenuBar.stayUser != null
+                              ? MenuBar.stayUser
                               : LogIn.registerNumber)
                           .get();
                       print(userSession.data());

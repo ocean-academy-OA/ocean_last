@@ -36,6 +36,7 @@ class Routing extends ChangeNotifier {
 
 class MenuBar extends ChangeNotifier {
   Widget route = NavbarRouting();
+  static String stayUser;
 
   String text;
   Color color;
@@ -84,8 +85,6 @@ class AlertView extends ChangeNotifier {
 
 class OALive extends ChangeNotifier {
   Widget route = Navbar();
-
-  static String stayUser;
 
   void updateOA({Widget routing}) {
     this.route = routing;

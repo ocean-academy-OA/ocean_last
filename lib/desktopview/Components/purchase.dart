@@ -28,7 +28,6 @@ class Purchase extends StatelessWidget {
                   iconSize: 50,
                   splashRadius: 30,
                   onPressed: () {
-                    CoursesView.isCheckCourse = true;
                     Provider.of<Routing>(context, listen: false)
                         .updateRouting(widget: CoursesView());
                   },

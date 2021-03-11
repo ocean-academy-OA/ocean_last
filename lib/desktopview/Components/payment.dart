@@ -7,6 +7,7 @@ import 'package:ocean_project/desktopview/Components/course_enrole.dart';
 import 'package:ocean_project/desktopview/new_user_screen/log_in.dart';
 import 'package:ocean_project/desktopview/route/routing.dart';
 import 'package:provider/provider.dart';
+import 'package:ocean_project/desktopview/Components/enrool_appbar.dart';
 
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -18,6 +19,7 @@ import 'package:ocean_project/desktopview/Components/UiFake.dart'
     if (dart.library.html) 'dart:ui' as ui;
 
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'dart:html' as html;
 
 // ignore: must_be_immutable
 class RazorPayWeb extends StatefulWidget {
@@ -71,7 +73,14 @@ class _RazorPayWebState extends State<RazorPayWeb> {
   }
 
   @override
-  Widget build(BuildContext context2) {
+  void didChangeDependencies() {
+    // TODO: implement didChangeDependencies
+    super.didChangeDependencies();
+    dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
     //final provider = // Provider.of<SyllabusView>(context, listen: false)
     //     .updateCourseSyllabus(routing: ThanksForPurchasing());
     print(widget.amount);
@@ -80,33 +89,36 @@ class _RazorPayWebState extends State<RazorPayWeb> {
       //Event Listener
       window.onMessage.forEach((element) {
         print('Event Received in callback: ${element.data}');
+        print('PAYMENT  FAILURE!!!!!!!   ${element.data}');
         if (element.data == 'MODAL_CLOSED') {
-          Navigator.pop(context2);
+          Navigator.pop(context);
           print('PAYMENT FAILURE!!!!!!!');
         } else if (element.data == 'SUCCESS') {
           print('PAYMENT SUCCESSFULL!!!!!!!');
-          // print('${widget.course} wwwwwwwwwwwwwwwwwwwStartttt');
-          // _firestore.collection("new users").doc(LogIn.registerNumber).update({
-          //   "Courses": FieldValue.arrayUnion(widget.course),
-          //   "batchid": FieldValue.arrayUnion(widget.batchid),
-          // });
-          //
-          // _firestore
-          //     .collection("new users")
-          //     .doc(LogIn.registerNumber)
-          //     .collection("payment")
-          //     .add({
-          //   "coursename": widget.courseName,
-          //   "amount": widget.amount,
-          //   "date": date,
-          //   "image": widget.courseImage,
-          //   "paid_via": "debit card",
-          //   "status": "Completed",
-          // });
-          // print('${widget.course} wwwwwwwwwwwwwwwwwwwFirsttttt');
-          // Navigator.pop(context2);
-          // Provider.of<SyllabusView>(context, listen: false)
-          //     .updateCourseSyllabus(routing: ThanksForPurchasing());
+          print('${widget.course} wwwwwwwwwwwwwwwwwwwStartttt');
+          _firestore.collection("new users").doc(LogIn.registerNumber).update({
+            "Courses": FieldValue.arrayUnion(widget.course),
+            "batchid": FieldValue.arrayUnion(widget.batchid),
+          });
+
+          _firestore
+              .collection("new users")
+              .doc(LogIn.registerNumber)
+              .collection("payment")
+              .add({
+            "coursename": widget.courseName,
+            "amount": widget.amount,
+            "date": date,
+            "image": widget.courseImage,
+            "paid_via": "debit card",
+            "status": "Completed",
+          });
+          print('${widget.course} wwwwwwwwwwwwwwwwwwwFirsttttt');
+          Navigator.pop(context);
+          Provider.of<Routing>(context, listen: false)
+              .updateRouting(widget: ThanksForPurchasing());
+          Provider.of<MenuBar>(context, listen: false)
+              .updateMenu(widget: AppBarWidget());
           print('PAYMENT SUCCESSFULL !!!!!!!');
         }
       });
@@ -188,34 +200,34 @@ class _RazorPayWebState extends State<RazorPayWeb> {
                 viewType: 'rzp-html',
               ),
             ),
-            RaisedButton(onPressed: () {
-              print('${widget.course} wwwwwwwwwwwwwwwwwwwStartttt');
-              _firestore
-                  .collection("new users")
-                  .doc(LogIn.registerNumber)
-                  .update({
-                "Courses": FieldValue.arrayUnion(widget.course),
-                "batchid": FieldValue.arrayUnion(widget.batchid),
-              });
-
-              _firestore
-                  .collection("new users")
-                  .doc(LogIn.registerNumber)
-                  .collection("payment")
-                  .add({
-                "coursename": widget.courseName,
-                "amount": widget.amount,
-                "date": date,
-                "image": widget.courseImage,
-                "paid_via": "debit card",
-                "status": "Completed",
-              });
-              print('${widget.course} wwwwwwwwwwwwwwwwwwwFirsttttt');
-              Navigator.pop(context2);
-              Provider.of<SyllabusView>(context1, listen: false)
-                  .updateCourseSyllabus(routing: ThanksForPurchasing());
-              //register view factory
-            })
+            // RaisedButton(onPressed: () {
+            //   print('${widget.course} wwwwwwwwwwwwwwwwwwwStartttt');
+            //   _firestore
+            //       .collection("new users")
+            //       .doc(LogIn.registerNumber)
+            //       .update({
+            //     "Courses": FieldValue.arrayUnion(widget.course),
+            //     "batchid": FieldValue.arrayUnion(widget.batchid),
+            //   });
+            //
+            //   _firestore
+            //       .collection("new users")
+            //       .doc(LogIn.registerNumber)
+            //       .collection("payment")
+            //       .add({
+            //     "coursename": widget.courseName,
+            //     "amount": widget.amount,
+            //     "date": date,
+            //     "image": widget.courseImage,
+            //     "paid_via": "debit card",
+            //     "status": "Completed",
+            //   });
+            //   print('${widget.course} wwwwwwwwwwwwwwwwwwwFirsttttt');
+            //   Navigator.pop(context1);
+            //   Provider.of<SyllabusView>(context1, listen: false)
+            //       .updateCourseSyllabus(routing: ThanksForPurchasing());
+            //   //register view factory
+            // })
           ],
         ),
       );

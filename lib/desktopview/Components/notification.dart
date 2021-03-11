@@ -24,7 +24,7 @@ class _UserState extends State<User> {
   void initState() {
     // TODO: implement initState
     super.initState();
-    CoursesView.isCheckCourse = false;
+
     getSession();
   }
 
@@ -55,7 +55,9 @@ class _UserState extends State<User> {
                       iconSize: 50,
                       splashRadius: 30,
                       onPressed: () {
-                        CoursesView.isCheckCourse = true;
+                        setState(() {
+                          ContentWidget.isVisible = !ContentWidget.isVisible;
+                        });
                         Provider.of<Routing>(context, listen: false)
                             .updateRouting(widget: CoursesView());
                       },

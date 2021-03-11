@@ -57,13 +57,7 @@ class _NavbarState extends State<Navbar> {
         children: [
           Visibility(
             visible: Navbar.isNotification,
-            child: FlashNotification(
-              dismissNotification: () {
-                setState(() {
-                  Navbar.isNotification = false;
-                });
-              },
-            ),
+            child: FlashNotification(),
           ),
           Consumer<MenuBar>(
             builder: (context, routing, child) {
@@ -175,7 +169,7 @@ class _NavbarRoutingState extends State<NavbarRouting> {
                   shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.all(Radius.circular(30.0))),
                   onPressed: () {
-                    print('${OALive.stayUser} Stay user');
+                    print('${MenuBar.stayUser} Stay user');
 
                     ///todo:instead of resiter login will come
                     Provider.of<Routing>(context, listen: false)
