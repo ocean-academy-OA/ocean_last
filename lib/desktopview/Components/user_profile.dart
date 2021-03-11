@@ -1,6 +1,9 @@
+import 'dart:html';
+
 import 'package:flutter/material.dart';
 import 'package:ocean_project/desktopview/Components/enroll_new.dart';
 import 'package:ocean_project/desktopview/Components/certificates.dart';
+import 'package:ocean_project/desktopview/Components/enrool_appbar.dart';
 
 import 'package:ocean_project/desktopview/Components/purchase.dart';
 
@@ -76,12 +79,11 @@ class _User_ProfileState extends State<User_Profile> {
                           ContentWidget.isShow = !ContentWidget.isShow;
                         });
                         print("isCheckCourse${CoursesView.isCheckCourse}");
-                        Provider.of<CourseProvide>(context, listen: false)
-                            .updateCourseName(
-                                routing: CourseList(), isCheck: false);
 
-                        Provider.of<SyllabusView>(context, listen: false)
-                            .updateCourseSyllabus(routing: Certificate());
+                        Provider.of<Routing>(context, listen: false)
+                            .updateRouting(widget: Certificate());
+                        Provider.of<MenuBar>(context, listen: false)
+                            .updateMenu(widget: AppBarWidget());
                       },
                     ),
                     SizedBox(height: 10),
@@ -93,16 +95,10 @@ class _User_ProfileState extends State<User_Profile> {
                           ContentWidget.isShow = !ContentWidget.isShow;
                         });
                         print("isCheckCourse${CoursesView.isCheckCourse}");
-                        Provider.of<CourseProvide>(context, listen: false)
-                            .updateCourseName(
-                                routing: CourseList(),
-                                isCheck: CoursesView.isCheckCourse);
-
-                        Provider.of<SyllabusView>(context, listen: false)
-                            .updateCourseSyllabus(routing: EditProfile());
-                        setState(() {
-                          ContentWidget.isShow = !ContentWidget.isShow;
-                        });
+                        Provider.of<Routing>(context, listen: false)
+                            .updateRouting(widget: EditProfile());
+                        Provider.of<MenuBar>(context, listen: false)
+                            .updateMenu(widget: AppBarWidget());
                       },
                     ),
                     SizedBox(height: 10),
@@ -114,16 +110,10 @@ class _User_ProfileState extends State<User_Profile> {
                           ContentWidget.isShow = !ContentWidget.isShow;
                         });
                         print("isCheckCourse${CoursesView.isCheckCourse}");
-                        Provider.of<CourseProvide>(context, listen: false)
-                            .updateCourseName(
-                                routing: CourseList(),
-                                isCheck: CoursesView.isCheckCourse);
-
-                        Provider.of<SyllabusView>(context, listen: false)
-                            .updateCourseSyllabus(routing: Purchase());
-                        setState(() {
-                          ContentWidget.isShow = !ContentWidget.isShow;
-                        });
+                        Provider.of<Routing>(context, listen: false)
+                            .updateRouting(widget: Purchase());
+                        Provider.of<MenuBar>(context, listen: false)
+                            .updateMenu(widget: AppBarWidget());
                       },
                     ),
                     SizedBox(height: 10),
@@ -140,12 +130,10 @@ class _User_ProfileState extends State<User_Profile> {
                         setState(() {
                           ContentWidget.isShow = !ContentWidget.isShow;
 
-                          Provider.of<SyllabusView>(context, listen: false)
-                              .updateCourseSyllabus(
-                            routing: Home(),
-                          );
-                          Provider.of<OALive>(context, listen: false)
-                              .updateOA(routing: Navbar());
+                          Provider.of<Routing>(context, listen: false)
+                              .updateRouting(widget: Home());
+                          Provider.of<MenuBar>(context, listen: false)
+                              .updateMenu(widget: NavbarRouting());
                         });
                         print('SingOut Code');
                         print(OALive.stayUser);

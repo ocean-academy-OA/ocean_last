@@ -7,6 +7,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:intl/intl.dart';
 import 'package:ocean_project/desktopview/constants.dart';
 import 'package:ocean_project/desktopview/screen/menubar.dart';
+import 'package:ocean_project/webinar/wbinar_menubar.dart';
 
 import 'package:ocean_project/webinar/webinar_const.dart';
 
@@ -74,17 +75,21 @@ class _SingleWebinarScreenState extends State<SingleWebinarScreen> {
 
   /// jayalatha
 
-  // @override
-  // void initState() {
-  //   // TODO: implement initState
-  //   super.initState();
-  //
-  //   retriveTime();
-  // }
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+
+    Navbar.isNotification = false;
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      // appBar: PreferredSize(
+      //   preferredSize: Size.fromHeight(100),
+      //   child: WebinarMenu(),
+      // ),
       body: Container(
         child: SingleChildScrollView(
           child: Column(

@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:ocean_project/desktopview/Components/enrool_appbar.dart';
 import 'package:ocean_project/desktopview/constants.dart';
 import 'package:ocean_project/desktopview/main.dart';
+import 'package:ocean_project/desktopview/new_user_screen/log_in.dart';
+import 'package:ocean_project/desktopview/screen/home_screen.dart';
+import 'package:ocean_project/desktopview/screen/menubar.dart';
 import 'package:ocean_project/mobileview/main.dart';
 import 'package:provider/provider.dart';
 import 'package:responsive_builder/responsive_builder.dart';
@@ -28,15 +32,36 @@ class _ScreenTypeLayoutState extends State<ScreenTypeLayout> {
   final Widget mobile = OceanMobileView();
   final Widget tablet = OceanMobileView();
   final Widget desktop = OceanLive();
+  String username;
   Widget route;
+  Function customWidget;
   sessionfunction() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    String username = (prefs.getString('user') ?? null);
+    username = (prefs.getString('user') ?? null);
     print("${username}mainpage name");
+    // Provider.of<Routing>(context, listen: false)
+    //     .updateRouting(widget: username != null?CoursesView(
+    //   userID: username,
+    // ):Home());
+    // Provider.of<MenuBar>(context, listen: false)
+    //     .updateMenu(widget: username != null?AppBarWidget(
+    // ):NavbarRouting());
+    // customWidget = username != null?
 
     route = username != null
-        ? CoursesView(
-            userID: username,
+        ? Column(
+            children: [
+              Expanded(
+                child: AppBarWidget(),
+                flex: 0,
+              ),
+              Expanded(
+                flex: 8,
+                child: CoursesView(
+                  userID: username,
+                ),
+              ),
+            ],
           )
         : OceanLive();
     print("${username}session mainpage");
@@ -62,7 +87,8 @@ class _ScreenTypeLayoutState extends State<ScreenTypeLayout> {
         ChangeNotifierProvider(create: (context) => SyllabusView()),
         ChangeNotifierProvider(create: (context) => OALive()),
         ChangeNotifierProvider(create: (context) => UserProfiles()),
-        ChangeNotifierProvider(create: (context) => FreeWeb()),
+        ChangeNotifierProvider(create: (context) => WebinarProvider()),
+        ChangeNotifierProvider(create: (context) => MenuBar()),
       ],
       child: MaterialApp(
         theme: ThemeData(
@@ -77,11 +103,9 @@ class _ScreenTypeLayoutState extends State<ScreenTypeLayout> {
                   print("desktop");
                   if (desktop != null) {
                     print("desktop");
-                    return route;
+                    return Navbar();
                   }
                 }
-
-                // Return mobile layout if nothing else is supplied
                 return OceanMobileView();
               });
             },

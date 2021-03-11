@@ -265,14 +265,16 @@ class _FooterState extends State<Footer> {
                       child: GestureDetector(
                         onTap: () {
                           setState(() {
-                            Navbar.menu.updateAll(
-                                (key, value) => Navbar.menu[key] = false);
-                            Navbar.menu["Contact Us"] = true;
+                            NavbarRouting.menu.updateAll((key, value) =>
+                                NavbarRouting.menu[key] = false);
+                            NavbarRouting.menu["Contact Us"] = true;
                           });
                           Provider.of<Routing>(context, listen: false)
-                              .updateRouting(
-                            widget: ContactUs(),
-                          );
+                              .updateRouting(widget: ContactUs());
+                          Provider.of<MenuBar>(context, listen: false).updateMenu(
+                              widget: NavbarRouting()
+                              // color: text ? Colors.blue : Color(0xFF155575),
+                              );
                         },
                         child: Container(
                             child: Text(
@@ -288,8 +290,15 @@ class _FooterState extends State<Footer> {
                       cursor: SystemMouseCursors.click,
                       child: GestureDetector(
                         onTap: () {
+                          setState(() {
+                            NavbarRouting.menu.updateAll((key, value) =>
+                                NavbarRouting.menu[key] = false);
+                            NavbarRouting.menu["Services"] = true;
+                          });
                           Provider.of<Routing>(context, listen: false)
                               .updateRouting(widget: Service());
+                          Provider.of<MenuBar>(context, listen: false)
+                              .updateMenu(widget: NavbarRouting());
                         },
                         child: Container(
                             child: Text(
@@ -305,8 +314,17 @@ class _FooterState extends State<Footer> {
                       cursor: SystemMouseCursors.click,
                       child: GestureDetector(
                         onTap: () {
+                          setState(() {
+                            NavbarRouting.menu.updateAll((key, value) =>
+                                NavbarRouting.menu[key] = false);
+                            NavbarRouting.menu["Course"] = true;
+                          });
                           Provider.of<Routing>(context, listen: false)
                               .updateRouting(widget: Course());
+                          Provider.of<MenuBar>(context, listen: false).updateMenu(
+                              widget: NavbarRouting()
+                              // color: text ? Colors.blue : Color(0xFF155575),
+                              );
                         },
                         child: Container(
                             child: Text(
@@ -394,8 +412,17 @@ class _FooterState extends State<Footer> {
       cursor: SystemMouseCursors.click,
       child: GestureDetector(
         onTap: () {
+          setState(() {
+            NavbarRouting.menu
+                .updateAll((key, value) => NavbarRouting.menu[key] = false);
+            NavbarRouting.menu[text] = true;
+          });
           Provider.of<Routing>(context, listen: false)
-              .updateRouting(widget: widget);
+              .updateRouting(widget: Service());
+          Provider.of<MenuBar>(context, listen: false)
+              .updateMenu(widget: NavbarRouting()
+                  // color: text ? Colors.blue : Color(0xFF155575),
+                  );
         },
         child: Container(
             child: Text(

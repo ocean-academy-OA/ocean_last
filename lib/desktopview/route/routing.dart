@@ -2,29 +2,56 @@ import 'package:flutter/material.dart';
 
 import 'package:ocean_project/desktopview/Components/enroll_new.dart';
 import 'package:ocean_project/desktopview/Components/course_enrole.dart';
+import 'package:ocean_project/desktopview/Components/enrool_appbar.dart';
 import 'package:ocean_project/desktopview/Components/user_profile.dart';
+import 'package:ocean_project/desktopview/main.dart';
 
 import 'package:ocean_project/desktopview/screen/home_screen.dart';
 import 'package:ocean_project/desktopview/screen/menubar.dart';
+import 'package:ocean_project/desktopview/screen/services.dart';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:ocean_project/webinar/single_wbinar.dart';
+import 'package:ocean_project/webinar/wbinar_menubar.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 final _firestore = FirebaseFirestore.instance;
 
 class Routing extends ChangeNotifier {
   Widget route = Home();
+  void isAlive() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    String username = (prefs.getString('user') ?? null);
+    route = username != null ? CoursesView() : Home();
+  }
 
+  Routing() {
+    isAlive();
+  }
   void updateRouting({Widget widget, String name}) {
     route = widget;
     notifyListeners();
   }
 }
 
-class FreeWeb extends ChangeNotifier {
-  Widget route = Navbar();
+class MenuBar extends ChangeNotifier {
+  Widget route = NavbarRouting();
 
-  void updateWebinarRouting({Widget widget}) {
+  String text;
+  Color color;
+
+  void isAlive() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    String username = (prefs.getString('user') ?? null);
+    route = username != null ? AppBarWidget() : NavbarRouting();
+  }
+
+  MenuBar() {
+    isAlive();
+  }
+  Future<void> updateMenu({text, Widget widget}) async {
     route = widget;
+    this.text = text;
     notifyListeners();
   }
 }
@@ -90,6 +117,14 @@ class UpcomingModel extends ChangeNotifier {
 
   void updateFlags(int flag) {
     this.flag = flag;
+    notifyListeners();
+  }
+}
+
+class WebinarProvider extends ChangeNotifier {
+  Widget route = SingleWebinarScreen();
+  void updateWebinar({Widget routing}) {
+    this.route = routing;
     notifyListeners();
   }
 }

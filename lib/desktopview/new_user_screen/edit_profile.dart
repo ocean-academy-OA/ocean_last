@@ -9,6 +9,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:intl/intl.dart';
 import 'package:ocean_project/desktopview/Components/course_enrole.dart';
+import 'package:ocean_project/desktopview/Components/enrool_appbar.dart';
 import 'package:ocean_project/desktopview/new_user_screen/log_in.dart';
 
 import 'package:ocean_project/desktopview/new_user_widget/date_picker.dart';
@@ -134,14 +135,8 @@ class _EditProfileState extends State<EditProfile> {
                     splashRadius: 30,
                     onPressed: () {
                       CoursesView.isCheckCourse = true;
-                      Provider.of<CourseProvide>(context, listen: false)
-                          .updateCourseName(
-                              routing: CourseList(),
-                              isCheck: CoursesView.isCheckCourse);
-                      Provider.of<SyllabusView>(context, listen: false)
-                          .updateCourseSyllabus(
-                        routing: MyCourse(),
-                      );
+                      Provider.of<Routing>(context, listen: false)
+                          .updateRouting(widget: CoursesView());
                     },
                   ),
                   Text(

@@ -528,7 +528,8 @@ class _VisibleWidgetState extends State<VisibleWidget> {
         return AlertDialog(
           title: Text("${widget.courseName}"),
           content: Container(
-            height: 670,
+            ///atlast change height to 670
+            height: 750,
             width: 400,
             child: RazorPayWeb(
               amount: widget.rupees,

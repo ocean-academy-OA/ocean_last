@@ -29,14 +29,8 @@ class Purchase extends StatelessWidget {
                   splashRadius: 30,
                   onPressed: () {
                     CoursesView.isCheckCourse = true;
-                    Provider.of<CourseProvide>(context, listen: false)
-                        .updateCourseName(
-                            routing: CourseList(),
-                            isCheck: CoursesView.isCheckCourse);
-                    Provider.of<SyllabusView>(context, listen: false)
-                        .updateCourseSyllabus(
-                      routing: MyCourse(),
-                    );
+                    Provider.of<Routing>(context, listen: false)
+                        .updateRouting(widget: CoursesView());
                   },
                 ),
                 Text(

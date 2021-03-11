@@ -191,24 +191,94 @@ class _CoursesViewState extends State<CoursesView> {
 
   @override
   Widget build(BuildContext context) {
+    Map menu = {};
     return MaterialApp(
       theme: ThemeData(fontFamily: kfontname),
       home: Scaffold(
-        appBar: PreferredSize(
-          preferredSize: Size.fromHeight(100),
-          child: AppBarWidget(),
-        ),
+        // appBar: PreferredSize(
+        //   preferredSize: Size.fromHeight(100),
+        //   child: AppBarWidget(),
+        // ),
         body: Stack(
           children: [
             Row(
               children: [
                 Expanded(
-                  flex: 1,
-                  child: Container(
-                    child: Consumer<CourseProvide>(
-                        builder: (context, routing, child) {
-                      return routing.routing;
-                    }),
+                  child: Visibility(
+                    visible: CoursesView.isCheckCourse,
+                    child: Container(
+                      padding: EdgeInsets.symmetric(vertical: 10.0),
+                      //width: 250.0,
+                      color: Color(0xff006793),
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Container(
+                            //color: Color(0xff006793).withOpacity(0.5),
+                            child: Column(
+                              children: [
+                                Text(
+                                  "Courses",
+                                  style: TextStyle(
+                                    fontSize: 30.0,
+                                    color: Colors.white,
+                                    fontWeight: FontWeight.w500,
+                                  ),
+                                ),
+                                StreamBuilder<QuerySnapshot>(
+                                  stream: _firestore
+                                      .collection('new users')
+                                      .snapshots(),
+                                  // ignore: missing_return
+                                  builder: (context1, snapshot) {
+                                    if (!snapshot.hasData) {
+                                      return Text("Loading.....");
+                                    } else {
+                                      final messages = snapshot.data.docs;
+
+                                      //userCourses();
+                                      int pos = 0;
+                                      List<String> courseList = [];
+                                      List<String> courseIconList = [];
+                                      List<String> batchId = [];
+
+                                      for (var message in messages) {
+                                        if (message.id ==
+                                            LogIn.registerNumber) {
+                                          final messageSender =
+                                              message.data()['Courses'];
+
+                                          final batch =
+                                              message.data()['batchid'];
+                                          print(batch);
+                                          print(messageSender);
+
+                                          for (var i in messageSender) {
+                                            menu[pos++] = false;
+                                            courseList.add(i);
+                                            courseIconList.add(courses_icon[i]);
+                                          }
+                                          for (var i in batch) {
+                                            batchId.add(i);
+                                          }
+                                        }
+                                      }
+
+                                      return HorizontalMenu(
+                                        courseList: courseList,
+                                        menu: menu,
+                                        batchId: batchId,
+                                        courseIcon: courseIconList,
+                                      );
+                                    }
+                                  },
+                                ),
+                              ],
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
                   ),
                 ),
                 Expanded(
@@ -639,98 +709,6 @@ class _CourseListState extends State<CourseList> {
               ),
             ),
           ],
-        ),
-      ),
-    );
-  }
-}
-
-class CourseEnroll extends StatefulWidget {
-  String coursename;
-
-  static String selectedCourse;
-  static List<String> subject = [];
-  bool isColor;
-
-  CourseEnroll({this.coursename, this.isColor});
-
-  @override
-  _CourseEnrollState createState() => _CourseEnrollState();
-}
-
-class _CourseEnrollState extends State<CourseEnroll> {
-  Map menu = {};
-
-  void getMessage() async {
-    final message = await _firestore.collection('course').get();
-
-    for (var courses in message.docs) {
-      CourseEnroll.subject.add(courses.data()['coursename']);
-    }
-
-    print("${CourseEnroll.subject} thamizh");
-    List<bool> isSubject = [];
-    for (int i = 0; i < CourseEnroll.subject.length; i++) {
-      if (i == 0) {
-        isSubject.add(true);
-      }
-      isSubject.add(false);
-    }
-    print("${isSubject} bool");
-    for (int i = 0; i < CourseEnroll.subject.length; i++) {
-      menu.addAll({CourseEnroll.subject[i]: isSubject[i]});
-    }
-    print("$menu dictionary");
-  }
-
-  @override
-  void initState() {
-    // TODO: implement initState
-    super.initState();
-    getMessage();
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return Column(
-      children: [
-        buildListTile(
-            text: '${widget.coursename}',
-            widget: CourseContent(
-              coursename: "${CourseEnroll.selectedCourse}",
-            ),
-            color: widget.isColor),
-      ],
-    );
-  }
-
-  ListTile buildListTile({widget, text, color}) {
-    print("MethodListTile $text");
-    return ListTile(
-      onTap: () {
-        setState(() {
-          //contentWidget = widget
-          menu.updateAll((key, value) => menu[key] = false);
-          menu[text] = true;
-
-          //CourseEnroll.selectedCourse = text;
-          print(menu);
-        });
-        print("jayalatha ${CourseEnroll.selectedCourse}");
-        // Provider.of<Routing>(context, listen: false)
-        //     .updateRouting(widget: widget);
-      },
-      leading: Icon(
-        Icons.close,
-        size: 20.0,
-      ),
-      title: MouseRegion(
-        child: Text(
-          text,
-          style: TextStyle(
-            color: color ? Colors.blue : Colors.white,
-            fontSize: 20.0,
-          ),
         ),
       ),
     );

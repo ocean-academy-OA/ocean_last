@@ -8,10 +8,6 @@ import 'package:url_launcher/url_launcher.dart';
 
 final _firestore = FirebaseFirestore.instance;
 
-// void main() {
-//   runApp(MaterialApp(home: Certificate()));
-// }
-
 class Certificate extends StatefulWidget {
   @override
   _CertificateState createState() => _CertificateState();
@@ -37,14 +33,8 @@ class _CertificateState extends State<Certificate> {
                 GestureDetector(
                     onTap: () {
                       CoursesView.isCheckCourse = true;
-                      Provider.of<CourseProvide>(context, listen: false)
-                          .updateCourseName(
-                              routing: CourseList(),
-                              isCheck: CoursesView.isCheckCourse);
-                      Provider.of<SyllabusView>(context, listen: false)
-                          .updateCourseSyllabus(
-                        routing: MyCourse(),
-                      );
+                      Provider.of<Routing>(context, listen: false)
+                          .updateRouting(widget: CoursesView());
                     },
                     child:
                         Icon(Icons.chevron_left, size: 70, color: Colors.blue)),

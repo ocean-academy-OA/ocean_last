@@ -26,8 +26,9 @@ class _OceanLiveState extends State<OceanLive> {
         ChangeNotifierProvider(create: (context) => SyllabusView()),
         ChangeNotifierProvider(create: (context) => OALive()),
         ChangeNotifierProvider(create: (context) => AlertView()),
+        ChangeNotifierProvider(create: (context) => WebinarProvider()),
         ChangeNotifierProvider(create: (context) => UserProfiles()),
-        ChangeNotifierProvider(create: (context) => FreeWeb()),
+        ChangeNotifierProvider(create: (context) => MenuBar()),
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,

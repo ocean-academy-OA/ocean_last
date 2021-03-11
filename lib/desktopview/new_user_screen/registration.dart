@@ -7,6 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:intl/intl.dart';
 import 'package:ocean_project/desktopview/Components/course_enrole.dart';
+import 'package:ocean_project/desktopview/Components/enrool_appbar.dart';
 
 import 'package:ocean_project/desktopview/new_user_screen/log_in.dart';
 import 'package:ocean_project/desktopview/new_user_widget/contry_states.dart';
@@ -16,6 +17,7 @@ import 'package:ocean_project/desktopview/new_user_widget/dropdown.dart';
 import 'package:ocean_project/desktopview/new_user_widget/gender_dropdoen_field.dart';
 import 'package:ocean_project/desktopview/new_user_widget/input_text_field.dart';
 import 'package:ocean_project/desktopview/route/routing.dart';
+import 'package:ocean_project/desktopview/screen/menubar.dart';
 
 import 'package:path/path.dart';
 import 'package:firebase_storage/firebase_storage.dart';
@@ -404,18 +406,18 @@ class _RegistrationState extends State<Registration> {
                           onPressed: () {
                             if (registerFormValidation() == true) {
                               print('Completed');
-
                               fireStoreAdd();
-
                               textFieldClear();
                               session();
-                              // Provider.of<Routing>(context, listen: false)
-                              //     .updateRouting(widget: CoursesView());
-                              Provider.of<OALive>(context, listen: false)
-                                  .updateOA(routing: CoursesView());
+                              Provider.of<Routing>(context, listen: false)
+                                  .updateRouting(widget: CoursesView());
+                              Provider.of<MenuBar>(context, listen: false)
+                                  .updateMenu(widget: AppBarWidget());
                             } else {
                               Provider.of<Routing>(context, listen: false)
                                   .updateRouting(widget: Registration());
+                              Provider.of<MenuBar>(context, listen: false)
+                                  .updateMenu(widget: NavbarRouting());
                             }
 
                             // fireStoreAdd();

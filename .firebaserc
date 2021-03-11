@@ -6,7 +6,7 @@
   "targets": {
     "ocean-live-project-ea2e7": {
       "hosting": {
-        "user": [
+        "users": [
           "ocean-live-project-ea2e7"
         ]
       }

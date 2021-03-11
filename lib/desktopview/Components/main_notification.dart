@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:ocean_project/desktopview/Components/course_enrole.dart';
+import 'package:ocean_project/desktopview/Components/enrool_appbar.dart';
 
 import 'package:ocean_project/desktopview/Components/notification.dart';
 import 'package:ocean_project/desktopview/new_user_screen/log_in.dart';
@@ -199,10 +200,10 @@ class _Notification_onclickState extends State<Notification_onclick> {
                     ContentWidget.isVisible = !ContentWidget.isVisible;
                   });
                   print("isCheckCourse${CoursesView.isCheckCourse}");
-                  Provider.of<SyllabusView>(context, listen: false)
-                      .updateCourseSyllabus(routing: User());
-                  Provider.of<CourseProvide>(context, listen: false)
-                      .updateCourseName(routing: CourseList(), isCheck: false);
+                  Provider.of<Routing>(context, listen: false)
+                      .updateRouting(widget: User());
+                  Provider.of<MenuBar>(context, listen: false)
+                      .updateMenu(widget: AppBarWidget());
                 },
               ),
               SizedBox(

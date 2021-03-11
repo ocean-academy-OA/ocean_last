@@ -35,12 +35,10 @@ class _WebinarMenuState extends State<WebinarMenu> {
               children: [
                 GestureDetector(
                   onTap: () {
-                    Navbar.visiblity = true;
-                    Navbar.isNotification = true;
                     Provider.of<Routing>(context, listen: false)
                         .updateRouting(widget: Home());
-                    Provider.of<OALive>(context, listen: false)
-                        .updateOA(routing: Navbar());
+                    Provider.of<MenuBar>(context, listen: false)
+                        .updateMenu(widget: NavbarRouting());
                   },
                   child: Icon(
                     Ocean.oa,
@@ -73,8 +71,8 @@ class _WebinarMenuState extends State<WebinarMenu> {
                     Navbar.isNotification = true;
                     Provider.of<Routing>(context, listen: false)
                         .updateRouting(widget: ContactUs());
-                    Provider.of<OALive>(context, listen: false)
-                        .updateOA(routing: Navbar());
+                    Provider.of<MenuBar>(context, listen: false)
+                        .updateMenu(widget: NavbarRouting());
                   },
                   child: Container(
                     child: Text(
@@ -89,12 +87,10 @@ class _WebinarMenuState extends State<WebinarMenu> {
                 ),
                 GestureDetector(
                   onTap: () {
-                    Navbar.visiblity = true;
-                    Navbar.isNotification = true;
                     Provider.of<Routing>(context, listen: false)
                         .updateRouting(widget: LogIn());
-                    Provider.of<OALive>(context, listen: false)
-                        .updateOA(routing: Navbar());
+                    Provider.of<MenuBar>(context, listen: false)
+                        .updateMenu(widget: NavbarRouting());
                   },
                   child: Container(
                     padding: EdgeInsets.symmetric(horizontal: 20, vertical: 5),
