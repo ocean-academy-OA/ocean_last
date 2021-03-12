@@ -1,5 +1,8 @@
+import 'dart:html';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:intl/intl.dart';
 import 'package:ocean_project/desktopview/constants.dart';
 import 'package:ocean_project/desktopview/screen/menubar.dart';
@@ -7,8 +10,10 @@ import 'package:ocean_project/desktopview/route/routing.dart';
 import 'package:ocean_project/webinar/wbinar_menubar.dart';
 import 'package:ocean_project/webinar/single_wbinar.dart';
 import 'package:ocean_project/webinar/upcoming_webinar.dart';
+import 'package:ocean_project/webinar/webinar_const.dart';
 import 'package:ocean_project/webinar/webinar_live.dart';
 import 'package:provider/provider.dart';
+import 'package:slide_countdown_clock/slide_countdown_clock.dart';
 
 final _firestore = FirebaseFirestore.instance;
 
@@ -198,7 +203,73 @@ class _FlashDbState extends State<FlashDb> {
   @override
   Widget build(BuildContext context) {
     return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
+        StreamBuilder<QuerySnapshot>(
+          stream: _firestore.collection('Webinar').snapshots(),
+          builder: (context, snapshot) {
+            if (!snapshot.hasData) {
+              return Text('Time');
+            } else {
+              var timeStamp;
+              final time = snapshot.data.docs;
+              for (var i in time) {
+                print('uuuuuuuuuuuuuuuuuuuuuuuyyyyyyyyyyyyyyyyyyg');
+                print(i.data()['course']);
+
+                if (widget.content == i.data()['course']) {
+                  timeStamp = i.data()['timestamp'];
+                }
+              }
+              int yearFormat;
+              int monthFormat;
+              int dayFormat;
+              int hourFormat;
+              int minuteFormat;
+              int secondsFormat;
+
+              var year = DateFormat('y');
+              var month = DateFormat('MM');
+              var day = DateFormat('d');
+              var hour = DateFormat('hh');
+              var minute = DateFormat('mm');
+              var seconds = DateFormat('s');
+
+              yearFormat = int.parse(year.format(timeStamp.toDate()));
+              monthFormat = int.parse(month.format(timeStamp.toDate()));
+              dayFormat = int.parse(day.format(timeStamp.toDate()));
+              hourFormat = int.parse(hour.format(timeStamp.toDate()));
+              minuteFormat = int.parse(minute.format(timeStamp.toDate()));
+              secondsFormat = int.parse(seconds.format(timeStamp.toDate()));
+
+              var defrenceTime = DateTime(yearFormat, monthFormat, dayFormat,
+                      hourFormat, minuteFormat, secondsFormat)
+                  .difference(DateTime.now())
+                  .inSeconds;
+              print(defrenceTime);
+              return SlideCountdownClock(
+                duration: Duration(seconds: defrenceTime),
+                separator: ' : ',
+                textStyle: TextStyle(
+                    fontSize: 25, fontFamily: kfontname, color: Colors.white),
+                separatorTextStyle:
+                    TextStyle(fontSize: 20, color: Colors.white),
+                shouldShowDays: true,
+                onDone: () {
+                  setState(() {
+                    print(DateTime.now());
+                  });
+                },
+              );
+            }
+          },
+        ),
+        Container(
+          margin: EdgeInsets.symmetric(horizontal: 15),
+          height: 20,
+          width: 2,
+          color: Colors.white,
+        ),
         RichText(
             text: TextSpan(
                 style: TextStyle(color: Colors.white, fontSize: 20),
