@@ -5,6 +5,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:ocean_project/desktopview/Components/courses_widget.dart';
+import 'package:ocean_project/desktopview/Components/enroll_new.dart';
 import 'package:ocean_project/desktopview/Components/enrool_appbar.dart';
 import 'package:ocean_project/desktopview/Components/main_notification.dart';
 
@@ -154,8 +155,9 @@ class _CoursesViewState extends State<CoursesView> {
         .snapshots(includeMetadataChanges: true)) {
       for (var message in snapshot.docs) {
         CoursesView.batchId = message.data()['batchid'];
-        print("${CoursesView.batchId}listlistlistttttttttttttttt");
+        print("${CoursesView.batchId}batchessssssssss");
       }
+      // available_batch();
     }
 
     print("---------------------------");
@@ -168,6 +170,7 @@ class _CoursesViewState extends State<CoursesView> {
     LogIn.registerNumber = (prefs.getString('user') ?? null);
     userCourses();
     batch_id();
+    print("${CoursesView.batchId}1234567890");
   }
 
   @override
