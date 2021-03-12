@@ -39,26 +39,6 @@ class _EnrollNewState extends State<EnrollNew> {
     super.initState();
   }
 
-  List courseName = [];
-
-  showJoinDialog(context) {
-    return showDialog(
-        context: context,
-        builder: (BuildContext context) {
-          return AlertDialog(
-            content: Text('hi'),
-            actions: [
-              TextButton(
-                child: Text('Join'),
-                onPressed: () {
-                  Navigator.pop(context);
-                },
-              )
-            ],
-          );
-        });
-  }
-
   List EnrollList = [];
   @override
   Widget build(BuildContext context) {
