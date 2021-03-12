@@ -75,6 +75,17 @@ subscribeDialog(context) {
   );
 }
 
+List<dynamic> course = ['Python'];
+List<dynamic> courses = ['Flask', 'Python', 'Java'];
+
+courseTest() {
+  for (var i in courses) {
+    if (!course.any((e) => e.contains(i))) {
+      print(i);
+    }
+  }
+}
+
 showJoinDialog(context) {
   return showDialog(
       context: context,
@@ -103,6 +114,7 @@ class _TextingFirebaseState extends State<TextingFirebase> {
       child: TextButton(
         child: Text('test'),
         onPressed: () async {
+          courseTest();
           showJoinDialog(context);
           // var time = await _firestore
           //     .collection('webinar_time')
