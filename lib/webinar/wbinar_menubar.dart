@@ -35,6 +35,11 @@ class _WebinarMenuState extends State<WebinarMenu> {
               children: [
                 GestureDetector(
                   onTap: () {
+                    setState(() {
+                      NavbarRouting.menu.updateAll(
+                          (key, value) => NavbarRouting.menu[key] = false);
+                      NavbarRouting.menu["Home"] = true;
+                    });
                     Provider.of<Routing>(context, listen: false)
                         .updateRouting(widget: Home());
                     Provider.of<MenuBar>(context, listen: false)
@@ -67,8 +72,11 @@ class _WebinarMenuState extends State<WebinarMenu> {
               children: [
                 GestureDetector(
                   onTap: () {
-                    Navbar.visiblity = true;
-                    Navbar.isNotification = true;
+                    setState(() {
+                      NavbarRouting.menu.updateAll(
+                          (key, value) => NavbarRouting.menu[key] = false);
+                      NavbarRouting.menu["Contact Us"] = true;
+                    });
                     Provider.of<Routing>(context, listen: false)
                         .updateRouting(widget: ContactUs());
                     Provider.of<MenuBar>(context, listen: false)
@@ -87,6 +95,11 @@ class _WebinarMenuState extends State<WebinarMenu> {
                 ),
                 GestureDetector(
                   onTap: () {
+                    setState(() {
+                      NavbarRouting.menu.updateAll(
+                          (key, value) => NavbarRouting.menu[key] = false);
+                      // NavbarRouting.menu["Services"] = true;
+                    });
                     Provider.of<Routing>(context, listen: false)
                         .updateRouting(widget: LogIn());
                     Provider.of<MenuBar>(context, listen: false)
