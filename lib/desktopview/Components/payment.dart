@@ -73,16 +73,7 @@ class _RazorPayWebState extends State<RazorPayWeb> {
   }
 
   @override
-  void didChangeDependencies() {
-    // TODO: implement didChangeDependencies
-    super.didChangeDependencies();
-    dispose();
-  }
-
-  @override
   Widget build(BuildContext context) {
-    //final provider = // Provider.of<SyllabusView>(context, listen: false)
-    //     .updateCourseSyllabus(routing: ThanksForPurchasing());
     print(widget.amount);
     ui.platformViewRegistry.registerViewFactory("rzp-html", (int viewId) {
       IFrameElement element = IFrameElement();
@@ -188,7 +179,7 @@ class _RazorPayWebState extends State<RazorPayWeb> {
 
       return element;
     });
-    return Scaffold(body: Builder(builder: (BuildContext context1) {
+    return Scaffold(body: Builder(builder: (BuildContext context) {
       return Center(
         child: Column(
           children: [
@@ -228,6 +219,11 @@ class _RazorPayWebState extends State<RazorPayWeb> {
             //       .updateCourseSyllabus(routing: ThanksForPurchasing());
             //   //register view factory
             // })
+            RaisedButton(onPressed: () {
+              Provider.of<Routing>(context, listen: false)
+                  .updateRouting(widget: ThanksForPurchasing());
+              //register view factory
+            })
           ],
         ),
       );

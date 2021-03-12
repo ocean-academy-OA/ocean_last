@@ -6,7 +6,7 @@ import 'package:ocean_project/desktopview/screen/course_details.dart';
 import 'package:ocean_project/desktopview/Components/courses_widget.dart';
 import 'package:ocean_project/desktopview/route/routing.dart';
 import 'package:ocean_project/desktopview/Components/course_enrole.dart';
-
+import 'dart:html';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -35,7 +35,6 @@ class _EnrollNewState extends State<EnrollNew> {
     // TODO: implement initState
 
     getSession();
-
     super.initState();
   }
 
@@ -78,7 +77,6 @@ class _EnrollNewState extends State<EnrollNew> {
 
                       List<EnrollCourseDb> courseList = [];
 
-                      List userEnrollList = ["Java"];
                       for (var message in messages) {
                         print("++++++++++++++");
                         print(message.id);
