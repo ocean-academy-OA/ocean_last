@@ -34,7 +34,7 @@ class _NavbarState extends State<Navbar> {
   Timestamp timestamp;
   void retriveTime() async {
     await for (var snapshot in _firestore
-        .collection('webinar_time')
+        .collection('webinar')
         .snapshots(includeMetadataChanges: true)) {
       for (var message in snapshot.docs) {
         timestamp = message.data()['timeStamp'];
@@ -55,10 +55,23 @@ class _NavbarState extends State<Navbar> {
       resizeToAvoidBottomInset: false,
       body: Column(
         children: [
-          Visibility(
-            visible: Navbar.isNotification,
-            child: FlashNotification(),
-          ),
+          StreamBuilder<QuerySnapshot>(
+              stream: _firestore.collection('Webinar').snapshots(),
+              builder: (context, snapshot) {
+                if (snapshot.hasData) {
+                  if (snapshot.data.docs.isNotEmpty) {
+                    print('=========gggggggggggg========');
+                    return Visibility(
+                      visible: Navbar.isNotification,
+                      child: FlashNotification(),
+                    );
+                  } else {
+                    return SizedBox();
+                  }
+                } else {
+                  return SizedBox();
+                }
+              }),
           Consumer<MenuBar>(
             builder: (context, routing, child) {
               return routing.route;
