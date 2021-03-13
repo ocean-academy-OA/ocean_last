@@ -105,7 +105,11 @@ class _ReviewsSectionState extends State<ReviewsSection> {
                       // ignore: missing_return
                       builder: (context, snapshot) {
                         if (!snapshot.hasData) {
-                          return Text("Loading.....");
+                          return Center(
+                            child: LinearProgressIndicator(
+                              backgroundColor: Colors.blue,
+                            ),
+                          );
                         } else {
                           final messages = snapshot.data.docs;
                           int i = 0;
@@ -139,36 +143,6 @@ class _ReviewsSectionState extends State<ReviewsSection> {
                   ],
                 ),
               ),
-              // Row(
-              //   children: [
-              //     StreamBuilder<QuerySnapshot>(
-              //       stream: _firestore.collection('ratings').snapshots(),
-              //       // ignore: missing_return
-              //       builder: (context, snapshot) {
-              //         if (!snapshot.hasData) {
-              //           return Text("Loading.....");
-              //         } else {
-              //           final messages = snapshot.data.docs;
-              //           List<StarRating> rateReview = [];
-              //
-              //           for (var message in messages) {
-              //             final userReviewSite = message.data()['ratingsite'];
-              //             final userReviewCount = message.data()['rate'];
-              //             final rating = StarRating(
-              //               ratingSite: userReviewSite,
-              //               ratings: userReviewCount,
-              //             );
-              //             // Text('$messageText from $messageSender');
-              //             rateReview.add(rating);
-              //           }
-              //           return Wrap(
-              //             children: rateReview,
-              //           );
-              //         }
-              //       },
-              //     ),
-              //   ],
-              // ),
               SizedBox(
                 height: 30.0,
               ),

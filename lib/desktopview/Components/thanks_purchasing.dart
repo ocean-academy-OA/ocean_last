@@ -1,4 +1,7 @@
+import 'dart:html';
+
 import 'package:flutter/material.dart';
+import 'package:ocean_project/desktopview/Components/enroll_new.dart';
 import 'package:ocean_project/desktopview/Components/my_course.dart';
 import 'package:ocean_project/desktopview/route/routing.dart';
 
@@ -40,8 +43,7 @@ class _ThanksForPurchasingState extends State<ThanksForPurchasing> {
               child: FlatButton(
                 color: Color(0xff0091D2),
                 onPressed: () {
-                  Provider.of<SyllabusView>(context, listen: false)
-                      .updateCourseSyllabus(routing: MyCourse());
+                  window.location.reload();
                 },
                 child: Text("Go to Courses",
                     style: TextStyle(color: Colors.white, fontSize: 22)),

@@ -47,7 +47,8 @@ class _SingleWebinarScreenState extends State<SingleWebinarScreen> {
                 stream: _firestore.collection('Webinar').snapshots(),
                 builder: (context, snapshot) {
                   if (!snapshot.hasData) {
-                    return LinearProgressIndicator();
+                    return LinearProgressIndicator(
+                        backgroundColor: Colors.blue);
                   } else {
                     List<Widget> currentWebinar = [];
                     List<Widget> wbinars = [];

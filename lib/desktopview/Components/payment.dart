@@ -74,6 +74,8 @@ class _RazorPayWebState extends State<RazorPayWeb> {
 
   @override
   Widget build(BuildContext context) {
+    print("=======================");
+    print(LogIn.registerNumber);
     print(widget.amount);
     ui.platformViewRegistry.registerViewFactory("rzp-html", (int viewId) {
       IFrameElement element = IFrameElement();
@@ -82,7 +84,7 @@ class _RazorPayWebState extends State<RazorPayWeb> {
         print('Event Received in callback: ${element.data}');
         print('PAYMENT  FAILURE!!!!!!!   ${element.data}');
         if (element.data == 'MODAL_CLOSED') {
-          Navigator.pop(context);
+          // Navigator.pop(context);
           print('PAYMENT FAILURE!!!!!!!');
         } else if (element.data == 'SUCCESS') {
           print('PAYMENT SUCCESSFULL!!!!!!!');
@@ -96,7 +98,8 @@ class _RazorPayWebState extends State<RazorPayWeb> {
               .collection("new users")
               .doc(LogIn.registerNumber)
               .collection("payment")
-              .add({
+              .doc(widget.courseName)
+              .set({
             "coursename": widget.courseName,
             "amount": widget.amount,
             "date": date,
@@ -105,11 +108,10 @@ class _RazorPayWebState extends State<RazorPayWeb> {
             "status": "Completed",
           });
           print('${widget.course} wwwwwwwwwwwwwwwwwwwFirsttttt');
-          Navigator.pop(context);
-          Provider.of<Routing>(context, listen: false)
-              .updateRouting(widget: ThanksForPurchasing());
-          Provider.of<MenuBar>(context, listen: false)
-              .updateMenu(widget: AppBarWidget());
+          Provider.of<SyllabusView>(context, listen: false)
+              .updateCourseSyllabus(routing: ThanksForPurchasing());
+          // Provider.of<MenuBar>(context, listen: false)
+          //     .updateMenu(widget: AppBarWidget());
           print('PAYMENT SUCCESSFULL !!!!!!!');
         }
       });
@@ -184,46 +186,13 @@ class _RazorPayWebState extends State<RazorPayWeb> {
         child: Column(
           children: [
             Container(
-              width: 600,
+              width: 400,
               height: 670,
-              //color: Colors.lightBlueAccent,
+              color: Colors.lightBlueAccent,
               child: HtmlElementView(
                 viewType: 'rzp-html',
               ),
             ),
-            // RaisedButton(onPressed: () {
-            //   print('${widget.course} wwwwwwwwwwwwwwwwwwwStartttt');
-            //   _firestore
-            //       .collection("new users")
-            //       .doc(LogIn.registerNumber)
-            //       .update({
-            //     "Courses": FieldValue.arrayUnion(widget.course),
-            //     "batchid": FieldValue.arrayUnion(widget.batchid),
-            //   });
-            //
-            //   _firestore
-            //       .collection("new users")
-            //       .doc(LogIn.registerNumber)
-            //       .collection("payment")
-            //       .add({
-            //     "coursename": widget.courseName,
-            //     "amount": widget.amount,
-            //     "date": date,
-            //     "image": widget.courseImage,
-            //     "paid_via": "debit card",
-            //     "status": "Completed",
-            //   });
-            //   print('${widget.course} wwwwwwwwwwwwwwwwwwwFirsttttt');
-            //   Navigator.pop(context1);
-            //   Provider.of<SyllabusView>(context1, listen: false)
-            //       .updateCourseSyllabus(routing: ThanksForPurchasing());
-            //   //register view factory
-            // })
-            RaisedButton(onPressed: () {
-              Provider.of<Routing>(context, listen: false)
-                  .updateRouting(widget: ThanksForPurchasing());
-              //register view factory
-            })
           ],
         ),
       );

@@ -76,9 +76,10 @@ class _Notification_onclickState extends State<Notification_onclick> {
                           // ignore: missing_return
                           builder: (context, snapshot) {
                             if (!snapshot.hasData) {
-                              return Container(
-                                child: Text(
-                                    " there are no notification send for you"),
+                              return Center(
+                                child: LinearProgressIndicator(
+                                  backgroundColor: Colors.blue,
+                                ),
                               );
                             } else {
                               final messages = snapshot.data.docs;
@@ -117,8 +118,11 @@ class _Notification_onclickState extends State<Notification_onclick> {
                           // ignore: missing_return
                           builder: (context, snapshot) {
                             if (!snapshot.hasData) {
-                              return Text(
-                                  " there are no notification send for you");
+                              return Center(
+                                child: LinearProgressIndicator(
+                                  backgroundColor: Colors.blue,
+                                ),
+                              );
                             } else {
                               final messages = snapshot.data.docs;
                               List<UserNotificationDb> notifyData = [];
@@ -153,8 +157,11 @@ class _Notification_onclickState extends State<Notification_onclick> {
                           // ignore: missing_return
                           builder: (context, snapshot) {
                             if (!snapshot.hasData) {
-                              return Text(
-                                  " there are no notification send for you");
+                              return Center(
+                                child: LinearProgressIndicator(
+                                  backgroundColor: Colors.blue,
+                                ),
+                              );
                             } else {
                               final messages = snapshot.data.docs;
                               List<UserNotificationDb> notifyData = [];

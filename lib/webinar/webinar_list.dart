@@ -24,7 +24,11 @@ class _WebinarCardState extends State<WebinarCard> {
             // ignore: missing_return
             builder: (context, snapshot) {
               if (!snapshot.hasData) {
-                return Text("Loading.....");
+                return Center(
+                  child: LinearProgressIndicator(
+                    backgroundColor: Colors.blue,
+                  ),
+                );
               } else {
                 final messages = snapshot.data.docs;
 

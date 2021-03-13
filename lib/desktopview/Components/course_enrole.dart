@@ -235,7 +235,11 @@ class _CoursesViewState extends State<CoursesView> {
                                 // ignore: missing_return
                                 builder: (context1, snapshot) {
                                   if (!snapshot.hasData) {
-                                    return Text("Loading.....");
+                                    return Center(
+                                      child: LinearProgressIndicator(
+                                        backgroundColor: Colors.blue,
+                                      ),
+                                    );
                                   } else {
                                     final messages = snapshot.data.docs;
 
@@ -445,7 +449,11 @@ class _ContentWidgetState extends State<ContentWidget> {
               // ignore: missing_return
               builder: (context, snapshot) {
                 if (!snapshot.hasData) {
-                  return Text("Loading.....");
+                  return Center(
+                    child: LinearProgressIndicator(
+                      backgroundColor: Colors.blue,
+                    ),
+                  );
                 } else {
                   final messages = snapshot.data.docs;
                   List<CourseContent> courseContent = [];
@@ -665,7 +673,11 @@ class _CourseListState extends State<CourseList> {
                   // ignore: missing_return
                   builder: (context1, snapshot) {
                     if (!snapshot.hasData) {
-                      return Text("Loading.....");
+                      return Center(
+                        child: LinearProgressIndicator(
+                          backgroundColor: Colors.blue,
+                        ),
+                      );
                     } else {
                       final messages = snapshot.data.docs;
 

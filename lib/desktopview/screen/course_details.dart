@@ -251,7 +251,11 @@ class _CourseDetailsState extends State<CourseDetails> {
                                 // ignore: missing_return
                                 builder: (context, snapshot) {
                                   if (!snapshot.hasData) {
-                                    return Text("Loading........");
+                                    return Center(
+                                      child: LinearProgressIndicator(
+                                        backgroundColor: Colors.blue,
+                                      ),
+                                    );
                                   } else {
                                     final messages = snapshot.data.docs;
                                     List<CourseDescription> courseDetails = [];
@@ -368,7 +372,11 @@ class _CourseDetailsState extends State<CourseDetails> {
                           // ignore: missing_return
                           builder: (context, snapshot) {
                             if (!snapshot.hasData) {
-                              return Text("Loading.....");
+                              return Center(
+                                child: LinearProgressIndicator(
+                                  backgroundColor: Colors.blue,
+                                ),
+                              );
                             } else {
                               final messages = snapshot.data.docs;
                               List<VisibleWidget> courseImage = [];
@@ -628,7 +636,16 @@ class _VisibleWidgetState extends State<VisibleWidget> {
                         setState(() {
                           isLogin = true;
                         });
-                        _showDialog();
+                        Provider.of<SyllabusView>(context, listen: false)
+                            .updateCourseSyllabus(
+                          routing: RazorPayWeb(
+                            amount: widget.rupees,
+                            courseImage: widget.image,
+                            courseName: widget.courseName,
+                            course: [widget.courseName],
+                            batchid: [widget.batchid],
+                          ),
+                        );
                       } else {
                         Provider.of<Routing>(context, listen: false)
                             .updateRouting(widget: LogIn());

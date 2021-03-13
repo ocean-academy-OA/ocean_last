@@ -93,7 +93,11 @@ class _UpcomingCourseState extends State<UpcomingCourse> {
                       // ignore: missing_return
                       builder: (context, snapshot) {
                         if (!snapshot.hasData) {
-                          return Text("Loading.....");
+                          return Center(
+                            child: LinearProgressIndicator(
+                              backgroundColor: Colors.blue,
+                            ),
+                          );
                         } else {
                           final messages = snapshot.data.docs;
                           List<UpcomingCoursesImages> bubbles = [];

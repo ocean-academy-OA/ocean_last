@@ -59,7 +59,11 @@ class _FlashNotificationState extends State<FlashNotification> {
                 // ignore: missing_return
                 builder: (context, snapshot) {
                   if (!snapshot.hasData) {
-                    return Text("Loading.....");
+                    return Center(
+                      child: LinearProgressIndicator(
+                        backgroundColor: Colors.blue,
+                      ),
+                    );
                   } else {
                     final messages = snapshot.data.docs;
 
@@ -209,7 +213,11 @@ class _FlashDbState extends State<FlashDb> {
           stream: _firestore.collection('Webinar').snapshots(),
           builder: (context, snapshot) {
             if (!snapshot.hasData) {
-              return Text('Time');
+              return Center(
+                child: LinearProgressIndicator(
+                  backgroundColor: Colors.blue,
+                ),
+              );
             } else {
               var timeStamp;
               final time = snapshot.data.docs;
