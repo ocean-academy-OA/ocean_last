@@ -39,7 +39,6 @@ class MenuBar extends ChangeNotifier {
   static String stayUser;
 
   String text;
-  Color color;
 
   void isAlive() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();

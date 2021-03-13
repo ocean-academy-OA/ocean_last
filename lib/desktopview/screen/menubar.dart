@@ -211,11 +211,12 @@ class _NavbarRoutingState extends State<NavbarRouting> {
           setState(() {
             NavbarRouting.menu
                 .updateAll((key, value) => NavbarRouting.menu[key] = false);
+            NavbarRouting.menu[text] = true;
           });
           Provider.of<Routing>(context, listen: false)
               .updateRouting(widget: widget);
           Provider.of<MenuBar>(context, listen: false)
-              .updateMenu(text: NavbarRouting.menu[text] = true);
+              .updateMenu(widget: NavbarRouting());
           print(text);
         },
       ),

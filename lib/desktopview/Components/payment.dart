@@ -181,22 +181,39 @@ class _RazorPayWebState extends State<RazorPayWeb> {
 
       return element;
     });
-    return Scaffold(body: Builder(builder: (BuildContext context) {
-      return Center(
-        child: Column(
-          children: [
-            Container(
-              width: 400,
-              height: 670,
-              color: Colors.lightBlueAccent,
-              child: HtmlElementView(
-                viewType: 'rzp-html',
+    return Container(
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              SizedBox(),
+              Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Image.network(
+                      'https://firebasestorage.googleapis.com/v0/b/ocean-live-project-ea2e7.appspot.com/o/download%20pdf%20svgs%2Fpayment.svg?alt=media&token=6e950a0c-44d5-45db-a9b1-122be63c26c1')
+                ],
               ),
-            ),
-          ],
-        ),
-      );
-    }));
+              Container(
+                margin: (EdgeInsets.symmetric(horizontal: 30)),
+                height: 670,
+                width: 400,
+                decoration: BoxDecoration(color: Colors.white, boxShadow: [
+                  BoxShadow(
+                      color: Colors.black.withOpacity(0.3), blurRadius: 6),
+                ]),
+                child: HtmlElementView(
+                  viewType: 'rzp-html',
+                ),
+              ),
+              SizedBox(),
+            ],
+          )
+        ],
+      ),
+    );
   }
 }
 

@@ -78,7 +78,8 @@ class _ReviewsSectionState extends State<ReviewsSection> {
                       // ignore: missing_return
                       builder: (context, snapshot) {
                         if (!snapshot.hasData) {
-                          return Center(
+                          return Container(
+                            width: 300,
                             child: LinearProgressIndicator(
                               backgroundColor: Colors.blue,
                             ),
