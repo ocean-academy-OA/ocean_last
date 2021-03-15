@@ -119,8 +119,7 @@ class _User_ProfileState extends State<User_Profile> {
                       onPressed: () async {
                         SharedPreferences prefs =
                             await SharedPreferences.getInstance();
-
-                        await prefs.setInt('login', 0);
+                        // await prefs.setInt('login', 0);
                         await prefs.setString('user', null);
                         LogIn.registerNumber = null;
                         MenuBar.stayUser = null;

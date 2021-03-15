@@ -238,9 +238,9 @@ class _LogInState extends State<LogIn> {
                                           //getData();
 
                                           ///todo remove the hide get otp
-
-                                          getOTP();
                                           session();
+                                          getOTP();
+
                                           Provider.of<Routing>(context,
                                                   listen: false)
                                               .updateRouting(widget: OTP());
