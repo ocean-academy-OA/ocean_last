@@ -8,8 +8,13 @@ class Career extends StatefulWidget {
 class _CareerState extends State<Career> {
   @override
   Widget build(BuildContext context) {
-    return Container(
-      color: Colors.green,
+    return Center(
+      child: Container(
+        child: Text(
+          'Coming soon',
+          style: TextStyle(fontSize: 60),
+        ),
+      ),
     );
   }
 }

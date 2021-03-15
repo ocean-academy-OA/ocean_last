@@ -4,8 +4,14 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 import 'package:ocean_project/desktopview/constants.dart';
+import 'package:ocean_project/desktopview/route/routing.dart';
+import 'package:ocean_project/desktopview/screen/home_screen.dart';
+import 'package:ocean_project/desktopview/screen/menubar.dart';
+import 'package:provider/provider.dart';
 
 class JoinSuccessfully extends StatefulWidget {
+  JoinSuccessfully({this.joinUserName});
+  String joinUserName;
   @override
   _JoinSuccessfullyState createState() => _JoinSuccessfullyState();
 }
@@ -104,7 +110,7 @@ class _JoinSuccessfullyState extends State<JoinSuccessfully> {
                             margin: EdgeInsets.symmetric(vertical: 8),
                             width: 500,
                             child: Text(
-                              'Hi Username you have successfully Join our webinar We\'re Sending you join link in your Email',
+                              'Hi ${widget.joinUserName} you have successfully Join our webinar We\'re Sending you join link in your Email',
                               textAlign: TextAlign.center,
                               style: TextStyle(
                                   color: Colors.white,
@@ -128,7 +134,12 @@ class _JoinSuccessfullyState extends State<JoinSuccessfully> {
                           ),
                         ),
                         color: Colors.white,
-                        onPressed: () {},
+                        onPressed: () {
+                          Provider.of<Routing>(context, listen: false)
+                              .updateRouting(widget: Home());
+                          Provider.of<OALive>(context, listen: false)
+                              .updateOA(routing: NavbarRouting());
+                        },
                       )
                     ],
                   ),

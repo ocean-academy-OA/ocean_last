@@ -36,7 +36,7 @@ class _WebinarCardState extends State<WebinarCard> {
                 List<int> timingList = [];
                 Map<int, Widget> courseMap = {};
                 for (var message in messages) {
-                  Timestamp time = message.data()['timestamp'];
+                  Timestamp timeStamp = message.data()['timestamp'];
 
                   final courseName = message.data()['course'];
                   final trainerName = message.data()['trainer name'];
@@ -44,7 +44,7 @@ class _WebinarCardState extends State<WebinarCard> {
                   final payment = message.data()['payment'];
                   final designation = message.data()['designation'];
                   final trainerImage = message.data()['trainer image'];
-                  print(time);
+                  print(timeStamp);
                   print(DateTime.now().millisecond);
 
                   int yearFormat;
@@ -61,22 +61,28 @@ class _WebinarCardState extends State<WebinarCard> {
                   var minute = DateFormat('mm');
                   var seconds = DateFormat('s');
 
-                  yearFormat = int.parse(year.format(time.toDate()));
-                  monthFormat = int.parse(month.format(time.toDate()));
-                  dayFormat = int.parse(day.format(time.toDate()));
-                  hourFormat = int.parse(hour.format(time.toDate()));
-                  minuteFormat = int.parse(minute.format(time.toDate()));
-                  secondsFormat = int.parse(seconds.format(time.toDate()));
+                  yearFormat = int.parse(year.format(timeStamp.toDate()));
+                  monthFormat = int.parse(month.format(timeStamp.toDate()));
+                  dayFormat = int.parse(day.format(timeStamp.toDate()));
+                  hourFormat = int.parse(hour.format(timeStamp.toDate()));
+                  minuteFormat = int.parse(minute.format(timeStamp.toDate()));
+                  secondsFormat = int.parse(seconds.format(timeStamp.toDate()));
+                  var timeFormat = DateFormat('a').format(timeStamp.toDate());
 
-                  var defrenceTime = DateTime(yearFormat, monthFormat,
-                          dayFormat, hourFormat, minuteFormat, secondsFormat)
+                  var defrenceTime = DateTime(
+                          yearFormat,
+                          monthFormat,
+                          dayFormat,
+                          timeFormat == 'AM' ? hourFormat : hourFormat + 12,
+                          minuteFormat,
+                          secondsFormat)
                       .difference(DateTime.now())
                       .inSeconds;
                   print('${defrenceTime} oooooooooooooooooo');
 
-                  var date = DateFormat('d/MM/y').format(time.toDate());
+                  var date = DateFormat('d/MM/y').format(timeStamp.toDate());
 
-                  var timing = DateFormat.jm().format(time.toDate());
+                  var timing = DateFormat.jm().format(timeStamp.toDate());
 
                   final webinar = WebinarCardDb(
                     topic: courseName,

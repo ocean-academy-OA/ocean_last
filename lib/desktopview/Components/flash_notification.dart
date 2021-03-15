@@ -93,12 +93,13 @@ class _FlashNotificationState extends State<FlashNotification> {
                       hourFormat = int.parse(hour.format(time.toDate()));
                       minuteFormat = int.parse(minute.format(time.toDate()));
                       secondsFormat = int.parse(seconds.format(time.toDate()));
+                      var timeFormat = DateFormat('a').format(time.toDate());
 
                       var defrenceTime = DateTime(
                               yearFormat,
                               monthFormat,
                               dayFormat,
-                              hourFormat,
+                              timeFormat == 'AM' ? hourFormat : hourFormat + 12,
                               minuteFormat,
                               secondsFormat)
                           .difference(DateTime.now())
@@ -200,7 +201,7 @@ class FlashDb extends StatefulWidget {
 }
 
 class _FlashDbState extends State<FlashDb> {
-  var remaingTime;
+  var remaingTime = 0;
   @override
   Widget build(BuildContext context) {
     return Row(
@@ -242,9 +243,15 @@ class _FlashDbState extends State<FlashDb> {
               hourFormat = int.parse(hour.format(timeStamp.toDate()));
               minuteFormat = int.parse(minute.format(timeStamp.toDate()));
               secondsFormat = int.parse(seconds.format(timeStamp.toDate()));
+              var timeFormat = DateFormat('a').format(timeStamp.toDate());
 
-              var defrenceTime = DateTime(yearFormat, monthFormat, dayFormat,
-                      hourFormat, minuteFormat, secondsFormat)
+              var defrenceTime = DateTime(
+                      yearFormat,
+                      monthFormat,
+                      dayFormat,
+                      timeFormat == 'AM' ? hourFormat : hourFormat + 12,
+                      minuteFormat,
+                      secondsFormat)
                   .difference(DateTime.now())
                   .inSeconds;
               print('${defrenceTime} testing timing');
@@ -263,7 +270,7 @@ class _FlashDbState extends State<FlashDb> {
                   shouldShowDays: true,
                   onDone: () {
                     setState(() {
-                      print(DateTime.now());
+                      remaingTime = 0;
                     });
                   },
                 );
@@ -313,6 +320,7 @@ class _FlashDbState extends State<FlashDb> {
               setState(() {
                 Navbar.isNotification = false;
               });
+
               Provider.of<Routing>(context, listen: false).updateRouting(
                   widget: widget.wbinarLive.isEmpty
                       ? SingleWebinarScreen(

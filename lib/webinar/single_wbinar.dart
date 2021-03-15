@@ -6,7 +6,11 @@ import 'package:flutter/services.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:intl/intl.dart';
 import 'package:ocean_project/desktopview/constants.dart';
+import 'package:ocean_project/desktopview/route/routing.dart';
+import 'package:ocean_project/desktopview/screen/menubar.dart';
+import 'package:ocean_project/webinar/join_successfully.dart';
 import 'package:ocean_project/webinar/webinar_const.dart';
+import 'package:provider/provider.dart';
 import 'package:slide_countdown_clock/slide_countdown_clock.dart';
 import 'package:http/http.dart' as http;
 import 'package:video_player/video_player.dart';
@@ -68,9 +72,15 @@ class _SingleWebinarScreenState extends State<SingleWebinarScreen> {
                       hourFormat = int.parse(hour.format(timestamp.toDate()));
                       minuteFormat =
                           int.parse(minute.format(timestamp.toDate()));
+                      var timeFormat =
+                          DateFormat('a').format(timestamp.toDate());
 
-                      sDate = DateTime(yearFormat, monthFormat, dayFormat,
-                              hourFormat, minuteFormat)
+                      sDate = DateTime(
+                              yearFormat,
+                              monthFormat,
+                              dayFormat,
+                              timeFormat == 'AM' ? hourFormat : hourFormat + 12,
+                              minuteFormat)
                           .difference(DateTime.now())
                           .inSeconds;
                       final topicSubtitle = a.data()['topic subtitle'];
@@ -108,7 +118,7 @@ class _SingleWebinarScreenState extends State<SingleWebinarScreen> {
                       final DBtrainerImage = a.data()['trainer image'];
                       final DBtrainerName = a.data()['trainer name'];
                       final DBpayment = a.data()['payment'];
-                      final DBstudentEnrolled = a.data()['student enrolled'];
+                      String DBstudentEnrolled = a.data()['student enrolled'];
                       final DBwebinarDuration = a.data()['webinar duration'];
                       final DBmentorImage = a.data()['mentor image'];
                       final DBaboutMentor = a.data()['about mentor'];
@@ -124,7 +134,7 @@ class _SingleWebinarScreenState extends State<SingleWebinarScreen> {
                             trainerName: DBtrainerName,
                             course: DBcourse,
                             payment: DBpayment,
-                            studentEnrolled: DBstudentEnrolled,
+                            studentEnrolled: int.parse(DBstudentEnrolled),
                             webinarDuration: DBwebinarDuration,
                             webinarTime: DBwbinarTime,
                             mentorImage: DBmentorImage,
@@ -145,7 +155,7 @@ class _SingleWebinarScreenState extends State<SingleWebinarScreen> {
                             trainerName: DBtrainerName,
                             course: DBcourse,
                             payment: DBpayment,
-                            studentEnrolled: DBstudentEnrolled,
+                            studentEnrolled: int.parse(DBstudentEnrolled),
                             webinarDuration: DBwebinarDuration,
                             webinarTime: DBwbinarTime,
                             mentorImage: DBmentorImage,
@@ -221,6 +231,7 @@ class _SingleWebinarDBState extends State<SingleWebinarDB> {
   final emailController = TextEditingController();
   final phoneNumberController = TextEditingController();
   bool isPlay = false;
+
   Widget _buildName() {
     return TextFormField(
       inputFormatters: <TextInputFormatter>[
@@ -331,6 +342,17 @@ class _SingleWebinarDBState extends State<SingleWebinarDB> {
         builder: (BuildContext context) {
           return AlertDialog(
             content: Text('hi'),
+            actions: [
+              TextButton(
+                child: Text('Join'),
+                onPressed: () {
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => JoinSuccessfully()));
+                },
+              ),
+            ],
           );
         });
   }
@@ -598,31 +620,55 @@ class _SingleWebinarDBState extends State<SingleWebinarDB> {
                               elevation: 0,
                               hoverElevation: 0,
                               onPressed: () async {
-                                showJoinDialog(context);
                                 if (_formKey.currentState.validate()) {
                                   if (widget.name != null &&
                                       widget.email != null &&
                                       widget.phoneNumber != null) {
-                                    _firestore
-                                        .collection('webinar Users')
-                                        .doc(widget.phoneNumber)
-                                        .set({
-                                      'name': widget.name,
-                                      'email': widget.email,
-                                      'Phone_Number': widget.phoneNumber,
-                                      'payment': widget.payment == 'free'
-                                          ? 'free'
-                                          : widget.payment
-                                    });
-                                    _firestore
-                                        .collection(widget.payment == 'free'
-                                            ? 'free_webinar'
-                                            : 'paid_webinar')
-                                        .doc(widget.course)
-                                        .update({
-                                      'student enrolled':
-                                          widget.studentEnrolled + 1
-                                    });
+                                    if (widget.payment == 'free') {
+                                      _firestore
+                                          .collection('webinar Users')
+                                          .doc(widget.phoneNumber)
+                                          .set({
+                                        'name': widget.name,
+                                        'email': widget.email,
+                                        'Phone_Number': widget.phoneNumber,
+                                        'payment': widget.payment == 'free'
+                                            ? 'free'
+                                            : widget.payment
+                                      });
+                                      _firestore
+                                          .collection('Webinar')
+                                          .doc(widget.course)
+                                          .update({
+                                        'student enrolled':
+                                            '${widget.studentEnrolled + 1}'
+                                      });
+                                      //
+                                      // Provider.of<MenuBar>(context,
+                                      //         listen: false)
+                                      //     .updateMenu(widget: Navbar());
+
+                                      Provider.of<MenuBar>(context,
+                                              listen: false)
+                                          .updateMenu(widget: NavbarRouting());
+                                      Provider.of<Routing>(context,
+                                              listen: false)
+                                          .updateRouting(
+                                              widget: JoinSuccessfully(
+                                                  joinUserName: widget.name));
+
+                                      Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                              builder: (context) =>
+                                                  JoinSuccessfully(
+                                                      joinUserName:
+                                                          widget.name)));
+                                    } else {
+                                      ///TODO payment Function
+                                      showJoinDialog(context);
+                                      print('pement function');
+                                    }
                                   }
                                   getData();
                                   nameController.clear();
