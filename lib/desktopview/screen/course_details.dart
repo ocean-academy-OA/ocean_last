@@ -15,6 +15,8 @@ import 'package:ocean_project/desktopview/screen/courses.dart';
 import 'package:provider/provider.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
+final _firestore = FirebaseFirestore.instance;
+
 class CourseDetails extends StatefulWidget {
   String course;
   String trainer;
@@ -73,7 +75,6 @@ class _CourseDetailsState extends State<CourseDetails> {
     studentId();
   }
 
-  final _firestore = FirebaseFirestore.instance;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -402,7 +403,7 @@ class _CourseDetailsState extends State<CourseDetails> {
                                 }
                               }
 
-                              print("${widget.course} jaya");
+                              //print("${widget.course} jaya");
                               return Column(
                                 children: courseImage,
                               );
@@ -415,6 +416,10 @@ class _CourseDetailsState extends State<CourseDetails> {
                 ),
               ),
             ),
+
+            // Consumer<CourseInfo>(builder: (context, routing, child) {
+            //   return routing.route;
+            // }),
           ],
         ),
       ),
@@ -422,7 +427,86 @@ class _CourseDetailsState extends State<CourseDetails> {
   }
 }
 
-//style: TextStyle(fontSize: 20.0),
+class VisibleProvider extends StatefulWidget {
+  @override
+  _VisibleProviderState createState() => _VisibleProviderState();
+}
+
+class _VisibleProviderState extends State<VisibleProvider> {
+  @override
+  Widget build(BuildContext context) {
+    return Visibility(
+      visible: OnlineCourse.visiblity,
+      child: Positioned(
+        top: 100,
+        right: 100.0,
+        child: Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Container(
+            height: 530.0,
+            width: 500.0,
+            decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(10.0),
+                color: Colors.white,
+                boxShadow: [
+                  BoxShadow(
+                    color: Colors.black.withOpacity(0.2),
+                    blurRadius: 30.0,
+                  ),
+                ]),
+            child: Column(
+              children: [
+                StreamBuilder<QuerySnapshot>(
+                  stream: _firestore.collection('course').snapshots(),
+                  // ignore: missing_return
+                  builder: (context, snapshot) {
+                    if (!snapshot.hasData) {
+                      return Text("Loading...");
+                    } else {
+                      final messages = snapshot.data.docs;
+                      List<VisibleWidget> courseImage = [];
+                      //List<String> subjects = [];
+                      for (var message in messages) {
+                        if (message.data()['coursename'] == "Java") {
+                          final courseRate = message.data()['rate'];
+                          final contentImage = message.data()['img'];
+                          final messageCourse = message.data()['coursename'];
+                          final courseBatchid = message.data()['batchid'];
+                          final imageContent1 = message.data()['time'];
+                          final imageContent2 = message.data()['date'];
+
+                          final imageContent3 = message.data()['duration'];
+
+                          final images = VisibleWidget(
+                            image: contentImage,
+                            collection1: imageContent1,
+                            collection2: imageContent2,
+                            collection3: imageContent3,
+                            rupees: courseRate,
+                            courseName: messageCourse,
+                            batchid: courseBatchid,
+                          );
+
+                          courseImage.add(images);
+                        }
+                      }
+
+                      //print("${widget.course} jaya");
+                      return Column(
+                        children: courseImage,
+                      );
+                    }
+                  },
+                ),
+              ],
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+}
+
 class CourseDescription extends StatelessWidget {
   String coursename;
   String trainername;
@@ -519,45 +603,10 @@ class VisibleWidget extends StatefulWidget {
 }
 
 class _VisibleWidgetState extends State<VisibleWidget> {
-  void _showDialog() {
-    // flutter defined function
-    showDialog(
-      context: context,
-      builder: (BuildContext context1) {
-        // return object of type Dialog
-        return AlertDialog(
-          title: Text("${widget.courseName}"),
-          content: Container(
-            ///atlast change height to 670
-            height: 750,
-            width: 400,
-            child: RazorPayWeb(
-              amount: widget.rupees,
-              courseImage: widget.image,
-              courseName: widget.courseName,
-              course: [widget.courseName],
-              batchid: [widget.batchid],
-            ),
-          ),
-          actions: <Widget>[
-            // usually buttons at the bottom of the dialog
-            new FlatButton(
-              child: new Text("Close"),
-              onPressed: () {
-                Navigator.of(context1).pop();
-                Provider.of<SyllabusView>(context, listen: false)
-                    .updateCourseSyllabus(routing: ThanksForPurchasing());
-              },
-            ),
-          ],
-        );
-      },
-    );
-  }
-
   FirebaseFirestore _firestore = FirebaseFirestore.instance;
 
   bool isLogin = false;
+  bool isCourse = true;
 
   @override
   Widget build(BuildContext context) {
