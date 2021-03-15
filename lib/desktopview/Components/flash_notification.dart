@@ -205,6 +205,7 @@ class FlashDb extends StatefulWidget {
 }
 
 class _FlashDbState extends State<FlashDb> {
+  var remaingTime;
   @override
   Widget build(BuildContext context) {
     return Row(
@@ -256,21 +257,36 @@ class _FlashDbState extends State<FlashDb> {
                       hourFormat, minuteFormat, secondsFormat)
                   .difference(DateTime.now())
                   .inSeconds;
-              print(defrenceTime);
-              return SlideCountdownClock(
-                duration: Duration(seconds: defrenceTime),
-                separator: ' : ',
-                textStyle: TextStyle(
-                    fontSize: 25, fontFamily: kfontname, color: Colors.white),
-                separatorTextStyle:
-                    TextStyle(fontSize: 20, color: Colors.white),
-                shouldShowDays: true,
-                onDone: () {
-                  setState(() {
-                    print(DateTime.now());
-                  });
-                },
-              );
+              print('${defrenceTime} testing timing');
+              remaingTime = defrenceTime > 0 ? defrenceTime : 0;
+              if (remaingTime != 0) {
+                return SlideCountdownClock(
+                  duration: Duration(seconds: remaingTime),
+                  separator: ' : ',
+                  textStyle: TextStyle(
+                      fontSize: 25, fontFamily: kfontname, color: Colors.white),
+                  separatorTextStyle: TextStyle(
+                      fontSize: 20,
+                      color: Colors.white,
+                      fontWeight: FontWeight.bold,
+                      fontFamily: 'Ubuntu'),
+                  shouldShowDays: true,
+                  onDone: () {
+                    setState(() {
+                      print(DateTime.now());
+                    });
+                  },
+                );
+              } else {
+                return Container(
+                  // color: Colors.black,
+                  padding: EdgeInsets.symmetric(horizontal: 15),
+                  child: Text(
+                    'live Streaming Started',
+                    style: TextStyle(fontSize: 25, color: Colors.white),
+                  ),
+                );
+              }
             }
           },
         ),
@@ -294,9 +310,9 @@ class _FlashDbState extends State<FlashDb> {
           padding: const EdgeInsets.all(15.0),
           child: FlatButton(
             child: Text(
-              "Join",
+              remaingTime != 0 ? 'Join' : 'Join Live',
               style: TextStyle(
-                  color: Colors.blue,
+                  color: remaingTime != 0 ? Colors.blue : Colors.red,
                   fontWeight: FontWeight.bold,
                   letterSpacing: 2,
                   fontFamily: kfontname),

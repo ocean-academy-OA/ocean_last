@@ -337,6 +337,7 @@ class _SingleWebinarDBState extends State<SingleWebinarDB> {
 
   @override
   void initState() {
+    print('${widget.webinarTime} jjjjjjjjjjjjjjjjjjj');
     // TODO: implement initState
     super.initState();
     widget._videoController =
