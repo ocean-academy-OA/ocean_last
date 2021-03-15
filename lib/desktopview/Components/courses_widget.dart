@@ -42,11 +42,7 @@ class _CoursesWidgetState extends State<CoursesWidget> {
                 // ignore: missing_return
                 builder: (context, snapshot) {
                   if (!snapshot.hasData) {
-                    return Center(
-                      child: LinearProgressIndicator(
-                        backgroundColor: Colors.blue,
-                      ),
-                    );
+                    return Text("Loading...");
                   } else {
                     final messages = snapshot.data.docs;
 
@@ -83,11 +79,7 @@ class _CoursesWidgetState extends State<CoursesWidget> {
                 // ignore: missing_return
                 builder: (context, snapshot) {
                   if (!snapshot.hasData) {
-                    return Center(
-                      child: LinearProgressIndicator(
-                        backgroundColor: Colors.blue,
-                      ),
-                    );
+                    return Text("Loading...");
                   } else {
                     final messages = snapshot.data.docs;
 

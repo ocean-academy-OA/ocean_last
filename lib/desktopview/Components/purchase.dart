@@ -127,11 +127,7 @@ class Purchase extends StatelessWidget {
               // ignore: missing_return
               builder: (context, snapshot) {
                 if (!snapshot.hasData) {
-                  return Center(
-                    child: LinearProgressIndicator(
-                      backgroundColor: Colors.blue,
-                    ),
-                  );
+                  return Text("Loading...");
                 } else {
                   final messages = snapshot.data.docs;
                   List<Purchasedatabase> data = [];
