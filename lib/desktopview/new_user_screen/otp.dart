@@ -87,12 +87,12 @@ class _OTPState extends State<OTP> {
             .updateMenu(widget: AppBarWidget());
         Provider.of<Routing>(context, listen: false)
             .updateRouting(widget: CoursesView());
+        session();
 
         print('Otp.................got');
 
         //CoursesView() insted of Home,
 
-        session();
       } else {
         Provider.of<Routing>(context, listen: false)
             .updateRouting(widget: Registration());
