@@ -73,7 +73,10 @@ class _RegistrationState extends State<Registration> {
   session() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     await prefs.setInt('login', 1);
+    await prefs.setString('user', LogIn.registerNumber);
+    print("${MenuBar.stayUser}MenuBar.stayUser");
     print('Otp Submited');
+    print("${MenuBar.stayUser}LogIn.registerNumber");
   }
 
   Uint8List uploadFile;
@@ -200,42 +203,12 @@ class _RegistrationState extends State<Registration> {
                               uploadFile = result.files.single.bytes;
                               fileName = basename(result.files.single.name);
                               print(fileName);
+                              uploadProfilePicture(context);
                             } else {
                               print('pick image');
                             }
                             // Upload to  firebase Storage
-                            Future uploadProfilePicture(
-                                BuildContext context) async {
-                              Reference firebaseStorageRef = FirebaseStorage
-                                  .instance
-                                  .ref()
-                                  .child(fileName);
-                              UploadTask uploadTask =
-                                  firebaseStorageRef.putData(uploadFile);
-                              // SnakBar Message
-                              TaskSnapshot taskSnapShot =
-                                  await uploadTask.whenComplete(() {
-                                setState(() {
-                                  print('Profile Picuter Upload Complete');
-                                  ScaffoldMessenger.of(context).showSnackBar(
-                                      SnackBar(
-                                          content: Text(
-                                              'Profile picture Uploaded')));
-                                  // get Link
-                                  uploadTask.snapshot.ref
-                                      .getDownloadURL()
-                                      .then((value) {
-                                    setState(() {
-                                      profilePictureLink = value;
-                                    });
-                                  });
-                                });
-                              });
-                            }
-
-                            print(profilePictureLink);
-                            uploadProfilePicture(
-                                context); // call upload function
+                            // call upload function
                           },
                           child: CircleAvatar(
                             child: ClipRRect(
@@ -403,16 +376,21 @@ class _RegistrationState extends State<Registration> {
                           color: Color(0xff014965),
                           shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(5.0)),
-                          onPressed: () {
+                          onPressed: () async {
                             if (registerFormValidation() == true) {
                               print('Completed');
-                              fireStoreAdd();
+
+                              await fireStoreAdd();
                               textFieldClear();
                               session();
+                              print("${profilePictureLink}jaya");
                               Provider.of<Routing>(context, listen: false)
                                   .updateRouting(widget: CoursesView());
                               Provider.of<MenuBar>(context, listen: false)
-                                  .updateMenu(widget: AppBarWidget());
+                                  .updateMenu(
+                                      widget: AppBarWidget(
+                                userProfile: profilePictureLink,
+                              ));
                             } else {
                               Provider.of<Routing>(context, listen: false)
                                   .updateRouting(widget: Registration());
@@ -432,6 +410,27 @@ class _RegistrationState extends State<Registration> {
         ),
       ],
     ));
+  }
+
+  Future uploadProfilePicture(BuildContext context) async {
+    Reference firebaseStorageRef =
+        FirebaseStorage.instance.ref().child(fileName);
+    UploadTask uploadTask = firebaseStorageRef.putData(uploadFile);
+    // SnakBar Message
+    TaskSnapshot taskSnapShot = await uploadTask.whenComplete(() {
+      setState(() {
+        print('Profile Picuter Upload Complete');
+        ScaffoldMessenger.of(context)
+            .showSnackBar(SnackBar(content: Text('Profile picture Uploaded')));
+        // get Link
+        uploadTask.snapshot.ref.getDownloadURL().then((value) {
+          setState(() {
+            profilePictureLink = value;
+          });
+          print("${profilePictureLink}profilePictureLink1111111111111");
+        });
+      });
+    });
   }
 
   void fireStoreAdd() {

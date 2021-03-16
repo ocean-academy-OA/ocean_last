@@ -39,15 +39,6 @@ class _ScreenTypeLayoutState extends State<ScreenTypeLayout> {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     username = (prefs.getString('user') ?? null);
     print("${username}mainpage name");
-    // Provider.of<Routing>(context, listen: false)
-    //     .updateRouting(widget: username != null?CoursesView(
-    //   userID: username,
-    // ):Home());
-    // Provider.of<MenuBar>(context, listen: false)
-    //     .updateMenu(widget: username != null?AppBarWidget(
-    // ):NavbarRouting());
-    // customWidget = username != null?
-
     route = username != null
         ? Column(
             children: [

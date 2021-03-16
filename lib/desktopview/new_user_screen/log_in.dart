@@ -34,6 +34,7 @@ class _LogInState extends State<LogIn> {
   getOTP() async {
     LogIn.confirmationResult = await auth.signInWithPhoneNumber(
         '${countryCode.toString()} ${_phoneNumberController.text}');
+    print("${LogIn.confirmationResult}LogIn.confirmationResult");
   }
 
   session() async {
@@ -238,16 +239,12 @@ class _LogInState extends State<LogIn> {
                                           //getData();
 
                                           ///todo remove the hide get otp
-                                          session();
+                                          //session();
                                           getOTP();
 
                                           Provider.of<Routing>(context,
                                                   listen: false)
                                               .updateRouting(widget: OTP());
-                                          // Provider.of<MenuBar>(context,
-                                          //         listen: false)
-                                          //     .updateMenu(
-                                          //         widget: NavbarRouting());
                                         } else {
                                           isNumValid = true;
                                         }
