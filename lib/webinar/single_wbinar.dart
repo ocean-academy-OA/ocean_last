@@ -202,10 +202,11 @@ class SingleWebinarDB extends StatefulWidget {
       this.webinarVideo});
   String name;
   String phoneNumber;
+  String email;
   int studentEnrolled;
   String course;
   String webinarDuration;
-  String email;
+
   String payment;
   List<Widget> allTopics;
   String aboutMentor;
@@ -627,11 +628,12 @@ class _SingleWebinarDBState extends State<SingleWebinarDB> {
                                     if (widget.payment == 'free') {
                                       _firestore
                                           .collection('webinar Users')
-                                          .doc(widget.phoneNumber)
+                                          .doc('+91 ${widget.phoneNumber}')
                                           .set({
                                         'name': widget.name,
                                         'email': widget.email,
-                                        'Phone_Number': widget.phoneNumber,
+                                        'Phone_Number':
+                                            '+91 ${widget.phoneNumber}',
                                         'payment': widget.payment == 'free'
                                             ? 'free'
                                             : widget.payment
@@ -643,34 +645,22 @@ class _SingleWebinarDBState extends State<SingleWebinarDB> {
                                         'student enrolled':
                                             '${widget.studentEnrolled + 1}'
                                       });
-                                      //
-                                      // Provider.of<MenuBar>(context,
-                                      //         listen: false)
-                                      //     .updateMenu(widget: Navbar());
 
                                       Provider.of<MenuBar>(context,
                                               listen: false)
-                                          .updateMenu(widget: NavbarRouting());
+                                          .updateMenu(widget: SizedBox());
                                       Provider.of<Routing>(context,
                                               listen: false)
                                           .updateRouting(
                                               widget: JoinSuccessfully(
                                                   joinUserName: widget.name));
-
-                                      Navigator.push(
-                                          context,
-                                          MaterialPageRoute(
-                                              builder: (context) =>
-                                                  JoinSuccessfully(
-                                                      joinUserName:
-                                                          widget.name)));
                                     } else {
                                       ///TODO payment Function
                                       showJoinDialog(context);
                                       print('pement function');
                                     }
                                   }
-                                  getData();
+                                  // getData();
                                   nameController.clear();
                                   emailController.clear();
                                   phoneNumberController.clear();

@@ -326,7 +326,10 @@ class _FlashDbState extends State<FlashDb> {
                       ? SingleWebinarScreen(
                           topic: widget.content,
                         )
-                      : LiveWebinar());
+                      : LiveWebinar(
+                          course: widget.content,
+                          payment: widget.payment,
+                        ));
               Provider.of<MenuBar>(context, listen: false)
                   .updateMenu(widget: WebinarMenu());
             },

@@ -135,10 +135,10 @@ class _JoinSuccessfullyState extends State<JoinSuccessfully> {
                         ),
                         color: Colors.white,
                         onPressed: () {
+                          Provider.of<MenuBar>(context, listen: false)
+                              .updateMenu(widget: NavbarRouting());
                           Provider.of<Routing>(context, listen: false)
                               .updateRouting(widget: Home());
-                          Provider.of<OALive>(context, listen: false)
-                              .updateOA(routing: NavbarRouting());
                         },
                       )
                     ],
