@@ -2,6 +2,8 @@ import 'dart:async';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:video_player/video_player.dart';
 
 class VideoPlayerScreen extends StatefulWidget {
@@ -92,6 +94,7 @@ class _VideoPlayerScreenState extends State<VideoPlayerScreen> {
                 onEnter: onenter,
                 onExit: onout,
                 child: Stack(
+                  overflow: Overflow.visible,
                   alignment: Alignment.center,
                   children: [
                     AspectRatio(
@@ -148,7 +151,9 @@ class _VideoPlayerScreenState extends State<VideoPlayerScreen> {
             } else {
               // If the VideoPlayerController is still initializing, show a
               // loading spinner.
-              return LinearProgressIndicator();
+              return LinearProgressIndicator(
+                valueColor: AlwaysStoppedAnimation<Color>(Colors.white),
+              );
             }
           },
         ),
