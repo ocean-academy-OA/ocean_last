@@ -126,86 +126,97 @@ class _LiveWebinarState extends State<LiveWebinar> {
     return Column(
       children: [
         Text(
-          '${widget.course} ${widget.payment}',
-          style: TextStyle(fontSize: 100),
+          '${widget.course.toUpperCase()} ${widget.payment.toUpperCase()}',
+          style: TextStyle(fontSize: 50),
         ),
-        Form(
-          key: _formKey,
-          child: Container(
-            height: 240,
-            padding: EdgeInsets.symmetric(horizontal: 20),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                _buildName(),
-                _buildphonenumber(),
-                _buildEmail(),
-              ],
-            ),
-          ),
+        SizedBox(
+          height: 30,
         ),
         Container(
-          margin: EdgeInsets.only(top: 0),
-          child: MaterialButton(
-              child: Text(
-                'Join',
-                style: TextStyle(
-                    fontSize: 20,
-                    color: Colors.white,
-                    fontWeight: FontWeight.bold),
+          width: 500,
+          child: Column(
+            children: [
+              Form(
+                key: _formKey,
+                child: Container(
+                  height: 240,
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      _buildName(),
+                      _buildphonenumber(),
+                      _buildEmail(),
+                    ],
+                  ),
+                ),
               ),
-              color: kBlue,
-              minWidth: double.infinity,
-              height: 60,
-              elevation: 0,
-              hoverElevation: 0,
-              onPressed: () async {
-                if (_formKey.currentState.validate()) {
-                  if (widget.name != null &&
-                      widget.email != null &&
-                      widget.phoneNumber != null) {
-                    if (widget.payment == 'free') {
-                      print(' dddddddd   ${widget.studentEnrolled}');
-                      var studentEnrolled = await _firestore
-                          .collection('Webinar')
-                          .doc(widget.course)
-                          .get();
-                      int sudentEndrolld =
-                          int.parse(studentEnrolled.data()['student enrolled']);
-                      await _firestore
-                          .collection('webinar Users')
-                          .doc('+91 ${widget.phoneNumber}')
-                          .set({
-                        'name': widget.name,
-                        'email': widget.email,
-                        'Phone_Number': '+91 ${widget.phoneNumber}',
-                        'payment':
-                            widget.payment == 'free' ? 'free' : widget.payment
-                      });
+              Container(
+                margin: EdgeInsets.only(top: 40),
+                child: MaterialButton(
+                    child: Text(
+                      'Join Live Now',
+                      style: TextStyle(
+                          fontSize: 20,
+                          color: Colors.white,
+                          fontWeight: FontWeight.bold),
+                    ),
+                    color: kBlue,
+                    minWidth: double.infinity,
+                    height: 60,
+                    elevation: 0,
+                    hoverElevation: 0,
+                    onPressed: () async {
+                      if (_formKey.currentState.validate()) {
+                        if (widget.name != null &&
+                            widget.email != null &&
+                            widget.phoneNumber != null) {
+                          if (widget.payment == 'free') {
+                            print(' dddddddd   ${widget.studentEnrolled}');
+                            var studentEnrolled = await _firestore
+                                .collection('Webinar')
+                                .doc(widget.course)
+                                .get();
+                            int sudentEndrolld = int.parse(
+                                studentEnrolled.data()['student enrolled']);
+                            await _firestore
+                                .collection('webinar Users')
+                                .doc('+91 ${widget.phoneNumber}')
+                                .set({
+                              'name': widget.name,
+                              'email': widget.email,
+                              'Phone_Number': '+91 ${widget.phoneNumber}',
+                              'payment': widget.payment == 'free'
+                                  ? 'free'
+                                  : widget.payment
+                            });
 
-                      _firestore
-                          .collection('Webinar')
-                          .doc('${widget.course}')
-                          .update(
-                              {'student enrolled': '${sudentEndrolld + 1}'});
-                      Provider.of<MenuBar>(context, listen: false)
-                          .updateMenu(widget: SizedBox());
-                      Provider.of<Routing>(context, listen: false)
-                          .updateRouting(
-                              widget:
-                                  JoinSuccessfully(joinUserName: widget.name));
-                    } else {
-                      ///TODO payment Function
-                      showJoinDialog(context);
-                      print('pement function');
-                    }
-                  }
-                  // getData();
-                  // nameController.clear();
-                  // emailController.clear();
-                  // phoneNumberController.clear();
-                }
-              }),
+                            _firestore
+                                .collection('Webinar')
+                                .doc('${widget.course}')
+                                .update({
+                              'student enrolled': '${sudentEndrolld + 1}'
+                            });
+                            Provider.of<MenuBar>(context, listen: false)
+                                .updateMenu(widget: SizedBox());
+                            Provider.of<Routing>(context, listen: false)
+                                .updateRouting(
+                                    widget: JoinSuccessfully(
+                                        joinUserName: widget.name));
+                          } else {
+                            ///TODO payment Function
+                            showJoinDialog(context);
+                            print('pement function');
+                          }
+                        }
+                        // getData();
+                        nameController.clear();
+                        emailController.clear();
+                        phoneNumberController.clear();
+                      }
+                    }),
+              ),
+            ],
+          ),
         ),
       ],
     );
