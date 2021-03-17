@@ -112,9 +112,10 @@ class _CourseDetailsState extends State<CourseDetails> {
                                   setState(() {
                                     isLogin = true;
                                   });
-                                  Provider.of<Routing>(context, listen: false)
-                                      .updateRouting(
-                                    widget: CoursesView(),
+                                  Provider.of<SyllabusView>(context,
+                                          listen: false)
+                                      .updateCourseSyllabus(
+                                    routing: MyCourse(),
                                   );
                                 } else {
                                   Provider.of<Routing>(context, listen: false)
