@@ -33,7 +33,6 @@ class _AppBarWidgetState extends State<AppBarWidget> {
     await prefs.setString('user', MenuBar.stayUser);
     print("${MenuBar.stayUser}dddddddddddddddddddddddddddddddddddddd");
     MenuBar.stayUser = LogIn.registerNumber;
-    print('Otp Submited');
 
     //getProfilePicture();
   }

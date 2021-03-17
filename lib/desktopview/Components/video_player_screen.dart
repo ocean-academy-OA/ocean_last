@@ -94,7 +94,6 @@ class _VideoPlayerScreenState extends State<VideoPlayerScreen> {
                 onEnter: onenter,
                 onExit: onout,
                 child: Stack(
-                  overflow: Overflow.visible,
                   alignment: Alignment.center,
                   children: [
                     AspectRatio(
