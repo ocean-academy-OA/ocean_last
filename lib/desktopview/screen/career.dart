@@ -8,13 +8,17 @@ class Career extends StatefulWidget {
 class _CareerState extends State<Career> {
   @override
   Widget build(BuildContext context) {
-    return Center(
-      child: Container(
-        child: Text(
-          'Coming soon',
-          style: TextStyle(fontSize: 60),
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.spaceAround,
+      children: [
+        Container(
+          child: Text(
+            'Coming soon',
+            style: TextStyle(fontSize: 60),
+          ),
         ),
-      ),
+        Image.network('https://ohcguide.com/assets/comingsoon.svg'),
+      ],
     );
   }
 }
