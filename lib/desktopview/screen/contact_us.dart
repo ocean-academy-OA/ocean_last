@@ -14,7 +14,6 @@ import 'package:ocean_project/desktopview/constants.dart';
 import 'package:ocean_project/text.dart';
 import 'package:progress_indicator_button/progress_button.dart';
 import 'package:ocean_project/desktopview/screen/footer.dart';
-import 'package:cool_alert/cool_alert.dart';
 
 final _firestore = FirebaseFirestore.instance;
 
@@ -196,6 +195,7 @@ class _ContactUsState extends State<ContactUs> {
       opacity: 0.1,
       inAsyncCall: showSpinner,
       child: SingleChildScrollView(
+        scrollDirection: Axis.vertical,
         child: Column(
           children: [
             TopNavigationBar(title: 'Contact Us'),
@@ -499,6 +499,25 @@ class _ContactUsState extends State<ContactUs> {
                                         email != null &&
                                         query != null &&
                                         phoneNumber != null) {
+                                      // ScaffoldMessenger.of(context)
+                                      //     .showSnackBar(
+                                      //   SnackBar(
+                                      //     content: Row(
+                                      //       children: [
+                                      //         Icon(
+                                      //           Icons.thumb_up_alt_outlined,
+                                      //           color: Colors.white,
+                                      //         ),
+                                      //         SizedBox(width: 20),
+                                      //         Text(
+                                      //           'Sending Please Wait Few Seconds',
+                                      //           style: TextStyle(
+                                      //               color: Colors.white),
+                                      //         )
+                                      //       ],
+                                      //     ),
+                                      //   ),
+                                      // );
                                       await _firestore
                                           .collection('contact_us')
                                           .add({
@@ -508,7 +527,7 @@ class _ContactUsState extends State<ContactUs> {
                                         'Query': query,
                                         'Phone_Number': phoneNumber
                                       });
-                                      getData();
+                                      // getData();
                                       print("${date} < Date Time >");
                                       if (enquiry.isNotEmpty) {
                                         setState(() {
@@ -519,25 +538,7 @@ class _ContactUsState extends State<ContactUs> {
                                       emailController.clear();
                                       queryController.clear();
                                       phoneNumberController.clear();
-                                      ScaffoldMessenger.of(context)
-                                          .showSnackBar(
-                                        SnackBar(
-                                          content: Row(
-                                            children: [
-                                              Icon(
-                                                Icons.thumb_up_alt_outlined,
-                                                color: Colors.white,
-                                              ),
-                                              SizedBox(width: 20),
-                                              Text(
-                                                'Sending Please Wait Few Seconds',
-                                                style: TextStyle(
-                                                    color: Colors.white),
-                                              )
-                                            ],
-                                          ),
-                                        ),
-                                      );
+
                                       if (controller.isCompleted) {
                                         setState(() {
                                           controller.reverse();

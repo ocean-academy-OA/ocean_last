@@ -20,17 +20,20 @@ class Purchase extends StatelessWidget {
             Row(
               children: [
                 SizedBox(width: 5),
-                IconButton(
-                  icon: Icon(
-                    Icons.chevron_left,
+                Tooltip(
+                  message: 'Go back',
+                  child: IconButton(
+                    icon: Icon(
+                      Icons.chevron_left,
+                    ),
+                    color: Colors.blue,
+                    iconSize: 50,
+                    splashRadius: 30,
+                    onPressed: () {
+                      Provider.of<Routing>(context, listen: false)
+                          .updateRouting(widget: CoursesView());
+                    },
                   ),
-                  color: Colors.blue,
-                  iconSize: 50,
-                  splashRadius: 30,
-                  onPressed: () {
-                    Provider.of<Routing>(context, listen: false)
-                        .updateRouting(widget: CoursesView());
-                  },
                 ),
                 Text(
                   'Purchases',
@@ -41,121 +44,126 @@ class Purchase extends StatelessWidget {
                 ),
               ],
             ),
-            SizedBox(height: 15),
-            Container(
-              width: 1565,
-              child: Divider(
-                thickness: 0.1,
-                color: Colors.black26,
-              ),
-            ),
-            Container(
-              height: 40,
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            SizedBox(height: 20),
+            Padding(
+              padding: EdgeInsets.symmetric(horizontal: 150),
+              child: Column(
                 children: [
                   Container(
-                    alignment: Alignment.center,
-                    width: 110,
-                    child: Text(
-                      'Thumbnail',
-                      style:
-                          TextStyle(fontWeight: FontWeight.bold, fontSize: 15),
+                    child: Divider(
+                      thickness: 0.1,
+                      color: Colors.black26,
                     ),
                   ),
                   Container(
-                    alignment: Alignment.center,
-                    width: 170,
-                    child: Text(
-                      'Course Name',
-                      style:
-                          TextStyle(fontWeight: FontWeight.bold, fontSize: 15),
+                    height: 40,
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Container(
+                          alignment: Alignment.center,
+                          width: 110,
+                          child: Text(
+                            'Thumbnail',
+                            style: TextStyle(
+                                fontWeight: FontWeight.bold, fontSize: 15),
+                          ),
+                        ),
+                        Container(
+                          alignment: Alignment.center,
+                          width: 170,
+                          child: Text(
+                            'Course Name',
+                            style: TextStyle(
+                                fontWeight: FontWeight.bold, fontSize: 15),
+                          ),
+                        ),
+                        Container(
+                          alignment: Alignment.center,
+                          width: 120,
+                          child: Text(
+                            'Purchased Date',
+                            style: TextStyle(
+                                fontWeight: FontWeight.bold, fontSize: 15),
+                          ),
+                        ),
+                        Container(
+                          alignment: Alignment.center,
+                          width: 120,
+                          child: Text(
+                            'Total Amount',
+                            style: TextStyle(
+                                fontWeight: FontWeight.bold, fontSize: 15),
+                          ),
+                        ),
+                        Container(
+                          alignment: Alignment.center,
+                          width: 120,
+                          child: Text(
+                            'Paid Via',
+                            style: TextStyle(
+                                fontWeight: FontWeight.bold, fontSize: 15),
+                          ),
+                        ),
+                        Container(
+                          alignment: Alignment.center,
+                          width: 120,
+                          child: Text(
+                            'Status',
+                            style: TextStyle(
+                                fontWeight: FontWeight.bold, fontSize: 15),
+                          ),
+                        ),
+                      ],
                     ),
                   ),
                   Container(
-                    alignment: Alignment.center,
-                    width: 120,
-                    child: Text(
-                      'Purchased Date',
-                      style:
-                          TextStyle(fontWeight: FontWeight.bold, fontSize: 15),
+                    child: Divider(
+                      thickness: 0.1,
+                      color: Colors.black26,
                     ),
                   ),
-                  Container(
-                    alignment: Alignment.center,
-                    width: 120,
-                    child: Text(
-                      'Total Amount',
-                      style:
-                          TextStyle(fontWeight: FontWeight.bold, fontSize: 15),
-                    ),
-                  ),
-                  Container(
-                    alignment: Alignment.center,
-                    width: 120,
-                    child: Text(
-                      'Paid Via',
-                      style:
-                          TextStyle(fontWeight: FontWeight.bold, fontSize: 15),
-                    ),
-                  ),
-                  Container(
-                    alignment: Alignment.center,
-                    width: 120,
-                    child: Text(
-                      'Status',
-                      style:
-                          TextStyle(fontWeight: FontWeight.bold, fontSize: 15),
-                    ),
+                  StreamBuilder<QuerySnapshot>(
+                    stream: _firestore
+                        .collection('new users')
+                        .doc(LogIn.registerNumber)
+                        .collection("payment")
+                        .snapshots(),
+                    // ignore: missing_return
+                    builder: (context, snapshot) {
+                      if (!snapshot.hasData) {
+                        return Text("Loading...");
+                      } else {
+                        final messages = snapshot.data.docs;
+                        List<Purchasedatabase> data = [];
+
+                        for (var message in messages) {
+                          final course = message.data()['coursename'];
+                          final dbpaidvia = message.data()['paid_via'];
+                          final dbpurchaseddate = message.data()['date'];
+                          final dbtotalamount = message.data()['amount'];
+                          final dbstatus = message.data()['status'];
+                          final dbthumbnail = message.data()['image'];
+                          final sample = Purchasedatabase(
+                            course: course,
+                            paidvia: dbpaidvia,
+                            purchaseddate: dbpurchaseddate,
+                            totalamount: dbtotalamount,
+                            status: dbstatus,
+                            thumbnail: dbthumbnail,
+                          );
+                          // Text('$messageText from $messageSender');
+                          data.add(sample);
+                          print(data);
+                        }
+                        return Column(
+                          children: data,
+                        );
+                      }
+                    },
                   ),
                 ],
               ),
-            ),
-            Container(
-              width: 1565,
-              child: Divider(
-                thickness: 0.1,
-                color: Colors.black26,
-              ),
-            ),
-            StreamBuilder<QuerySnapshot>(
-              stream: _firestore
-                  .collection('new users')
-                  .doc(LogIn.registerNumber)
-                  .collection("payment")
-                  .snapshots(),
-              // ignore: missing_return
-              builder: (context, snapshot) {
-                if (!snapshot.hasData) {
-                  return Text("Loading...");
-                } else {
-                  final messages = snapshot.data.docs;
-                  List<Purchasedatabase> data = [];
-
-                  for (var message in messages) {
-                    final course = message.data()['coursename'];
-                    final dbpaidvia = message.data()['paid_via'];
-                    final dbpurchaseddate = message.data()['date'];
-                    final dbtotalamount = message.data()['amount'];
-                    final dbstatus = message.data()['status'];
-                    final dbthumbnail = message.data()['image'];
-                    final sample = Purchasedatabase(
-                      course: course,
-                      paidvia: dbpaidvia,
-                      purchaseddate: dbpurchaseddate,
-                      totalamount: dbtotalamount,
-                      status: dbstatus,
-                      thumbnail: dbthumbnail,
-                    );
-                    // Text('$messageText from $messageSender');
-                    data.add(sample);
-                    print(data);
-                  }
-                  return Column(
-                    children: data,
-                  );
-                }
-              },
             ),
           ],
         ),
@@ -184,7 +192,7 @@ class Purchasedatabase extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(children: [
       Row(
-        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           Container(
             alignment: Alignment.center,
@@ -212,11 +220,7 @@ class Purchasedatabase extends StatelessWidget {
         ],
       ),
       Container(
-        // padding: EdgeInsets.only(left: 70, right: 50),
-        width: double.infinity,
         child: Divider(
-          indent: 130,
-          endIndent: 130,
           thickness: 0.1,
           color: Colors.black26,
         ),
