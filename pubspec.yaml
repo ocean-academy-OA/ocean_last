@@ -120,6 +120,7 @@ flutter:
     - images/
     - images/contactus_alert/
     - images/webinar/
+    - images/coming_soon/
 
 
   # To add assets to your application, add an assets section, like this:
