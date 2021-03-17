@@ -317,24 +317,29 @@ class ProfilePictureDb extends StatefulWidget {
 class _ProfilePictureDbState extends State<ProfilePictureDb> {
   @override
   Widget build(BuildContext context) {
-    return MaterialButton(
-      padding: EdgeInsets.all(10.0),
-      minWidth: 10.0,
-      hoverColor: Colors.white10,
-      shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.all(Radius.circular(600.0))),
-      onPressed: widget.onpress,
-      child: widget.profilePicture != null
-          ? ClipRRect(
-              borderRadius: BorderRadius.circular(100.0),
-              child: Image.network(widget.profilePicture,
-                  height: 60, width: 60, fit: BoxFit.cover),
-            )
-          : Icon(
-              FontAwesomeIcons.solidUserCircle,
-              size: 60,
-              color: Colors.white,
-            ),
+    return Tooltip(
+      verticalOffset: 25,
+      margin: EdgeInsets.only(left: 100),
+      message: "Click here",
+      child: MaterialButton(
+        padding: EdgeInsets.all(10.0),
+        minWidth: 10.0,
+        hoverColor: Colors.white10,
+        shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.all(Radius.circular(600.0))),
+        onPressed: widget.onpress,
+        child: widget.profilePicture != null
+            ? ClipRRect(
+                borderRadius: BorderRadius.circular(100.0),
+                child: Image.network(widget.profilePicture,
+                    height: 60, width: 60, fit: BoxFit.cover),
+              )
+            : Icon(
+                FontAwesomeIcons.solidUserCircle,
+                size: 60,
+                color: Colors.white,
+              ),
+      ),
     );
   }
 }
