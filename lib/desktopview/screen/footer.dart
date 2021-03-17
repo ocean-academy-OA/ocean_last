@@ -44,8 +44,7 @@ subscribeDialog(context) {
               SizedBox(
                 height: 20,
               ),
-              Image.network(
-                  'https://tetranoodle.com/wp-content/uploads/2018/07/tick-gif.gif'),
+              Image.asset('images/tick-gif.gif'),
             ],
           ),
         ),
@@ -77,8 +76,7 @@ subscribeFaildDialog(context) {
                 'Check your Email',
                 style: TextStyle(fontSize: 25, color: Colors.grey),
               ),
-              Image.network(
-                  'https://www.peppynite.com/templates/worlddealer/assets/img/wrong-symbol.gif'),
+              Image.asset('images/wrong-symbol.gif'),
             ],
           ),
         ),

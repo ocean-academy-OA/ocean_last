@@ -7,14 +7,6 @@ import 'package:flutter/material.dart';
 
 import 'package:ocean_project/alert/alert_text_field.dart';
 
-void main() {
-  runApp(MaterialApp(
-    home: Scaffold(
-      body: DownloadPDFAlert(),
-    ),
-  ));
-}
-
 final _firestore = FirebaseFirestore.instance;
 
 class DownloadPDFAlert extends StatefulWidget {
@@ -447,55 +439,5 @@ class _DownloadPDFAlertState extends State<DownloadPDFAlert> {
         ),
       ),
     );
-    //   Center(
-    //     child: Column(
-    //   children: [
-    //     Container(
-    //       height: 50,
-    //       width: 300,
-    //       child: TextButton(
-    //         child: Text('Download'),
-    //         onPressed: () async {
-    //           await downloadAlert(context: context, widget: getUserDetails());
-    //
-    //           // await _downloadAlert(
-    //           //     context: context, widget: );
-    //         },
-    //       ),
-    //     ),
-    //     StreamBuilder(
-    //       stream: _firestore.collection('download pdf').snapshots(),
-    //       builder: (context, snapshots) {
-    //         if (!snapshots.hasData) {
-    //           return Text('Waiting for data');
-    //         } else {
-    //           List<Widget> content = [];
-    //           final userData = snapshots.data.docs;
-    //           print(userData);
-    //           for (var particularUser in userData) {
-    //             final DBuserName = particularUser.data()['name'];
-    //             final DBUserNumber = particularUser.data()['mobile number'];
-    //             final DBUserEmail = particularUser.data()['email'];
-    //             Container singleUser = Container(
-    //               color: Colors.red,
-    //               height: 100,
-    //               width: 300,
-    //               margin: EdgeInsets.all(20),
-    //               child: Column(
-    //                 children: [
-    //                   Text(DBuserName),
-    //                   Text(DBUserNumber),
-    //                   Text(DBUserEmail),
-    //                 ],
-    //               ),
-    //             );
-    //             content.add(singleUser);
-    //           }
-    //           return Column(children: content);
-    //         }
-    //       },
-    //     )
-    //   ],
-    // ));
   }
 }
