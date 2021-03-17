@@ -123,100 +123,118 @@ class _LiveWebinarState extends State<LiveWebinar> {
   @override
   Widget build(BuildContext context) {
     GlobalKey<FormState> _formKey = GlobalKey<FormState>();
-    return Column(
+    return Row(
       children: [
-        Text(
-          '${widget.course.toUpperCase()} ${widget.payment.toUpperCase()}',
-          style: TextStyle(fontSize: 50),
+        Column(
+          children: [
+            Spacer(),
+            Image.network('images/webinar/wbinar live.svg'),
+            Spacer(),
+          ],
         ),
         SizedBox(
-          height: 30,
+          width: 100,
         ),
-        Container(
-          width: 500,
-          child: Column(
-            children: [
-              Form(
-                key: _formKey,
-                child: Container(
-                  height: 240,
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      _buildName(),
-                      _buildphonenumber(),
-                      _buildEmail(),
-                    ],
-                  ),
-                ),
-              ),
-              Container(
-                margin: EdgeInsets.only(top: 40),
-                child: MaterialButton(
-                    child: Text(
-                      'Join Live Now',
-                      style: TextStyle(
-                          fontSize: 20,
-                          color: Colors.white,
-                          fontWeight: FontWeight.bold),
+        Column(
+          mainAxisAlignment: MainAxisAlignment.spaceAround,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            Spacer(),
+            Text(
+              '${widget.course.toUpperCase()} ${widget.payment.toUpperCase()}',
+              style: TextStyle(fontSize: 50),
+            ),
+            SizedBox(
+              height: 30,
+            ),
+            Container(
+              width: 500,
+              child: Column(
+                children: [
+                  Form(
+                    key: _formKey,
+                    child: Container(
+                      height: 240,
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          _buildName(),
+                          _buildphonenumber(),
+                          _buildEmail(),
+                        ],
+                      ),
                     ),
-                    color: kBlue,
-                    minWidth: double.infinity,
-                    height: 60,
-                    elevation: 0,
-                    hoverElevation: 0,
-                    onPressed: () async {
-                      if (_formKey.currentState.validate()) {
-                        if (widget.name != null &&
-                            widget.email != null &&
-                            widget.phoneNumber != null) {
-                          if (widget.payment == 'free') {
-                            print(' dddddddd   ${widget.studentEnrolled}');
-                            var studentEnrolled = await _firestore
-                                .collection('Webinar')
-                                .doc(widget.course)
-                                .get();
-                            int sudentEndrolld = int.parse(
-                                studentEnrolled.data()['student enrolled']);
-                            await _firestore
-                                .collection('webinar Users')
-                                .doc('+91 ${widget.phoneNumber}')
-                                .set({
-                              'name': widget.name,
-                              'email': widget.email,
-                              'Phone_Number': '+91 ${widget.phoneNumber}',
-                              'payment': widget.payment == 'free'
-                                  ? 'free'
-                                  : widget.payment
-                            });
+                  ),
+                  Container(
+                    margin: EdgeInsets.only(top: 40),
+                    child: MaterialButton(
+                        child: Text(
+                          'Join Live Now',
+                          style: TextStyle(
+                              fontSize: 20,
+                              color: Colors.white,
+                              fontWeight: FontWeight.bold),
+                        ),
+                        color: kBlue,
+                        minWidth: double.infinity,
+                        height: 60,
+                        elevation: 0,
+                        hoverElevation: 0,
+                        onPressed: () async {
+                          if (_formKey.currentState.validate()) {
+                            if (widget.name != null &&
+                                widget.email != null &&
+                                widget.phoneNumber != null) {
+                              if (widget.payment == 'free') {
+                                print(' dddddddd   ${widget.studentEnrolled}');
+                                var studentEnrolled = await _firestore
+                                    .collection('Webinar')
+                                    .doc(widget.course)
+                                    .get();
+                                int sudentEndrolld = int.parse(
+                                    studentEnrolled.data()['student enrolled']);
+                                await _firestore
+                                    .collection('webinar Users')
+                                    .doc('+91 ${widget.phoneNumber}')
+                                    .set({
+                                  'name': widget.name,
+                                  'email': widget.email,
+                                  'Phone_Number': '+91 ${widget.phoneNumber}',
+                                  'payment': widget.payment == 'free'
+                                      ? 'free'
+                                      : widget.payment
+                                });
 
-                            _firestore
-                                .collection('Webinar')
-                                .doc('${widget.course}')
-                                .update({
-                              'student enrolled': '${sudentEndrolld + 1}'
-                            });
-                            Provider.of<MenuBar>(context, listen: false)
-                                .updateMenu(widget: SizedBox());
-                            Provider.of<Routing>(context, listen: false)
-                                .updateRouting(
-                                    widget: JoinSuccessfully(
-                                        joinUserName: widget.name));
-                          } else {
-                            ///TODO payment Function
-                            showJoinDialog(context);
-                            print('pement function');
+                                _firestore
+                                    .collection('Webinar')
+                                    .doc('${widget.course}')
+                                    .update({
+                                  'student enrolled': '${sudentEndrolld + 1}'
+                                });
+                                Provider.of<MenuBar>(context, listen: false)
+                                    .updateMenu(widget: SizedBox());
+                                Provider.of<Routing>(context, listen: false)
+                                    .updateRouting(
+                                        widget: JoinSuccessfully(
+                                            joinUserName: widget.name));
+                              } else {
+                                ///TODO payment Function
+                                showJoinDialog(context);
+                                print('pement function');
+                              }
+                            }
+                            // getData();
+                            nameController.clear();
+                            emailController.clear();
+                            phoneNumberController.clear();
                           }
-                        }
-                        // getData();
-                        nameController.clear();
-                        emailController.clear();
-                        phoneNumberController.clear();
-                      }
-                    }),
+                        }),
+                  ),
+                ],
               ),
-            ],
-          ),
+            ),
+            Spacer(),
+          ],
         ),
       ],
     );
