@@ -41,26 +41,28 @@ class _UserState extends State<User> {
                 borderRadius: BorderRadius.circular(50),
               ),
               splashColor: Colors.white,
-              onPressed: () {},
               child: Container(
                 decoration: BoxDecoration(),
                 width: 213,
                 child: Row(
                   children: [
-                    IconButton(
-                      icon: Icon(
-                        Icons.chevron_left,
+                    Tooltip(
+                      message: 'Go back',
+                      child: IconButton(
+                        icon: Icon(
+                          Icons.chevron_left,
+                        ),
+                        color: Colors.blue,
+                        iconSize: 50,
+                        splashRadius: 30,
+                        onPressed: () {
+                          setState(() {
+                            ContentWidget.isVisible = !ContentWidget.isVisible;
+                          });
+                          Provider.of<Routing>(context, listen: false)
+                              .updateRouting(widget: CoursesView());
+                        },
                       ),
-                      color: Colors.blue,
-                      iconSize: 50,
-                      splashRadius: 30,
-                      onPressed: () {
-                        setState(() {
-                          ContentWidget.isVisible = !ContentWidget.isVisible;
-                        });
-                        Provider.of<Routing>(context, listen: false)
-                            .updateRouting(widget: CoursesView());
-                      },
                     ),
                     Text(
                       'Notification',

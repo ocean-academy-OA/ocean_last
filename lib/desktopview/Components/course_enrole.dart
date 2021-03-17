@@ -170,6 +170,7 @@ class _CoursesViewState extends State<CoursesView> {
     LogIn.registerNumber = (prefs.getString('user') ?? null);
     userCourses();
     batch_id();
+    print('error point 11111111111111111111111');
     print("${CoursesView.batchId}1234567890");
   }
 
