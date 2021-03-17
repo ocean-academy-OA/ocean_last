@@ -1,11 +1,15 @@
+import 'dart:html';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:country_code_picker/country_codes.dart';
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:country_code_picker/country_code_picker.dart';
 import 'package:flutter/services.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:ocean_project/desktopview/route/routing.dart';
 import 'package:ocean_project/desktopview/screen/menubar.dart';
+import 'package:ocean_project/webinar/webinar_const.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'dart:ui';
@@ -251,41 +255,71 @@ class _LogInState extends State<LogIn> {
                                       }),
                                 ],
                               ),
-                              Row(
-                                children: [
-                                  Checkbox(
-                                    value: rememberMe,
-                                    activeColor: Colors.blue,
-                                    checkColor: Colors.white,
-                                    onChanged: (bool value) {
-                                      setState(() {
-                                        if (rememberMe) {
-                                          print(rememberMe);
-                                          rememberMe = value;
-                                          print(rememberMe);
-                                        } else {
-                                          rememberMe = value;
-                                          print(rememberMe);
-                                        }
-                                      });
-                                    },
-                                  ),
-                                  Text(
-                                    'Remember Me',
-                                    style: TextStyle(
-                                        color: Colors.white, fontSize: 18.0),
-                                  ),
-                                ],
-                              ),
+                              // Row(
+                              //   children: [
+                              //     Checkbox(
+                              //       value: rememberMe,
+                              //       activeColor: Colors.blue,
+                              //       checkColor: Colors.white,
+                              //       onChanged: (bool value) {
+                              //         setState(() {
+                              //           if (rememberMe) {
+                              //             print(rememberMe);
+                              //             rememberMe = value;
+                              //             print(rememberMe);
+                              //           } else {
+                              //             rememberMe = value;
+                              //             print(rememberMe);
+                              //           }
+                              //         });
+                              //       },
+                              //     ),
+                              //     Text(
+                              //       'Remember Me',
+                              //       style: TextStyle(
+                              //           color: Colors.white, fontSize: 18.0),
+                              //     ),
+                              //   ],
+                              // ),
                               Row(
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
                                   Container(
                                     width: 430.0,
-                                    child: Text(
-                                      'If the onChanged callback is null or the list of items is null then the dropdown button will be disabled, i.e. its arrow will be',
-                                      style: TextStyle(
-                                          color: Colors.white, fontSize: 18.0),
+                                    child: RichText(
+                                      text: TextSpan(
+                                          style: TextStyle(
+                                              color: Colors.white,
+                                              fontSize: 16),
+                                          text:
+                                              'By clicking the button above, you are creating an account with Ocean Academy and agree to our ',
+                                          children: [
+                                            TextSpan(
+                                                recognizer:
+                                                    TapGestureRecognizer()
+                                                      ..onTap = () {
+                                                        print(
+                                                            'Privacy Policy taped');
+                                                      },
+                                                text: 'Privacy Policy',
+                                                style: TextStyle(
+                                                    color: Colors.cyanAccent)),
+                                            TextSpan(text: ' and '),
+                                            TextSpan(
+                                                recognizer:
+                                                    TapGestureRecognizer()
+                                                      ..onTap = () {
+                                                        print(
+                                                            'Terms of Use taped');
+                                                      },
+                                                text: 'Terms of Use',
+                                                style: TextStyle(
+                                                    color: Colors.cyanAccent)),
+                                            TextSpan(
+                                                text:
+                                                    ', including receiving emails. '),
+                                          ]),
+                                      textAlign: TextAlign.justify,
                                     ),
                                   ),
                                 ],
@@ -311,13 +345,13 @@ class _LogInState extends State<LogIn> {
                           'Or ',
                           style: TextStyle(color: Colors.white, fontSize: 18.0),
                         ),
-                        GestureDetector(
-                          onTap: _launchURL,
+                        TextButton(
                           child: Text(
                             'click here',
                             style: TextStyle(
                                 color: Colors.cyanAccent, fontSize: 18.0),
                           ),
+                          onPressed: _launchURL,
                         ),
                         Text(
                           ' to visit website',

@@ -279,9 +279,7 @@ class _ContactUsState extends State<ContactUs> {
                             fontSize: 20,
                             fontFamily: kfontname),
                       ),
-                      SizedBox(
-                        height: 10,
-                      ),
+                      SizedBox(height: 10),
                       Text(
                         contactuscontent,
                         textAlign: TextAlign.justify,
@@ -436,14 +434,7 @@ class _ContactUsState extends State<ContactUs> {
                               emailController.clear();
                               queryController.clear();
                               phoneNumberController.clear();
-                            } else {}
-                            // If the form is valid, display a Snackbar.
-                            // ScaffoldMessenger.of(context)
-                            //     .showSnackBar(
-                            //   SnackBar(
-                            //     content: Text('Processing Data'),
-                            //   ),
-                            // );
+                            }
                           }
                         },
                       ),

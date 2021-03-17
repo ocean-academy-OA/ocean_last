@@ -2,7 +2,7 @@ import 'dart:html';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+
 import 'package:intl/intl.dart';
 import 'package:ocean_project/desktopview/constants.dart';
 import 'package:ocean_project/desktopview/screen/menubar.dart';
@@ -10,7 +10,7 @@ import 'package:ocean_project/desktopview/route/routing.dart';
 import 'package:ocean_project/webinar/wbinar_menubar.dart';
 import 'package:ocean_project/webinar/single_wbinar.dart';
 import 'package:ocean_project/webinar/upcoming_webinar.dart';
-import 'package:ocean_project/webinar/webinar_const.dart';
+
 import 'package:ocean_project/webinar/webinar_live.dart';
 import 'package:provider/provider.dart';
 import 'package:slide_countdown_clock/slide_countdown_clock.dart';
@@ -167,6 +167,7 @@ class _FlashNotificationState extends State<FlashNotification> {
             ],
           ),
           IconButton(
+              tooltip: 'Close Notification',
               icon: Icon(Icons.close, color: Colors.white),
               onPressed: () {
                 setState(() {
