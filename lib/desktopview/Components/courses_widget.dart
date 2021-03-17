@@ -698,13 +698,12 @@ class _OfflineCourseState extends State<OfflineCourse> {
               children: [
                 Text(
                   'Mail has been send',
-                  style: TextStyle(fontSize: 25, color: Colors.grey),
+                  style: TextStyle(fontSize: 25, color: Colors.grey[700]),
                 ),
                 SizedBox(
                   height: 20,
                 ),
-                Image.network(
-                    'https://cdn.dribbble.com/users/493409/screenshots/3070302/043_success-mail.gif'),
+                Image.asset('images/043_success-mail.gif'),
               ],
             ),
           ),
