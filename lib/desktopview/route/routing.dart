@@ -69,14 +69,6 @@ class SyllabusView extends ChangeNotifier {
   }
 }
 
-class AlertView extends ChangeNotifier {
-  Widget routing;
-  void updateAlert({Widget routing}) {
-    this.routing = routing;
-    notifyListeners();
-  }
-}
-
 class OALive extends ChangeNotifier {
   Widget route = Navbar();
 

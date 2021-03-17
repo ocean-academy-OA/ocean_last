@@ -1,7 +1,9 @@
 {
   "projects": {
     "default": "ocean-web-6036a",
-    "new": "ocean-live-project-ea2e7"
+    "new": "ocean-live-project-ea2e7",
+    "last": "ocean-live-project-ea2e7",
+    "new1": "ocean-live-project-ea2e7"
   },
   "targets": {
     "ocean-web-6036a": {

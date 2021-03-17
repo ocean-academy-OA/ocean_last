@@ -25,7 +25,6 @@ class _OceanLiveState extends State<OceanLive> {
         ),
         ChangeNotifierProvider(create: (context) => SyllabusView()),
         ChangeNotifierProvider(create: (context) => OALive()),
-        ChangeNotifierProvider(create: (context) => AlertView()),
         ChangeNotifierProvider(create: (context) => CourseInfo()),
         ChangeNotifierProvider(create: (context) => UserProfiles()),
         ChangeNotifierProvider(create: (context) => MenuBar()),

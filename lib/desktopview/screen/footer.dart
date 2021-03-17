@@ -356,7 +356,7 @@ class _FooterState extends State<Footer> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    FooterMouseRegion(text: "ABOUT US", widget: AboutUs()),
+                    FooterMouseRegion(text: "About Us", widget: AboutUs()),
                     SizedBox(
                       height: 20.0,
                     ),
@@ -416,9 +416,10 @@ class _FooterState extends State<Footer> {
             NavbarRouting.menu
                 .updateAll((key, value) => NavbarRouting.menu[key] = false);
             NavbarRouting.menu[text] = true;
+            print(text);
           });
           Provider.of<Routing>(context, listen: false)
-              .updateRouting(widget: Service());
+              .updateRouting(widget: widget);
           Provider.of<MenuBar>(context, listen: false)
               .updateMenu(widget: NavbarRouting()
                   // color: text ? Colors.blue : Color(0xFF155575),

@@ -122,7 +122,7 @@ class _MyCourseDbState extends State<MyCourseDb> {
           MyCourseDb.visiblity = true;
         });
         setState(() {
-          OnlineCourse.visiblity = true;
+          OnlineCourse.visiblity = false;
         });
         setState(() {
           // Navbar.visiblity = false;
