@@ -6,7 +6,7 @@ import 'dart:html';
 import 'package:ocean_project/desktopview/Components/courses_widget.dart';
 import 'package:ocean_project/desktopview/Components/my_course.dart';
 import 'package:ocean_project/desktopview/Components/payment.dart';
-import 'package:ocean_project/desktopview/Components/thanks_purchasing.dart';
+import 'package:ocean_project/desktopview/Components/course_enrole.dart';
 import 'package:ocean_project/desktopview/new_user_screen/log_in.dart';
 
 import 'package:ocean_project/desktopview/route/routing.dart';
@@ -75,6 +75,8 @@ class _CourseDetailsState extends State<CourseDetails> {
     studentId();
   }
 
+  bool isLogin = false;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -97,9 +99,28 @@ class _CourseDetailsState extends State<CourseDetails> {
                           MouseRegion(
                             cursor: SystemMouseCursors.click,
                             child: GestureDetector(
-                              onTap: () {
-                                Provider.of<Routing>(context, listen: false)
-                                    .updateRouting(widget: Course());
+                              onTap: () async {
+                                print("${MenuBar.stayUser}icon");
+                                var userSession = await _firestore
+                                    .collection('new users')
+                                    .doc(MenuBar.stayUser != null
+                                        ? MenuBar.stayUser
+                                        : LogIn.registerNumber)
+                                    .get();
+
+                                if (userSession.data() != null) {
+                                  setState(() {
+                                    isLogin = true;
+                                  });
+                                  Provider.of<SyllabusView>(context,
+                                          listen: false)
+                                      .updateCourseSyllabus(
+                                    routing: MyCourse(),
+                                  );
+                                } else {
+                                  Provider.of<Routing>(context, listen: false)
+                                      .updateRouting(widget: Course());
+                                }
                               },
                               child: Icon(
                                 Icons.arrow_back_ios,
