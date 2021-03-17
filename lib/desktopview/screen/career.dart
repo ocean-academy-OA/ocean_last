@@ -9,15 +9,31 @@ class _CareerState extends State<Career> {
   @override
   Widget build(BuildContext context) {
     return Column(
-      mainAxisAlignment: MainAxisAlignment.spaceAround,
       children: [
-        Container(
-          child: Text(
-            'Coming soon',
-            style: TextStyle(fontSize: 60),
-          ),
+        SizedBox(height: 50),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.end,
+          children: [
+            Container(
+              padding: EdgeInsets.only(right: 70),
+              height: 190,
+              width: 300,
+              child: Image.asset(
+                'images/coming_soon/Group 10.png',
+                fit: BoxFit.cover,
+              ),
+            ),
+          ],
         ),
-        Image.network('https://ohcguide.com/assets/comingsoon.svg'),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Container(
+              padding: EdgeInsets.only(left: 50),
+              child: Image.asset('images/coming_soon/Group 11.png'),
+            )
+          ],
+        )
       ],
     );
   }
