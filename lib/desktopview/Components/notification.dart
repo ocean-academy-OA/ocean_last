@@ -46,23 +46,21 @@ class _UserState extends State<User> {
                 width: 213,
                 child: Row(
                   children: [
-                    Tooltip(
-                      message: 'Go back',
-                      child: IconButton(
-                        icon: Icon(
-                          Icons.chevron_left,
-                        ),
-                        color: Colors.blue,
-                        iconSize: 50,
-                        splashRadius: 30,
-                        onPressed: () {
-                          setState(() {
-                            ContentWidget.isVisible = !ContentWidget.isVisible;
-                          });
-                          Provider.of<Routing>(context, listen: false)
-                              .updateRouting(widget: CoursesView());
-                        },
+                    IconButton(
+                      tooltip: 'Go back',
+                      icon: Icon(
+                        Icons.chevron_left,
                       ),
+                      color: Colors.blue,
+                      iconSize: 50,
+                      splashRadius: 30,
+                      onPressed: () {
+                        setState(() {
+                          ContentWidget.isVisible = !ContentWidget.isVisible;
+                        });
+                        Provider.of<Routing>(context, listen: false)
+                            .updateRouting(widget: CoursesView());
+                      },
                     ),
                     Text(
                       'Notification',
