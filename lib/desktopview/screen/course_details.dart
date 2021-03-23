@@ -4,6 +4,7 @@ import 'package:flutter/rendering.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'dart:html';
 import 'package:ocean_project/desktopview/Components/courses_widget.dart';
+import 'package:ocean_project/desktopview/Components/enrool_appbar.dart';
 import 'package:ocean_project/desktopview/Components/my_course.dart';
 import 'package:ocean_project/desktopview/Components/payment.dart';
 import 'package:ocean_project/desktopview/Components/course_enrole.dart';
@@ -725,6 +726,10 @@ class _VisibleWidgetState extends State<VisibleWidget> {
                         setState(() {
                           isLogin = true;
                         });
+                        Provider.of<MenuBar>(context, listen: false)
+                            .updateMenu(widget: AppBarWidget());
+                        Provider.of<Routing>(context, listen: false)
+                            .updateRouting(widget: CoursesView());
                         Provider.of<SyllabusView>(context, listen: false)
                             .updateCourseSyllabus(
                           routing: RazorPayWeb(

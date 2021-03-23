@@ -130,6 +130,7 @@ class _User_ProfileState extends State<User_Profile> {
                               .updateRouting(widget: Home());
                           Provider.of<MenuBar>(context, listen: false)
                               .updateMenu(widget: NavbarRouting());
+                          window.location.reload();
                         });
                         print('SingOut Code');
                         print(MenuBar.stayUser);
