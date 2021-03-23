@@ -50,6 +50,12 @@ class _AppBarWidgetState extends State<AppBarWidget> {
   }
 
   @override
+  void dispose() {
+    // TODO: implement dispose
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     session();
     return Stack(
@@ -191,6 +197,8 @@ class _AppBarWidgetState extends State<AppBarWidget> {
                                       setState(() {
                                         ContentWidget.isShow =
                                             !ContentWidget.isShow;
+
+                                        ContentWidget.isVisible = false;
                                       });
                                       Provider.of<Routing>(context,
                                               listen: false)
@@ -198,13 +206,9 @@ class _AppBarWidgetState extends State<AppBarWidget> {
 
                                       Provider.of<UserProfiles>(context,
                                               listen: false)
-                                          .updateUser(
-                                              routing: User_Profile(
-                                        isVisible: ContentWidget.isShow,
-                                      ));
+                                          .updateUser(routing: User_Profile());
                                     },
                                   );
-                                  // Text('$messageText from $messageSender');
                                   profile.add(pictures);
                                 }
                               }
@@ -227,14 +231,12 @@ class _AppBarWidgetState extends State<AppBarWidget> {
                             setState(() {
                               ContentWidget.isVisible =
                                   !ContentWidget.isVisible;
+                              ContentWidget.isShow = false;
                             });
                             Provider.of<Routing>(context, listen: false)
                                 .updateRouting(widget: CoursesView());
                             Provider.of<UserProfiles>(context, listen: false)
-                                .updateUser(
-                                    routing: Notification_onclick(
-                              isVisible: ContentWidget.isVisible,
-                            ));
+                                .updateUser(routing: Notification_onclick());
                           },
                           child: Icon(
                             Icons.notifications_none_outlined,

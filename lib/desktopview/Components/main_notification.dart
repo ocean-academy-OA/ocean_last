@@ -38,7 +38,7 @@ class _Notification_onclickState extends State<Notification_onclick> {
       top: 0,
       right: 45,
       child: Visibility(
-        visible: widget.isVisible,
+        visible: ContentWidget.isVisible,
         child: Container(
           // height: 400,
           width: 500,
@@ -192,6 +192,7 @@ class _Notification_onclickState extends State<Notification_onclick> {
                 color: Colors.blue[100],
                 onPressed: () {
                   setState(() {
+                    // ignore: unnecessary_statements
                     ContentWidget.isVisible = false;
                   });
 

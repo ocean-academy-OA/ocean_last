@@ -56,7 +56,8 @@ class _UserState extends State<User> {
                       splashRadius: 30,
                       onPressed: () {
                         setState(() {
-                          ContentWidget.isVisible = !ContentWidget.isVisible;
+                          // ignore: unnecessary_statements
+                          ContentWidget.isVisible != ContentWidget.isVisible;
                         });
                         Provider.of<Routing>(context, listen: false)
                             .updateRouting(widget: CoursesView());
