@@ -110,33 +110,80 @@ showJoinDialog(context) {
       });
 }
 
+// payment(List userId) async {
+//   List<Widget> datas = [];
+//   var allpayment = await _firestore
+//       .collection('new users')
+//       .doc(userId[0])
+//       .collection('payment')
+//       .get();
+//   var paymentData = allpayment.docs;
+//   for (var j in paymentData) {
+//     final date = j.data()['date'];
+//     final coursename = j.data()['coursename'];
+//     final amount = j.data()['amount'];
+//     final image = j.data()['image'];
+//     final paid_via = j.data()['paid_via'];
+//     final status = j.data()['status'];
+//     Column singleData = Column(
+//       children: [
+//         Text(date),
+//         Text(coursename),
+//         Text(amount),
+//         Text(image),
+//         Text(paid_via),
+//         Text(status),
+//       ],
+//     );
+//     datas.add(singleData);
+//   }
+//   return Column(children: [Text('hi')]);
+// }
+//
+// Widget paymentStreem(String userId) {
+//   return StreamBuilder<QuerySnapshot>(
+//       stream: _firestore
+//           .collection('new users')
+//           .doc(userId)
+//           .collection('payment')
+//           .snapshots(),
+//       builder: (contex, snapshot) {
+//         if (snapshot.hasData) {
+//           return Text('test...');
+//         } else {
+//           var paymentData = snapshot.data.docs;
+//           for (var j in paymentData) {
+//             final date = j.data()['date'];
+//             final coursename = j.data()['coursename'];
+//             final amount = j.data()['amount'];
+//             final image = j.data()['image'];
+//             final paid_via = j.data()['paid_via'];
+//             final status = j.data()['status'];
+//             print(j.data());
+//           }
+//           return Text('testr..');
+//         }
+//       });
+// }
+
 class _TextingFirebaseState extends State<TextingFirebase> {
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        Center(
-          child: TextButton(
-            child: Text('test'),
-            onPressed: () async {
-              showJoinDialog(context);
-              // var time = await _firestore
-              //     .collection('webinar_time')
-              //     .doc('free_wbinar')
-              //     .get();
-              // print(
-              //   time.data()['timestamp'],
-              // );
-              // Navigator.push(
-              //     context,
-              //     MaterialPageRoute(
-              //         builder: (context) => SingleWebinarScreen(
-              //               timestamp: time.data()['timestamp'],
-              //             )));
-            },
-          ),
-        ),
-      ],
+    return StreamBuilder<QuerySnapshot>(
+      stream: _firestore
+          .collection('new users')
+          .snapshots(includeMetadataChanges: true),
+      builder: (context, snapshot) {
+        if (!snapshot.hasData) {
+          return Text('if...');
+        } else {
+          var test = snapshot.data.docs;
+          for (var i in test) {
+            print(i.id);
+          }
+          return Text('222222222');
+        }
+      },
     );
   }
 }
