@@ -68,6 +68,28 @@ class _CourseDetailsState extends State<CourseDetails> {
     }
   }
 
+  String syllabusCount;
+  List<int> syllabus = [];
+
+  void count() async {
+    print("++++++++++++++++++++++++");
+    print(widget.batch);
+    await for (var snapshot in _firestore
+        .collection('course')
+        .doc(widget.batch)
+        .collection('syllabus')
+        .snapshots(includeMetadataChanges: true)) {
+      for (var message in snapshot.docs) {
+        //print(message.documentID);
+        syllabusCount = message.id;
+        syllabus.add(int.parse(syllabusCount));
+      }
+      syllabus.sort();
+      print(syllabus.length);
+      print("+++++++++++++++++fffffffffff+++++++");
+    }
+  }
+
   @override
   void initState() {
     // TODO: implement initState
@@ -269,6 +291,7 @@ class _CourseDetailsState extends State<CourseDetails> {
                                     .collection('course')
                                     .doc(widget.batch)
                                     .collection('syllabus')
+                                    .orderBy("id")
                                     .snapshots(),
                                 // ignore: missing_return
                                 builder: (context, snapshot) {
@@ -277,13 +300,10 @@ class _CourseDetailsState extends State<CourseDetails> {
                                   } else {
                                     final messages = snapshot.data.docs;
                                     List<CourseDescription> courseDetails = [];
-                                    print("${syllabusid}tjtjtjtj");
                                     String messageContent;
                                     //List<String> subjects = [];
                                     for (var message in messages) {
                                       List<Widget> chapterWidget = [];
-                                      // if (message.data()['coursename'] ==
-                                      //     widget.course) {
                                       final messageText =
                                           message.data()[widget.trainer];
                                       final messageSender =
@@ -292,6 +312,12 @@ class _CourseDetailsState extends State<CourseDetails> {
                                           message.data()[widget.sess];
                                       final messageCoursedescription =
                                           message.data()[widget.desc];
+                                      final docid = message.id;
+                                      // for (var k = 0;
+                                      //     k < syllabus.length + 1;
+                                      //     k++) {
+                                      //   print("k.String ${k.toString()}");
+                                      //   if (k.toString() == docid) {
                                       final messageTopic =
                                           message.data()['section'];
                                       for (var i = 0;
@@ -347,6 +373,7 @@ class _CourseDetailsState extends State<CourseDetails> {
                                       // subjects.add(message.data()["coursename"]);
                                       // print(subjects);
                                       print(messages);
+                                      //   }
                                       // }
                                     }
                                     return Column(

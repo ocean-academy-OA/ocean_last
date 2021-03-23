@@ -186,10 +186,14 @@ class _NavbarRoutingState extends State<NavbarRouting> {
                     print('${MenuBar.stayUser} Stay user');
 
                     ///todo:instead of resiter login will come
-                    Provider.of<Routing>(context, listen: false)
-                        .updateRouting(widget: LogIn());
-                    Provider.of<MenuBar>(context, listen: false)
-                        .updateMenu(widget: NavbarRouting());
+                    ///
+                    Provider.of<Routing>(context, listen: false).updateRouting(
+                        widget:
+                            MenuBar.stayUser == null ? LogIn() : CoursesView());
+                    Provider.of<MenuBar>(context, listen: false).updateMenu(
+                        widget: MenuBar.stayUser == null
+                            ? NavbarRouting()
+                            : AppBarWidget());
                   },
                   child: Text(
                     "Log in",

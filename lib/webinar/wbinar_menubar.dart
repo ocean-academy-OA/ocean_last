@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:ocean_project/desktopview/Components/course_enrole.dart';
+import 'package:ocean_project/desktopview/Components/enrool_appbar.dart';
 import 'package:ocean_project/desktopview/Components/ocean_icons.dart';
 import 'package:ocean_project/desktopview/constants.dart';
 import 'package:ocean_project/desktopview/new_user_screen/log_in.dart';
@@ -17,6 +19,7 @@ class WebinarMenu extends StatefulWidget {
 class _WebinarMenuState extends State<WebinarMenu> {
   @override
   Widget build(BuildContext context) {
+    print("webinar login checking${MenuBar.stayUser}");
     return Container(
       padding: EdgeInsets.symmetric(horizontal: 20),
       height: 80,
@@ -100,10 +103,13 @@ class _WebinarMenuState extends State<WebinarMenu> {
                           (key, value) => NavbarRouting.menu[key] = false);
                       // NavbarRouting.menu["Services"] = true;
                     });
-                    Provider.of<Routing>(context, listen: false)
-                        .updateRouting(widget: LogIn());
-                    Provider.of<MenuBar>(context, listen: false)
-                        .updateMenu(widget: NavbarRouting());
+                    Provider.of<Routing>(context, listen: false).updateRouting(
+                        widget:
+                            MenuBar.stayUser == null ? LogIn() : CoursesView());
+                    Provider.of<MenuBar>(context, listen: false).updateMenu(
+                        widget: MenuBar.stayUser == null
+                            ? NavbarRouting()
+                            : AppBarWidget());
                   },
                   child: Container(
                     padding: EdgeInsets.symmetric(horizontal: 20, vertical: 5),

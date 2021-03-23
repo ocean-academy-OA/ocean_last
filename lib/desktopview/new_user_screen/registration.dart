@@ -1,5 +1,4 @@
 import 'dart:typed_data';
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/cupertino.dart';
@@ -8,21 +7,17 @@ import 'package:flutter/services.dart';
 import 'package:intl/intl.dart';
 import 'package:ocean_project/desktopview/Components/course_enrole.dart';
 import 'package:ocean_project/desktopview/Components/enrool_appbar.dart';
-
 import 'package:ocean_project/desktopview/new_user_screen/log_in.dart';
 import 'package:ocean_project/desktopview/new_user_widget/contry_states.dart';
-
 import 'package:ocean_project/desktopview/new_user_widget/date_picker.dart';
 import 'package:ocean_project/desktopview/new_user_widget/dropdown.dart';
 import 'package:ocean_project/desktopview/new_user_widget/gender_dropdoen_field.dart';
 import 'package:ocean_project/desktopview/new_user_widget/input_text_field.dart';
 import 'package:ocean_project/desktopview/route/routing.dart';
 import 'package:ocean_project/desktopview/screen/menubar.dart';
-
 import 'package:path/path.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:provider/provider.dart';
-
 import 'package:shared_preferences/shared_preferences.dart';
 
 class Registration extends StatefulWidget {
@@ -43,10 +38,9 @@ class _RegistrationState extends State<Registration> {
   String state;
   String phoneNumber;
   String portfolioLink;
-  final _firstName = TextEditingController();
-  final _lastName = TextEditingController();
+
   String dOB;
-  final _dateOfBirth = TextEditingController();
+
   Future<DateTime> _selectDateTime(BuildContext context) {
     return showDatePicker(
         context: context,
@@ -55,6 +49,9 @@ class _RegistrationState extends State<Registration> {
         lastDate: DateTime.now());
   }
 
+  final _dateOfBirth = TextEditingController();
+  final _firstName = TextEditingController();
+  final _lastName = TextEditingController();
   final _eMail = TextEditingController();
   final _companyOrSchool = TextEditingController();
   final _dgree = TextEditingController();
