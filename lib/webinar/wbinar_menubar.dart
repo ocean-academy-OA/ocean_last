@@ -101,7 +101,6 @@ class _WebinarMenuState extends State<WebinarMenu> {
                     setState(() {
                       NavbarRouting.menu.updateAll(
                           (key, value) => NavbarRouting.menu[key] = false);
-                      // NavbarRouting.menu["Services"] = true;
                     });
                     Provider.of<Routing>(context, listen: false).updateRouting(
                         widget:

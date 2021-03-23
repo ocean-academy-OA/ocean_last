@@ -64,7 +64,13 @@ class _NavbarState extends State<Navbar> {
                     print('=========gggggggggggg========');
                     return Visibility(
                       visible: Navbar.isNotification,
-                      child: FlashNotification(),
+                      child: FlashNotification(
+                        dismissNotification: () {
+                          setState(() {
+                            Navbar.isNotification = false;
+                          });
+                        },
+                      ),
                     );
                   } else {
                     return SizedBox();
@@ -124,7 +130,6 @@ class _NavbarRoutingState extends State<NavbarRouting> {
           children: [
             GestureDetector(
               onTap: () {
-                Navbar.isNotification = true;
                 Provider.of<Routing>(context, listen: false)
                     .updateRouting(widget: Home());
               },

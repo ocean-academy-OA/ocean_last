@@ -169,11 +169,7 @@ class _FlashNotificationState extends State<FlashNotification> {
           IconButton(
               tooltip: 'Close Notification',
               icon: Icon(Icons.close, color: Colors.white),
-              onPressed: () {
-                setState(() {
-                  Navbar.isNotification = false;
-                });
-              }),
+              onPressed: widget.dismissNotification),
         ],
       ),
     );
