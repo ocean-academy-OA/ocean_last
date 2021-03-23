@@ -42,78 +42,81 @@ class _EnrollNewState extends State<EnrollNew> {
   @override
   Widget build(BuildContext context) {
     return Container(
+      alignment: Alignment.topCenter,
       decoration: BoxDecoration(
           image: DecorationImage(
               image: AssetImage('images/oa_bg.png'),
               repeat: ImageRepeat.repeatY)),
-      child: Column(
-        //mainAxisAlignment: MainAxisAlignment.spaceAround,
-        children: [
-          StreamBuilder<QuerySnapshot>(
-              stream: _firestore.collection("new users").snapshots(),
-              builder: (context, snapshot) {
-                if (!snapshot.hasData) {
-                  return Text("Loading...");
-                } else {
-                  final messages = snapshot.data.docs;
+      child: SingleChildScrollView(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.start,
+          children: [
+            StreamBuilder<QuerySnapshot>(
+                stream: _firestore.collection("new users").snapshots(),
+                builder: (context, snapshot) {
+                  if (!snapshot.hasData) {
+                    return Text("Loading...");
+                  } else {
+                    final messages = snapshot.data.docs;
 
-                  for (var message in messages) {
-                    print(LogIn.registerNumber);
-                    if (message.id == LogIn.registerNumber) {
-                      EnrollList = message.data()['Courses'];
-                      print("coursessssssssssssssss");
-                      print(EnrollList);
+                    for (var message in messages) {
+                      print(LogIn.registerNumber);
+                      if (message.id == LogIn.registerNumber) {
+                        EnrollList = message.data()['Courses'];
+                        print("coursessssssssssssssss");
+                        print(EnrollList);
+                      }
                     }
                   }
-                }
-                return StreamBuilder<QuerySnapshot>(
-                  stream: _firestore.collection('course').snapshots(),
-                  // ignore: missing_return
-                  builder: (context, snapshot) {
-                    if (!snapshot.hasData) {
-                      return Text("Loading...");
-                    } else {
-                      final messages = snapshot.data.docs;
+                  return StreamBuilder<QuerySnapshot>(
+                    stream: _firestore.collection('course').snapshots(),
+                    // ignore: missing_return
+                    builder: (context, snapshot) {
+                      if (!snapshot.hasData) {
+                        return Text("Loading...");
+                      } else {
+                        final messages = snapshot.data.docs;
 
-                      List<EnrollCourseDb> courseList = [];
+                        List<EnrollCourseDb> courseList = [];
 
-                      for (var message in messages) {
-                        print("++++++++++++++");
-                        print(message.id);
-                        if (!EnrollList.any((element) =>
-                            element.contains(message.data()["coursename"]))) {
-                          print("message1111111111111111111");
-                          final messageText = message.data()['trainername'];
-                          final messageSender = message.data()['coursename'];
-                          final messageSession = message.data()['session'];
-                          final messageTime = message.data()['time'];
-                          final messageImage = message.data()['img'];
-                          final messageDescription =
-                              message.data()['coursedescription'];
-                          final messageBatchId = message.data()['batchid'];
+                        for (var message in messages) {
+                          print("++++++++++++++");
+                          print(message.id);
+                          if (!EnrollList.any((element) =>
+                              element.contains(message.data()["coursename"]))) {
+                            print("message1111111111111111111");
+                            final messageText = message.data()['trainername'];
+                            final messageSender = message.data()['coursename'];
+                            final messageSession = message.data()['session'];
+                            final messageTime = message.data()['time'];
+                            final messageImage = message.data()['img'];
+                            final messageDescription =
+                                message.data()['coursedescription'];
+                            final messageBatchId = message.data()['batchid'];
 
-                          final CourseDbVariable = EnrollCourseDb(
-                            trainername: messageText,
-                            coursename: messageSender,
-                            session: messageSession,
-                            time: messageTime,
-                            image: messageImage,
-                            description: messageDescription,
-                            batchid: messageBatchId,
-                          );
-                          courseList.add(CourseDbVariable);
+                            final CourseDbVariable = EnrollCourseDb(
+                              trainername: messageText,
+                              coursename: messageSender,
+                              session: messageSession,
+                              time: messageTime,
+                              image: messageImage,
+                              description: messageDescription,
+                              batchid: messageBatchId,
+                            );
+                            courseList.add(CourseDbVariable);
+                          }
+                          print("777777777777777777777777777777777777777");
                         }
-                        print("777777777777777777777777777777777777777");
+                        return Wrap(
+                          alignment: WrapAlignment.center,
+                          children: courseList,
+                        );
                       }
-                      return Wrap(
-                        alignment: WrapAlignment.center,
-                        children: courseList,
-                      );
-                    }
-                  },
-                );
-              }),
-        ],
+                    },
+                  );
+                }),
+          ],
+        ),
       ),
     );
   }

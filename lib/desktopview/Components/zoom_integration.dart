@@ -6,8 +6,8 @@ import 'dart:ui' as ui;
 class ZoomIntegration extends StatelessWidget {
   String zoomLink =
       //"https://success.zoom.us/wc/join/84139473755?pwd=QzMvcW0rdWtxblF3anlSNWVUSGtaQT09";
-      // "https://zoom.us/j/98566450504?pwd=a0NBUXg2am5GbmhGS0lSU055Tkx2Zz09";
-      "https://brindakarthik.github.io/zoom/?meetingNumber=4787840759&username=abc&password=ZXlkYVFxQk1HSW9RWkd6ODBLdm1TQT09";
+      //  "https://zoom.us/j/98566450504?pwd=a0NBUXg2am5GbmhGS0lSU055Tkx2Zz09";
+      "https://brindakarthik.github.io/zoom/?meetingNumber=97816218081&username=abc&password=U0d0cURSRThpenhicFFKVSt6YWU4UT09";
 
   @override
   Widget build(BuildContext context) {
