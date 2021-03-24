@@ -60,11 +60,10 @@ class _EnrollNewState extends State<EnrollNew> {
                     final messages = snapshot.data.docs;
 
                     for (var message in messages) {
-                      print(LogIn.registerNumber);
+                      print("${LogIn.registerNumber}LogIn.registerNumber");
                       if (message.id == LogIn.registerNumber) {
                         EnrollList = message.data()['Courses'];
-                        print("coursessssssssssssssss");
-                        print(EnrollList);
+                        print("${EnrollList}EnrollList");
                       }
                     }
                   }
@@ -80,11 +79,8 @@ class _EnrollNewState extends State<EnrollNew> {
                         List<EnrollCourseDb> courseList = [];
 
                         for (var message in messages) {
-                          print("++++++++++++++");
-                          print(message.id);
                           if (!EnrollList.any((element) =>
                               element.contains(message.data()["coursename"]))) {
-                            print("message1111111111111111111");
                             final messageText = message.data()['trainername'];
                             final messageSender = message.data()['coursename'];
                             final messageSession = message.data()['session'];
@@ -105,7 +101,6 @@ class _EnrollNewState extends State<EnrollNew> {
                             );
                             courseList.add(CourseDbVariable);
                           }
-                          print("777777777777777777777777777777777777777");
                         }
                         return Wrap(
                           alignment: WrapAlignment.center,
@@ -155,10 +150,6 @@ class _EnrollCourseDbState extends State<EnrollCourseDb> {
         setState(() {
           OnlineCourse.visiblity = true;
         });
-        setState(() {
-          // Navbar.visiblity = false;
-        });
-        print(widget.coursename);
         Provider.of<SyllabusView>(context, listen: false).updateCourseSyllabus(
             routing: CourseDetails(
           batch: widget.batchid,

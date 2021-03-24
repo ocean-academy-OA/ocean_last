@@ -74,7 +74,7 @@ class _OTPState extends State<OTP> {
 
       OTP.userID = LogIn.confirmationResult.toString();
       OTP.userID = LogIn.registerNumber;
-      print('${OTP.userID} ppppppppppppppppppp');
+      print('${OTP.userID} OTP.userID');
       userSession =
           await _firestore.collection('new users').doc(OTP.userID).get();
 
@@ -116,7 +116,7 @@ class _OTPState extends State<OTP> {
 
   var userSession;
   getData() async {
-    print(userSession.data() != null);
+    print("${userSession.data() != null}userSession");
   }
 
   @override

@@ -4,6 +4,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:ocean_project/desktopview/Components/courses_widget.dart';
 import 'package:ocean_project/desktopview/Components/enroll_new.dart';
 import 'package:ocean_project/desktopview/Components/enrool_appbar.dart';
@@ -42,7 +43,7 @@ class _HorizontalMenuState extends State<HorizontalMenu> {
   void initState() {
     // TODO: implement initState
     super.initState();
-    print('${widget.courseList} ====================================');
+    print('${widget.courseList} widget.courseList ');
     //HorizontalMenu.customWidget = EnrollNew();
   }
 
@@ -58,25 +59,13 @@ class _HorizontalMenuState extends State<HorizontalMenu> {
               child: ListTile(
                 hoverColor: Colors.white,
                 leading: ClipRRect(
-                  child: widget.courseIcon[index] != null
-                      ? Container(
-                          height: 40,
-                          width: 40,
-                          child: Image.network(
-                            widget.courseIcon[index],
-                            fit: BoxFit.cover,
-                            alignment: Alignment.centerLeft,
-                          ),
-                        )
-                      : Container(
-                          height: 40,
-                          width: 40,
-                          child: Image.network(
-                            'https://firebasestorage.googleapis.com/v0/b/ocean-live-project-ea2e7.appspot.com/o/Flask.png?alt=media&token=91bae082-5f81-4372-8d3a-cbf3bc14419a',
-                            fit: BoxFit.cover,
-                            alignment: Alignment.centerLeft,
-                          ),
-                        ),
+                  child: Container(
+                      height: 40,
+                      width: 40,
+                      child: Icon(
+                        FontAwesomeIcons.graduationCap,
+                        color: Colors.white,
+                      )),
                   borderRadius: BorderRadius.circular(500),
                 ),
                 title: MouseRegion(
@@ -155,9 +144,7 @@ class _CoursesViewState extends State<CoursesView> {
         .snapshots(includeMetadataChanges: true)) {
       for (var message in snapshot.docs) {
         CoursesView.batchId = message.data()['batchid'];
-        print("${CoursesView.batchId}batchessssssssss");
       }
-      // available_batch();
     }
 
     print("---------------------------");
@@ -170,8 +157,7 @@ class _CoursesViewState extends State<CoursesView> {
     LogIn.registerNumber = (prefs.getString('user') ?? null);
     userCourses();
     batch_id();
-    print('error point 11111111111111111111111');
-    print("${CoursesView.batchId}1234567890");
+    print("${CoursesView.batchId}CoursesView.batchId");
   }
 
   @override
@@ -192,7 +178,7 @@ class _CoursesViewState extends State<CoursesView> {
         .get();
     CoursesView.courseEnroll = course.data()["First Name"];
     CoursesView.studentemail = course.data()["E Mail"];
-    print('${CoursesView.courseEnroll}jjjjjjjjjjj');
+    print('${CoursesView.courseEnroll}CoursesView.courseEnroll');
   }
 
   @override
@@ -252,8 +238,6 @@ class _CoursesViewState extends State<CoursesView> {
                                             message.data()['Courses'];
 
                                         final batch = message.data()['batchid'];
-                                        print(batch);
-                                        print(messageSender);
 
                                         for (var i in messageSender) {
                                           menu[pos++] = false;
@@ -335,9 +319,6 @@ class _ContentWidgetState extends State<ContentWidget> {
         await _firestore.collection("course").doc(widget.batchid).get();
     description = course.data()["coursedescription"];
     trainername = course.data()["trainername"];
-
-    //batchid = course.data()["batchid"];
-    print('${description}jjjjjjjjjjjfdgdghhhhhhhhhhhhhhhhhhhhhhhh');
   }
 
   @override
@@ -349,7 +330,7 @@ class _ContentWidgetState extends State<ContentWidget> {
 
   @override
   Widget build(BuildContext context) {
-    print("OA ${widget.batchid}");
+    print("OA  batchid${widget.batchid}");
     return Container(
       //margin: const EdgeInsets.all(15.0),
       padding: EdgeInsets.all(40.0),
@@ -528,7 +509,7 @@ class _CourseContentState extends State<CourseContent> {
   String zoomLink =
       "https://us04web.zoom.us/j/73962946984?pwd=TDRmWGJDZ1ZqbWZSNVlLMnNwWjdhQT09#success";
   Widget build(BuildContext context) {
-    print("${CoursesView.courseEnroll}fffffffffffff");
+    print("${CoursesView.courseEnroll}CoursesView.courseEnroll");
     return Stack(
       children: [
         SingleChildScrollView(
@@ -679,11 +660,7 @@ class _CourseListState extends State<CourseList> {
                       for (var message in messages) {
                         if (message.id == LogIn.registerNumber) {
                           final messageSender = message.data()['Courses'];
-
                           final batch = message.data()['batchid'];
-                          print(batch);
-                          print(messageSender);
-
                           for (var i in messageSender) {
                             menu[pos++] = false;
                             courseList.add(i);

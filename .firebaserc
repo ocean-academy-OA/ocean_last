@@ -1,25 +1,13 @@
 {
   "projects": {
-    "default": "ocean-web-6036a",
     "new": "ocean-live-project-ea2e7",
-    "last": "ocean-live-project-ea2e7",
-    "new1": "ocean-live-project-ea2e7"
+    "default": "ocean-live-project-ea2e7"
   },
   "targets": {
-    "ocean-web-6036a": {
-      "hosting": {
-        "user": [
-          "ocean-web-6036a"
-        ]
-      }
-    },
     "ocean-live-project-ea2e7": {
       "hosting": {
         "users": [
           "ocean-live-project-ea2e7"
-        ],
-        "user": [
-          "ocean-web-6036a"
         ]
       }
     }

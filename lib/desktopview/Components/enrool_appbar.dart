@@ -31,7 +31,7 @@ class _AppBarWidgetState extends State<AppBarWidget> {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     await prefs.setInt('login', 1);
     await prefs.setString('user', MenuBar.stayUser);
-    print("${MenuBar.stayUser}dddddddddddddddddddddddddddddddddddddd");
+    print("${MenuBar.stayUser}MenuBar.stayUser");
     MenuBar.stayUser = LogIn.registerNumber;
 
     //getProfilePicture();
@@ -41,9 +41,6 @@ class _AppBarWidgetState extends State<AppBarWidget> {
   void initState() {
     // TODO: implement initState
     super.initState();
-    print(MenuBar.stayUser);
-    print('88888888888');
-    print(LogIn.registerNumber);
     session();
 
     //getImage();
@@ -185,8 +182,6 @@ class _AppBarWidgetState extends State<AppBarWidget> {
                                 var id = MenuBar.stayUser != null
                                     ? MenuBar.stayUser
                                     : LogIn.registerNumber;
-                                print("id variable");
-                                print("${id}usersid");
                                 if (message.id == id) {
                                   final profileImage =
                                       message.data()['Profile Picture'];

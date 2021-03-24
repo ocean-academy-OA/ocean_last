@@ -26,7 +26,7 @@ class _MyCourseState extends State<MyCourse> {
     // getMessage();
     //batch_id();
     super.initState();
-    print('${CoursesView.batchId}batchesssss');
+    print('${CoursesView.batchId}CoursesView.batchId');
   }
 
   @override
@@ -73,7 +73,6 @@ class _MyCourseState extends State<MyCourse> {
                       // Text('$messageText from $messageSender');
                       batchList.add(batchDb);
                       subjects.add(message.data()["coursename"]);
-                      print(subjects);
                     }
                   }
                 }
@@ -127,7 +126,7 @@ class _MyCourseDbState extends State<MyCourseDb> {
         setState(() {
           // Navbar.visiblity = false;
         });
-        print(widget.coursename);
+        print("${widget.coursename}widget.coursename");
         Provider.of<SyllabusView>(context, listen: false).updateCourseSyllabus(
             routing: CourseDetails(
           batch: widget.batchid,

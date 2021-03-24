@@ -148,7 +148,8 @@ class _LogInState extends State<LogIn> {
                                       dialogSize: Size(300.0, 550.0),
                                       onInit: (code) {
                                         countryCode = '+91';
-                                        print('${countryCode.toString()}');
+                                        print(
+                                            '${countryCode.toString()}countryCode.toString()');
                                       },
 
                                       dialogTextStyle:
@@ -228,7 +229,8 @@ class _LogInState extends State<LogIn> {
                                       ),
                                       elevation: 0.0,
                                       onPressed: () async {
-                                        print(_phoneNumberController.text);
+                                        print(
+                                            "${_phoneNumberController.text}_phoneNumberController.text");
                                         setState(() {
                                           //Navbar.visiblity = false;
                                           LogIn.registerNumber =

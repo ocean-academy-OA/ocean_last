@@ -34,25 +34,6 @@ class CourseDetails extends StatefulWidget {
 }
 
 class _CourseDetailsState extends State<CourseDetails> {
-  // void subMessage() async {
-  //   final message = await _firestore
-  //       .collection('course')
-  //       .doc('4dLAoNlHzfdUeT2Gkwk6')
-  //       .collection("syllabus")
-  //       .get();
-  //   for (var courses in message.docs) {
-  //     print(courses.data());
-  //   }
-  //   // print(syllabus);
-  // }
-  //
-  // @override
-  // void initState() {
-  //   // TODO: implement initState
-  //   super.initState();
-  //   // subMessage();
-  // }
-
   String syllabusid;
 
   void studentId() async {
@@ -61,10 +42,7 @@ class _CourseDetailsState extends State<CourseDetails> {
         .where("coursename", isEqualTo: widget.course)
         .snapshots(includeMetadataChanges: true)) {
       for (var message in snapshot.docs) {
-        //print(message.documentID);
         syllabusid = message.id;
-
-        print("${syllabusid}iiii");
       }
     }
   }
@@ -73,21 +51,17 @@ class _CourseDetailsState extends State<CourseDetails> {
   List<int> syllabus = [];
 
   void count() async {
-    print("++++++++++++++++++++++++");
-    print(widget.batch);
     await for (var snapshot in _firestore
         .collection('course')
         .doc(widget.batch)
         .collection('syllabus')
         .snapshots(includeMetadataChanges: true)) {
       for (var message in snapshot.docs) {
-        //print(message.documentID);
         syllabusCount = message.id;
         syllabus.add(int.parse(syllabusCount));
       }
       syllabus.sort();
-      print(syllabus.length);
-      print("+++++++++++++++++fffffffffff+++++++");
+      print("${syllabus.length}syllabus.length");
     }
   }
 
@@ -123,7 +97,7 @@ class _CourseDetailsState extends State<CourseDetails> {
                             cursor: SystemMouseCursors.click,
                             child: GestureDetector(
                               onTap: () async {
-                                print("${MenuBar.stayUser}icon");
+                                print("${MenuBar.stayUser}MenuBar.stayUser");
                                 var userSession = await _firestore
                                     .collection('new users')
                                     .doc(MenuBar.stayUser != null
@@ -356,8 +330,6 @@ class _CourseDetailsState extends State<CourseDetails> {
                                               ),
                                             ),
                                           );
-                                          print(messageContent);
-                                          print("${widget.batch}iiii");
                                         }
                                       }
 
@@ -371,9 +343,7 @@ class _CourseDetailsState extends State<CourseDetails> {
                                         chapterWidget: chapterWidget,
                                       );
                                       courseDetails.add(messageDubble);
-                                      // subjects.add(message.data()["coursename"]);
-                                      // print(subjects);
-                                      print(messages);
+
                                       //   }
                                       // }
                                     }
@@ -452,7 +422,6 @@ class _CourseDetailsState extends State<CourseDetails> {
                                 }
                               }
 
-                              //print("${widget.course} jaya");
                               return Column(
                                 children: courseImage,
                               );
@@ -540,7 +509,6 @@ class _VisibleProviderState extends State<VisibleProvider> {
                         }
                       }
 
-                      //print("${widget.course} jaya");
                       return Column(
                         children: courseImage,
                       );
@@ -712,15 +680,14 @@ class _VisibleWidgetState extends State<VisibleWidget> {
                         borderRadius: BorderRadius.circular(50.0),
                         side: BorderSide(color: Colors.blue, width: 2.0)),
                     onPressed: () async {
-                      print("OALIVE ${MenuBar.stayUser}");
+                      print("MenuBar.stayUser ${MenuBar.stayUser}");
                       var userSession = await _firestore
                           .collection('new users')
                           .doc(MenuBar.stayUser != null
                               ? MenuBar.stayUser
                               : LogIn.registerNumber)
                           .get();
-                      print(userSession.data());
-                      //print(OT)
+                      print("${userSession.data()} userSession");
 
                       if (userSession.data() != null) {
                         setState(() {

@@ -72,8 +72,7 @@ class _RegistrationState extends State<Registration> {
     await prefs.setInt('login', 1);
     await prefs.setString('user', LogIn.registerNumber);
     print("${MenuBar.stayUser}MenuBar.stayUser");
-    print('Otp Submited');
-    print("${MenuBar.stayUser}LogIn.registerNumber");
+    print("${LogIn.registerNumber}LogIn.registerNumber");
   }
 
   Uint8List uploadFile;
@@ -276,7 +275,7 @@ class _RegistrationState extends State<Registration> {
                               setState(() {
                                 dOB = DateFormat('d-M-y').format(selectedDate);
                                 _dateOfBirth.text = dOB;
-                                print('${dOB}');
+                                print('${dOB}date of birth');
                               });
                             },
                           ),
@@ -380,7 +379,7 @@ class _RegistrationState extends State<Registration> {
                               await fireStoreAdd();
                               textFieldClear();
                               session();
-                              print("${profilePictureLink}jaya");
+                              print("${profilePictureLink}profilePictureLink");
                               Provider.of<Routing>(context, listen: false)
                                   .updateRouting(widget: CoursesView());
                               Provider.of<MenuBar>(context, listen: false)

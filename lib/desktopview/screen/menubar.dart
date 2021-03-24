@@ -48,7 +48,18 @@ class _NavbarState extends State<Navbar> {
     // TODO: implement initState
     super.initState();
     retriveTime();
+    //session();
   }
+
+  // session() async {
+  //   SharedPreferences prefs = await SharedPreferences.getInstance();
+  //   await prefs.setInt('login', 1);
+  //   await prefs.setString('user', MenuBar.stayUser);
+  //   print("${MenuBar.stayUser}dddddddddddddddddddddddddddddddddddddd");
+  //   MenuBar.stayUser = LogIn.registerNumber;
+  //
+  //   //getProfilePicture();
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -61,7 +72,6 @@ class _NavbarState extends State<Navbar> {
               builder: (context, snapshot) {
                 if (snapshot.hasData) {
                   if (snapshot.data.docs.isNotEmpty) {
-                    print('=========gggggggggggg========');
                     return Visibility(
                       visible: Navbar.isNotification,
                       child: FlashNotification(
@@ -116,7 +126,6 @@ class _NavbarRoutingState extends State<NavbarRouting> {
   void initState() {
     // TODO: implement initState
     super.initState();
-    print(NavbarRouting.menu);
   }
 
   @override
@@ -188,7 +197,8 @@ class _NavbarRoutingState extends State<NavbarRouting> {
                   shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.all(Radius.circular(30.0))),
                   onPressed: () {
-                    print('${MenuBar.stayUser} Stay user');
+                    print('${MenuBar.stayUser}MenuBar.stayUser');
+                    print("${LogIn.registerNumber}LogIn.registerNumber");
 
                     ///todo:instead of resiter login will come
                     ///

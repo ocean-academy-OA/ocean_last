@@ -3,10 +3,6 @@ import 'package:ocean_project/desktopview/route/routing.dart';
 
 import 'package:provider/provider.dart';
 
-void main() async {
-  runApp(OceanLive());
-}
-
 class OceanLive extends StatefulWidget {
   @override
   _OceanLiveState createState() => _OceanLiveState();
