@@ -109,9 +109,6 @@ class _AppBarWidgetState extends State<AppBarWidget> {
                               borderRadius:
                                   BorderRadius.all(Radius.circular(50.0))),
                           onPressed: () {
-                            setState(() {
-                              ContentWidget.isShow = false;
-                            });
                             Provider.of<Routing>(context, listen: false)
                                 .updateRouting(widget: CoursesView());
                             Provider.of<SyllabusView>(context, listen: false)
@@ -146,10 +143,6 @@ class _AppBarWidgetState extends State<AppBarWidget> {
                               borderRadius:
                                   BorderRadius.all(Radius.circular(50.0))),
                           onPressed: () {
-                            setState(() {
-                              // ignore: unnecessary_statements
-                              ContentWidget.isVisible = false;
-                            });
                             Provider.of<Routing>(context, listen: false)
                                 .updateRouting(widget: CoursesView());
                             Provider.of<SyllabusView>(context, listen: false)
