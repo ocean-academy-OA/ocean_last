@@ -7,12 +7,12 @@ import 'package:provider/provider.dart';
 
 FirebaseFirestore _firestore = FirebaseFirestore.instance;
 
-class WebinarCard extends StatefulWidget {
+class MobileWebinarCard extends StatefulWidget {
   @override
-  _WebinarCardState createState() => _WebinarCardState();
+  _MobileWebinarCardState createState() => _MobileWebinarCardState();
 }
 
-class _WebinarCardState extends State<WebinarCard> {
+class _MobileWebinarCardState extends State<MobileWebinarCard> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -255,6 +255,37 @@ class _WebinarCardDbState extends State<WebinarCardDb> {
                       fontWeight: FontWeight.normal,
                       fontFamily: "Gilroy"),
                 ),
+                Container(
+                  width: 200,
+                  child: Column(
+                    children: [
+                      Image.network(widget.mentorImage,
+                          height: 160, width: 160, fit: BoxFit.cover),
+                      SizedBox(
+                        height: 20,
+                      ),
+                      Text(
+                        widget.mentorName,
+                        style: TextStyle(
+                            color: Color(0xFFFFFFFF),
+                            fontSize: 15,
+                            fontWeight: FontWeight.bold,
+                            fontFamily: "Gilroy"),
+                      ),
+                      SizedBox(
+                        height: 10,
+                      ),
+                      Text(
+                        widget.mentorDesignation,
+                        style: TextStyle(
+                            color: Color(0xFFFFFFFF),
+                            fontSize: 15,
+                            fontWeight: FontWeight.normal,
+                            fontFamily: "Gilroy"),
+                      ),
+                    ],
+                  ),
+                ),
                 SizedBox(
                   height: 10,
                 ),
@@ -276,40 +307,6 @@ class _WebinarCardDbState extends State<WebinarCardDb> {
               ],
             ),
           ),
-          Container(
-            width: 200,
-            child: Column(
-              children: [
-                ClipRRect(
-                  borderRadius: BorderRadius.circular(120.0),
-                  child: Image.network(widget.mentorImage,
-                      height: 160, width: 160, fit: BoxFit.cover),
-                ),
-                SizedBox(
-                  height: 20,
-                ),
-                Text(
-                  widget.mentorName,
-                  style: TextStyle(
-                      color: Color(0xFFFFFFFF),
-                      fontSize: 15,
-                      fontWeight: FontWeight.bold,
-                      fontFamily: "Gilroy"),
-                ),
-                SizedBox(
-                  height: 10,
-                ),
-                Text(
-                  widget.mentorDesignation,
-                  style: TextStyle(
-                      color: Color(0xFFFFFFFF),
-                      fontSize: 15,
-                      fontWeight: FontWeight.normal,
-                      fontFamily: "Gilroy"),
-                ),
-              ],
-            ),
-          )
         ],
       ),
     );

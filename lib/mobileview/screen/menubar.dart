@@ -1,5 +1,6 @@
 import 'dart:developer';
 import 'package:flutter/material.dart';
+import 'package:ocean_project/desktopview/Components/flash_notification.dart';
 import 'package:ocean_project/mobileview/components/ocean_icons.dart';
 import 'package:ocean_project/mobileview/constants.dart';
 import 'package:ocean_project/mobileview/route/routing.dart';
@@ -7,6 +8,7 @@ import 'package:ocean_project/mobileview/screen/abouts_us_screen.dart';
 import 'package:ocean_project/mobileview/screen/contact_us_screen.dart';
 import 'package:ocean_project/mobileview/screen/courses_screen.dart';
 import 'package:ocean_project/mobileview/screen/home_screen.dart';
+import 'package:ocean_project/mobileview/screen/mobile_flash_notification.dart';
 import 'package:ocean_project/mobileview/screen/services_screen.dart';
 import 'package:provider/provider.dart';
 
@@ -32,6 +34,9 @@ class _NavbarState extends State<Navbar> {
       home: Scaffold(
         resizeToAvoidBottomInset: false,
         appBar: AppBar(
+          bottom: PreferredSize(
+              child: MobileFlashNotification(),
+              preferredSize: Size.fromHeight(60)),
           backgroundColor: Color(0xFFECF5FF),
           leading: GestureDetector(
             onTap: () {
