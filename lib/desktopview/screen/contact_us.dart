@@ -14,6 +14,7 @@ import 'package:ocean_project/desktopview/constants.dart';
 import 'package:ocean_project/text.dart';
 import 'package:progress_indicator_button/progress_button.dart';
 import 'package:ocean_project/desktopview/screen/footer.dart';
+import 'package:random_string/random_string.dart';
 
 final _firestore = FirebaseFirestore.instance;
 
@@ -50,6 +51,7 @@ class _ContactUsState extends State<ContactUs> {
   final emailController = TextEditingController();
   final queryController = TextEditingController();
   final phoneNumberController = TextEditingController();
+  final answerController = TextEditingController();
 
   List<String> enquery = [
     'Select',
@@ -68,6 +70,10 @@ class _ContactUsState extends State<ContactUs> {
   String phoneNumber;
   var date;
   var time;
+  String firstInt;
+  String secondInt;
+  int answer;
+  String total;
 
   List getDropdown() {
     List<DropdownMenuItem<String>> dropList = [];
@@ -141,6 +147,35 @@ class _ContactUsState extends State<ContactUs> {
     );
   }
 
+  Widget _buildAnswerField() {
+    return TextFormField(
+      inputFormatters: <TextInputFormatter>[
+        FilteringTextInputFormatter.allow(
+          RegExp(r"^\d+\.?\d{0,2}"),
+        ),
+        LengthLimitingTextInputFormatter(2),
+      ],
+      validator: (value) {
+        if (answer.toString() != total) {
+          return 'wrong';
+        }
+        return null;
+      },
+      decoration: InputDecoration(
+        contentPadding: EdgeInsets.all(5),
+        // prefixIcon: Icon(Icons.phone_android_outlined),
+        errorStyle: TextStyle(color: Colors.redAccent, fontSize: 10),
+        border: OutlineInputBorder(),
+        // hintText: 'Enter Your Number',
+        // labelText: 'Number',
+      ),
+      controller: answerController,
+      onChanged: (value) {
+        total = value;
+      },
+    );
+  }
+
   Widget _buildEmail() {
     return TextFormField(
       inputFormatters: [FilteringTextInputFormatter.deny(RegExp(r"\s"))],
@@ -187,6 +222,16 @@ class _ContactUsState extends State<ContactUs> {
         query = value;
       },
     );
+  }
+
+  calc() {
+    var first = int.parse(firstInt);
+    var second = int.parse(secondInt);
+    answer = first + second;
+
+    print("$firstInt  //////////////////firstInt");
+    print("$secondInt  //////////////////secondInt");
+    print("$answer  //////////////////answer");
   }
 
   @override
@@ -458,7 +503,101 @@ class _ContactUsState extends State<ContactUs> {
                             padding: EdgeInsets.only(right: 80),
                             child: _buildquery(),
                           ),
-                          SizedBox(height: 50),
+                          SizedBox(height: 20),
+                          Container(
+                            child: Text(
+                              "I'm not Robot",
+                              style: TextStyle(
+                                color: Colors.grey[600],
+                                letterSpacing: 2,
+                                fontSize: 20,
+                                fontWeight: FontWeight.w300,
+                              ),
+                            ),
+                          ),
+                          SizedBox(height: 5),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            children: [
+                              Container(
+                                padding: EdgeInsets.all(15),
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(5),
+                                  color: Colors.grey[100],
+                                ),
+                                child: Column(
+                                  children: [
+                                    Row(
+                                      children: [
+                                        Container(
+                                          decoration: BoxDecoration(
+                                            color: Colors.blue[400],
+                                            borderRadius:
+                                                BorderRadius.circular(5),
+                                          ),
+                                          alignment: Alignment.center,
+                                          width: 50,
+                                          height: 30,
+                                          child: Text(
+                                            firstInt =
+                                                randomBetween(1, 10).toString(),
+                                            style:
+                                                TextStyle(color: Colors.white),
+                                          ),
+                                        ),
+                                        Container(
+                                          alignment: Alignment.center,
+                                          width: 50,
+                                          height: 30,
+                                          child: Text(
+                                            '+',
+                                            style: TextStyle(
+                                                fontSize: 25,
+                                                color: Colors.grey),
+                                          ),
+                                        ),
+                                        Container(
+                                          decoration: BoxDecoration(
+                                            color: Colors.blue[400],
+                                            borderRadius:
+                                                BorderRadius.circular(5),
+                                          ),
+                                          alignment: Alignment.center,
+                                          width: 50,
+                                          height: 30,
+                                          child: Text(
+                                            secondInt =
+                                                randomBetween(1, 10).toString(),
+                                            style:
+                                                TextStyle(color: Colors.white),
+                                          ),
+                                        ),
+                                        Container(
+                                          alignment: Alignment.center,
+                                          width: 50,
+                                          height: 30,
+                                          child: Text(
+                                            '=',
+                                            style: TextStyle(
+                                                fontSize: 25,
+                                                color: Colors.grey),
+                                          ),
+                                        ),
+                                        Container(
+                                          alignment: Alignment.center,
+                                          width: 50,
+                                          height: 30,
+                                          color: Colors.white,
+                                          child: _buildAnswerField(),
+                                        ),
+                                      ],
+                                    )
+                                  ],
+                                ),
+                              ),
+                            ],
+                          ),
+                          SizedBox(height: 40),
                           Container(
                             width: 120,
                             height: 53,
@@ -478,6 +617,9 @@ class _ContactUsState extends State<ContactUs> {
                                 ),
                                 onPressed:
                                     (AnimationController controller) async {
+                                  calc();
+                                  print(answerController.text);
+
                                   TimeOfDay picked = TimeOfDay.now();
                                   MaterialLocalizations localizations =
                                       MaterialLocalizations.of(context);
@@ -498,26 +640,8 @@ class _ContactUsState extends State<ContactUs> {
                                         fullname != null &&
                                         email != null &&
                                         query != null &&
-                                        phoneNumber != null) {
-                                      // ScaffoldMessenger.of(context)
-                                      //     .showSnackBar(
-                                      //   SnackBar(
-                                      //     content: Row(
-                                      //       children: [
-                                      //         Icon(
-                                      //           Icons.thumb_up_alt_outlined,
-                                      //           color: Colors.white,
-                                      //         ),
-                                      //         SizedBox(width: 20),
-                                      //         Text(
-                                      //           'Sending Please Wait Few Seconds',
-                                      //           style: TextStyle(
-                                      //               color: Colors.white),
-                                      //         )
-                                      //       ],
-                                      //     ),
-                                      //   ),
-                                      // );
+                                        phoneNumber != null &&
+                                        answer.toString() == total) {
                                       await _firestore
                                           .collection('contact_us')
                                           .add({
@@ -538,6 +662,7 @@ class _ContactUsState extends State<ContactUs> {
                                       emailController.clear();
                                       queryController.clear();
                                       phoneNumberController.clear();
+                                      answerController.clear();
 
                                       if (controller.isCompleted) {
                                         setState(() {
@@ -550,7 +675,7 @@ class _ContactUsState extends State<ContactUs> {
                                   }
                                 }),
                           ),
-                          SizedBox(height: 40),
+                          SizedBox(height: 50),
                         ],
                       ),
                     ),
