@@ -72,7 +72,9 @@ class Home extends StatelessWidget {
         overlayColor: Color(0x55000000),
         alertElevation: 100,
         alertAlignment: Alignment.topCenter);
-    if (isFirstLoaded == null) {
+
+    /// TODO insted of true = null
+    if (isFirstLoaded == true) {
       showDialog(
         context: context,
         builder: (BuildContext context) {
