@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:ocean_project/desktopview/route/routing.dart';
+import 'package:ocean_project/mobileview/screen/mobile_wbinar/mobile_single%20webinar.dart';
 import 'package:ocean_project/webinar/single_wbinar.dart';
 import 'package:provider/provider.dart';
 
@@ -17,7 +18,7 @@ class _MobileWebinarCardState extends State<MobileWebinarCard> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: SingleChildScrollView(
-        child: Column(
+        child: Wrap(
           children: [
             Row(
               children: [BackButton()],
@@ -107,11 +108,13 @@ class _MobileWebinarCardState extends State<MobileWebinarCard> {
                           time: timing.toString(),
                           onPressed: () async {
                             print(payment);
-                            Provider.of<Routing>(context, listen: false)
-                                .updateRouting(
-                                    widget: SingleWebinarScreen(
-                              topic: courseName,
-                            ));
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) =>
+                                        MobileSingleWebinarScreen(
+                                          topic: courseName,
+                                        )));
                           },
                         );
                         if (defrenceTime > 0) {
@@ -170,10 +173,10 @@ class _WebinarCardDbState extends State<WebinarCardDb> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      width: 500,
+      width: 300,
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(10),
-        color: Color(0xFF1E1E1E),
+        color: Color(0xFF111111),
       ),
       margin: EdgeInsets.all(30),
       padding: EdgeInsets.symmetric(vertical: 20, horizontal: 20),
@@ -258,9 +261,12 @@ class _WebinarCardDbState extends State<WebinarCardDb> {
                 Container(
                   width: 200,
                   child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Image.network(widget.mentorImage,
-                          height: 160, width: 160, fit: BoxFit.cover),
+                      Image.network(
+                        widget.mentorImage,
+                        width: 300,
+                      ),
                       SizedBox(
                         height: 20,
                       ),

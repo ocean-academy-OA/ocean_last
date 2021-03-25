@@ -7,6 +7,7 @@ import 'package:intl/intl.dart';
 import 'package:ocean_project/desktopview/constants.dart';
 import 'package:ocean_project/desktopview/screen/menubar.dart';
 import 'package:ocean_project/desktopview/route/routing.dart';
+import 'package:ocean_project/mobileview/screen/mobile_wbinar/mobile_join_successfuly.dart';
 import 'package:ocean_project/webinar/wbinar_menubar.dart';
 import 'package:ocean_project/webinar/single_wbinar.dart';
 import 'package:ocean_project/webinar/upcoming_webinar.dart';
@@ -14,6 +15,8 @@ import 'package:ocean_project/webinar/upcoming_webinar.dart';
 import 'package:ocean_project/webinar/webinar_live.dart';
 import 'package:provider/provider.dart';
 import 'package:slide_countdown_clock/slide_countdown_clock.dart';
+
+import 'mobile_wbinar/webinar_list.dart';
 
 final _firestore = FirebaseFirestore.instance;
 
@@ -161,7 +164,13 @@ class _MobileFlashNotificationState extends State<MobileFlashNotification> {
                     Navigator.push(
                         context,
                         MaterialPageRoute(
-                            builder: (context) => UpcomingWebinar()));
+                            builder: (context) => MobileWebinarCard()));
+                    // Navigator.push(
+                    //     context,
+                    //     MaterialPageRoute(
+                    //         builder: (context) => MobileJoinSuccessfully(
+                    //               joinUserName: 'thashdsf',
+                    //             )));
                   },
                 ),
               ),
