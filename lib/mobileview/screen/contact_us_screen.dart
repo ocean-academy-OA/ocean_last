@@ -16,6 +16,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 
 import 'package:email_validator/email_validator.dart';
 import 'package:ocean_project/text.dart';
+import 'package:random_string/random_string.dart';
 
 final _firestore = FirebaseFirestore.instance;
 
@@ -25,6 +26,34 @@ class ContactUs extends StatefulWidget {
 }
 
 class _ContactUsState extends State<ContactUs> {
+  List<String> enquery = [
+    'select',
+    'query1',
+    'query2',
+    'query3',
+    'query4',
+  ];
+
+  String enquiry = 'select';
+  String fullname;
+  String email;
+  String query;
+  String phoneNumber;
+  var date;
+  var time;
+  String firstInt;
+  String secondInt;
+  int answer;
+  String total;
+  bool validation = false;
+
+  final enquiryController = TextEditingController();
+  final nameController = TextEditingController();
+  final emailController = TextEditingController();
+  final queryController = TextEditingController();
+  final phoneNumberController = TextEditingController();
+  final answerController = TextEditingController();
+
   dynamic getDate() async {
     return DateTime.now();
   }
@@ -44,12 +73,6 @@ class _ContactUsState extends State<ContactUs> {
   String linkMaps =
       "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2320.9284365759204!2d79.82874531102095!3d11.952276565466109!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3a53616c1e43a73f%3A0xf3758f2502e74f5b!2sOcean%20Academy%20Software%20Training%20Division!5e0!3m2!1sen!2sin!4v1613816776714!5m2!1sen!2sin";
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
-
-  final enquiryController = TextEditingController();
-  final nameController = TextEditingController();
-  final emailController = TextEditingController();
-  final queryController = TextEditingController();
-  final phoneNumberController = TextEditingController();
 
   Widget _buildName() {
     return TextFormField(
@@ -144,21 +167,35 @@ class _ContactUsState extends State<ContactUs> {
     );
   }
 
-  List<String> enquery = [
-    'select',
-    'query1',
-    'query2',
-    'query3',
-    'query4',
-  ];
-
-  String enquiry = 'select';
-  String fullname;
-  String email;
-  String query;
-  String phoneNumber;
-  var date;
-  var time;
+  Widget _buildAnswerField() {
+    return TextFormField(
+      autovalidate: validation,
+      inputFormatters: <TextInputFormatter>[
+        FilteringTextInputFormatter.allow(
+          RegExp(r"^\d+\.?\d{0,2}"),
+        ),
+        LengthLimitingTextInputFormatter(2),
+      ],
+      validator: (value) {
+        if (answer.toString() != total) {
+          return 'wrong';
+        }
+        return null;
+      },
+      decoration: InputDecoration(
+        contentPadding: EdgeInsets.all(5),
+        // prefixIcon: Icon(Icons.phone_android_outlined),
+        errorStyle: TextStyle(color: Colors.redAccent, fontSize: 0),
+        border: OutlineInputBorder(),
+        // hintText: 'Enter Your Number',
+        // labelText: 'Number',
+      ),
+      controller: answerController,
+      onChanged: (value) {
+        total = value;
+      },
+    );
+  }
 
   List getDropdown() {
     List<DropdownMenuItem<String>> dropList = [];
@@ -174,6 +211,7 @@ class _ContactUsState extends State<ContactUs> {
   }
 
   GlobalKey<ScaffoldState> contectScaffoldKey = new GlobalKey<ScaffoldState>();
+
   @override
   Widget build(BuildContext context) {
     return MobileScafold(
@@ -379,6 +417,94 @@ class _ContactUsState extends State<ContactUs> {
                       ],
                     ),
                     SizedBox(height: 20),
+                    Container(
+                      child: Text(
+                        "I'm not Robot",
+                        style: TextStyle(
+                          color: Colors.grey[600],
+                          letterSpacing: 2,
+                          fontSize: 20,
+                          fontWeight: FontWeight.w300,
+                        ),
+                      ),
+                    ),
+                    SizedBox(height: 10),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: [
+                        Container(
+                          padding: EdgeInsets.all(15),
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(5),
+                            color: Colors.grey[100],
+                          ),
+                          child: Column(
+                            children: [
+                              Row(
+                                children: [
+                                  Container(
+                                    decoration: BoxDecoration(
+                                      color: Colors.blue[400],
+                                      borderRadius: BorderRadius.circular(5),
+                                    ),
+                                    alignment: Alignment.center,
+                                    width: 50,
+                                    height: 30,
+                                    child: Text(
+                                      firstInt =
+                                          randomBetween(1, 10).toString(),
+                                      style: TextStyle(color: Colors.white),
+                                    ),
+                                  ),
+                                  Container(
+                                    alignment: Alignment.center,
+                                    width: 50,
+                                    height: 30,
+                                    child: Text(
+                                      '+',
+                                      style: TextStyle(
+                                          fontSize: 25, color: Colors.grey),
+                                    ),
+                                  ),
+                                  Container(
+                                    decoration: BoxDecoration(
+                                      color: Colors.blue[400],
+                                      borderRadius: BorderRadius.circular(5),
+                                    ),
+                                    alignment: Alignment.center,
+                                    width: 50,
+                                    height: 30,
+                                    child: Text(
+                                      secondInt =
+                                          randomBetween(1, 10).toString(),
+                                      style: TextStyle(color: Colors.white),
+                                    ),
+                                  ),
+                                  Container(
+                                    alignment: Alignment.center,
+                                    width: 50,
+                                    height: 30,
+                                    child: Text(
+                                      '=',
+                                      style: TextStyle(
+                                          fontSize: 25, color: Colors.grey),
+                                    ),
+                                  ),
+                                  Container(
+                                    alignment: Alignment.center,
+                                    width: 50,
+                                    height: 30,
+                                    color: Colors.white,
+                                    child: _buildAnswerField(),
+                                  ),
+                                ],
+                              )
+                            ],
+                          ),
+                        ),
+                      ],
+                    ),
+                    SizedBox(height: 10),
                     RaisedButton(
                       padding: EdgeInsets.only(
                           left: 30, right: 30, top: 20, bottom: 20),

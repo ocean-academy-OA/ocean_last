@@ -67,13 +67,14 @@ class _ContactUsState extends State<ContactUs> {
   String email;
   String query;
   String phoneNumber;
-  bool validation = false;
+
   var date;
   var time;
   String firstInt;
   String secondInt;
   int answer;
   String total;
+  bool validation = false;
 
   List getDropdown() {
     List<DropdownMenuItem<String>> dropList = [];
