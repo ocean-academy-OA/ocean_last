@@ -436,8 +436,8 @@ class _ContentWidgetState extends State<ContentWidget> {
                     //if ((message.data()['coursename'] == widget.course)) {
                     final messageText = message.data()['date_and_time'];
                     final messagebatch = message.data()['description'];
-                    final messageSender = message.data()['zoom_link'];
-                    final messageTrainer = message.data()['zoom_password'];
+                    final meetingNumber = message.data()['zoom_link'];
+                    final password = message.data()['zoom_password'];
                     final messageFinish = message.data()['finish'];
                     final messageCoursedescription =
                         message.data()['description'];
@@ -454,8 +454,22 @@ class _ContentWidgetState extends State<ContentWidget> {
                       title: messageContent1,
                       date: messageContent2,
                       time: messageContent3,
-                      trainername: messageTrainer,
+                      meetingPassword: password,
                       batchid: messagebatch,
+                      meeting: meetingNumber,
+                      onpress: () {
+                        print(password);
+                        print("++++++++++++++++@@@@@@@@@@@");
+                        print(meetingNumber);
+                        print(
+                            "https://brindakarthik.github.io/zoom/?meetingNumber=${meetingNumber}&username=abc&password=${password}");
+                        Provider.of<SyllabusView>(context, listen: false)
+                            .updateCourseSyllabus(
+                                routing: ZoomIntegration(
+                          zoomLink:
+                              "https://brindakarthik.github.io/zoom/?meetingNumber=${meetingNumber}&username=abc&password=${password}",
+                        ));
+                      },
                     );
                     courseContent.add(messageContent);
                     //  }
@@ -477,7 +491,7 @@ class _ContentWidgetState extends State<ContentWidget> {
 
 class CourseContent extends StatefulWidget {
   final String coursename;
-  final String trainername;
+  final String meetingPassword;
   final String name;
   final String finish;
   final String coursedescription;
@@ -487,9 +501,12 @@ class CourseContent extends StatefulWidget {
   final String time;
   final String date;
   final String schedule;
+  final String meeting;
+  final Function onpress;
   CourseContent(
       {this.coursename,
       this.batchid,
+      this.meeting,
       this.name,
       this.finish,
       this.coursedescription,
@@ -498,7 +515,8 @@ class CourseContent extends StatefulWidget {
       this.date,
       this.schedule,
       this.topicCover,
-      this.trainername});
+      this.onpress,
+      this.meetingPassword});
 
   @override
   _CourseContentState createState() => _CourseContentState();
@@ -506,9 +524,9 @@ class CourseContent extends StatefulWidget {
 
 class _CourseContentState extends State<CourseContent> {
   @override
-  String zoomLink =
-      "https://us04web.zoom.us/j/73962946984?pwd=TDRmWGJDZ1ZqbWZSNVlLMnNwWjdhQT09#success";
   Widget build(BuildContext context) {
+    String zoomLink =
+        "https://brindakarthik.github.io/zoom/?meetingNumber=${widget.meeting}&username=abc&password=${widget.meetingPassword}";
     print("${CoursesView.courseEnroll}CoursesView.courseEnroll");
     return Stack(
       children: [
@@ -572,12 +590,7 @@ class _CourseContentState extends State<CourseContent> {
                                 shape: RoundedRectangleBorder(
                                     borderRadius: BorderRadius.all(
                                         Radius.circular(05.0))),
-                                onPressed: () {
-                                  Provider.of<SyllabusView>(context,
-                                          listen: false)
-                                      .updateCourseSyllabus(
-                                          routing: ZoomIntegration());
-                                },
+                                onPressed: widget.onpress,
                                 child: Row(
                                   children: [
                                     Icon(
