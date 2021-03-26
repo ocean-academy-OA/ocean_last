@@ -1,13 +1,13 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:ocean_project/mobileview/screen/mobile_wbinar/webinar_list.dart';
 import 'package:ocean_project/webinar/join_successfully.dart';
 
 void main() {
   runApp(
     MaterialApp(
-      home: Scaffold(
-        body: TextingFirebase(),
-      ),
+      debugShowCheckedModeBanner: false,
+      home: MobileWebinarCard(),
     ),
   );
 }

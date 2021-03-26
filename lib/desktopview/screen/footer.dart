@@ -334,11 +334,13 @@ class _FooterState extends State<Footer> {
                     SizedBox(
                       height: 20.0,
                     ),
-                    Container(
-                        child: Text(
-                      'FAQ',
-                      style: kbottom,
-                    )),
+                    GestureDetector(
+                      child: Container(
+                          child: Text(
+                        'FAQ',
+                        style: kbottom,
+                      )),
+                    ),
                     SizedBox(
                       height: 20.0,
                     ),
@@ -358,19 +360,19 @@ class _FooterState extends State<Footer> {
                     SizedBox(
                       height: 20.0,
                     ),
-                    FooterMouseRegion(text: "WORK WITH US"),
-                    SizedBox(
-                      height: 20.0,
-                    ),
-                    FooterMouseRegion(text: "PRIVATE POLICIES"),
-                    SizedBox(
-                      height: 20.0,
-                    ),
-                    FooterMouseRegion(text: "TERMS AND CONDITIONS"),
-                    SizedBox(
-                      height: 20.0,
-                    ),
-                    FooterMouseRegion(text: "PRESS ENQUIRES"),
+                    // FooterMouseRegion(text: "WORK WITH US"),
+                    // SizedBox(
+                    //   height: 20.0,
+                    // ),
+                    // FooterMouseRegion(text: "PRIVATE POLICIES"),
+                    // SizedBox(
+                    //   height: 20.0,
+                    // ),
+                    // FooterMouseRegion(text: "TERMS AND CONDITIONS"),
+                    // SizedBox(
+                    //   height: 20.0,
+                    // ),
+                    // FooterMouseRegion(text: "PRESS ENQUIRES"),
                   ],
                 ),
               ),
