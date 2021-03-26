@@ -59,17 +59,18 @@ class _MobileScafoldState extends State<MobileScafold> {
             ),
           ],
         ),
-        bottom: PreferredSize(
-            child: MobileFlashNotification(),
-            preferredSize: Size.fromHeight(60)),
+        // bottom: PreferredSize(
+        //     child: MobileFlashNotification(),
+        //     preferredSize: Size.fromHeight(60)),
         actions: [
           StreamBuilder<QuerySnapshot>(
-            stream: _firestore.collection('TestWebinar').snapshots(),
+            stream: _firestore.collection('Webinar').snapshots(),
             builder: (context, snapshot) {
               print(snapshot.hasData);
               if (snapshot.hasData) {
                 if (snapshot.data.docs.isNotEmpty) {
                   return IconButton(
+                      tooltip: 'Upcoming Webinar',
                       icon: Icon(Icons.live_tv),
                       color: Colors.red,
                       onPressed: () {
