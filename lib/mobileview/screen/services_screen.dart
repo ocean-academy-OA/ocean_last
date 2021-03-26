@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/painting.dart';
+import 'package:ocean_project/mobile_view/all_scafold.dart';
 import 'package:ocean_project/mobileview/components/card_design.dart';
 import 'package:ocean_project/mobileview/components/navigation_bar.dart';
 import 'package:ocean_project/mobileview/constants.dart';
@@ -13,10 +14,13 @@ class Service extends StatefulWidget {
 }
 
 class _ServiceState extends State<Service> {
+  GlobalKey<ScaffoldState> serviceScaffoldKey = new GlobalKey<ScaffoldState>();
+
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: SingleChildScrollView(
+    return MobileScafold(
+      scaffoldKey: serviceScaffoldKey,
+      widget: SingleChildScrollView(
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 0.0),
           child: Center(

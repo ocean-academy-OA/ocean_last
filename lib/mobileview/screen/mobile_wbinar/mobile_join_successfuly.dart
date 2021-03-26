@@ -4,9 +4,9 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 import 'package:ocean_project/desktopview/constants.dart';
-import 'package:ocean_project/desktopview/route/routing.dart';
-import 'package:ocean_project/desktopview/screen/home_screen.dart';
-import 'package:ocean_project/desktopview/screen/menubar.dart';
+import 'package:ocean_project/mobileview/route/routing.dart';
+
+import 'package:ocean_project/mobileview/screen/home_screen.dart';
 import 'package:provider/provider.dart';
 
 class MobileJoinSuccessfully extends StatefulWidget {
@@ -81,10 +81,9 @@ class _MobileJoinSuccessfullyState extends State<MobileJoinSuccessfully> {
                   ),
                   color: Colors.white,
                   onPressed: () {
-                    Provider.of<MenuBar>(context, listen: false)
-                        .updateMenu(widget: NavbarRouting());
                     Provider.of<Routing>(context, listen: false)
                         .updateRouting(widget: Home());
+                    // Navigator.push(context, MaterialPageRoute(builder: (context)=>Home()));
                   },
                 )
               ],

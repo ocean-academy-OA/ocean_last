@@ -1,5 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:ocean_project/mobile_view/all_scafold.dart';
+
 import 'package:ocean_project/mobileview/components/container_widget.dart';
 import 'package:ocean_project/mobileview/components/navigation_bar.dart';
 import 'package:ocean_project/mobileview/constants.dart';
@@ -8,11 +10,14 @@ import 'package:ocean_project/text.dart';
 
 class AboutUs extends StatelessWidget {
   final _firestore = FirebaseFirestore.instance;
-  // This widget is the root of your application.
+  final GlobalKey<ScaffoldState> aboutScaffoldKey =
+      new GlobalKey<ScaffoldState>();
+
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: SingleChildScrollView(
+    return MobileScafold(
+      scaffoldKey: aboutScaffoldKey,
+      widget: SingleChildScrollView(
         child: Container(
           color: Colors.white,
           child: Column(

@@ -86,7 +86,6 @@ class TextingFirebase extends StatefulWidget {
 //   }
 // }
 
-ScrollController _controller = ScrollController();
 final numbrerList = List.generate(50, (index) => index + 1);
 
 showJoinDialog(context) {
