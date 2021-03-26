@@ -8,6 +8,7 @@ import 'package:intl/intl.dart';
 import 'package:ocean_project/desktopview/constants.dart';
 import 'package:ocean_project/desktopview/route/routing.dart';
 import 'package:ocean_project/desktopview/screen/menubar.dart';
+import 'package:ocean_project/mobileview/screen/home_screen.dart';
 import 'package:ocean_project/mobileview/screen/mobile_wbinar/mobile_join_successfuly.dart';
 import 'package:ocean_project/webinar/join_successfully.dart';
 import 'package:ocean_project/webinar/webinar_const.dart';
@@ -45,6 +46,18 @@ class _MobileSingleWebinarScreenState extends State<MobileSingleWebinarScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        leading: BackButton(),
+        actions: [
+          IconButton(
+              icon: Icon(Icons.home),
+              color: Colors.white,
+              onPressed: () {
+                Navigator.push(
+                    context, MaterialPageRoute(builder: (context) => Home()));
+              })
+        ],
+      ),
       body: Container(
         child: SingleChildScrollView(
           child: Column(

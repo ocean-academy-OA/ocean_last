@@ -81,9 +81,8 @@ class _MobileJoinSuccessfullyState extends State<MobileJoinSuccessfully> {
                   ),
                   color: Colors.white,
                   onPressed: () {
-                    Provider.of<Routing>(context, listen: false)
-                        .updateRouting(widget: Home());
-                    // Navigator.push(context, MaterialPageRoute(builder: (context)=>Home()));
+                    Navigator.push(context,
+                        MaterialPageRoute(builder: (context) => Home()));
                   },
                 )
               ],
