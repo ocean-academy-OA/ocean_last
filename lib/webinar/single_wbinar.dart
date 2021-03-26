@@ -7,7 +7,6 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:intl/intl.dart';
 import 'package:ocean_project/desktopview/constants.dart';
 import 'package:ocean_project/desktopview/route/routing.dart';
-import 'package:ocean_project/desktopview/screen/menubar.dart';
 import 'package:ocean_project/webinar/join_successfully.dart';
 import 'package:ocean_project/webinar/webinar_const.dart';
 import 'package:provider/provider.dart';
@@ -124,7 +123,7 @@ class _SingleWebinarScreenState extends State<SingleWebinarScreen> {
                       final dBaboutMentor = a.data()['about mentor'];
 
                       if (sDate > 0) {
-                        int DBwbinarTime = sDate;
+                        int dBwebinarTime = sDate;
                         if (dBcourse == widget.topic) {
                           SingleWebinarDB singleWebinar = SingleWebinarDB(
                             superTitle: dBsuperTitle,
@@ -136,7 +135,7 @@ class _SingleWebinarScreenState extends State<SingleWebinarScreen> {
                             payment: dBpayment,
                             studentEnrolled: int.parse(dBstudentEnrolled),
                             webinarDuration: dBwebinarDuration,
-                            webinarTime: DBwbinarTime,
+                            webinarTime: dBwebinarTime,
                             mentorImage: dBmentorImage,
                             aboutMentor: dBaboutMentor,
                             allTopics: allTopics,

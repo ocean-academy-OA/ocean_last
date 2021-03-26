@@ -2,8 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:ocean_project/desktopview/Components/enrool_appbar.dart';
 import 'package:ocean_project/desktopview/constants.dart';
 import 'package:ocean_project/desktopview/main.dart';
-import 'package:ocean_project/desktopview/new_user_screen/log_in.dart';
-import 'package:ocean_project/desktopview/screen/home_screen.dart';
+
 import 'package:ocean_project/desktopview/screen/menubar.dart';
 import 'package:ocean_project/mobileview/main.dart';
 import 'package:provider/provider.dart';

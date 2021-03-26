@@ -251,7 +251,7 @@ class _FlashDbState extends State<FlashDb> {
                       secondsFormat)
                   .difference(DateTime.now())
                   .inSeconds;
-              print('${defrenceTime} testing timing');
+              print('$defrenceTime testing timing');
               remaingTime = defrenceTime > 0 ? defrenceTime : 0;
               if (remaingTime != 0) {
                 return SlideCountdownClock(

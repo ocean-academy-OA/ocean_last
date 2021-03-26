@@ -1,13 +1,8 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:email_validator/email_validator.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:ocean_project/alert/alert_msg.dart';
 import 'package:ocean_project/mobile_view/all_scafold.dart';
-
 import 'package:ocean_project/mobileview/components/how_it_works.dart';
 import 'package:ocean_project/mobileview/components/main_badget_widget.dart';
-import 'package:ocean_project/mobileview/components/ocean_icons.dart';
 import 'package:ocean_project/mobileview/components/placement_company.dart';
 import 'package:ocean_project/mobileview/components/reviews.dart';
 import 'package:ocean_project/mobileview/components/slider_widget.dart';
@@ -16,17 +11,12 @@ import 'package:ocean_project/mobileview/screen/footer.dart';
 import 'package:rflutter_alert/rflutter_alert.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-final _firestore = FirebaseFirestore.instance;
-
 // ignore: must_be_immutable
 class Home extends StatelessWidget {
   Home({this.appBar});
   final AppBar appBar;
   GlobalKey<FormState> formKeyAlert = GlobalKey<FormState>();
 
-  final _fullNameAlertController = TextEditingController();
-  final _mobileAlertController = TextEditingController();
-  final _emailAlertController = TextEditingController();
   final keyIsFirstLoaded = 'is_first_loaded';
 
   String fullNameAlert;

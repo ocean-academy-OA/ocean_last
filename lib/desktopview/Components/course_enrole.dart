@@ -1,21 +1,14 @@
 import 'dart:html';
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:ocean_project/desktopview/Components/courses_widget.dart';
-import 'package:ocean_project/desktopview/Components/enroll_new.dart';
-import 'package:ocean_project/desktopview/Components/enrool_appbar.dart';
-import 'package:ocean_project/desktopview/Components/main_notification.dart';
-
-import 'package:ocean_project/desktopview/Components/user_profile.dart';
 import 'package:ocean_project/desktopview/constants.dart';
 import 'package:ocean_project/desktopview/new_user_screen/log_in.dart';
 import 'package:ocean_project/desktopview/route/routing.dart';
 import 'package:ocean_project/desktopview/screen/course_details.dart';
-
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'zoom_integration.dart';
@@ -462,12 +455,12 @@ class _ContentWidgetState extends State<ContentWidget> {
                         print("++++++++++++++++@@@@@@@@@@@");
                         print(meetingNumber);
                         print(
-                            "https://brindakarthik.github.io/zoom/?meetingNumber=${meetingNumber}&username=abc&password=${password}");
+                            "https://brindakarthik.github.io/zoom/?meetingNumber=$meetingNumber&username=abc&password=$password");
                         Provider.of<SyllabusView>(context, listen: false)
                             .updateCourseSyllabus(
                                 routing: ZoomIntegration(
                           zoomLink:
-                              "https://brindakarthik.github.io/zoom/?meetingNumber=${meetingNumber}&username=abc&password=${password}",
+                              "https://brindakarthik.github.io/zoom/?meetingNumber=$meetingNumber&username=abc&password=$password",
                         ));
                       },
                     );

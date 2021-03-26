@@ -1,6 +1,5 @@
 import 'dart:developer';
 import 'package:flutter/material.dart';
-import 'package:ocean_project/desktopview/Components/flash_notification.dart';
 import 'package:ocean_project/mobileview/components/ocean_icons.dart';
 import 'package:ocean_project/mobileview/constants.dart';
 import 'package:ocean_project/mobileview/route/routing.dart';

@@ -55,8 +55,6 @@ class _RegistrationState extends State<Registration> {
   final _eMail = TextEditingController();
   final _companyOrSchool = TextEditingController();
   final _dgree = TextEditingController();
-  final _country = TextEditingController();
-  final _state = TextEditingController();
   final _phoneNumber = TextEditingController(text: LogIn.registerNumber);
 
   List inputFormatte({@required String regExp, int length}) {
