@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:ocean_project/desktopview/constants.dart';
+import 'package:ocean_project/mobile_view/all_scafold.dart';
+
 import 'package:ocean_project/mobileview/route/routing.dart';
+import 'package:ocean_project/mobileview/screen/home_screen.dart';
 import 'package:ocean_project/mobileview/screen/menubar.dart';
 import 'package:provider/provider.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -18,7 +21,7 @@ class OceanMobileView extends StatelessWidget {
         create: (context) => Routing(),
         child: MaterialApp(
           theme: ThemeData(fontFamily: kfontname),
-          home: Navbar(),
+          home: Home(),
           debugShowCheckedModeBanner: false,
         ));
   }

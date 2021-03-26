@@ -8,6 +8,7 @@ import 'package:intl/intl.dart';
 import 'package:ocean_project/desktopview/constants.dart';
 import 'package:ocean_project/desktopview/route/routing.dart';
 import 'package:ocean_project/desktopview/screen/menubar.dart';
+import 'package:ocean_project/mobileview/screen/home_screen.dart';
 import 'package:ocean_project/mobileview/screen/mobile_wbinar/mobile_join_successfuly.dart';
 import 'package:ocean_project/webinar/join_successfully.dart';
 import 'package:ocean_project/webinar/webinar_const.dart';
@@ -45,6 +46,18 @@ class _MobileSingleWebinarScreenState extends State<MobileSingleWebinarScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        leading: BackButton(),
+        actions: [
+          IconButton(
+              icon: Icon(Icons.home),
+              color: Colors.white,
+              onPressed: () {
+                Navigator.push(
+                    context, MaterialPageRoute(builder: (context) => Home()));
+              })
+        ],
+      ),
       body: Container(
         child: SingleChildScrollView(
           child: Column(
@@ -113,34 +126,34 @@ class _MobileSingleWebinarScreenState extends State<MobileSingleWebinarScreen> {
                         allTopics.add(topics);
                       }
                       final webinarVideo = a.data()['webinar video'];
-                      final DBcourse = a.data()['course'];
-                      final DBsuperTitle = a.data()['super title'];
-                      final DBmainSubtitle = a.data()['main subtitle'];
-                      final DBmainTitle = a.data()['main title'];
-                      final DBtrainerImage = a.data()['trainer image'];
-                      final DBtrainerName = a.data()['trainer name'];
-                      final DBpayment = a.data()['payment'];
-                      String DBstudentEnrolled = a.data()['student enrolled'];
-                      final DBwebinarDuration = a.data()['webinar duration'];
-                      final DBmentorImage = a.data()['mentor image'];
-                      final DBaboutMentor = a.data()['about mentor'];
+                      final dBcourse = a.data()['course'];
+                      final dBsuperTitle = a.data()['super title'];
+                      final dBmainSubtitle = a.data()['main subtitle'];
+                      final dBmainTitle = a.data()['main title'];
+                      final dBtrainerImage = a.data()['trainer image'];
+                      final dBtrainerName = a.data()['trainer name'];
+                      final dBpayment = a.data()['payment'];
+                      String dBstudentEnrolled = a.data()['student enrolled'];
+                      final dBwebinarDuration = a.data()['webinar duration'];
+                      final dBmentorImage = a.data()['mentor image'];
+                      final dBaboutMentor = a.data()['about mentor'];
 
                       if (sDate > 0) {
                         int DBwbinarTime = sDate;
-                        if (DBcourse == widget.topic) {
+                        if (dBcourse == widget.topic) {
                           SingleWebinarDB singleWebinar = SingleWebinarDB(
-                            superTitle: DBsuperTitle,
-                            mainTitle: DBmainTitle,
-                            mainSubtitle: DBmainSubtitle,
-                            trainerImage: DBtrainerImage,
-                            trainerName: DBtrainerName,
-                            course: DBcourse,
-                            payment: DBpayment,
-                            studentEnrolled: int.parse(DBstudentEnrolled),
-                            webinarDuration: DBwebinarDuration,
+                            superTitle: dBsuperTitle,
+                            mainTitle: dBmainTitle,
+                            mainSubtitle: dBmainSubtitle,
+                            trainerImage: dBtrainerImage,
+                            trainerName: dBtrainerName,
+                            course: dBcourse,
+                            payment: dBpayment,
+                            studentEnrolled: int.parse(dBstudentEnrolled),
+                            webinarDuration: dBwebinarDuration,
                             webinarTime: DBwbinarTime,
-                            mentorImage: DBmentorImage,
-                            aboutMentor: DBaboutMentor,
+                            mentorImage: dBmentorImage,
+                            aboutMentor: dBaboutMentor,
                             allTopics: allTopics,
                             webinarVideo: webinarVideo,
                           );
@@ -148,20 +161,20 @@ class _MobileSingleWebinarScreenState extends State<MobileSingleWebinarScreen> {
                         }
                       } else {
                         int DBwbinarTime = sDate;
-                        if (DBcourse == widget.topic) {
+                        if (dBcourse == widget.topic) {
                           SingleWebinarDB singleWebinar = SingleWebinarDB(
-                            superTitle: DBsuperTitle,
-                            mainTitle: DBmainTitle,
-                            mainSubtitle: DBmainSubtitle,
-                            trainerImage: DBtrainerImage,
-                            trainerName: DBtrainerName,
-                            course: DBcourse,
-                            payment: DBpayment,
-                            studentEnrolled: int.parse(DBstudentEnrolled),
-                            webinarDuration: DBwebinarDuration,
+                            superTitle: dBsuperTitle,
+                            mainTitle: dBmainTitle,
+                            mainSubtitle: dBmainSubtitle,
+                            trainerImage: dBtrainerImage,
+                            trainerName: dBtrainerName,
+                            course: dBcourse,
+                            payment: dBpayment,
+                            studentEnrolled: int.parse(dBstudentEnrolled),
+                            webinarDuration: dBwebinarDuration,
                             webinarTime: DBwbinarTime,
-                            mentorImage: DBmentorImage,
-                            aboutMentor: DBaboutMentor,
+                            mentorImage: dBmentorImage,
+                            aboutMentor: dBaboutMentor,
                             allTopics: allTopics,
                             webinarVideo: webinarVideo,
                           );

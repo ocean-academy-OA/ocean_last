@@ -1,28 +1,28 @@
 import 'dart:html';
-
 import 'package:flutter/material.dart';
 
-class Career extends StatefulWidget {
+class Career_lg extends StatefulWidget {
   @override
-  _CareerState createState() => _CareerState();
+  _Career_lgState createState() => _Career_lgState();
 }
 
-class _CareerState extends State<Career> {
+class _Career_lgState extends State<Career_lg> {
   @override
   Widget build(BuildContext context) {
     return Stack(
       children: [
         Column(
+          mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Row(
-              mainAxisAlignment: MainAxisAlignment.start,
-              children: [
-                Container(
-                  padding: EdgeInsets.only(top: 20, left: 20),
-                  child: Image.asset("images/coming_soon/Group 10.png"),
-                )
-              ],
-            ),
+            // Row(
+            //   mainAxisAlignment: MainAxisAlignment.start,
+            //   children: [
+            //     Container(
+            //       padding: EdgeInsets.only(top: 20, left: 20),
+            //       child: Image.asset("images/coming_soon/Group 10.png"),
+            //     )
+            //   ],
+            // ),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
@@ -36,7 +36,7 @@ class _CareerState extends State<Career> {
                       ),
                     ),
                     Padding(
-                      padding: EdgeInsets.only(left: 60, bottom: 7),
+                      padding: EdgeInsets.only(left: 10, bottom: 7),
                       child: Text(
                         'AMAZING',
                         style: TextStyle(
@@ -66,10 +66,14 @@ class _CareerState extends State<Career> {
                           margin: EdgeInsets.only(
                             bottom: 30,
                           ),
-                          height: 50,
-                          child: RaisedButton(
+                          height: 52,
+                          child: FlatButton(
+                            color: Colors.blue,
                             padding: EdgeInsets.zero,
-                            child: Icon(Icons.send_outlined),
+                            child: Icon(
+                              Icons.send_outlined,
+                              color: Colors.white,
+                            ),
                             onPressed: () {},
                           ),
                         )

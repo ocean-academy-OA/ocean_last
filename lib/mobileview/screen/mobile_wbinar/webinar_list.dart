@@ -1,7 +1,9 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:ocean_project/desktopview/route/routing.dart';
+import 'package:ocean_project/mobileview/screen/home_screen.dart';
 import 'package:ocean_project/mobileview/screen/mobile_wbinar/mobile_single%20webinar.dart';
 import 'package:ocean_project/webinar/single_wbinar.dart';
 import 'package:provider/provider.dart';
@@ -17,12 +19,23 @@ class _MobileWebinarCardState extends State<MobileWebinarCard> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        centerTitle: true,
+        title: Text('Upcoming Webinars'),
+        leading: BackButton(),
+        actions: [
+          IconButton(
+              icon: Icon(Icons.home),
+              color: Colors.white,
+              onPressed: () {
+                Navigator.push(
+                    context, MaterialPageRoute(builder: (context) => Home()));
+              })
+        ],
+      ),
       body: SingleChildScrollView(
         child: Wrap(
           children: [
-            Row(
-              children: [BackButton()],
-            ),
             Wrap(
               alignment: WrapAlignment.center,
               children: [
@@ -106,7 +119,7 @@ class _MobileWebinarCardState extends State<MobileWebinarCard> {
                           mentorImage: trainerImage,
                           date: date.toString(),
                           time: timing.toString(),
-                          onPressed: () async {
+                          onPressed: () {
                             print(payment);
                             Navigator.push(
                                 context,

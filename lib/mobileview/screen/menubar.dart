@@ -33,57 +33,7 @@ class _NavbarState extends State<Navbar> {
       debugShowCheckedModeBanner: false,
       home: Scaffold(
         resizeToAvoidBottomInset: false,
-        appBar: AppBar(
-          bottom: PreferredSize(
-              child: MobileFlashNotification(),
-              preferredSize: Size.fromHeight(60)),
-          backgroundColor: Color(0xFFECF5FF),
-          leading: GestureDetector(
-            onTap: () {
-              setState(() {
-                visibility = !visibility;
-              });
-            },
-            child: Icon(
-              Icons.menu,
-              size: 25.0,
-              color: Color(0xFF0091D2),
-            ),
-          ),
-          title: Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Icon(
-                Ocean.oa,
-                size: 35.0,
-                color: Color(0xFF0091D2),
-              ),
-              Text(
-                "ocean academy",
-                style: TextStyle(
-                    fontWeight: FontWeight.bold,
-                    color: Color(0xFF0091D2),
-                    fontSize: 20),
-              ),
-            ],
-          ),
-          actions: [
-            GestureDetector(
-              onTap: () {
-                Provider.of<Routing>(context, listen: false)
-                    .updateRouting(widget: Home());
-              },
-              child: Icon(
-                Icons.home,
-                size: 25.0,
-                color: Color(0xFF0091D2),
-              ),
-            ),
-            SizedBox(
-              width: 20.0,
-            )
-          ],
-        ),
+        appBar: mainAppBar(),
         body: Container(
           child: Stack(
             children: [
@@ -109,13 +59,6 @@ class _NavbarState extends State<Navbar> {
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      // Center(
-                      //   child: Text(
-                      //     "* To login pls use pc",
-                      //     style: TextStyle(color: Colors.red),
-                      //     textAlign: TextAlign.center,
-                      //   ),
-                      // ),
                       menuItem(text: "Home", widget: Home()),
                       menuItem(text: "About Us", widget: AboutUs()),
                       menuItem(text: "Service", widget: Service()),
@@ -152,6 +95,59 @@ class _NavbarState extends State<Navbar> {
             fontWeight: FontWeight.bold,
             fontFamily: kfontname),
       ),
+    );
+  }
+
+  AppBar mainAppBar() {
+    return AppBar(
+      backgroundColor: Color(0xFFECF5FF),
+      leading: GestureDetector(
+        onTap: () {
+          setState(() {
+            visibility = !visibility;
+          });
+        },
+        child: Icon(
+          Icons.menu,
+          size: 25.0,
+          color: Color(0xFF0091D2),
+        ),
+      ),
+      title: Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Icon(
+            Ocean.oa,
+            size: 35.0,
+            color: Color(0xFF0091D2),
+          ),
+          Text(
+            "ocean academy",
+            style: TextStyle(
+                fontWeight: FontWeight.bold,
+                color: Color(0xFF0091D2),
+                fontSize: 20),
+          ),
+        ],
+      ),
+      actions: [
+        GestureDetector(
+          onTap: () {
+            Provider.of<Routing>(context, listen: false)
+                .updateRouting(widget: Home());
+          },
+          child: Icon(
+            Icons.home,
+            size: 25.0,
+            color: Color(0xFF0091D2),
+          ),
+        ),
+        SizedBox(
+          width: 20.0,
+        )
+      ],
+      bottom: PreferredSize(
+          child: MobileFlashNotification(), preferredSize: Size.fromHeight(60)),
     );
   }
 }
