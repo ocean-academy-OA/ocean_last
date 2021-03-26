@@ -44,7 +44,6 @@ class _ContactUsState extends State<ContactUs> {
       "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2320.9284365759204!2d79.82874531102095!3d11.952276565466109!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3a53616c1e43a73f%3A0xf3758f2502e74f5b!2sOcean%20Academy%20Software%20Training%20Division!5e0!3m2!1sen!2sin!4v1613816776714!5m2!1sen!2sin";
   bool showSpinner = false;
   static GlobalKey<FormState> _formKey = GlobalKey<FormState>();
-  bool _autoValidate = false;
 
   final enquiryController = TextEditingController();
   final nameController = TextEditingController();
@@ -68,6 +67,7 @@ class _ContactUsState extends State<ContactUs> {
   String email;
   String query;
   String phoneNumber;
+  bool validation = false;
   var date;
   var time;
   String firstInt;
@@ -90,6 +90,7 @@ class _ContactUsState extends State<ContactUs> {
 
   Widget _buildName() {
     return TextFormField(
+      autovalidate: validation,
       inputFormatters: <TextInputFormatter>[
         FilteringTextInputFormatter.allow(RegExp(r"[a-zA-Z]+|\s")),
         LengthLimitingTextInputFormatter(40),
@@ -119,6 +120,7 @@ class _ContactUsState extends State<ContactUs> {
 
   Widget _buildphonenumber() {
     return TextFormField(
+      autovalidate: validation,
       inputFormatters: <TextInputFormatter>[
         FilteringTextInputFormatter.allow(
           RegExp(r"^\d+\.?\d{0,2}"),
@@ -149,6 +151,7 @@ class _ContactUsState extends State<ContactUs> {
 
   Widget _buildAnswerField() {
     return TextFormField(
+      autovalidate: validation,
       inputFormatters: <TextInputFormatter>[
         FilteringTextInputFormatter.allow(
           RegExp(r"^\d+\.?\d{0,2}"),
@@ -164,7 +167,7 @@ class _ContactUsState extends State<ContactUs> {
       decoration: InputDecoration(
         contentPadding: EdgeInsets.all(5),
         // prefixIcon: Icon(Icons.phone_android_outlined),
-        errorStyle: TextStyle(color: Colors.redAccent, fontSize: 10),
+        errorStyle: TextStyle(color: Colors.redAccent, fontSize: 0),
         border: OutlineInputBorder(),
         // hintText: 'Enter Your Number',
         // labelText: 'Number',
@@ -179,7 +182,7 @@ class _ContactUsState extends State<ContactUs> {
   Widget _buildEmail() {
     return TextFormField(
       inputFormatters: [FilteringTextInputFormatter.deny(RegExp(r"\s"))],
-      autovalidate: _autoValidate,
+      autovalidate: validation,
       validator: (value) =>
           EmailValidator.validate(value) ? null : "please enter a valid email",
       decoration: InputDecoration(
@@ -198,6 +201,7 @@ class _ContactUsState extends State<ContactUs> {
 
   Widget _buildquery() {
     return TextFormField(
+      autovalidate: validation,
       validator: (value) {
         // query = value;
         if (value.isEmpty) {
@@ -388,6 +392,7 @@ class _ContactUsState extends State<ContactUs> {
                           Padding(
                             padding: EdgeInsets.only(right: 80),
                             child: DropdownButtonFormField<String>(
+                              autovalidate: validation,
                               validator: (value) {
                                 if (value == 'Select') {
                                   return 'enquiry is required';
@@ -653,6 +658,11 @@ class _ContactUsState extends State<ContactUs> {
                                       });
                                       // getData();
                                       print("${date} < Date Time >");
+                                      setState(() {
+                                        print(
+                                            'working////////////////////////////////////');
+                                        validation = false;
+                                      });
                                       if (enquiry.isNotEmpty) {
                                         setState(() {
                                           enquiry = enquery[0];
@@ -672,6 +682,12 @@ class _ContactUsState extends State<ContactUs> {
                                       _showMyDialog(
                                           context: context, content: Alert());
                                     }
+                                  } else {
+                                    setState(() {
+                                      print(
+                                          'working////////////////////////////////////');
+                                      validation = true;
+                                    });
                                   }
                                 }),
                           ),
