@@ -1,5 +1,11 @@
-import 'dart:html';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:email_validator/email_validator.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:ocean_project/desktopview/screen/career/career_layout.dart';
+import 'package:ocean_project/desktopview/screen/footer.dart';
+
+final _firestore = FirebaseFirestore.instance;
 
 class CareerLg extends StatefulWidget {
   @override
@@ -7,6 +13,31 @@ class CareerLg extends StatefulWidget {
 }
 
 class _CareerLgState extends State<CareerLg> {
+  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+
+  bool validation = false;
+  String email;
+
+  Widget buildEmail() {
+    return TextFormField(
+      inputFormatters: [FilteringTextInputFormatter.deny(RegExp(r"\s"))],
+      autovalidate: validation,
+      validator: (value) =>
+          EmailValidator.validate(value) ? null : "please enter a valid email",
+      decoration: InputDecoration(
+        prefixIcon: Icon(Icons.email_outlined),
+        errorStyle: TextStyle(fontSize: 0),
+        border: OutlineInputBorder(),
+        hintText: 'Enter Your Email',
+        labelText: 'Email',
+      ),
+      controller: CareerLayout.emailController,
+      onChanged: (value) {
+        email = value;
+      },
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Stack(
@@ -52,32 +83,49 @@ class _CareerLgState extends State<CareerLg> {
                         style: TextStyle(fontSize: 17),
                       ),
                     ),
-                    Row(
-                      children: [
-                        Container(
-                          height: 80,
-                          width: 250,
-                          child: TextField(
-                            decoration:
-                                InputDecoration(border: OutlineInputBorder()),
+                    Form(
+                      key: _formKey,
+                      child: Row(
+                        children: [
+                          Container(
+                            height: 80,
+                            width: 250,
+                            child: buildEmail(),
                           ),
-                        ),
-                        Container(
-                          margin: EdgeInsets.only(
-                            bottom: 30,
-                          ),
-                          height: 52,
-                          child: FlatButton(
-                            color: Colors.blue,
-                            padding: EdgeInsets.zero,
-                            child: Icon(
-                              Icons.send_outlined,
-                              color: Colors.white,
+                          Container(
+                            margin: EdgeInsets.only(
+                              bottom: 30,
                             ),
-                            onPressed: () {},
-                          ),
-                        )
-                      ],
+                            height: 52,
+                            child: FlatButton(
+                              color: Colors.blue,
+                              padding: EdgeInsets.zero,
+                              child: Icon(
+                                Icons.send_outlined,
+                                color: Colors.white,
+                              ),
+                              onPressed: () {
+                                if (_formKey.currentState.validate()) {
+                                  _firestore
+                                      .collection("subscribed user")
+                                      .doc(email)
+                                      .set({"Email": email});
+                                  setState(() {
+                                    validation = false;
+                                  });
+                                  subscribeDialog(context);
+                                  CareerLayout.emailController.clear();
+                                } else {
+                                  setState(() {
+                                    validation = true;
+                                  });
+                                  subscribeFaildDialog(context);
+                                }
+                              },
+                            ),
+                          )
+                        ],
+                      ),
                     ),
                   ],
                 ),
