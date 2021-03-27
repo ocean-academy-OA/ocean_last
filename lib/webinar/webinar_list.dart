@@ -47,6 +47,8 @@ class _WebinarCardState extends State<WebinarCard> {
                     final payment = message.data()['payment'];
                     final designation = message.data()['designation'];
                     final trainerImage = message.data()['trainer image'];
+                    int duration =
+                        int.parse(message.data()['webinar duration']);
                     print(timeStamp);
                     print(DateTime.now().millisecond);
 
@@ -84,6 +86,30 @@ class _WebinarCardState extends State<WebinarCard> {
                         .inSeconds;
                     print('$defrenceTime oooooooooooooooooo');
 
+                    //for mail info
+                    int toTime = 5;
+                    int toDuration = duration;
+                    if (toDuration >= 60) {
+                      var hourcalculate = toDuration ~/ 60;
+                      toDuration -= hourcalculate * 60;
+                      toTime += hourcalculate;
+                    }
+                    print('vvvvvvvvvvvvvvvvvvvvvvvv');
+
+                    var monthString = DateFormat('MMMM');
+                    var monthFormatString =
+                        monthString.format(timeStamp.toDate());
+                    Map dateForMail = {
+                      'Year': yearFormat,
+                      'Month': monthFormatString,
+                      'Day': dayFormat,
+                      'Hours': hourFormat,
+                      'To Hours': toTime,
+                      'Minutes': duration,
+                      'To Minutes': toDuration,
+                      'DayFormat': timeFormat
+                    };
+
                     var date = DateFormat('d/MM/y').format(timeStamp.toDate());
 
                     var timing = DateFormat.jm().format(timeStamp.toDate());
@@ -101,6 +127,7 @@ class _WebinarCardState extends State<WebinarCard> {
                         Provider.of<Routing>(context, listen: false)
                             .updateRouting(
                                 widget: SingleWebinarScreen(
+                          mailTiming: dateForMail,
                           topic: courseName,
                         ));
                       },
