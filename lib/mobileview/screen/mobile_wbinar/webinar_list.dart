@@ -137,11 +137,11 @@ class _MobileWebinarCardState extends State<MobileWebinarCard> {
                 courseList.add(courseMap[i]);
               }
 
-              return Wrap(
-                runSpacing: 15,
-                spacing: 15,
-                alignment: WrapAlignment.center,
-                children: courseList,
+              return Container(
+                width: MediaQuery.of(context).size.width,
+                child: Column(
+                  children: courseList,
+                ),
               );
             }
           },
