@@ -170,149 +170,155 @@ bool istest = false;
 class _WebinarCardDbState extends State<WebinarCardDb> {
   @override
   Widget build(BuildContext context) {
-    return Container(
-      width: 300,
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(10),
-        color: Color(0xFF111111),
-      ),
-      margin: EdgeInsets.all(30),
-      padding: EdgeInsets.symmetric(vertical: 20, horizontal: 20),
-      child: Row(
-        children: [
-          Container(
-            width: 250,
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  widget.topic,
-                  style: TextStyle(
-                      color: Color(0xFF36BAFF),
-                      fontSize: 25,
-                      fontWeight: FontWeight.bold,
-                      fontFamily: "Gilroy"),
-                ),
-                SizedBox(
-                  height: 10,
-                ),
-                Row(
-                  children: [
-                    Text(
-                      "DATE :",
-                      style: TextStyle(
-                          color: Color(0xFFFFFFFF),
-                          fontSize: 15,
-                          fontWeight: FontWeight.normal,
-                          fontFamily: "Gilroy"),
-                    ),
-                    SizedBox(
-                      width: 10,
-                    ),
-                    Text(
-                      widget.date,
-                      style: TextStyle(
-                          color: Color(0xFF36BAFF),
-                          fontSize: 15,
-                          fontWeight: FontWeight.normal,
-                          fontFamily: "Gilroy"),
-                    ),
-                  ],
-                ),
-                SizedBox(
-                  height: 10,
-                ),
-                Row(
-                  children: [
-                    Text(
-                      "TIME :",
-                      style: TextStyle(
-                          color: Color(0xFFFFFFFF),
-                          fontSize: 15,
-                          fontWeight: FontWeight.normal,
-                          fontFamily: "Gilroy"),
-                    ),
-                    SizedBox(
-                      width: 10,
-                    ),
-                    Text(
-                      widget.time,
-                      style: TextStyle(
-                          color: Color(0xFF36BAFF),
-                          fontSize: 15,
-                          fontWeight: FontWeight.normal,
-                          fontFamily: "Gilroy"),
-                    ),
-                  ],
-                ),
-                SizedBox(
-                  height: 20,
-                ),
-                Text(
-                  widget.webinarType,
-                  style: TextStyle(
-                      color: Color(0xFFFFFFFF),
-                      fontSize: 20,
-                      fontWeight: FontWeight.normal,
-                      fontFamily: "Gilroy"),
-                ),
-                Container(
-                  width: 200,
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Image.network(
-                        widget.mentorImage,
-                        width: 300,
-                      ),
-                      SizedBox(
-                        height: 20,
-                      ),
-                      Text(
-                        widget.mentorName,
-                        style: TextStyle(
-                            color: Color(0xFFFFFFFF),
-                            fontSize: 15,
-                            fontWeight: FontWeight.bold,
-                            fontFamily: "Gilroy"),
-                      ),
-                      SizedBox(
-                        height: 10,
-                      ),
-                      Text(
-                        widget.mentorDesignation,
-                        style: TextStyle(
-                            color: Color(0xFFFFFFFF),
-                            fontSize: 15,
-                            fontWeight: FontWeight.normal,
-                            fontFamily: "Gilroy"),
-                      ),
-                    ],
-                  ),
-                ),
-                SizedBox(
-                  height: 10,
-                ),
-                ButtonTheme(
-                  minWidth: 250,
-                  height: 50,
-                  child: RaisedButton(
-                      child: Text(
-                        "REGISTER NOW",
-                        style: TextStyle(
-                            color: Color(0xFFFFFFFF),
-                            fontSize: 20,
-                            fontWeight: FontWeight.bold,
-                            fontFamily: "Gilroy"),
-                      ),
-                      color: Color(0xFF36BAFF),
-                      onPressed: widget.onPressed),
-                ),
-              ],
-            ),
-          ),
-        ],
-      ),
-    );
+    return Container(height: 400,
+    width: 300,
+    color: ,);
   }
 }
+
+
+//
+// Container(
+// width: 300,
+// decoration: BoxDecoration(
+// borderRadius: BorderRadius.circular(10),
+// color: Color(0xFF111111),
+// ),
+// margin: EdgeInsets.all(30),
+// padding: EdgeInsets.symmetric(vertical: 20, horizontal: 20),
+// child: Row(
+// children: [
+// Container(
+// width: 250,
+// child: Column(
+// crossAxisAlignment: CrossAxisAlignment.start,
+// children: [
+// Text(
+// widget.topic,
+// style: TextStyle(
+// color: Color(0xFF36BAFF),
+// fontSize: 25,
+// fontWeight: FontWeight.bold,
+// fontFamily: "Gilroy"),
+// ),
+// SizedBox(
+// height: 10,
+// ),
+// Row(
+// children: [
+// Text(
+// "DATE :",
+// style: TextStyle(
+// color: Color(0xFFFFFFFF),
+// fontSize: 15,
+// fontWeight: FontWeight.normal,
+// fontFamily: "Gilroy"),
+// ),
+// SizedBox(
+// width: 10,
+// ),
+// Text(
+// widget.date,
+// style: TextStyle(
+// color: Color(0xFF36BAFF),
+// fontSize: 15,
+// fontWeight: FontWeight.normal,
+// fontFamily: "Gilroy"),
+// ),
+// ],
+// ),
+// SizedBox(
+// height: 10,
+// ),
+// Row(
+// children: [
+// Text(
+// "TIME :",
+// style: TextStyle(
+// color: Color(0xFFFFFFFF),
+// fontSize: 15,
+// fontWeight: FontWeight.normal,
+// fontFamily: "Gilroy"),
+// ),
+// SizedBox(
+// width: 10,
+// ),
+// Text(
+// widget.time,
+// style: TextStyle(
+// color: Color(0xFF36BAFF),
+// fontSize: 15,
+// fontWeight: FontWeight.normal,
+// fontFamily: "Gilroy"),
+// ),
+// ],
+// ),
+// SizedBox(
+// height: 20,
+// ),
+// Text(
+// widget.webinarType,
+// style: TextStyle(
+// color: Color(0xFFFFFFFF),
+// fontSize: 20,
+// fontWeight: FontWeight.normal,
+// fontFamily: "Gilroy"),
+// ),
+// Container(
+// width: 200,
+// child: Column(
+// crossAxisAlignment: CrossAxisAlignment.start,
+// children: [
+// Image.network(
+// widget.mentorImage,
+// width: 300,
+// ),
+// SizedBox(
+// height: 20,
+// ),
+// Text(
+// widget.mentorName,
+// style: TextStyle(
+// color: Color(0xFFFFFFFF),
+// fontSize: 15,
+// fontWeight: FontWeight.bold,
+// fontFamily: "Gilroy"),
+// ),
+// SizedBox(
+// height: 10,
+// ),
+// Text(
+// widget.mentorDesignation,
+// style: TextStyle(
+// color: Color(0xFFFFFFFF),
+// fontSize: 15,
+// fontWeight: FontWeight.normal,
+// fontFamily: "Gilroy"),
+// ),
+// ],
+// ),
+// ),
+// SizedBox(
+// height: 10,
+// ),
+// ButtonTheme(
+// minWidth: 250,
+// height: 50,
+// child: RaisedButton(
+// child: Text(
+// "REGISTER NOW",
+// style: TextStyle(
+// color: Color(0xFFFFFFFF),
+// fontSize: 20,
+// fontWeight: FontWeight.bold,
+// fontFamily: "Gilroy"),
+// ),
+// color: Color(0xFF36BAFF),
+// onPressed: widget.onPressed),
+// ),
+// ],
+// ),
+// ),
+// ],
+// ),
+// );
