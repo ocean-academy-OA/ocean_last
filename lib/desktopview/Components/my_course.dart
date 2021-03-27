@@ -31,60 +31,62 @@ class _MyCourseState extends State<MyCourse> {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      decoration: BoxDecoration(
-          image: DecorationImage(
-              image: AssetImage('images/oa_bg.png'),
-              repeat: ImageRepeat.repeatY)),
-      child: Column(
-        //mainAxisAlignment: MainAxisAlignment.spaceAround,
-        children: [
-          StreamBuilder<QuerySnapshot>(
-            stream: _firestore.collection('course').snapshots(),
-            // ignore: missing_return
-            builder: (context, snapshot) {
-              if (!snapshot.hasData) {
-                return Text("Loading...");
-              } else {
-                final messages = snapshot.data.docs;
+    return SingleChildScrollView(
+      child: Container(
+        decoration: BoxDecoration(
+            image: DecorationImage(
+                image: AssetImage('images/oa_bg.png'),
+                repeat: ImageRepeat.repeatY)),
+        child: Column(
+          //mainAxisAlignment: MainAxisAlignment.spaceAround,
+          children: [
+            StreamBuilder<QuerySnapshot>(
+              stream: _firestore.collection('course').snapshots(),
+              // ignore: missing_return
+              builder: (context, snapshot) {
+                if (!snapshot.hasData) {
+                  return Text("Loading...");
+                } else {
+                  final messages = snapshot.data.docs;
 
-                List<MyCourseDb> batchList = [];
-                for (var message in messages) {
-                  for (var batch in CoursesView.batchId) {
-                    if (message.id == batch) {
-                      final messageText = message.data()['trainername'];
-                      final messageSender = message.data()['coursename'];
-                      final messageSession = message.data()['session'];
-                      final messageTime = message.data()['time'];
-                      final messageImage = message.data()['img'];
-                      final messageDescription =
-                          message.data()['coursedescription'];
-                      final messageBatchId = message.data()['batchid'];
+                  List<MyCourseDb> batchList = [];
+                  for (var message in messages) {
+                    for (var batch in CoursesView.batchId) {
+                      if (message.id == batch) {
+                        final messageText = message.data()['trainername'];
+                        final messageSender = message.data()['coursename'];
+                        final messageSession = message.data()['session'];
+                        final messageTime = message.data()['time'];
+                        final messageImage = message.data()['img'];
+                        final messageDescription =
+                            message.data()['coursedescription'];
+                        final messageBatchId = message.data()['batchid'];
 
-                      final batchDb = MyCourseDb(
-                        trainername: messageText,
-                        coursename: messageSender,
-                        session: messageSession,
-                        time: messageTime,
-                        image: messageImage,
-                        description: messageDescription,
-                        batchid: messageBatchId,
-                      );
-                      // Text('$messageText from $messageSender');
-                      batchList.add(batchDb);
-                      subjects.add(message.data()["coursename"]);
+                        final batchDb = MyCourseDb(
+                          trainername: messageText,
+                          coursename: messageSender,
+                          session: messageSession,
+                          time: messageTime,
+                          image: messageImage,
+                          description: messageDescription,
+                          batchid: messageBatchId,
+                        );
+                        // Text('$messageText from $messageSender');
+                        batchList.add(batchDb);
+                        subjects.add(message.data()["coursename"]);
+                      }
                     }
                   }
-                }
 
-                return Wrap(
-                  alignment: WrapAlignment.center,
-                  children: batchList,
-                );
-              }
-            },
-          ),
-        ],
+                  return Wrap(
+                    alignment: WrapAlignment.center,
+                    children: batchList,
+                  );
+                }
+              },
+            ),
+          ],
+        ),
       ),
     );
   }
@@ -203,13 +205,13 @@ class _MyCourseDbState extends State<MyCourseDb> {
                         color: Color(0xff3B7EB6),
                       ),
                       Text("by zoom"),
-                      Text(
-                        "Click Here",
-                        style: TextStyle(
-                          color: Color(0xff3B7EB6),
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
+                      // Text(
+                      //   "Click Here",
+                      //   style: TextStyle(
+                      //     color: Color(0xff3B7EB6),
+                      //     fontWeight: FontWeight.bold,
+                      //   ),
+                      // ),
                     ],
                   ),
                 ),

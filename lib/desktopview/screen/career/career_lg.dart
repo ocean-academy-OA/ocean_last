@@ -1,3 +1,5 @@
+import 'dart:html';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:email_validator/email_validator.dart';
 import 'package:flutter/material.dart';
@@ -43,102 +45,112 @@ class _CareerLgState extends State<CareerLg> {
     return Stack(
       children: [
         Column(
-          mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            // Row(
-            //   mainAxisAlignment: MainAxisAlignment.start,
-            //   children: [
-            //     Container(
-            //       padding: EdgeInsets.only(top: 20, left: 20),
-            //       child: Image.asset("images/coming_soon/Group 10.png"),
-            //     )
-            //   ],
-            // ),
             Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              mainAxisAlignment: MainAxisAlignment.start,
               children: [
-                Column(
+                Container(
+                    width: 280,
+                    height: 240,
+                    padding: EdgeInsets.only(left: 50, top: 50),
+                    child: Image.asset(
+                      "images/coming_soon/Group 13.png",
+                      fit: BoxFit.cover,
+                    ))
+              ],
+            ),
+            SizedBox(
+              height: 10,
+            ),
+            Column(
+              children: [
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
-                    Padding(
-                      padding: EdgeInsets.only(bottom: 7),
-                      child: Text(
-                        'We are coming with something',
-                        style: TextStyle(fontSize: 25),
-                      ),
-                    ),
-                    Padding(
-                      padding: EdgeInsets.only(left: 10, bottom: 7),
-                      child: Text(
-                        'AMAZING',
-                        style: TextStyle(
-                            fontSize: 50,
-                            letterSpacing: 5,
-                            fontWeight: FontWeight.bold),
-                      ),
-                    ),
-                    Padding(
-                      padding: EdgeInsets.only(bottom: 30),
-                      child: Text(
-                        'SUBSCRIBE AND STAY UPDATED',
-                        style: TextStyle(fontSize: 17),
-                      ),
-                    ),
-                    Form(
-                      key: _formKey,
-                      child: Row(
-                        children: [
-                          Container(
-                            height: 80,
-                            width: 250,
-                            child: buildEmail(),
+                    Column(
+                      children: [
+                        Padding(
+                          padding: EdgeInsets.only(bottom: 7),
+                          child: Text(
+                            'We are coming with something',
+                            style: TextStyle(fontSize: 25),
                           ),
-                          Container(
-                            margin: EdgeInsets.only(
-                              bottom: 30,
-                            ),
-                            height: 52,
-                            child: FlatButton(
-                              color: Colors.blue,
-                              padding: EdgeInsets.zero,
-                              child: Icon(
-                                Icons.send_outlined,
-                                color: Colors.white,
+                        ),
+                        Padding(
+                          padding: EdgeInsets.only(left: 10, bottom: 7),
+                          child: Text(
+                            'AMAZING',
+                            style: TextStyle(
+                                fontSize: 50,
+                                letterSpacing: 5,
+                                fontWeight: FontWeight.bold),
+                          ),
+                        ),
+                        Padding(
+                          padding: EdgeInsets.only(bottom: 30),
+                          child: Text(
+                            'SUBSCRIBE AND STAY UPDATED',
+                            style: TextStyle(fontSize: 17),
+                          ),
+                        ),
+                        Form(
+                          key: _formKey,
+                          child: Row(
+                            children: [
+                              Container(
+                                height: 80,
+                                width: 250,
+                                child: buildEmail(),
                               ),
-                              onPressed: () {
-                                if (_formKey.currentState.validate()) {
-                                  _firestore
-                                      .collection("subscribed user")
-                                      .doc(email)
-                                      .set({"Email": email});
-                                  setState(() {
-                                    validation = false;
-                                  });
-                                  subscribeDialog(context);
-                                  CareerLayout.emailController.clear();
-                                } else {
-                                  setState(() {
-                                    validation = true;
-                                  });
-                                  subscribeFaildDialog(context);
-                                }
-                              },
-                            ),
-                          )
-                        ],
-                      ),
+                              Container(
+                                margin: EdgeInsets.only(
+                                  bottom: 30,
+                                ),
+                                height: 52,
+                                child: FlatButton(
+                                  color: Colors.blue,
+                                  padding: EdgeInsets.zero,
+                                  child: Icon(
+                                    Icons.send_outlined,
+                                    color: Colors.white,
+                                  ),
+                                  onPressed: () {
+                                    if (_formKey.currentState.validate()) {
+                                      _firestore
+                                          .collection("subscribed user")
+                                          .doc(email)
+                                          .set({"Email": email});
+                                      setState(() {
+                                        validation = false;
+                                      });
+                                      subscribeDialog(context);
+                                      CareerLayout.emailController.clear();
+                                    } else {
+                                      setState(() {
+                                        validation = true;
+                                      });
+                                      subscribeFaildDialog(context);
+                                    }
+                                  },
+                                ),
+                              )
+                            ],
+                          ),
+                        ),
+                      ],
                     ),
-                  ],
-                ),
-                Column(
-                  children: [
-                    Container(
-                      height: 450,
-                      // padding: EdgeInsets.only(left: 50),
-                      child: Image.asset(
-                        'images/coming_soon/Group 11.png',
-                        fit: BoxFit.cover,
-                      ),
-                    )
+                    Column(
+                      children: [
+                        Container(
+                          height: 450,
+                          // padding: EdgeInsets.only(left: 50),
+                          child: Image.asset(
+                            'images/coming_soon/Group 11.png',
+                            fit: BoxFit.cover,
+                          ),
+                        )
+                      ],
+                    ),
                   ],
                 ),
               ],
