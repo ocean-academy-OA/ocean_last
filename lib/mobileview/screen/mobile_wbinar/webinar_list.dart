@@ -1,7 +1,12 @@
+import 'dart:ui';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter/cupertino.dart';
 
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:intl/intl.dart';
+import 'package:ocean_project/mobileview/constants.dart';
 
 import 'package:ocean_project/mobileview/screen/home_screen.dart';
 import 'package:ocean_project/mobileview/screen/mobile_wbinar/mobile_single%20webinar.dart';
@@ -17,6 +22,7 @@ class _MobileWebinarCardState extends State<MobileWebinarCard> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      // backgroundColor: Color(0xffE5E5E5),
       appBar: AppBar(
         centerTitle: true,
         title: Text('Upcoming Webinars'),
@@ -57,6 +63,7 @@ class _MobileWebinarCardState extends State<MobileWebinarCard> {
                 final payment = message.data()['payment'];
                 final designation = message.data()['designation'];
                 final trainerImage = message.data()['trainer image'];
+                final mainTitle = message.data()['main subtitle'];
                 print(timeStamp);
                 print(DateTime.now().millisecond);
 
@@ -99,11 +106,12 @@ class _MobileWebinarCardState extends State<MobileWebinarCard> {
 
                 final webinar = WebinarCardDb(
                   topic: courseName,
-                  webinarType: payment,
+                  payment: payment,
                   mentorDesignation: designation,
                   mentorName: trainerName,
                   mentorImage: trainerImage,
                   date: date.toString(),
+                  mainTitle: mainTitle,
                   time: timing.toString(),
                   onPressed: () {
                     print(payment);
@@ -130,6 +138,8 @@ class _MobileWebinarCardState extends State<MobileWebinarCard> {
               }
 
               return Wrap(
+                runSpacing: 15,
+                spacing: 15,
                 alignment: WrapAlignment.center,
                 children: courseList,
               );
@@ -149,16 +159,18 @@ class WebinarCardDb extends StatefulWidget {
       this.mentorDesignation,
       this.mentorName,
       this.mentorImage,
-      this.webinarType,
-      this.onPressed});
+      this.payment,
+      this.onPressed,
+      this.mainTitle});
   String mentorName;
   Function onPressed;
   String mentorDesignation;
   String time;
   String date;
-  String webinarType;
+  String payment;
   String topic;
   String mentorImage;
+  String mainTitle;
   @override
   _WebinarCardDbState createState() => _WebinarCardDbState();
 }
@@ -168,12 +180,231 @@ bool istest = false;
 class _WebinarCardDbState extends State<WebinarCardDb> {
   @override
   Widget build(BuildContext context) {
-    return Container(height: 400,
-    width: 300,
-    color: ,);
+    return Container(
+      margin: EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+      height: 350,
+      width: 300,
+      decoration: BoxDecoration(
+          color: Colors.white,
+          borderRadius: BorderRadius.circular(15),
+          boxShadow: [
+            BoxShadow(
+                color: Colors.grey[900],
+                blurRadius: 0,
+                spreadRadius: 4,
+                offset: Offset(-0, 0))
+          ]),
+      child: Stack(
+        children: [
+          Positioned(
+            top: 0,
+            child: Container(
+              padding: EdgeInsets.symmetric(horizontal: 15, vertical: 10),
+              width: 300,
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            widget.topic,
+                            style: TextStyle(
+                                fontSize: 20,
+                                fontFamily: kfontname,
+                                fontWeight: FontWeight.bold,
+                                color: Color(0XFFB2B2B2)),
+                          ),
+                          Row(
+                            children: [
+                              widget.payment == 'free'
+                                  ? SizedBox()
+                                  : Icon(
+                                      FontAwesomeIcons.rupeeSign,
+                                      color: Color(0xff15a9ea),
+                                    ),
+                              Text(
+                                widget.payment.toUpperCase(),
+                                style: TextStyle(
+                                    fontSize: 25,
+                                    fontFamily: kfontname,
+                                    fontWeight: FontWeight.bold,
+                                    color: Color(0xff15a9ea)),
+                              )
+                            ],
+                          )
+                        ],
+                      ),
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            children: [
+                              Text(
+                                'Date ',
+                                style: TextStyle(
+                                    fontSize: 18,
+                                    fontFamily: kfontname,
+                                    fontWeight: FontWeight.bold,
+                                    color: Color(0XFFB2B2B2)),
+                              ),
+                              Text(
+                                widget.date,
+                                style: TextStyle(
+                                    fontSize: 18,
+                                    fontFamily: kfontname,
+                                    fontWeight: FontWeight.bold,
+                                    color: Color(0xff15a9ea)),
+                              ),
+                            ],
+                          ),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            children: [
+                              Text(
+                                'Time ',
+                                style: TextStyle(
+                                    fontSize: 18,
+                                    fontFamily: kfontname,
+                                    fontWeight: FontWeight.bold,
+                                    color: Color(0XFFB2B2B2)),
+                              ),
+                              Text(
+                                widget.time,
+                                style: TextStyle(
+                                    fontSize: 18,
+                                    fontFamily: kfontname,
+                                    fontWeight: FontWeight.bold,
+                                    color: Color(0xff15a9ea)),
+                              ),
+                            ],
+                          )
+                        ],
+                      )
+                    ],
+                  ),
+                  SizedBox(
+                    height: 10,
+                  ),
+                  Container(
+                    width: 300,
+                    height: 160,
+                    child: Text(
+                      widget.mainTitle,
+                      style: TextStyle(
+                          fontFamily: kfontname,
+                          color: Color(0XFF757575),
+                          fontSize: 18),
+                    ),
+                  )
+                ],
+              ),
+            ),
+          ),
+          Positioned(
+            bottom: 0,
+            child: Stack(
+              alignment: Alignment.bottomCenter,
+              children: [
+                Container(
+                  height: 200,
+                  width: 300,
+                ),
+                Positioned(
+                  child: Container(
+                    padding: EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+                    height: 150,
+                    width: 300,
+                    decoration: BoxDecoration(
+                      color: Color(0xff15a9ea),
+                      borderRadius: BorderRadius.only(
+                          bottomRight: Radius.circular(15),
+                          bottomLeft: Radius.circular(15)),
+                    ),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              widget.mentorName.toUpperCase(),
+                              style: TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 22,
+                                  inherit: false,
+                                  fontFamily: kfontname,
+                                  fontWeight: FontWeight.w400),
+                            ),
+                            Text(
+                              widget.mentorDesignation,
+                              style: TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 15,
+                                  inherit: false,
+                                  fontFamily: kfontname,
+                                  fontWeight: FontWeight.w400),
+                            )
+                          ],
+                        ),
+                        Container(
+                          margin: EdgeInsets.symmetric(vertical: 8),
+                          width: 300,
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            children: [
+                              FlatButton(
+                                child: Text(
+                                  'Register Now',
+                                  style: TextStyle(
+                                      color: Color(0xff15A9EA), fontSize: 20),
+                                ),
+                                shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(5)),
+                                color: Colors.white,
+                                minWidth: 210,
+                                height: 50,
+                                onPressed: widget.onPressed,
+                              )
+                            ],
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+                Positioned(
+                  top: 10,
+                  right: 20,
+                  child: Container(
+                    padding: EdgeInsets.all(6),
+                    height: 120,
+                    width: 120,
+                    decoration: BoxDecoration(
+                      color: Colors.white,
+                      borderRadius: BorderRadius.circular(500),
+                    ),
+                    child: ClipRRect(
+                        borderRadius: BorderRadius.circular(500),
+                        child: Image.network(
+                          widget.mentorImage,
+                          fit: BoxFit.cover,
+                        )),
+                  ),
+                )
+              ],
+            ),
+          ),
+        ],
+      ),
+    );
   }
 }
-
 
 //
 // Container(
