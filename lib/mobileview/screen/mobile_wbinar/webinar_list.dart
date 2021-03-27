@@ -1,3 +1,4 @@
+import 'dart:math';
 import 'dart:ui';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -22,7 +23,6 @@ class _MobileWebinarCardState extends State<MobileWebinarCard> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      // backgroundColor: Color(0xffE5E5E5),
       appBar: AppBar(
         centerTitle: true,
         title: Text('Upcoming Webinars'),
@@ -50,22 +50,17 @@ class _MobileWebinarCardState extends State<MobileWebinarCard> {
               );
             } else {
               final messages = snapshot.data.docs;
-
               List<WebinarCardDb> courseList = [];
               List<int> timingList = [];
               Map<int, Widget> courseMap = {};
               for (var message in messages) {
                 Timestamp timeStamp = message.data()['timestamp'];
-
                 final courseName = message.data()['course'];
                 final trainerName = message.data()['trainer name'];
-
                 final payment = message.data()['payment'];
                 final designation = message.data()['designation'];
                 final trainerImage = message.data()['trainer image'];
                 final mainTitle = message.data()['main subtitle'];
-                print(timeStamp);
-                print(DateTime.now().millisecond);
 
                 int yearFormat;
                 int monthFormat;
@@ -98,7 +93,6 @@ class _MobileWebinarCardState extends State<MobileWebinarCard> {
                         secondsFormat)
                     .difference(DateTime.now())
                     .inSeconds;
-                print('$defrenceTime oooooooooooooooooo');
 
                 var date = DateFormat('d/MM/y').format(timeStamp.toDate());
 
@@ -114,7 +108,6 @@ class _MobileWebinarCardState extends State<MobileWebinarCard> {
                   mainTitle: mainTitle,
                   time: timing.toString(),
                   onPressed: () {
-                    print(payment);
                     Navigator.push(
                         context,
                         MaterialPageRoute(
@@ -126,22 +119,19 @@ class _MobileWebinarCardState extends State<MobileWebinarCard> {
                 if (defrenceTime > 0) {
                   timingList.add(defrenceTime);
                   timingList.sort();
-
                   courseMap.addAll({defrenceTime: webinar});
                 }
               }
               print(timingList);
               for (var i in timingList) {
-                print(i);
-
                 courseList.add(courseMap[i]);
               }
 
-              return Wrap(
-                runSpacing: 15,
-                spacing: 15,
-                alignment: WrapAlignment.center,
-                children: courseList,
+              return Container(
+                width: MediaQuery.of(context).size.width,
+                child: Column(
+                  children: courseList,
+                ),
               );
             }
           },
@@ -189,118 +179,72 @@ class _WebinarCardDbState extends State<WebinarCardDb> {
           borderRadius: BorderRadius.circular(15),
           boxShadow: [
             BoxShadow(
-                color: Colors.grey[900],
-                blurRadius: 0,
-                spreadRadius: 4,
+                color: Colors.grey[900].withOpacity(0.3),
+                blurRadius: 6,
+                spreadRadius: 0,
                 offset: Offset(-0, 0))
           ]),
       child: Stack(
+        alignment: Alignment.center,
         children: [
           Positioned(
-            top: 0,
+            top: 50,
             child: Container(
               padding: EdgeInsets.symmetric(horizontal: 15, vertical: 10),
               width: 300,
               child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
-                      Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.start,
                         children: [
                           Text(
-                            widget.topic,
+                            'Date ',
                             style: TextStyle(
-                                fontSize: 20,
+                                fontSize: 18,
                                 fontFamily: kfontname,
-                                fontWeight: FontWeight.bold,
+                                fontWeight: FontWeight.normal,
                                 color: Color(0XFFB2B2B2)),
                           ),
-                          Row(
-                            children: [
-                              widget.payment == 'free'
-                                  ? SizedBox()
-                                  : Icon(
-                                      FontAwesomeIcons.rupeeSign,
-                                      color: Color(0xff15a9ea),
-                                    ),
-                              Text(
-                                widget.payment.toUpperCase(),
-                                style: TextStyle(
-                                    fontSize: 25,
-                                    fontFamily: kfontname,
-                                    fontWeight: FontWeight.bold,
-                                    color: Color(0xff15a9ea)),
-                              )
-                            ],
-                          )
+                          Text(
+                            widget.date,
+                            style: TextStyle(
+                                fontSize: 18,
+                                fontFamily: kfontname,
+                                fontWeight: FontWeight.normal,
+                                color: Color(0xff15a9ea)),
+                          ),
                         ],
                       ),
-                      Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
+                      SizedBox(
+                        height: 8,
+                      ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.start,
                         children: [
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.start,
-                            children: [
-                              Text(
-                                'Date ',
-                                style: TextStyle(
-                                    fontSize: 18,
-                                    fontFamily: kfontname,
-                                    fontWeight: FontWeight.bold,
-                                    color: Color(0XFFB2B2B2)),
-                              ),
-                              Text(
-                                widget.date,
-                                style: TextStyle(
-                                    fontSize: 18,
-                                    fontFamily: kfontname,
-                                    fontWeight: FontWeight.bold,
-                                    color: Color(0xff15a9ea)),
-                              ),
-                            ],
+                          Text(
+                            'Time ',
+                            style: TextStyle(
+                                fontSize: 18,
+                                fontFamily: kfontname,
+                                fontWeight: FontWeight.normal,
+                                color: Color(0XFFB2B2B2)),
                           ),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.start,
-                            children: [
-                              Text(
-                                'Time ',
-                                style: TextStyle(
-                                    fontSize: 18,
-                                    fontFamily: kfontname,
-                                    fontWeight: FontWeight.bold,
-                                    color: Color(0XFFB2B2B2)),
-                              ),
-                              Text(
-                                widget.time,
-                                style: TextStyle(
-                                    fontSize: 18,
-                                    fontFamily: kfontname,
-                                    fontWeight: FontWeight.bold,
-                                    color: Color(0xff15a9ea)),
-                              ),
-                            ],
-                          )
+                          Text(
+                            widget.time,
+                            style: TextStyle(
+                                fontSize: 18,
+                                fontFamily: kfontname,
+                                fontWeight: FontWeight.normal,
+                                color: Color(0xff15a9ea)),
+                          ),
                         ],
                       )
                     ],
                   ),
-                  SizedBox(
-                    height: 10,
-                  ),
-                  Container(
-                    width: 300,
-                    height: 160,
-                    child: Text(
-                      widget.mainTitle,
-                      style: TextStyle(
-                          fontFamily: kfontname,
-                          color: Color(0XFF757575),
-                          fontSize: 18),
-                    ),
-                  )
                 ],
               ),
             ),
@@ -335,11 +279,10 @@ class _WebinarCardDbState extends State<WebinarCardDb> {
                             Text(
                               widget.mentorName.toUpperCase(),
                               style: TextStyle(
-                                  color: Colors.white,
-                                  fontSize: 22,
-                                  inherit: false,
+                                  fontSize: 20,
                                   fontFamily: kfontname,
-                                  fontWeight: FontWeight.w400),
+                                  fontWeight: FontWeight.bold,
+                                  color: Colors.white),
                             ),
                             Text(
                               widget.mentorDesignation,
@@ -398,6 +341,59 @@ class _WebinarCardDbState extends State<WebinarCardDb> {
                   ),
                 )
               ],
+            ),
+          ),
+          Positioned(
+            top: 0,
+            child: Container(
+              alignment: Alignment.center,
+              width: 300,
+              height: 40,
+              decoration: BoxDecoration(
+                color: Color(0xff15a9ea),
+                borderRadius: BorderRadius.only(
+                    topLeft: Radius.circular(15),
+                    topRight: Radius.circular(15)),
+              ),
+              child: Text(
+                widget.topic,
+                style: TextStyle(
+                    fontSize: 20,
+                    fontFamily: kfontname,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.white),
+              ),
+            ),
+          ),
+          Positioned(
+            top: 130,
+            left: 0,
+            child: Container(
+              alignment: Alignment.center,
+              width: 120,
+              height: 40,
+              decoration: BoxDecoration(
+                color: Color(0xff15a9ea),
+                borderRadius: BorderRadius.only(
+                    bottomRight: Radius.circular(10),
+                    topRight: Radius.circular(10)),
+              ),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  widget.payment == 'free'
+                      ? SizedBox()
+                      : Icon(FontAwesomeIcons.rupeeSign, color: Colors.white),
+                  Text(
+                    widget.payment.toUpperCase(),
+                    style: TextStyle(
+                        fontSize: 25,
+                        fontFamily: kfontname,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.white),
+                  )
+                ],
+              ),
             ),
           ),
         ],
