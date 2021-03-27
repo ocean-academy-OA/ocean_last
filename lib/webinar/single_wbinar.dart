@@ -18,10 +18,10 @@ FirebaseFirestore _firestore = FirebaseFirestore.instance;
 
 // ignore: must_be_immutable
 class SingleWebinarScreen extends StatefulWidget {
-  Timestamp timestamp;
+  Map mailTiming;
   //= (10, 2021 at 10:30:00 AM UTC+5:30);
   var webinar;
-  SingleWebinarScreen({this.timestamp, this.topic});
+  SingleWebinarScreen({this.mailTiming, this.topic});
   String topic;
   String payment;
   @override
@@ -161,6 +161,7 @@ class _SingleWebinarScreenState extends State<SingleWebinarScreen> {
                             aboutMentor: dBaboutMentor,
                             allTopics: allTopics,
                             webinarVideo: webinarVideo,
+                            mailContent: widget.mailTiming,
                           );
                           currentWebinar.add(singleWebinar);
                         }
@@ -198,14 +199,15 @@ class SingleWebinarDB extends StatefulWidget {
       this.trainerImage,
       this.trainerName,
       this.webinarTime,
-      this.webinarVideo});
+      this.webinarVideo,
+      this.mailContent});
   String name;
   String phoneNumber;
   String email;
   int studentEnrolled;
   String course;
   String webinarDuration;
-
+  Map mailContent;
   String payment;
   List<Widget> allTopics;
   String aboutMentor;
@@ -309,9 +311,23 @@ class _SingleWebinarDBState extends State<SingleWebinarDB> {
     );
   }
 
+  String dayCalled(Map mailContent) {
+    if (mailContent['Day'] == 1 ||
+        mailContent['Day'] == 21 ||
+        mailContent['Day'] == 31) {
+      return 'st';
+    } else if (mailContent['Day'] == 2 || mailContent['Day'] == 22) {
+      return 'nd';
+    } else if (mailContent['Day'] == 3 || mailContent['Day'] == 23) {
+      return 'rd';
+    } else {
+      return 'th';
+    }
+  }
+
   void getData() async {
     http.Response response = await http.get(
-        """ https://shrouded-fjord-03855.herokuapp.com/?name=${widget.name}&des=query&mobile=${widget.phoneNumber}&email=${widget.email}&date=date time &type=enquiry""");
+        'https://free-webinar-registration.herokuapp.com/?name=${nameController.text.toString()}&title=${widget.mainTitle.toString()}%20-${widget.payment == 'free' ? 'Free Webinar' : 'Webinar'}&date=${widget.mailContent['Day'].toString()}${widget.mailContent['dayCalled']}%20${widget.mailContent['Month']}&time=${widget.mailContent['Hours']}:${widget.mailContent['Minutes']}${widget.mailContent['DayFormat']}${widget.mailContent['Year']}%20to%20${widget.mailContent['To Hours']}:${widget.mailContent['To Minutes']}${widget.mailContent['DayFormat']}PM%20IST&speaker=${widget.trainerName}(Ex%20-%20OceanAcademy)&email=${emailController.text}');
 
     if (response.statusCode == 200) {
       String data = response.body;
@@ -671,7 +687,7 @@ class _SingleWebinarDBState extends State<SingleWebinarDB> {
                                           print('pement function');
                                         }
                                       }
-                                      // getData();
+                                      getData();
                                       nameController.clear();
                                       emailController.clear();
                                       phoneNumberController.clear();
