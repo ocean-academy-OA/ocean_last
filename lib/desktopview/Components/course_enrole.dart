@@ -314,11 +314,79 @@ class _ContentWidgetState extends State<ContentWidget> {
     trainername = course.data()["trainername"];
   }
 
+  var time;
+  var date;
+  List timeCalculation = [];
+  String resolve;
+
+  getTime() async {
+    print("______________________________________");
+    await for (var snapshot in _firestore
+        .collection('course')
+        .doc(widget.batchid)
+        .collection("schedule")
+        .snapshots(includeMetadataChanges: true)) {
+      for (var message in snapshot.docs) {
+        time = message.data()['time'];
+        date = message.data()['date'];
+        print(time);
+        int startYear = 6;
+        int endYear = 10;
+        int startMonth = 3;
+        int endMonth = 5;
+        int startDay = 0;
+        int endDay = 2;
+        int startHour = 0;
+        int endHour = 1;
+        int startMinute = 2;
+        int endMinute = 4;
+        int startAm = 2;
+        int endEm = 4;
+
+        String year = date.substring(startYear, endYear);
+        print("year${year}");
+        String month = date.substring(startMonth, endMonth);
+        print("month${month}");
+        String day = date.substring(startDay, endDay);
+        print("day${day}");
+        int hour = int.parse(time.substring(startHour, endHour));
+        print("hour${hour}");
+        String minute = time.substring(startMinute, endMinute);
+        print("minute${minute}");
+        String morning = time.substring(startAm, endEm);
+        print("morning${morning}");
+        var dt = DateTime(
+          int.parse(year),
+          int.parse(month),
+          int.parse(day),
+          morning == "AM" ? hour : hour + 12,
+          int.parse(minute),
+        );
+        var second = dt.difference(DateTime.now()).inSeconds;
+        timeCalculation.add(second);
+        print("${dt}${morning}datetime");
+        print(DateTime.now());
+        print(timeCalculation);
+        for (var i in timeCalculation) {
+          if (i > -3600) {
+            resolve = "true";
+            print(resolve);
+          } else {
+            resolve = "false";
+            print("disable");
+          }
+        }
+      }
+    }
+  }
+
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
     userCoursesName();
+    print("______________________________________");
+    getTime();
   }
 
   @override
@@ -450,6 +518,7 @@ class _ContentWidgetState extends State<ContentWidget> {
                       meetingPassword: password,
                       batchid: messagebatch,
                       meeting: meetingNumber,
+                      result: resolve,
                       onpress: () {
                         print(password);
                         print("++++++++++++++++@@@@@@@@@@@");
@@ -496,6 +565,7 @@ class CourseContent extends StatefulWidget {
   final String schedule;
   final String meeting;
   final Function onpress;
+  final String result;
   CourseContent(
       {this.coursename,
       this.batchid,
@@ -509,6 +579,7 @@ class CourseContent extends StatefulWidget {
       this.schedule,
       this.topicCover,
       this.onpress,
+      this.result,
       this.meetingPassword});
 
   @override
@@ -579,7 +650,9 @@ class _CourseContentState extends State<CourseContent> {
                             children: [
                               MaterialButton(
                                 padding: EdgeInsets.all(20.0),
-                                color: Colors.blue,
+                                color: widget.result == "true"
+                                    ? Colors.blue
+                                    : Colors.grey,
                                 shape: RoundedRectangleBorder(
                                     borderRadius: BorderRadius.all(
                                         Radius.circular(05.0))),
