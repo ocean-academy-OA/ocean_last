@@ -67,7 +67,6 @@ class _ContactUsState extends State<ContactUs> {
   String email;
   String query;
   String phoneNumber;
-
   var date;
   var time;
   String firstInt;
