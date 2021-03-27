@@ -1,6 +1,8 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:intl/intl.dart';
+import 'package:ocean_project/desktopview/constants.dart';
 import 'package:ocean_project/desktopview/route/routing.dart';
 import 'package:ocean_project/webinar/single_wbinar.dart';
 import 'package:provider/provider.dart';
@@ -99,7 +101,7 @@ class _WebinarCardState extends State<WebinarCard> {
 
                         final webinar = WebinarCardDb(
                           topic: courseName,
-                          webinarType: payment,
+                          payment: payment,
                           mentorDesignation: designation,
                           mentorName: trainerName,
                           mentorImage: trainerImage,
@@ -152,14 +154,14 @@ class WebinarCardDb extends StatefulWidget {
       this.mentorDesignation,
       this.mentorName,
       this.mentorImage,
-      this.webinarType,
+      this.payment,
       this.onPressed});
   String mentorName;
   Function onPressed;
   String mentorDesignation;
   String time;
   String date;
-  String webinarType;
+  String payment;
   String topic;
   String mentorImage;
   @override
@@ -170,146 +172,231 @@ class _WebinarCardDbState extends State<WebinarCardDb> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      width: 500,
+      margin: EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+      height: 350,
+      width: 300,
       decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(10),
-        color: Color(0xFF1E1E1E),
-      ),
-      margin: EdgeInsets.all(30),
-      padding: EdgeInsets.symmetric(vertical: 20, horizontal: 20),
-      child: Row(
+          color: Colors.white,
+          borderRadius: BorderRadius.circular(15),
+          boxShadow: [
+            BoxShadow(
+                color: Colors.grey[900].withOpacity(0.3),
+                blurRadius: 6,
+                spreadRadius: 0,
+                offset: Offset(-0, 0))
+          ]),
+      child: Stack(
+        alignment: Alignment.center,
         children: [
-          Container(
-            width: 250,
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  widget.topic,
-                  style: TextStyle(
-                      color: Color(0xFF36BAFF),
-                      fontSize: 25,
-                      fontWeight: FontWeight.bold,
-                      fontFamily: "Gilroy"),
-                ),
-                SizedBox(
-                  height: 10,
-                ),
-                Row(
-                  children: [
-                    Text(
-                      "DATE :",
-                      style: TextStyle(
-                          color: Color(0xFFFFFFFF),
-                          fontSize: 15,
-                          fontWeight: FontWeight.normal,
-                          fontFamily: "Gilroy"),
-                    ),
-                    SizedBox(
-                      width: 10,
-                    ),
-                    Text(
-                      widget.date,
-                      style: TextStyle(
-                          color: Color(0xFF36BAFF),
-                          fontSize: 15,
-                          fontWeight: FontWeight.normal,
-                          fontFamily: "Gilroy"),
-                    ),
-                  ],
-                ),
-                SizedBox(
-                  height: 10,
-                ),
-                Row(
-                  children: [
-                    Text(
-                      "TIME :",
-                      style: TextStyle(
-                          color: Color(0xFFFFFFFF),
-                          fontSize: 15,
-                          fontWeight: FontWeight.normal,
-                          fontFamily: "Gilroy"),
-                    ),
-                    SizedBox(
-                      width: 10,
-                    ),
-                    Text(
-                      widget.time,
-                      style: TextStyle(
-                          color: Color(0xFF36BAFF),
-                          fontSize: 15,
-                          fontWeight: FontWeight.normal,
-                          fontFamily: "Gilroy"),
-                    ),
-                  ],
-                ),
-                SizedBox(
-                  height: 20,
-                ),
-                Text(
-                  widget.webinarType,
-                  style: TextStyle(
-                      color: Color(0xFFFFFFFF),
-                      fontSize: 20,
-                      fontWeight: FontWeight.normal,
-                      fontFamily: "Gilroy"),
-                ),
-                SizedBox(
-                  height: 10,
-                ),
-                ButtonTheme(
-                  minWidth: 250,
-                  height: 50,
-                  child: RaisedButton(
-                      child: Text(
-                        "REGISTER NOW",
-                        style: TextStyle(
-                            color: Color(0xFFFFFFFF),
-                            fontSize: 20,
-                            fontWeight: FontWeight.bold,
-                            fontFamily: "Gilroy"),
+          Positioned(
+            top: 50,
+            child: Container(
+              padding: EdgeInsets.symmetric(horizontal: 15, vertical: 10),
+              width: 300,
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        children: [
+                          Text(
+                            'Date ',
+                            style: TextStyle(
+                                fontSize: 18,
+                                fontFamily: kfontname,
+                                fontWeight: FontWeight.normal,
+                                color: Color(0XFFB2B2B2)),
+                          ),
+                          Text(
+                            widget.date,
+                            style: TextStyle(
+                                fontSize: 18,
+                                fontFamily: kfontname,
+                                fontWeight: FontWeight.normal,
+                                color: Color(0xff15a9ea)),
+                          ),
+                        ],
                       ),
-                      color: Color(0xFF36BAFF),
-                      onPressed: widget.onPressed),
+                      SizedBox(
+                        height: 8,
+                      ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        children: [
+                          Text(
+                            'Time ',
+                            style: TextStyle(
+                                fontSize: 18,
+                                fontFamily: kfontname,
+                                fontWeight: FontWeight.normal,
+                                color: Color(0XFFB2B2B2)),
+                          ),
+                          Text(
+                            widget.time,
+                            style: TextStyle(
+                                fontSize: 18,
+                                fontFamily: kfontname,
+                                fontWeight: FontWeight.normal,
+                                color: Color(0xff15a9ea)),
+                          ),
+                        ],
+                      )
+                    ],
+                  ),
+                ],
+              ),
+            ),
+          ),
+          Positioned(
+            bottom: 0,
+            child: Stack(
+              alignment: Alignment.bottomCenter,
+              children: [
+                Container(
+                  height: 200,
+                  width: 300,
                 ),
+                Positioned(
+                  child: Container(
+                    padding: EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+                    height: 150,
+                    width: 300,
+                    decoration: BoxDecoration(
+                      color: Color(0xff15a9ea),
+                      borderRadius: BorderRadius.only(
+                          bottomRight: Radius.circular(15),
+                          bottomLeft: Radius.circular(15)),
+                    ),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              widget.mentorName.toUpperCase(),
+                              style: TextStyle(
+                                  fontSize: 20,
+                                  fontFamily: kfontname,
+                                  fontWeight: FontWeight.bold,
+                                  color: Colors.white),
+                            ),
+                            Text(
+                              widget.mentorDesignation,
+                              style: TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 15,
+                                  inherit: false,
+                                  fontFamily: kfontname,
+                                  fontWeight: FontWeight.w400),
+                            )
+                          ],
+                        ),
+                        Container(
+                          margin: EdgeInsets.symmetric(vertical: 8),
+                          width: 300,
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            children: [
+                              FlatButton(
+                                child: Text(
+                                  'Register Now',
+                                  style: TextStyle(
+                                      color: Color(0xff15A9EA), fontSize: 20),
+                                ),
+                                shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(5)),
+                                color: Colors.white,
+                                minWidth: 210,
+                                height: 50,
+                                onPressed: widget.onPressed,
+                              )
+                            ],
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+                Positioned(
+                  top: 10,
+                  right: 20,
+                  child: Container(
+                    padding: EdgeInsets.all(6),
+                    height: 120,
+                    width: 120,
+                    decoration: BoxDecoration(
+                      color: Colors.white,
+                      borderRadius: BorderRadius.circular(500),
+                    ),
+                    child: ClipRRect(
+                        borderRadius: BorderRadius.circular(500),
+                        child: Image.network(
+                          widget.mentorImage,
+                          fit: BoxFit.cover,
+                        )),
+                  ),
+                )
               ],
             ),
           ),
-          Container(
-            width: 200,
-            child: Column(
-              children: [
-                ClipRRect(
-                  borderRadius: BorderRadius.circular(120.0),
-                  child: Image.network(widget.mentorImage,
-                      height: 160, width: 160, fit: BoxFit.cover),
-                ),
-                SizedBox(
-                  height: 20,
-                ),
-                Text(
-                  widget.mentorName,
-                  style: TextStyle(
-                      color: Color(0xFFFFFFFF),
-                      fontSize: 15,
-                      fontWeight: FontWeight.bold,
-                      fontFamily: "Gilroy"),
-                ),
-                SizedBox(
-                  height: 10,
-                ),
-                Text(
-                  widget.mentorDesignation,
-                  style: TextStyle(
-                      color: Color(0xFFFFFFFF),
-                      fontSize: 15,
-                      fontWeight: FontWeight.normal,
-                      fontFamily: "Gilroy"),
-                ),
-              ],
+          Positioned(
+            top: 0,
+            child: Container(
+              alignment: Alignment.center,
+              width: 300,
+              height: 40,
+              decoration: BoxDecoration(
+                color: Color(0xff15a9ea),
+                borderRadius: BorderRadius.only(
+                    topLeft: Radius.circular(15),
+                    topRight: Radius.circular(15)),
+              ),
+              child: Text(
+                widget.topic,
+                style: TextStyle(
+                    fontSize: 20,
+                    fontFamily: kfontname,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.white),
+              ),
             ),
-          )
+          ),
+          Positioned(
+            top: 130,
+            left: 0,
+            child: Container(
+              alignment: Alignment.center,
+              width: 120,
+              height: 40,
+              decoration: BoxDecoration(
+                color: Color(0xff15a9ea),
+                borderRadius: BorderRadius.only(
+                    bottomRight: Radius.circular(10),
+                    topRight: Radius.circular(10)),
+              ),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  widget.payment == 'free'
+                      ? SizedBox()
+                      : Icon(FontAwesomeIcons.rupeeSign, color: Colors.white),
+                  Text(
+                    widget.payment.toUpperCase(),
+                    style: TextStyle(
+                        fontSize: 25,
+                        fontFamily: kfontname,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.white),
+                  )
+                ],
+              ),
+            ),
+          ),
         ],
       ),
     );
