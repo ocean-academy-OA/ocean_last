@@ -50,22 +50,17 @@ class _MobileWebinarCardState extends State<MobileWebinarCard> {
               );
             } else {
               final messages = snapshot.data.docs;
-
               List<WebinarCardDb> courseList = [];
               List<int> timingList = [];
               Map<int, Widget> courseMap = {};
               for (var message in messages) {
                 Timestamp timeStamp = message.data()['timestamp'];
-
                 final courseName = message.data()['course'];
                 final trainerName = message.data()['trainer name'];
-
                 final payment = message.data()['payment'];
                 final designation = message.data()['designation'];
                 final trainerImage = message.data()['trainer image'];
                 final mainTitle = message.data()['main subtitle'];
-                print(timeStamp);
-                print(DateTime.now().millisecond);
 
                 int yearFormat;
                 int monthFormat;
@@ -98,7 +93,6 @@ class _MobileWebinarCardState extends State<MobileWebinarCard> {
                         secondsFormat)
                     .difference(DateTime.now())
                     .inSeconds;
-                print('$defrenceTime oooooooooooooooooo');
 
                 var date = DateFormat('d/MM/y').format(timeStamp.toDate());
 
@@ -114,7 +108,6 @@ class _MobileWebinarCardState extends State<MobileWebinarCard> {
                   mainTitle: mainTitle,
                   time: timing.toString(),
                   onPressed: () {
-                    print(payment);
                     Navigator.push(
                         context,
                         MaterialPageRoute(
@@ -126,22 +119,19 @@ class _MobileWebinarCardState extends State<MobileWebinarCard> {
                 if (defrenceTime > 0) {
                   timingList.add(defrenceTime);
                   timingList.sort();
-
                   courseMap.addAll({defrenceTime: webinar});
                 }
               }
               print(timingList);
               for (var i in timingList) {
-                print(i);
-
                 courseList.add(courseMap[i]);
               }
 
-              return Wrap(
-                runSpacing: 15,
-                spacing: 15,
-                alignment: WrapAlignment.center,
-                children: courseList,
+              return Container(
+                width: MediaQuery.of(context).size.width,
+                child: Column(
+                  children: courseList,
+                ),
               );
             }
           },
