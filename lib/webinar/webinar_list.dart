@@ -19,127 +19,114 @@ class _WebinarCardState extends State<WebinarCard> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: SingleChildScrollView(
-        child: Column(
+        child: Wrap(
+          alignment: WrapAlignment.center,
           children: [
-            Row(
-              children: [BackButton()],
-            ),
-            Wrap(
-              alignment: WrapAlignment.center,
-              children: [
-                StreamBuilder<QuerySnapshot>(
-                  stream: _firestore.collection('Webinar').snapshots(),
-                  // ignore: missing_return
-                  builder: (context, snapshot) {
-                    if (!snapshot.hasData) {
-                      return Center(
-                        child: LinearProgressIndicator(
-                          backgroundColor: Colors.blue,
-                        ),
-                      );
-                    } else {
-                      final messages = snapshot.data.docs;
+            StreamBuilder<QuerySnapshot>(
+              stream: _firestore.collection('Webinar').snapshots(),
+              // ignore: missing_return
+              builder: (context, snapshot) {
+                if (!snapshot.hasData) {
+                  return Center(
+                    child: LinearProgressIndicator(
+                      backgroundColor: Colors.blue,
+                    ),
+                  );
+                } else {
+                  final messages = snapshot.data.docs;
 
-                      List<WebinarCardDb> courseList = [];
-                      List<int> timingList = [];
-                      Map<int, Widget> courseMap = {};
-                      for (var message in messages) {
-                        Timestamp timeStamp = message.data()['timestamp'];
+                  List<WebinarCardDb> courseList = [];
+                  List<int> timingList = [];
+                  Map<int, Widget> courseMap = {};
+                  for (var message in messages) {
+                    Timestamp timeStamp = message.data()['timestamp'];
 
-                        final courseName = message.data()['course'];
-                        final trainerName = message.data()['trainer name'];
+                    final courseName = message.data()['course'];
+                    final trainerName = message.data()['trainer name'];
 
-                        final payment = message.data()['payment'];
-                        final designation = message.data()['designation'];
-                        final trainerImage = message.data()['trainer image'];
-                        print(timeStamp);
-                        print(DateTime.now().millisecond);
+                    final payment = message.data()['payment'];
+                    final designation = message.data()['designation'];
+                    final trainerImage = message.data()['trainer image'];
+                    print(timeStamp);
+                    print(DateTime.now().millisecond);
 
-                        int yearFormat;
-                        int monthFormat;
-                        int dayFormat;
-                        int hourFormat;
-                        int minuteFormat;
-                        int secondsFormat;
+                    int yearFormat;
+                    int monthFormat;
+                    int dayFormat;
+                    int hourFormat;
+                    int minuteFormat;
+                    int secondsFormat;
 
-                        var year = DateFormat('y');
-                        var month = DateFormat('MM');
-                        var day = DateFormat('d');
-                        var hour = DateFormat('hh');
-                        var minute = DateFormat('mm');
-                        var seconds = DateFormat('s');
+                    var year = DateFormat('y');
+                    var month = DateFormat('MM');
+                    var day = DateFormat('d');
+                    var hour = DateFormat('hh');
+                    var minute = DateFormat('mm');
+                    var seconds = DateFormat('s');
 
-                        yearFormat = int.parse(year.format(timeStamp.toDate()));
-                        monthFormat =
-                            int.parse(month.format(timeStamp.toDate()));
-                        dayFormat = int.parse(day.format(timeStamp.toDate()));
-                        hourFormat = int.parse(hour.format(timeStamp.toDate()));
-                        minuteFormat =
-                            int.parse(minute.format(timeStamp.toDate()));
-                        secondsFormat =
-                            int.parse(seconds.format(timeStamp.toDate()));
-                        var timeFormat =
-                            DateFormat('a').format(timeStamp.toDate());
+                    yearFormat = int.parse(year.format(timeStamp.toDate()));
+                    monthFormat = int.parse(month.format(timeStamp.toDate()));
+                    dayFormat = int.parse(day.format(timeStamp.toDate()));
+                    hourFormat = int.parse(hour.format(timeStamp.toDate()));
+                    minuteFormat = int.parse(minute.format(timeStamp.toDate()));
+                    secondsFormat =
+                        int.parse(seconds.format(timeStamp.toDate()));
+                    var timeFormat = DateFormat('a').format(timeStamp.toDate());
 
-                        var defrenceTime = DateTime(
-                                yearFormat,
-                                monthFormat,
-                                dayFormat,
-                                timeFormat == 'AM'
-                                    ? hourFormat
-                                    : hourFormat + 12,
-                                minuteFormat,
-                                secondsFormat)
-                            .difference(DateTime.now())
-                            .inSeconds;
-                        print('$defrenceTime oooooooooooooooooo');
+                    var defrenceTime = DateTime(
+                            yearFormat,
+                            monthFormat,
+                            dayFormat,
+                            timeFormat == 'AM' ? hourFormat : hourFormat + 12,
+                            minuteFormat,
+                            secondsFormat)
+                        .difference(DateTime.now())
+                        .inSeconds;
+                    print('$defrenceTime oooooooooooooooooo');
 
-                        var date =
-                            DateFormat('d/MM/y').format(timeStamp.toDate());
+                    var date = DateFormat('d/MM/y').format(timeStamp.toDate());
 
-                        var timing = DateFormat.jm().format(timeStamp.toDate());
+                    var timing = DateFormat.jm().format(timeStamp.toDate());
 
-                        final webinar = WebinarCardDb(
+                    final webinar = WebinarCardDb(
+                      topic: courseName,
+                      payment: payment,
+                      mentorDesignation: designation,
+                      mentorName: trainerName,
+                      mentorImage: trainerImage,
+                      date: date.toString(),
+                      time: timing.toString(),
+                      onPressed: () async {
+                        print(payment);
+                        Provider.of<Routing>(context, listen: false)
+                            .updateRouting(
+                                widget: SingleWebinarScreen(
                           topic: courseName,
-                          payment: payment,
-                          mentorDesignation: designation,
-                          mentorName: trainerName,
-                          mentorImage: trainerImage,
-                          date: date.toString(),
-                          time: timing.toString(),
-                          onPressed: () async {
-                            print(payment);
-                            Provider.of<Routing>(context, listen: false)
-                                .updateRouting(
-                                    widget: SingleWebinarScreen(
-                              topic: courseName,
-                            ));
-                          },
-                        );
-                        if (defrenceTime > 0) {
-                          timingList.add(defrenceTime);
-                          timingList.sort();
+                        ));
+                      },
+                    );
+                    if (defrenceTime > 0) {
+                      timingList.add(defrenceTime);
+                      timingList.sort();
 
-                          courseMap.addAll({defrenceTime: webinar});
-                        }
-                      }
-                      print(timingList);
-                      for (var i in timingList) {
-                        print(i);
-
-                        courseList.add(courseMap[i]);
-                      }
-
-                      return Wrap(
-                        runSpacing: 20,
-                        spacing: 30,
-                        alignment: WrapAlignment.center,
-                        children: courseList,
-                      );
+                      courseMap.addAll({defrenceTime: webinar});
                     }
-                  },
-                ),
-              ],
+                  }
+                  print(timingList);
+                  for (var i in timingList) {
+                    print(i);
+
+                    courseList.add(courseMap[i]);
+                  }
+
+                  return Wrap(
+                    runSpacing: 20,
+                    spacing: 30,
+                    alignment: WrapAlignment.center,
+                    children: courseList,
+                  );
+                }
+              },
             ),
           ],
         ),
