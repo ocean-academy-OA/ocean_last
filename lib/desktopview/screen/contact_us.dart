@@ -634,7 +634,7 @@ class _ContactUsState extends State<ContactUs> {
 
                                   date = DateFormat("d-M-y")
                                       .format(DateTime.now());
-                                  print('${time} < Current Time >');
+                                  print('$time < Current Time >');
                                   if (_formKey.currentState.validate()) {
                                     if (controller.isCompleted) {
                                       controller.reverse();
@@ -658,7 +658,7 @@ class _ContactUsState extends State<ContactUs> {
                                         'Phone_Number': phoneNumber
                                       });
                                       // getData();
-                                      print("${date} < Date Time >");
+                                      print("$date < Date Time >");
                                       setState(() {
                                         print(
                                             'working////////////////////////////////////');

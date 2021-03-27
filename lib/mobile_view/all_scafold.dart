@@ -5,7 +5,6 @@ import 'package:ocean_project/mobileview/screen/abouts_us_screen.dart';
 import 'package:ocean_project/mobileview/screen/contact_us_screen.dart';
 import 'package:ocean_project/mobileview/screen/courses_screen.dart';
 import 'package:ocean_project/mobileview/screen/home_screen.dart';
-import 'package:ocean_project/mobileview/screen/mobile_flash_notification.dart';
 import 'package:ocean_project/mobileview/screen/mobile_wbinar/webinar_list.dart';
 import 'package:ocean_project/mobileview/screen/services_screen.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';

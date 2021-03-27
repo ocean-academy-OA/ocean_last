@@ -50,7 +50,7 @@ class _MailChimpState extends State<MailChimp> {
                             onPressed: submit,
                           ),
                         )
-                      : Text("${sendResponse}"),
+                      : Text("$sendResponse"),
             ],
           ),
         ),

@@ -3,16 +3,15 @@ import 'package:email_validator/email_validator.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+
 import 'package:intl/intl.dart';
 import 'package:ocean_project/desktopview/constants.dart';
-import 'package:ocean_project/desktopview/route/routing.dart';
-import 'package:ocean_project/desktopview/screen/menubar.dart';
+
 import 'package:ocean_project/mobileview/screen/home_screen.dart';
 import 'package:ocean_project/mobileview/screen/mobile_wbinar/mobile_join_successfuly.dart';
-import 'package:ocean_project/webinar/join_successfully.dart';
+
 import 'package:ocean_project/webinar/webinar_const.dart';
-import 'package:provider/provider.dart';
+
 import 'package:slide_countdown_clock/slide_countdown_clock.dart';
 import 'package:http/http.dart' as http;
 import 'package:video_player/video_player.dart';

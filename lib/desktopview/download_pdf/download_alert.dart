@@ -1,10 +1,6 @@
-import 'dart:html';
-
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:flushbar/flushbar.dart';
 import 'package:flutter/material.dart';
 import 'package:ocean_project/alert/alert_text_field.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 final _firestore = FirebaseFirestore.instance;

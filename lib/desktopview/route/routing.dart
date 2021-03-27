@@ -1,16 +1,12 @@
 import 'package:flutter/material.dart';
-
 import 'package:ocean_project/desktopview/Components/enroll_new.dart';
 import 'package:ocean_project/desktopview/Components/course_enrole.dart';
 import 'package:ocean_project/desktopview/Components/enrool_appbar.dart';
 import 'package:ocean_project/desktopview/Components/user_profile.dart';
 import 'package:ocean_project/desktopview/screen/home_screen.dart';
 import 'package:ocean_project/desktopview/screen/menubar.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:ocean_project/desktopview/screen/course_details.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-
-final _firestore = FirebaseFirestore.instance;
 
 class Routing extends ChangeNotifier {
   Widget route = Home();

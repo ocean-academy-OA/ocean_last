@@ -1,12 +1,10 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:flutter/foundation.dart';
+
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-import 'package:ocean_project/desktopview/route/routing.dart';
+
 import 'package:ocean_project/mobileview/screen/home_screen.dart';
 import 'package:ocean_project/mobileview/screen/mobile_wbinar/mobile_single%20webinar.dart';
-import 'package:ocean_project/webinar/single_wbinar.dart';
-import 'package:provider/provider.dart';
 
 FirebaseFirestore _firestore = FirebaseFirestore.instance;
 
@@ -93,7 +91,7 @@ class _MobileWebinarCardState extends State<MobileWebinarCard> {
                         secondsFormat)
                     .difference(DateTime.now())
                     .inSeconds;
-                print('${defrenceTime} oooooooooooooooooo');
+                print('$defrenceTime oooooooooooooooooo');
 
                 var date = DateFormat('d/MM/y').format(timeStamp.toDate());
 

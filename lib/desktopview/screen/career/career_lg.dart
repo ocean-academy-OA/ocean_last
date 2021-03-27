@@ -1,12 +1,12 @@
 import 'dart:html';
 import 'package:flutter/material.dart';
 
-class Career_lg extends StatefulWidget {
+class CareerLg extends StatefulWidget {
   @override
-  _Career_lgState createState() => _Career_lgState();
+  _CareerLgState createState() => _CareerLgState();
 }
 
-class _Career_lgState extends State<Career_lg> {
+class _CareerLgState extends State<CareerLg> {
   @override
   Widget build(BuildContext context) {
     return Stack(

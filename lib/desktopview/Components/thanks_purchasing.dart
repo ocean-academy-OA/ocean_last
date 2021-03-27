@@ -1,12 +1,7 @@
 import 'dart:html';
 
 import 'package:flutter/material.dart';
-import 'package:ocean_project/desktopview/Components/enroll_new.dart';
-import 'package:ocean_project/desktopview/Components/my_course.dart';
-import 'package:ocean_project/desktopview/route/routing.dart';
-
 import 'package:ocean_project/desktopview/screen/footer.dart';
-import 'package:provider/provider.dart';
 
 class ThanksForPurchasing extends StatefulWidget {
   @override

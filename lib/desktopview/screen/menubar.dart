@@ -7,19 +7,14 @@ import 'package:ocean_project/desktopview/Components/flash_notification.dart';
 import 'package:ocean_project/desktopview/Components/ocean_icons.dart';
 import 'package:ocean_project/desktopview/new_user_screen/log_in.dart';
 import 'package:ocean_project/desktopview/route/routing.dart';
-import 'package:ocean_project/desktopview/screen/career/career_lg.dart';
+
 import 'package:ocean_project/desktopview/screen/career/career_layout.dart';
 
 import 'package:ocean_project/desktopview/screen/contact_us.dart';
 import 'package:ocean_project/desktopview/screen/courses.dart';
 import 'package:ocean_project/desktopview/screen/services.dart';
-import 'package:ocean_project/webinar/single_wbinar.dart';
-import 'package:ocean_project/webinar/upcoming_webinar.dart';
-import 'package:ocean_project/webinar/wbinar_menubar.dart';
-import 'package:ocean_project/webinar/webinar_list.dart';
-import 'package:ocean_project/webinar/webinar_page.dart';
 import 'package:provider/provider.dart';
-import 'package:shared_preferences/shared_preferences.dart';
+
 import 'home_screen.dart';
 import 'about_us_screen.dart';
 

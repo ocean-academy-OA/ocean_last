@@ -9,11 +9,11 @@ class CareerLayout extends StatelessWidget {
     // ignore: missing_return
     return LayoutBuilder(builder: (context, constraints) {
       if (constraints.maxWidth > 1600) {
-        return Career_lg();
+        return CareerLg();
       } else if (constraints.maxWidth > 1300 && constraints.maxWidth < 1600) {
-        return Career_md();
+        return CareerMd();
       } else if (constraints.maxWidth > 600 && constraints.maxWidth < 1300) {
-        return Career_sm();
+        return CareerSm();
       }
     });
   }

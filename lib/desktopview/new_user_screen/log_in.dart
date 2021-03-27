@@ -1,5 +1,3 @@
-import 'dart:html';
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:country_code_picker/country_codes.dart';
 import 'package:flutter/gestures.dart';
@@ -8,8 +6,6 @@ import 'package:country_code_picker/country_code_picker.dart';
 import 'package:flutter/services.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:ocean_project/desktopview/route/routing.dart';
-import 'package:ocean_project/desktopview/screen/menubar.dart';
-import 'package:ocean_project/webinar/webinar_const.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'dart:ui';

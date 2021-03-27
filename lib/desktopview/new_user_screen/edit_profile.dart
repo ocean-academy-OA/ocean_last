@@ -1,7 +1,4 @@
-import 'dart:html';
-
 import 'dart:typed_data';
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/cupertino.dart';
@@ -9,17 +6,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:intl/intl.dart';
 import 'package:ocean_project/desktopview/Components/course_enrole.dart';
-import 'package:ocean_project/desktopview/Components/enrool_appbar.dart';
 import 'package:ocean_project/desktopview/new_user_screen/log_in.dart';
-
 import 'package:ocean_project/desktopview/new_user_widget/date_picker.dart';
 import 'package:ocean_project/desktopview/new_user_widget/gender_dropdoen_field.dart';
 import 'package:ocean_project/desktopview/new_user_widget/input_text_field.dart';
 import 'package:ocean_project/desktopview/route/routing.dart';
-
 import 'package:path/path.dart';
 import 'package:firebase_storage/firebase_storage.dart';
-import 'package:ocean_project/desktopview/Components/my_course.dart';
 import 'package:provider/provider.dart';
 
 class EditProfile extends StatefulWidget {

@@ -1,14 +1,10 @@
 import 'package:flutter/material.dart';
-
 import 'package:intl/intl.dart';
 import 'package:ocean_project/desktopview/Components/thanks_purchasing.dart';
-
 import 'package:ocean_project/desktopview/Components/course_enrole.dart';
 import 'package:ocean_project/desktopview/new_user_screen/log_in.dart';
 import 'package:ocean_project/desktopview/route/routing.dart';
 import 'package:provider/provider.dart';
-import 'package:ocean_project/desktopview/Components/enrool_appbar.dart';
-
 import 'package:shared_preferences/shared_preferences.dart';
 
 // ignore: avoid_web_libraries_in_flutter
@@ -19,7 +15,6 @@ import 'package:ocean_project/desktopview/Components/UiFake.dart'
     if (dart.library.html) 'dart:ui' as ui;
 
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'dart:html' as html;
 
 // ignore: must_be_immutable
 class RazorPayWeb extends StatefulWidget {
