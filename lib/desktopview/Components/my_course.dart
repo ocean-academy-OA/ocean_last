@@ -190,67 +190,74 @@ class _MyCourseDbState extends State<MyCourseDb> {
                 ),
                 Padding(
                   padding: const EdgeInsets.all(5.0),
-                  child: Row(
+                  child: Column(
                     children: [
-                      SizedBox(width: 10),
-                      Container(
-                        padding: EdgeInsets.all(5),
-                        decoration: BoxDecoration(
-                            color: Colors.blue[400],
-                            borderRadius: BorderRadius.circular(5)),
-                        child: Row(
-                          children: [
-                            Icon(
-                              Icons.schedule,
-                              color: Colors.white,
+                      Row(
+                        children: [
+                          SizedBox(width: 10),
+                          Container(
+                            padding: EdgeInsets.all(5),
+                            decoration: BoxDecoration(
+                                color: Colors.blue[400],
+                                borderRadius: BorderRadius.circular(5)),
+                            child: Row(
+                              children: [
+                                Icon(
+                                  Icons.schedule,
+                                  color: Colors.white,
+                                ),
+                                SizedBox(width: 5),
+                                Text(
+                                  "${widget.time} hr",
+                                  style: TextStyle(color: Colors.white),
+                                ),
+                              ],
                             ),
-                            SizedBox(width: 5),
-                            Text(
-                              "${widget.time} hr",
-                              style: TextStyle(color: Colors.white),
+                          ),
+                          SizedBox(width: 10),
+                          Container(
+                            padding: EdgeInsets.all(5),
+                            decoration: BoxDecoration(
+                                color: Colors.blue[400],
+                                borderRadius: BorderRadius.circular(5)),
+                            child: Row(
+                              children: [
+                                Icon(
+                                  Icons.schedule,
+                                  color: Colors.white,
+                                ),
+                                SizedBox(width: 5),
+                                Text(
+                                  "${widget.time} hr",
+                                  style: TextStyle(color: Colors.white),
+                                ),
+                              ],
                             ),
-                          ],
-                        ),
-                      ),
-                      SizedBox(width: 10),
-                      Container(
-                        padding: EdgeInsets.all(5),
-                        decoration: BoxDecoration(
-                            color: Colors.blue[400],
-                            borderRadius: BorderRadius.circular(5)),
-                        child: Row(
-                          children: [
-                            Icon(
-                              Icons.schedule,
-                              color: Colors.white,
+                          ),
+                          SizedBox(width: 10),
+                          Container(
+                            padding: EdgeInsets.all(5),
+                            decoration: BoxDecoration(
+                                color: Colors.blue[400],
+                                borderRadius: BorderRadius.circular(5)),
+                            child: Row(
+                              children: [
+                                Icon(
+                                  Icons.video_call,
+                                  color: Colors.white,
+                                ),
+                                SizedBox(width: 5),
+                                Text(
+                                  "by zoom",
+                                  style: TextStyle(color: Colors.white),
+                                ),
+                              ],
                             ),
-                            SizedBox(width: 5),
-                            Text(
-                              "${widget.time} hr",
-                              style: TextStyle(color: Colors.white),
-                            ),
-                          ],
-                        ),
-                      ),
-                      SizedBox(width: 10),
-                      Container(
-                        padding: EdgeInsets.all(5),
-                        decoration: BoxDecoration(
-                            color: Colors.blue[400],
-                            borderRadius: BorderRadius.circular(5)),
-                        child: Row(
-                          children: [
-                            Icon(
-                              Icons.video_call,
-                              color: Colors.white,
-                            ),
-                            SizedBox(width: 5),
-                            Text(
-                              "by zoom",
-                              style: TextStyle(color: Colors.white),
-                            ),
-                          ],
-                        ),
+                          ),
+                          Row(
+                            children: [],
+                          ),
+                        ],
                       ),
                     ],
                   ),
