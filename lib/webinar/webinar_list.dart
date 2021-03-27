@@ -131,6 +131,8 @@ class _WebinarCardState extends State<WebinarCard> {
                       }
 
                       return Wrap(
+                        runSpacing: 20,
+                        spacing: 20,
                         alignment: WrapAlignment.center,
                         children: courseList,
                       );
