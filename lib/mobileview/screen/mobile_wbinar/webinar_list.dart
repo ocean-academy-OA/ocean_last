@@ -15,6 +15,7 @@ import 'package:ocean_project/mobileview/screen/mobile_wbinar/mobile_single%20we
 FirebaseFirestore _firestore = FirebaseFirestore.instance;
 
 class MobileWebinarCard extends StatefulWidget {
+  static Map timing;
   @override
   _MobileWebinarCardState createState() => _MobileWebinarCardState();
 }
@@ -53,6 +54,7 @@ class _MobileWebinarCardState extends State<MobileWebinarCard> {
               List<WebinarCardDb> courseList = [];
               List<int> timingList = [];
               Map<int, Widget> courseMap = {};
+              Map<String, Map> timingMap = {};
               for (var message in messages) {
                 Timestamp timeStamp = message.data()['timestamp'];
                 final courseName = message.data()['course'];
@@ -61,6 +63,7 @@ class _MobileWebinarCardState extends State<MobileWebinarCard> {
                 final designation = message.data()['designation'];
                 final trainerImage = message.data()['trainer image'];
                 final mainTitle = message.data()['main subtitle'];
+                int duration = int.parse(message.data()['webinar duration']);
 
                 int yearFormat;
                 int monthFormat;
@@ -98,6 +101,45 @@ class _MobileWebinarCardState extends State<MobileWebinarCard> {
 
                 var timing = DateFormat.jm().format(timeStamp.toDate());
 
+                //for mail info
+                String toTimeFormat = timeFormat;
+                int toTime = hourFormat;
+                int toDuration = duration;
+                if (toDuration >= 60) {
+                  var hourcalculate = toDuration ~/ 60;
+                  toDuration -= hourcalculate * 60;
+                  toTime += hourcalculate;
+                  if (toTime == 12) {
+                    if (timeFormat == 'AM') {
+                      toTimeFormat = 'PM';
+                    } else {
+                      toTimeFormat = 'AM';
+                    }
+                  } else if (toTime > 12) {
+                    toTime -= 12;
+                    if (timeFormat == 'AM') {
+                      toTimeFormat = 'PM';
+                    } else {
+                      toTimeFormat = 'AM';
+                    }
+                  }
+                }
+
+                var monthString = DateFormat('MMMM');
+                var monthFormatString = monthString.format(timeStamp.toDate());
+                Map dateForMail = {
+                  'Year': yearFormat,
+                  'Month': monthFormatString,
+                  'Day': dayFormat,
+                  'Hours': hourFormat,
+                  'To Hours': toTime,
+                  'Minutes': minuteFormat,
+                  'To Minutes': toDuration,
+                  'DayFormat': timeFormat,
+                  'To DayFormat': toTimeFormat
+                };
+                timingMap.addAll({courseName: dateForMail});
+
                 final webinar = WebinarCardDb(
                   topic: courseName,
                   payment: payment,
@@ -126,7 +168,7 @@ class _MobileWebinarCardState extends State<MobileWebinarCard> {
               for (var i in timingList) {
                 courseList.add(courseMap[i]);
               }
-
+              MobileWebinarCard.timing = timingMap;
               return Container(
                 width: MediaQuery.of(context).size.width,
                 child: Column(

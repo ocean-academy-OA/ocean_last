@@ -10,6 +10,7 @@ import 'package:provider/provider.dart';
 FirebaseFirestore _firestore = FirebaseFirestore.instance;
 
 class WebinarCard extends StatefulWidget {
+  static Map timing;
   @override
   _WebinarCardState createState() => _WebinarCardState();
 }
@@ -18,144 +19,162 @@ class _WebinarCardState extends State<WebinarCard> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: SingleChildScrollView(
-        child: Wrap(
-          alignment: WrapAlignment.center,
-          children: [
-            StreamBuilder<QuerySnapshot>(
-              stream: _firestore.collection('Webinar').snapshots(),
-              // ignore: missing_return
-              builder: (context, snapshot) {
-                if (!snapshot.hasData) {
-                  return Center(
-                    child: LinearProgressIndicator(
-                      backgroundColor: Colors.blue,
-                    ),
-                  );
-                } else {
-                  final messages = snapshot.data.docs;
-
-                  List<WebinarCardDb> courseList = [];
-                  List<int> timingList = [];
-                  Map<int, Widget> courseMap = {};
-                  for (var message in messages) {
-                    Timestamp timeStamp = message.data()['timestamp'];
-
-                    final courseName = message.data()['course'];
-                    final trainerName = message.data()['trainer name'];
-
-                    final payment = message.data()['payment'];
-                    final designation = message.data()['designation'];
-                    final trainerImage = message.data()['trainer image'];
-                    int duration =
-                        int.parse(message.data()['webinar duration']);
-                    print(timeStamp);
-                    print(DateTime.now().millisecond);
-
-                    int yearFormat;
-                    int monthFormat;
-                    int dayFormat;
-                    int hourFormat;
-                    int minuteFormat;
-                    int secondsFormat;
-
-                    var year = DateFormat('y');
-                    var month = DateFormat('MM');
-                    var day = DateFormat('d');
-                    var hour = DateFormat('hh');
-                    var minute = DateFormat('mm');
-                    var seconds = DateFormat('s');
-
-                    yearFormat = int.parse(year.format(timeStamp.toDate()));
-                    monthFormat = int.parse(month.format(timeStamp.toDate()));
-                    dayFormat = int.parse(day.format(timeStamp.toDate()));
-                    hourFormat = int.parse(hour.format(timeStamp.toDate()));
-                    minuteFormat = int.parse(minute.format(timeStamp.toDate()));
-                    secondsFormat =
-                        int.parse(seconds.format(timeStamp.toDate()));
-                    var timeFormat = DateFormat('a').format(timeStamp.toDate());
-
-                    var defrenceTime = DateTime(
-                            yearFormat,
-                            monthFormat,
-                            dayFormat,
-                            timeFormat == 'AM' ? hourFormat : hourFormat + 12,
-                            minuteFormat,
-                            secondsFormat)
-                        .difference(DateTime.now())
-                        .inSeconds;
-                    print('$defrenceTime oooooooooooooooooo');
-
-                    //for mail info
-                    int toTime = 5;
-                    int toDuration = duration;
-                    if (toDuration >= 60) {
-                      var hourcalculate = toDuration ~/ 60;
-                      toDuration -= hourcalculate * 60;
-                      toTime += hourcalculate;
-                    }
-                    print('vvvvvvvvvvvvvvvvvvvvvvvv');
-
-                    var monthString = DateFormat('MMMM');
-                    var monthFormatString =
-                        monthString.format(timeStamp.toDate());
-                    Map dateForMail = {
-                      'Year': yearFormat,
-                      'Month': monthFormatString,
-                      'Day': dayFormat,
-                      'Hours': hourFormat,
-                      'To Hours': toTime,
-                      'Minutes': duration,
-                      'To Minutes': toDuration,
-                      'DayFormat': timeFormat
-                    };
-
-                    var date = DateFormat('d/MM/y').format(timeStamp.toDate());
-
-                    var timing = DateFormat.jm().format(timeStamp.toDate());
-
-                    final webinar = WebinarCardDb(
-                      topic: courseName,
-                      payment: payment,
-                      mentorDesignation: designation,
-                      mentorName: trainerName,
-                      mentorImage: trainerImage,
-                      date: date.toString(),
-                      time: timing.toString(),
-                      onPressed: () async {
-                        print(payment);
-                        Provider.of<Routing>(context, listen: false)
-                            .updateRouting(
-                                widget: SingleWebinarScreen(
-                          mailTiming: dateForMail,
-                          topic: courseName,
-                        ));
-                      },
+      body: Container(
+        width: MediaQuery.of(context).size.width,
+        child: SingleChildScrollView(
+          child: Wrap(
+            alignment: WrapAlignment.center,
+            children: [
+              StreamBuilder<QuerySnapshot>(
+                stream: _firestore.collection('Webinar').snapshots(),
+                // ignore: missing_return
+                builder: (context, snapshot) {
+                  if (!snapshot.hasData) {
+                    return Center(
+                      child: LinearProgressIndicator(
+                        backgroundColor: Colors.blue,
+                      ),
                     );
-                    if (defrenceTime > 0) {
-                      timingList.add(defrenceTime);
-                      timingList.sort();
+                  } else {
+                    final messages = snapshot.data.docs;
 
-                      courseMap.addAll({defrenceTime: webinar});
+                    List<WebinarCardDb> courseList = [];
+                    List<int> timingList = [];
+                    Map<int, Widget> courseMap = {};
+                    Map<String, Map> timingMap = {};
+                    for (var message in messages) {
+                      Timestamp timeStamp = message.data()['timestamp'];
+                      final courseName = message.data()['course'];
+                      final trainerName = message.data()['trainer name'];
+                      final payment = message.data()['payment'];
+                      final designation = message.data()['designation'];
+                      final trainerImage = message.data()['trainer image'];
+                      int duration =
+                          int.parse(message.data()['webinar duration']);
+
+                      int yearFormat;
+                      int monthFormat;
+                      int dayFormat;
+                      int hourFormat;
+                      int minuteFormat;
+                      int secondsFormat;
+
+                      var year = DateFormat('y');
+                      var month = DateFormat('MM');
+                      var day = DateFormat('d');
+                      var hour = DateFormat('hh');
+                      var minute = DateFormat('mm');
+                      var seconds = DateFormat('s');
+
+                      yearFormat = int.parse(year.format(timeStamp.toDate()));
+                      monthFormat = int.parse(month.format(timeStamp.toDate()));
+                      dayFormat = int.parse(day.format(timeStamp.toDate()));
+                      hourFormat = int.parse(hour.format(timeStamp.toDate()));
+                      minuteFormat =
+                          int.parse(minute.format(timeStamp.toDate()));
+                      secondsFormat =
+                          int.parse(seconds.format(timeStamp.toDate()));
+                      var timeFormat =
+                          DateFormat('a').format(timeStamp.toDate());
+
+                      var defrenceTime = DateTime(
+                              yearFormat,
+                              monthFormat,
+                              dayFormat,
+                              timeFormat == 'AM' ? hourFormat : hourFormat + 12,
+                              minuteFormat,
+                              secondsFormat)
+                          .difference(DateTime.now())
+                          .inSeconds;
+                      var date =
+                          DateFormat('d/MM/y').format(timeStamp.toDate());
+
+                      var timing = DateFormat.jm().format(timeStamp.toDate());
+
+                      //for mail info
+                      String toTimeFormat = timeFormat;
+                      int toTime = hourFormat;
+                      int toDuration = duration;
+                      if (toDuration >= 60) {
+                        var hourcalculate = toDuration ~/ 60;
+                        toDuration -= hourcalculate * 60;
+                        toTime += hourcalculate;
+                        if (toTime == 12) {
+                          if (timeFormat == 'AM') {
+                            toTimeFormat = 'PM';
+                          } else {
+                            toTimeFormat = 'AM';
+                          }
+                        } else if (toTime > 12) {
+                          toTime -= 12;
+                          if (timeFormat == 'AM') {
+                            toTimeFormat = 'PM';
+                          } else {
+                            toTimeFormat = 'AM';
+                          }
+                        }
+                      }
+
+                      var monthString = DateFormat('MMMM');
+                      var monthFormatString =
+                          monthString.format(timeStamp.toDate());
+                      Map dateForMail = {
+                        'Year': yearFormat,
+                        'Month': monthFormatString,
+                        'Day': dayFormat,
+                        'Hours': hourFormat,
+                        'To Hours': toTime,
+                        'Minutes': minuteFormat,
+                        'To Minutes': toDuration,
+                        'DayFormat': timeFormat,
+                        'To DayFormat': toTimeFormat
+                      };
+                      timingMap.addAll({courseName: dateForMail});
+
+                      final webinar = WebinarCardDb(
+                        topic: courseName,
+                        payment: payment,
+                        mentorDesignation: designation,
+                        mentorName: trainerName,
+                        mentorImage: trainerImage,
+                        date: date.toString(),
+                        time: timing.toString(),
+                        onPressed: () {
+                          print(payment);
+                          Provider.of<Routing>(context, listen: false)
+                              .updateRouting(
+                                  widget: SingleWebinarScreen(
+                            mailTiming: dateForMail,
+                            topic: courseName,
+                          ));
+                        },
+                      );
+                      if (defrenceTime > 0) {
+                        timingList.add(defrenceTime);
+                        timingList.sort();
+
+                        courseMap.addAll({defrenceTime: webinar});
+                      }
                     }
-                  }
-                  print(timingList);
-                  for (var i in timingList) {
-                    print(i);
+                    print(timingList);
+                    for (var i in timingList) {
+                      print(i);
 
-                    courseList.add(courseMap[i]);
-                  }
+                      courseList.add(courseMap[i]);
+                    }
+                    WebinarCard.timing = timingMap;
 
-                  return Wrap(
-                    runSpacing: 20,
-                    spacing: 30,
-                    alignment: WrapAlignment.center,
-                    children: courseList,
-                  );
-                }
-              },
-            ),
-          ],
+                    return Wrap(
+                      runSpacing: 20,
+                      spacing: 30,
+                      alignment: WrapAlignment.center,
+                      children: courseList,
+                    );
+                  }
+                },
+              ),
+            ],
+          ),
         ),
       ),
     );
