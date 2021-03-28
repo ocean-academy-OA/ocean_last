@@ -185,33 +185,46 @@ class _NavbarRoutingState extends State<NavbarRouting> {
                 SizedBox(
                   width: 60.0,
                 ),
+                menuItem(text: 'Course', widget: Course()),
+
+                ///todo dropdown button to remove the hide
                 // menuItem(text: 'Course', widget: Course()),
-                DropdownButton(
-                  hint: Text("Courses"),
-                  onChanged: (newValue) {
-                    valueChoose = newValue;
-                    print(valueChoose);
-                    valueChoose == "Online"
-                        ? Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => OnlineCourseNew()))
-                        : Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => OfflineCourseNew()));
-                  },
-                  items: [
-                    DropdownMenuItem(
-                      child: Text("Online"),
-                      value: "Online",
-                    ),
-                    DropdownMenuItem(
-                      child: Text("Offline"),
-                      value: "Offline",
-                    )
-                  ],
-                ),
+                // Column(
+                //   children: [
+                //     DropdownButton(
+                //       hint: Text(
+                //         "Courses",
+                //         style: TextStyle(
+                //             fontSize: 20.0,
+                //             fontWeight: FontWeight.bold,
+                //             fontFamily: "Gilroy"),
+                //       ),
+                //       onChanged: (newValue) {
+                //         valueChoose = newValue;
+                //         print(valueChoose);
+                //         valueChoose == "Online"
+                //             ? Navigator.push(
+                //                 context,
+                //                 MaterialPageRoute(
+                //                     builder: (context) => OnlineCourseNew()))
+                //             : Navigator.push(
+                //                 context,
+                //                 MaterialPageRoute(
+                //                     builder: (context) => OfflineCourseNew()));
+                //       },
+                //       items: [
+                //         DropdownMenuItem(
+                //           child: Text("Online"),
+                //           value: "Online",
+                //         ),
+                //         DropdownMenuItem(
+                //           child: Text("Offline"),
+                //           value: "Offline",
+                //         )
+                //       ],
+                //     ),
+                //   ],
+                // ),
 
                 SizedBox(
                   width: 60.0,

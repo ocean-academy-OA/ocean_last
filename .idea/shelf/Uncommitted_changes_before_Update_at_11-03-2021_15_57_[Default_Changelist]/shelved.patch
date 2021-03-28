@@ -1,0 +1,28 @@
+Index: functions/node_modules/lodash/flake.nix
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- functions/node_modules/lodash/flake.nix	(date 499162500000)
++++ functions/node_modules/lodash/flake.nix	(date 499162500000)
+@@ -0,0 +1,20 @@
++{
++  inputs = {
++    utils.url = "github:numtide/flake-utils";
++  };
++
++  outputs = { self, nixpkgs, utils }:
++    utils.lib.eachDefaultSystem (system:
++      let
++        pkgs = nixpkgs.legacyPackages."${system}";
++      in rec {
++       devShell = pkgs.mkShell {
++          nativeBuildInputs = with pkgs; [
++            yarn
++            nodejs-14_x
++            nodePackages.typescript-language-server
++            nodePackages.eslint
++          ];
++        };
++      });
++}

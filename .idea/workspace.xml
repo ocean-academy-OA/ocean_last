@@ -1,0 +1,826 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AndroidLogFilters">
+    <option name="TOOL_WINDOW_CONFIGURED_FILTER" value="Show only selected application" />
+  </component>
+  <component name="BranchesTreeState">
+    <expand>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="LOCAL_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="REMOTE_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="REMOTE_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="GROUP_NODE:origin" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+    </expand>
+    <select />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="f0636c9e-06a6-419e-bb2d-a9c7ab8a2030" name="Default Changelist" comment="complete change color">
+      <change afterPath="$PROJECT_DIR$/lib/desktopview/Components/courses_widget.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/desktopview/screen/courses.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/desktopview/screen/courses.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/desktopview/screen/menubar.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/desktopview/screen/menubar.dart" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="ExecutionTargetManager" SELECTED_TARGET="device_and_snapshot_combo_box_target[]" />
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Dart File" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="PUSH_TAGS">
+      <GitPushTagMode>
+        <option name="argument" value="--tags" />
+        <option name="title" value="All" />
+      </GitPushTagMode>
+    </option>
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="ProjectId" id="1ok4xWhnQmBTZE5roCDeuKHgg05" />
+  <component name="ProjectLevelVcsManager">
+    <ConfirmationsSetting value="2" id="Add" />
+  </component>
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="ASKED_ADD_EXTERNAL_FILES" value="true" />
+    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
+    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="android.sdk.path" value="$USER_HOME$/AppData/Local/Android/Sdk" />
+    <property name="dart.analysis.tool.window.visible" value="false" />
+    <property name="editorconfig.notification" value="lf;" />
+    <property name="eu.ydp.idea.ts.spec.generator.settings.spec.template" value="import {$ClassName$} from '$TestsRelativePath$../src/$classRelativePath$/$ClassName$';&#10;&#10;describe('$ClassName$', () =&gt; {&#10;  let $ObjName$:$ClassName$;&#10;&#10;  beforeEach(() =&gt; {&#10;    $ObjName$ = new $ClassName$();&#10;  });&#10;&#10;  describe('', () =&gt; {&#10;    it('', () =&gt; {&#10;      // given&#10;&#10;      // when&#10;&#10;      // then&#10;    });&#10;  });&#10;});&#10;" />
+    <property name="io.flutter.reload.alreadyRun" value="true" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../../project/final_edition" />
+    <property name="settings.editor.selected.configurable" value="preferences.pluginManager" />
+    <property name="show.migrate.to.gradle.popup" value="false" />
+  </component>
+  <component name="RunManager" selected="Flutter.main.dart">
+    <configuration name="Alert_otp.dart" type="FlutterRunConfigurationType" factoryName="Flutter" temporary="true" nameIsGenerated="true">
+      <option name="filePath" value="$PROJECT_DIR$/lib/desktopview/Components/Alert_otp.dart" />
+      <method v="2" />
+    </configuration>
+    <configuration name="alert_details.dart" type="FlutterRunConfigurationType" factoryName="Flutter" temporary="true" nameIsGenerated="true">
+      <option name="filePath" value="$PROJECT_DIR$/lib/desktopview/Components/alert_details.dart" />
+      <method v="2" />
+    </configuration>
+    <configuration name="main.dart" type="FlutterRunConfigurationType" factoryName="Flutter">
+      <option name="filePath" value="$PROJECT_DIR$/lib/main.dart" />
+      <method v="2" />
+    </configuration>
+    <list>
+      <item itemvalue="Flutter.main.dart" />
+      <item itemvalue="Flutter.Alert_otp.dart" />
+      <item itemvalue="Flutter.alert_details.dart" />
+    </list>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Flutter.alert_details.dart" />
+        <item itemvalue="Flutter.Alert_otp.dart" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="SvnConfiguration">
+    <configuration />
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="f0636c9e-06a6-419e-bb2d-a9c7ab8a2030" name="Default Changelist" comment="" />
+      <created>1613817500605</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1613817500605</updated>
+    </task>
+    <task id="LOCAL-00006" summary="db changed from ocean live to ocean live project">
+      <created>1614589285710</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1614589285710</updated>
+    </task>
+    <task id="LOCAL-00007" summary="given provider to flash notification">
+      <created>1614753047605</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1614753047605</updated>
+    </task>
+    <task id="LOCAL-00008" summary="In flash navigator changed to provider">
+      <created>1614754293005</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1614754293005</updated>
+    </task>
+    <task id="LOCAL-00009" summary="flash provider recorrected">
+      <created>1614754615647</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1614754615647</updated>
+    </task>
+    <task id="LOCAL-00010" summary="03.03.21 push enddate">
+      <created>1614782454610</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1614782454611</updated>
+    </task>
+    <task id="LOCAL-00011" summary="current state cleared">
+      <created>1614838683960</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1614838683960</updated>
+    </task>
+    <task id="LOCAL-00012" summary="view course and my course added">
+      <created>1614924607699</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1614924607699</updated>
+    </task>
+    <task id="LOCAL-00013" summary="provider clear for course enroll">
+      <created>1615024970303</created>
+      <option name="number" value="00013" />
+      <option name="presentableId" value="LOCAL-00013" />
+      <option name="project" value="LOCAL" />
+      <updated>1615024970303</updated>
+    </task>
+    <task id="LOCAL-00014" summary="session completed">
+      <created>1615039757772</created>
+      <option name="number" value="00014" />
+      <option name="presentableId" value="LOCAL-00014" />
+      <option name="project" value="LOCAL" />
+      <updated>1615039757772</updated>
+    </task>
+    <task id="LOCAL-00015" summary="upcoming webinar completed">
+      <created>1615348806325</created>
+      <option name="number" value="00015" />
+      <option name="presentableId" value="LOCAL-00015" />
+      <option name="project" value="LOCAL" />
+      <updated>1615348806325</updated>
+    </task>
+    <task id="LOCAL-00016" summary="upcoming webinar completed">
+      <created>1615349099107</created>
+      <option name="number" value="00016" />
+      <option name="presentableId" value="LOCAL-00016" />
+      <option name="project" value="LOCAL" />
+      <updated>1615349099107</updated>
+    </task>
+    <task id="LOCAL-00017" summary="single webinar finished">
+      <created>1615350838138</created>
+      <option name="number" value="00017" />
+      <option name="presentableId" value="LOCAL-00017" />
+      <option name="project" value="LOCAL" />
+      <updated>1615350838138</updated>
+    </task>
+    <task id="LOCAL-00018" summary="single webinar passed the course id">
+      <created>1615351231040</created>
+      <option name="number" value="00018" />
+      <option name="presentableId" value="LOCAL-00018" />
+      <option name="project" value="LOCAL" />
+      <updated>1615351231040</updated>
+    </task>
+    <task id="LOCAL-00019" summary="single webinar passed the course id">
+      <created>1615351774653</created>
+      <option name="number" value="00019" />
+      <option name="presentableId" value="LOCAL-00019" />
+      <option name="project" value="LOCAL" />
+      <updated>1615351774653</updated>
+    </task>
+    <task id="LOCAL-00020" summary="correct the mistake">
+      <created>1615351863382</created>
+      <option name="number" value="00020" />
+      <option name="presentableId" value="LOCAL-00020" />
+      <option name="project" value="LOCAL" />
+      <updated>1615351863382</updated>
+    </task>
+    <task id="LOCAL-00021" summary="variable passed as payment">
+      <created>1615352510659</created>
+      <option name="number" value="00021" />
+      <option name="presentableId" value="LOCAL-00021" />
+      <option name="project" value="LOCAL" />
+      <updated>1615352510659</updated>
+    </task>
+    <task id="LOCAL-00022" summary="variable passed as payment for the streambuilder">
+      <created>1615352574518</created>
+      <option name="number" value="00022" />
+      <option name="presentableId" value="LOCAL-00022" />
+      <option name="project" value="LOCAL" />
+      <updated>1615352574518</updated>
+    </task>
+    <task id="LOCAL-00023" summary="single screen webinar completed">
+      <created>1615352991776</created>
+      <option name="number" value="00023" />
+      <option name="presentableId" value="LOCAL-00023" />
+      <option name="project" value="LOCAL" />
+      <updated>1615352991776</updated>
+    </task>
+    <task id="LOCAL-00024" summary="completed webinar static 11:33">
+      <created>1615356190047</created>
+      <option name="number" value="00024" />
+      <option name="presentableId" value="LOCAL-00024" />
+      <option name="project" value="LOCAL" />
+      <updated>1615356190047</updated>
+    </task>
+    <task id="LOCAL-00025" summary="completed webinar static 11:36">
+      <created>1615356369024</created>
+      <option name="number" value="00025" />
+      <option name="presentableId" value="LOCAL-00025" />
+      <option name="project" value="LOCAL" />
+      <updated>1615356369024</updated>
+    </task>
+    <task id="LOCAL-00026" summary="course page completed with session">
+      <created>1615456940262</created>
+      <option name="number" value="00026" />
+      <option name="presentableId" value="LOCAL-00026" />
+      <option name="project" value="LOCAL" />
+      <updated>1615456940263</updated>
+    </task>
+    <task id="LOCAL-00027" summary="16:19 11-03-21">
+      <created>1615459783922</created>
+      <option name="number" value="00027" />
+      <option name="presentableId" value="LOCAL-00027" />
+      <option name="project" value="LOCAL" />
+      <updated>1615459783922</updated>
+    </task>
+    <task id="LOCAL-00028" summary="end of day 11-03-21">
+      <created>1615473578015</created>
+      <option name="number" value="00028" />
+      <option name="presentableId" value="LOCAL-00028" />
+      <option name="project" value="LOCAL" />
+      <updated>1615473578016</updated>
+    </task>
+    <task id="LOCAL-00029" summary="menu updated in webinar page">
+      <created>1615529727497</created>
+      <option name="number" value="00029" />
+      <option name="presentableId" value="LOCAL-00029" />
+      <option name="project" value="LOCAL" />
+      <updated>1615529727498</updated>
+    </task>
+    <task id="LOCAL-00030" summary="available course finished">
+      <created>1615544794873</created>
+      <option name="number" value="00030" />
+      <option name="presentableId" value="LOCAL-00030" />
+      <option name="project" value="LOCAL" />
+      <updated>1615544794874</updated>
+    </task>
+    <task id="LOCAL-00031" summary="completed the course">
+      <created>1615544989451</created>
+      <option name="number" value="00031" />
+      <option name="presentableId" value="LOCAL-00031" />
+      <option name="project" value="LOCAL" />
+      <updated>1615544989451</updated>
+    </task>
+    <task id="LOCAL-00032" summary="end of the day 20-03-2021">
+      <created>1615560327628</created>
+      <option name="number" value="00032" />
+      <option name="presentableId" value="LOCAL-00032" />
+      <option name="project" value="LOCAL" />
+      <updated>1615560327628</updated>
+    </task>
+    <task id="LOCAL-00033" summary="complete finish check 1">
+      <created>1615632440496</created>
+      <option name="number" value="00033" />
+      <option name="presentableId" value="LOCAL-00033" />
+      <option name="project" value="LOCAL" />
+      <updated>1615632440497</updated>
+    </task>
+    <task id="LOCAL-00034" summary="complete finish check 2">
+      <created>1615635809714</created>
+      <option name="number" value="00034" />
+      <option name="presentableId" value="LOCAL-00034" />
+      <option name="project" value="LOCAL" />
+      <updated>1615635809714</updated>
+    </task>
+    <task id="LOCAL-00035" summary="remove LinerProgress widget">
+      <created>1615786469035</created>
+      <option name="number" value="00035" />
+      <option name="presentableId" value="LOCAL-00035" />
+      <option name="project" value="LOCAL" />
+      <updated>1615786469035</updated>
+    </task>
+    <task id="LOCAL-00036" summary="login issue fixed">
+      <created>1615787555038</created>
+      <option name="number" value="00036" />
+      <option name="presentableId" value="LOCAL-00036" />
+      <option name="project" value="LOCAL" />
+      <updated>1615787555038</updated>
+    </task>
+    <task id="LOCAL-00037" summary="end of the day 15-03-2021.changed in course details page">
+      <created>1615818376044</created>
+      <option name="number" value="00037" />
+      <option name="presentableId" value="LOCAL-00037" />
+      <option name="project" value="LOCAL" />
+      <updated>1615818376044</updated>
+    </task>
+    <task id="LOCAL-00038" summary="final version 1 after hosted">
+      <created>1615894904725</created>
+      <option name="number" value="00038" />
+      <option name="presentableId" value="LOCAL-00038" />
+      <option name="project" value="LOCAL" />
+      <updated>1615894904725</updated>
+    </task>
+    <task id="LOCAL-00039" summary="completed the otp and routing in course">
+      <created>1615960519401</created>
+      <option name="number" value="00039" />
+      <option name="presentableId" value="LOCAL-00039" />
+      <option name="project" value="LOCAL" />
+      <updated>1615960519403</updated>
+    </task>
+    <task id="LOCAL-00040" summary="back routing">
+      <created>1615973797973</created>
+      <option name="number" value="00040" />
+      <option name="presentableId" value="LOCAL-00040" />
+      <option name="project" value="LOCAL" />
+      <updated>1615973797973</updated>
+    </task>
+    <task id="LOCAL-00041" summary="fonts">
+      <created>1615974079527</created>
+      <option name="number" value="00041" />
+      <option name="presentableId" value="LOCAL-00041" />
+      <option name="project" value="LOCAL" />
+      <updated>1615974079527</updated>
+    </task>
+    <task id="LOCAL-00042" summary="Back Notification completed">
+      <created>1615974962487</created>
+      <option name="number" value="00042" />
+      <option name="presentableId" value="LOCAL-00042" />
+      <option name="project" value="LOCAL" />
+      <updated>1615974962487</updated>
+    </task>
+    <task id="LOCAL-00043" summary="login section completed">
+      <created>1616493121200</created>
+      <option name="number" value="00043" />
+      <option name="presentableId" value="LOCAL-00043" />
+      <option name="project" value="LOCAL" />
+      <updated>1616493121200</updated>
+    </task>
+    <task id="LOCAL-00044" summary="flash notification close button completed">
+      <created>1616494012014</created>
+      <option name="number" value="00044" />
+      <option name="presentableId" value="LOCAL-00044" />
+      <option name="project" value="LOCAL" />
+      <updated>1616494012014</updated>
+    </task>
+    <task id="LOCAL-00045" summary="notification in appbar completed">
+      <created>1616495383324</created>
+      <option name="number" value="00045" />
+      <option name="presentableId" value="LOCAL-00045" />
+      <option name="project" value="LOCAL" />
+      <updated>1616495383324</updated>
+    </task>
+    <task id="LOCAL-00046" summary="logout,enroll now error cleared">
+      <created>1616498887965</created>
+      <option name="number" value="00046" />
+      <option name="presentableId" value="LOCAL-00046" />
+      <option name="project" value="LOCAL" />
+      <updated>1616498887965</updated>
+    </task>
+    <task id="LOCAL-00047" summary="scrool check">
+      <created>1616500957717</created>
+      <option name="number" value="00047" />
+      <option name="presentableId" value="LOCAL-00047" />
+      <option name="project" value="LOCAL" />
+      <updated>1616500957717</updated>
+    </task>
+    <task id="LOCAL-00048" summary="final touch 1">
+      <created>1616577939933</created>
+      <option name="number" value="00048" />
+      <option name="presentableId" value="LOCAL-00048" />
+      <option name="project" value="LOCAL" />
+      <updated>1616577939933</updated>
+    </task>
+    <task id="LOCAL-00049" summary="final touch 2">
+      <created>1616595743605</created>
+      <option name="number" value="00049" />
+      <option name="presentableId" value="LOCAL-00049" />
+      <option name="project" value="LOCAL" />
+      <updated>1616595743605</updated>
+    </task>
+    <task id="LOCAL-00050" summary="zoom Integration Completed">
+      <created>1616765564174</created>
+      <option name="number" value="00050" />
+      <option name="presentableId" value="LOCAL-00050" />
+      <option name="project" value="LOCAL" />
+      <updated>1616765564175</updated>
+    </task>
+    <task id="LOCAL-00051" summary="end 26-03-2021">
+      <created>1616769906200</created>
+      <option name="number" value="00051" />
+      <option name="presentableId" value="LOCAL-00051" />
+      <option name="project" value="LOCAL" />
+      <updated>1616769906200</updated>
+    </task>
+    <task id="LOCAL-00052" summary="end 27-03-2021 join here button">
+      <created>1616855924765</created>
+      <option name="number" value="00052" />
+      <option name="presentableId" value="LOCAL-00052" />
+      <option name="project" value="LOCAL" />
+      <updated>1616855924765</updated>
+    </task>
+    <task id="LOCAL-00053" summary="course segregate finish">
+      <created>1616918359204</created>
+      <option name="number" value="00053" />
+      <option name="presentableId" value="LOCAL-00053" />
+      <option name="project" value="LOCAL" />
+      <updated>1616918359204</updated>
+    </task>
+    <task id="LOCAL-00054" summary="complete change color">
+      <created>1616918774128</created>
+      <option name="number" value="00054" />
+      <option name="presentableId" value="LOCAL-00054" />
+      <option name="project" value="LOCAL" />
+      <updated>1616918774128</updated>
+    </task>
+    <option name="localTasksCounter" value="55" />
+    <servers />
+  </component>
+  <component name="UnknownFeatures">
+    <option featureType="com.intellij.fileTypeFactory" implementationName="*.ts" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+    <option name="oldMeFiltersMigrated" value="true" />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
+    <MESSAGE value="available course finished" />
+    <MESSAGE value="completed the course" />
+    <MESSAGE value="end of the day 20-03-2021" />
+    <MESSAGE value="complete finish check 1" />
+    <MESSAGE value="complete finish check 2" />
+    <MESSAGE value="remove LinerProgress widget" />
+    <MESSAGE value="login issue fixed" />
+    <MESSAGE value="end of the day 15-03-2021.changed in course details page" />
+    <MESSAGE value="final version 1 after hosted" />
+    <MESSAGE value="completed the otp and routing in course" />
+    <MESSAGE value="back routing" />
+    <MESSAGE value="fonts" />
+    <MESSAGE value="Back Notification completed" />
+    <MESSAGE value="login section completed" />
+    <MESSAGE value="flash notification close button completed" />
+    <MESSAGE value="notification in appbar completed" />
+    <MESSAGE value="logout,enroll now error cleared" />
+    <MESSAGE value="scrool check" />
+    <MESSAGE value="final touch 1" />
+    <MESSAGE value="final touch 2" />
+    <MESSAGE value="zoom Integration Completed" />
+    <MESSAGE value="end 26-03-2021" />
+    <MESSAGE value="end 27-03-2021 join here button" />
+    <MESSAGE value="course segregate finish" />
+    <MESSAGE value="complete change color" />
+    <option name="LAST_COMMIT_MESSAGE" value="complete change color" />
+  </component>
+  <component name="WindowStateProjectService">
+    <state x="839" y="419" key="#Custom_Plugin_Repositories" timestamp="1614073155611">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="839" y="419" key="#Custom_Plugin_Repositories/0.0.1920.1040@0.0.1920.1040" timestamp="1614073155611" />
+    <state x="414" y="175" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1616914559984">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="414" y="175" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1616914559984" />
+    <state x="712" y="322" key="#com.intellij.fileTypes.FileTypeChooser" timestamp="1615893545031">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="712" y="322" key="#com.intellij.fileTypes.FileTypeChooser/0.0.1920.1040@0.0.1920.1040" timestamp="1615893545031" />
+    <state x="689" y="310" key="#com.intellij.ide.util.TreeFileChooserDialog" timestamp="1616914558416">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="689" y="310" key="#com.intellij.ide.util.TreeFileChooserDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1616914558416" />
+    <state x="690" y="267" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog" timestamp="1613821076357">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="690" y="267" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1613821076357" />
+    <state x="92" y="92" width="1736" height="856" key="DiffContextDialog" timestamp="1616585226461">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="92" y="92" width="1736" height="856" key="DiffContextDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1616585226461" />
+    <state x="740" y="275" key="FileChooserDialogImpl" timestamp="1616044196390">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="740" y="275" key="FileChooserDialogImpl/0.0.1920.1040@0.0.1920.1040" timestamp="1616044196390" />
+    <state width="1877" height="341" key="GridCell.Tab.0.bottom" timestamp="1616918833193">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state width="1877" height="341" key="GridCell.Tab.0.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1616918833193" />
+    <state width="1877" height="341" key="GridCell.Tab.0.center" timestamp="1616918833193">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state width="1877" height="341" key="GridCell.Tab.0.center/0.0.1920.1040@0.0.1920.1040" timestamp="1616918833193" />
+    <state width="1877" height="341" key="GridCell.Tab.0.left" timestamp="1616918833193">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state width="1877" height="341" key="GridCell.Tab.0.left/0.0.1920.1040@0.0.1920.1040" timestamp="1616918833193" />
+    <state width="1877" height="341" key="GridCell.Tab.0.right" timestamp="1616918833193">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state width="1877" height="341" key="GridCell.Tab.0.right/0.0.1920.1040@0.0.1920.1040" timestamp="1616918833193" />
+    <state x="540" y="263" key="IDE.errors.dialog" timestamp="1614410080858">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="540" y="263" key="IDE.errors.dialog/0.0.1920.1040@0.0.1920.1040" timestamp="1614410080858" />
+    <state x="184" y="86" key="MergeDialog" timestamp="1616582190807">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="184" y="86" key="MergeDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1616582190807" />
+    <state x="598" y="281" key="MultipleFileMergeDialog" timestamp="1615473632320">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="598" y="281" key="MultipleFileMergeDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1615473632320" />
+    <state x="701" y="222" key="RollbackChangesDialog" timestamp="1615818418605">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="701" y="222" key="RollbackChangesDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1615818418605" />
+    <state x="461" y="165" key="SettingsEditor" timestamp="1614077577477">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="461" y="165" key="SettingsEditor/0.0.1920.1040@0.0.1920.1040" timestamp="1614077577477" />
+    <state x="804" y="433" key="VCS.ChangelistChooser" timestamp="1615355201183">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="804" y="433" key="VCS.ChangelistChooser/0.0.1920.1040@0.0.1920.1040" timestamp="1615355201183" />
+    <state x="552" y="253" key="Vcs.Push.Dialog.v2" timestamp="1616918779646">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="552" y="253" key="Vcs.Push.Dialog.v2/0.0.1920.1040@0.0.1920.1040" timestamp="1616918779646" />
+    <state x="92" y="92" width="1736" height="856" key="com.intellij.history.integration.ui.views.DirectoryHistoryDialog" timestamp="1616585226461">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="92" y="92" width="1736" height="856" key="com.intellij.history.integration.ui.views.DirectoryHistoryDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1616585226461" />
+    <state x="482" y="100" width="1338" height="840" key="com.intellij.history.integration.ui.views.FileHistoryDialog" timestamp="1616831017912">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="482" y="100" width="1338" height="840" key="com.intellij.history.integration.ui.views.FileHistoryDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1616831017912" />
+    <state x="562" y="122" key="com.intellij.openapi.editor.actions.MultiplePasteAction$ClipboardContentChooser" timestamp="1616757210217">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="562" y="122" key="com.intellij.openapi.editor.actions.MultiplePasteAction$ClipboardContentChooser/0.0.1920.1040@0.0.1920.1040" timestamp="1616757210217" />
+    <state x="769" y="434" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1616918786691">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="769" y="434" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/0.0.1920.1040@0.0.1920.1040" timestamp="1616918786691" />
+    <state x="522" y="249" key="com.intellij.xdebugger.impl.breakpoints.ui.BreakpointsDialogFactory$2" timestamp="1615204831741">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="522" y="249" key="com.intellij.xdebugger.impl.breakpoints.ui.BreakpointsDialogFactory$2/0.0.1920.1040@0.0.1920.1040" timestamp="1615204831741" />
+    <state x="431" y="126" width="1036" height="788" key="find.popup" timestamp="1616049759348">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="431" y="126" width="1036" height="788" key="find.popup/0.0.1920.1040@0.0.1920.1040" timestamp="1616049759348" />
+    <state x="616" y="240" key="run.anything.popup" timestamp="1615973631485">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="616" y="240" key="run.anything.popup/0.0.1920.1040@0.0.1920.1040" timestamp="1615973631485" />
+    <state x="623" y="225" width="672" height="678" key="search.everywhere.popup" timestamp="1615634624406">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="623" y="225" width="672" height="678" key="search.everywhere.popup/0.0.1920.1040@0.0.1920.1040" timestamp="1615634624406" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" suspend="THREAD" type="Dart">
+          <url>file://$PROJECT_DIR$/lib/desktopview/Components/slider_widget.dart</url>
+          <line>54</line>
+          <option name="timeStamp" value="1" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="Dart">
+          <url>file://$PROJECT_DIR$/lib/desktopview/Components/slider_widget.dart</url>
+          <line>120</line>
+          <option name="timeStamp" value="2" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="Dart">
+          <url>file://$PROJECT_DIR$/lib/desktopview/Components/slider_widget.dart</url>
+          <line>121</line>
+          <option name="timeStamp" value="3" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="Dart">
+          <url>file://$PROJECT_DIR$/lib/desktopview/Components/slider_widget.dart</url>
+          <line>123</line>
+          <option name="timeStamp" value="4" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="Dart">
+          <url>file://$PROJECT_DIR$/lib/desktopview/route/routing.dart</url>
+          <line>47</line>
+          <option name="timeStamp" value="5" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="Dart">
+          <url>file://$PROJECT_DIR$/lib/alert/alert_msg.dart</url>
+          <line>212</line>
+          <option name="timeStamp" value="21" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="Dart">
+          <url>file://$PROJECT_DIR$/lib/desktopview/Components/Alert_otp.dart</url>
+          <line>268</line>
+          <option name="timeStamp" value="55" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="Dart">
+          <url>file://$PROJECT_DIR$/lib/desktopview/Components/Alert_otp.dart</url>
+          <line>267</line>
+          <option name="timeStamp" value="56" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="Dart">
+          <url>file://$PROJECT_DIR$/lib/desktopview/Components/Alert_otp.dart</url>
+          <line>112</line>
+          <option name="timeStamp" value="57" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="Dart">
+          <url>file://$PROJECT_DIR$/lib/desktopview/Components/Alert_otp.dart</url>
+          <line>110</line>
+          <option name="timeStamp" value="58" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="Dart">
+          <url>file://$PROJECT_DIR$/lib/desktopview/Components/alert_details.dart</url>
+          <line>11</line>
+          <option name="timeStamp" value="59" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="Dart">
+          <url>file://$PROJECT_DIR$/lib/desktopview/Components/Alert_otp.dart</url>
+          <line>111</line>
+          <option name="timeStamp" value="60" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="Dart">
+          <url>file://$PROJECT_DIR$/lib/desktopview/Components/Alert_otp.dart</url>
+          <line>113</line>
+          <option name="timeStamp" value="61" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="Dart">
+          <url>file://$PROJECT_DIR$/lib/desktopview/Components/Alert_otp.dart</url>
+          <line>114</line>
+          <option name="timeStamp" value="62" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="Dart">
+          <url>file://$PROJECT_DIR$/lib/desktopview/Components/Alert_otp.dart</url>
+          <line>115</line>
+          <option name="timeStamp" value="63" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="Dart">
+          <url>file://$PROJECT_DIR$/lib/desktopview/Components/thanks_purchasing.dart</url>
+          <line>39</line>
+          <option name="timeStamp" value="68" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="Dart">
+          <url>file://$PROJECT_DIR$/lib/desktopview/Components/thanks_purchasing.dart</url>
+          <line>41</line>
+          <option name="timeStamp" value="69" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="Dart">
+          <url>file://$PROJECT_DIR$/lib/desktopview/Components/thanks_purchasing.dart</url>
+          <line>42</line>
+          <option name="timeStamp" value="70" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="Dart">
+          <url>file://$PROJECT_DIR$/lib/webinar/webinar_page.dart</url>
+          <line>338</line>
+          <option name="timeStamp" value="72" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="Dart">
+          <url>file://$PROJECT_DIR$/lib/webinar/webinar_page.dart</url>
+          <line>339</line>
+          <option name="timeStamp" value="73" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="Dart">
+          <url>file://$PROJECT_DIR$/lib/webinar/webinar_page.dart</url>
+          <line>337</line>
+          <option name="timeStamp" value="74" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="Dart">
+          <url>file://$PROJECT_DIR$/lib/webinar/webinar_page.dart</url>
+          <line>336</line>
+          <option name="timeStamp" value="75" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="Dart">
+          <url>file://$PROJECT_DIR$/lib/webinar/webinar_page.dart</url>
+          <line>335</line>
+          <option name="timeStamp" value="76" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="Dart">
+          <url>file://$PROJECT_DIR$/lib/webinar/webinar_page.dart</url>
+          <line>286</line>
+          <option name="timeStamp" value="77" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="Dart">
+          <url>file://$PROJECT_DIR$/lib/webinar/webinar_page.dart</url>
+          <line>285</line>
+          <option name="timeStamp" value="78" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="Dart">
+          <url>file://$PROJECT_DIR$/lib/webinar/webinar_page.dart</url>
+          <line>284</line>
+          <option name="timeStamp" value="79" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="Dart">
+          <url>file://$PROJECT_DIR$/lib/webinar/webinar_page.dart</url>
+          <line>248</line>
+          <option name="timeStamp" value="80" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="Dart">
+          <url>file://$PROJECT_DIR$/lib/desktopview/new_user_screen/log_in.dart</url>
+          <line>233</line>
+          <option name="timeStamp" value="85" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="Dart">
+          <url>file://$PROJECT_DIR$/lib/desktopview/new_user_screen/log_in.dart</url>
+          <line>234</line>
+          <option name="timeStamp" value="87" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="Dart">
+          <url>file://$PROJECT_DIR$/lib/desktopview/new_user_screen/log_in.dart</url>
+          <line>235</line>
+          <option name="timeStamp" value="88" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="Dart">
+          <url>file://$PROJECT_DIR$/lib/desktopview/new_user_screen/log_in.dart</url>
+          <line>236</line>
+          <option name="timeStamp" value="89" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="Dart">
+          <url>file://$PROJECT_DIR$/lib/desktopview/new_user_screen/edit_profile.dart</url>
+          <line>127</line>
+          <option name="timeStamp" value="92" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="Dart">
+          <url>file://$PROJECT_DIR$/lib/desktopview/new_user_screen/edit_profile.dart</url>
+          <line>128</line>
+          <option name="timeStamp" value="94" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="Dart">
+          <url>file://$PROJECT_DIR$/lib/desktopview/screen/footer.dart</url>
+          <line>279</line>
+          <option name="timeStamp" value="110" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="Dart">
+          <url>file://$PROJECT_DIR$/lib/desktopview/new_user_screen/registration.dart</url>
+          <line>429</line>
+          <option name="timeStamp" value="111" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="Dart">
+          <url>file://$PROJECT_DIR$/lib/desktopview/new_user_screen/registration.dart</url>
+          <line>157</line>
+          <option name="timeStamp" value="112" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="Dart">
+          <url>file://$PROJECT_DIR$/lib/desktopview/screen/home_screen.dart</url>
+          <line>75</line>
+          <option name="timeStamp" value="136" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="Dart">
+          <url>file://$PROJECT_DIR$/lib/desktopview/new_user_screen/registration.dart</url>
+          <line>474</line>
+          <option name="timeStamp" value="137" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="Dart">
+          <url>file://$PROJECT_DIR$/lib/desktopview/screen/course_details.dart</url>
+          <line>98</line>
+          <option name="timeStamp" value="141" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="Dart">
+          <url>file://$PROJECT_DIR$/lib/desktopview/screen/menubar.dart</url>
+          <line>74</line>
+          <option name="timeStamp" value="142" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="Dart">
+          <url>file://$PROJECT_DIR$/lib/desktopview/screen/menubar.dart</url>
+          <line>75</line>
+          <option name="timeStamp" value="143" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="Dart">
+          <url>file://$PROJECT_DIR$/lib/desktopview/screen/menubar.dart</url>
+          <line>76</line>
+          <option name="timeStamp" value="144" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="Dart">
+          <url>file://$PROJECT_DIR$/lib/desktopview/Components/course_enrole.dart</url>
+          <line>381</line>
+          <option name="timeStamp" value="151" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
+  </component>
+</project>
