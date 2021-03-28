@@ -234,6 +234,11 @@ class _NavbarRoutingState extends State<NavbarRouting> {
                     print('${MenuBar.stayUser}MenuBar.stayUser');
                     print("${LogIn.registerNumber}LogIn.registerNumber");
 
+                    setState(() {
+                      NavbarRouting.menu.updateAll(
+                          (key, value) => NavbarRouting.menu[key] = false);
+                    });
+
                     ///todo:instead of resiter login will come
                     ///
                     Provider.of<Routing>(context, listen: false).updateRouting(
