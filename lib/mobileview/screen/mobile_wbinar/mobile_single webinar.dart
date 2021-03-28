@@ -9,6 +9,7 @@ import 'package:ocean_project/desktopview/constants.dart';
 
 import 'package:ocean_project/mobileview/screen/home_screen.dart';
 import 'package:ocean_project/mobileview/screen/mobile_wbinar/mobile_join_successfuly.dart';
+import 'package:ocean_project/mobileview/screen/mobile_wbinar/webinar_list.dart';
 
 import 'package:ocean_project/webinar/webinar_const.dart';
 
@@ -324,9 +325,21 @@ class _SingleWebinarDBState extends State<SingleWebinarDB> {
     );
   }
 
+  String dayCalled(int day) {
+    if (day == 1 || day == 21 || day == 31) {
+      return 'st';
+    } else if (day == 2 || day == 22) {
+      return 'nd';
+    } else if (day == 3 || day == 23) {
+      return 'rd';
+    } else {
+      return 'th';
+    }
+  }
+
   void getData() async {
     http.Response response = await http.get(
-        """ https://shrouded-fjord-03855.herokuapp.com/?name=${widget.name}&des=query&mobile=${widget.phoneNumber}&email=${widget.email}&date=date time &type=enquiry""");
+        'https://free-webinar-registration.herokuapp.com/?name=${nameController.text}&title=${widget.mainTitle}-${widget.payment == 'free' ? 'Free Webinar' : 'Webinar'}&date=${day}${dayCalled(day)}%20$month%20$year&time=$hours:$minutes$dayFormat%20to%20$toHours:$toMinutes$toDayFormat%20IST&speaker=${widget.trainerName}(Ex%20-%20Ocean%20Academy)&email=${emailController.text}');
 
     if (response.statusCode == 200) {
       String data = response.body;
@@ -373,9 +386,21 @@ class _SingleWebinarDBState extends State<SingleWebinarDB> {
         });
   }
 
+  int year, day, hours, toHours, minutes, toMinutes;
+  String month, dayFormat, toDayFormat;
   @override
   void initState() {
     print('${widget.webinarTime} jjjjjjjjjjjjjjjjjjj');
+
+    year = MobileWebinarCard.timing[widget.course]['Year'];
+    day = MobileWebinarCard.timing[widget.course]['Day'];
+    hours = MobileWebinarCard.timing[widget.course]['Hours'];
+    toHours = MobileWebinarCard.timing[widget.course]['To Hours'];
+    minutes = MobileWebinarCard.timing[widget.course]['Minutes'];
+    toMinutes = MobileWebinarCard.timing[widget.course]['To Minutes'];
+    month = MobileWebinarCard.timing[widget.course]['Month'];
+    dayFormat = MobileWebinarCard.timing[widget.course]['DayFormat'];
+    toDayFormat = MobileWebinarCard.timing[widget.course]['To DayFormat'];
     // TODO: implement initState
     super.initState();
     widget._videoController =
@@ -673,7 +698,7 @@ class _SingleWebinarDBState extends State<SingleWebinarDB> {
                                       print('pement function');
                                     }
                                   }
-                                  // getData();
+                                  getData();
                                   nameController.clear();
                                   emailController.clear();
                                   phoneNumberController.clear();

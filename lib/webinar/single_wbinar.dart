@@ -9,6 +9,7 @@ import 'package:ocean_project/desktopview/constants.dart';
 import 'package:ocean_project/desktopview/route/routing.dart';
 import 'package:ocean_project/webinar/join_successfully.dart';
 import 'package:ocean_project/webinar/webinar_const.dart';
+import 'package:ocean_project/webinar/webinar_list.dart';
 import 'package:provider/provider.dart';
 import 'package:slide_countdown_clock/slide_countdown_clock.dart';
 import 'package:http/http.dart' as http;
@@ -39,6 +40,14 @@ class _SingleWebinarScreenState extends State<SingleWebinarScreen> {
   int dayFormat;
   int hourFormat;
   int minuteFormat;
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    print('eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee');
+    print(widget.mailTiming);
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -311,14 +320,12 @@ class _SingleWebinarDBState extends State<SingleWebinarDB> {
     );
   }
 
-  String dayCalled(Map mailContent) {
-    if (mailContent['Day'] == 1 ||
-        mailContent['Day'] == 21 ||
-        mailContent['Day'] == 31) {
+  String dayCalled(int day) {
+    if (day == 1 || day == 21 || day == 31) {
       return 'st';
-    } else if (mailContent['Day'] == 2 || mailContent['Day'] == 22) {
+    } else if (day == 2 || day == 22) {
       return 'nd';
-    } else if (mailContent['Day'] == 3 || mailContent['Day'] == 23) {
+    } else if (day == 3 || day == 23) {
       return 'rd';
     } else {
       return 'th';
@@ -327,7 +334,7 @@ class _SingleWebinarDBState extends State<SingleWebinarDB> {
 
   void getData() async {
     http.Response response = await http.get(
-        'https://free-webinar-registration.herokuapp.com/?name=${nameController.text.toString()}&title=${widget.mainTitle.toString()}%20-${widget.payment == 'free' ? 'Free Webinar' : 'Webinar'}&date=${widget.mailContent['Day'].toString()}${widget.mailContent['dayCalled']}%20${widget.mailContent['Month']}&time=${widget.mailContent['Hours']}:${widget.mailContent['Minutes']}${widget.mailContent['DayFormat']}${widget.mailContent['Year']}%20to%20${widget.mailContent['To Hours']}:${widget.mailContent['To Minutes']}${widget.mailContent['DayFormat']}PM%20IST&speaker=${widget.trainerName}(Ex%20-%20OceanAcademy)&email=${emailController.text}');
+        'https://free-webinar-registration.herokuapp.com/?name=${nameController.text}&title=${widget.mainTitle}-${widget.payment == 'free' ? 'Free Webinar' : 'Webinar'}&date=${day}${dayCalled(day)}%20$month%20$year&time=$hours:$minutes$dayFormat%20to%20$toHours:$toMinutes$toDayFormat%20IST&speaker=${widget.trainerName}(Ex%20-%20Ocean%20Academy)&email=${emailController.text}');
 
     if (response.statusCode == 200) {
       String data = response.body;
@@ -373,9 +380,22 @@ class _SingleWebinarDBState extends State<SingleWebinarDB> {
         });
   }
 
+  int year, day, hours, toHours, minutes, toMinutes;
+  String month, dayFormat, toDayFormat;
+
   @override
   void initState() {
     print('${widget.webinarTime} jjjjjjjjjjjjjjjjjjj');
+    year = WebinarCard.timing[widget.course]['Year'];
+    day = WebinarCard.timing[widget.course]['Day'];
+    hours = WebinarCard.timing[widget.course]['Hours'];
+    toHours = WebinarCard.timing[widget.course]['To Hours'];
+    minutes = WebinarCard.timing[widget.course]['Minutes'];
+    toMinutes = WebinarCard.timing[widget.course]['To Minutes'];
+    month = WebinarCard.timing[widget.course]['Month'];
+    dayFormat = WebinarCard.timing[widget.course]['DayFormat'];
+    toDayFormat = WebinarCard.timing[widget.course]['To DayFormat'];
+    print(widget.mailContent);
     // TODO: implement initState
     super.initState();
     widget._videoController =
