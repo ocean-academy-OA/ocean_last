@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
-import 'package:ocean_project/desktopview/Components/courses_widget.dart';
+import 'package:ocean_project/desktopview/Components/onlineDb.dart';
 import 'package:ocean_project/desktopview/Components/navigation_bar.dart';
 import 'package:ocean_project/desktopview/constants.dart';
 import 'package:ocean_project/desktopview/screen/footer.dart';
@@ -128,13 +128,13 @@ class _CourseState extends State<Course> {
                                           runSpacing: 50.0,
                                           alignment: WrapAlignment.end,
                                           children: [
-                                              CoursesWidget(),
+                                              OnlineCourseDb(),
                                             ])
                                       : Wrap(
                                           runSpacing: 50.0,
                                           alignment: WrapAlignment.end,
                                           children: [
-                                              CoursesWidget(),
+                                              OnlineCourseDb(),
                                             ]),
                                 ),
                               ],

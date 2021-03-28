@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:ocean_project/desktopview/Components/course_enrole.dart';
+import 'package:ocean_project/desktopview/Components/onlineDb.dart';
 import 'package:ocean_project/desktopview/Components/enrool_appbar.dart';
 import 'package:ocean_project/desktopview/Components/flash_notification.dart';
 import 'package:ocean_project/desktopview/Components/ocean_icons.dart';
@@ -12,6 +13,8 @@ import 'package:ocean_project/desktopview/screen/career/career_layout.dart';
 
 import 'package:ocean_project/desktopview/screen/contact_us.dart';
 import 'package:ocean_project/desktopview/screen/courses.dart';
+import 'package:ocean_project/desktopview/screen/offline.dart';
+import 'package:ocean_project/desktopview/screen/online.dart';
 import 'package:ocean_project/desktopview/screen/services.dart';
 import 'package:provider/provider.dart';
 
@@ -125,6 +128,13 @@ class _NavbarRoutingState extends State<NavbarRouting> {
     super.initState();
   }
 
+  String valueChoose;
+
+  List<String> courseList = [
+    'Online',
+    'Offline',
+  ];
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -175,7 +185,34 @@ class _NavbarRoutingState extends State<NavbarRouting> {
                 SizedBox(
                   width: 60.0,
                 ),
-                menuItem(text: 'Course', widget: Course()),
+                // menuItem(text: 'Course', widget: Course()),
+                DropdownButton(
+                  hint: Text("Courses"),
+                  onChanged: (newValue) {
+                    valueChoose = newValue;
+                    print(valueChoose);
+                    valueChoose == "Online"
+                        ? Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => OnlineCourseNew()))
+                        : Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => OfflineCourseNew()));
+                  },
+                  items: [
+                    DropdownMenuItem(
+                      child: Text("Online"),
+                      value: "Online",
+                    ),
+                    DropdownMenuItem(
+                      child: Text("Offline"),
+                      value: "Offline",
+                    )
+                  ],
+                ),
+
                 SizedBox(
                   width: 60.0,
                 ),

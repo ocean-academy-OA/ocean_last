@@ -4,7 +4,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:ocean_project/desktopview/Components/courses_widget.dart';
+import 'package:ocean_project/desktopview/Components/onlineDb.dart';
 import 'package:ocean_project/desktopview/constants.dart';
 import 'package:ocean_project/desktopview/new_user_screen/log_in.dart';
 import 'package:ocean_project/desktopview/route/routing.dart';
@@ -337,11 +337,11 @@ class _ContentWidgetState extends State<ContentWidget> {
         int startDay = 0;
         int endDay = 2;
         int startHour = 0;
-        int endHour = 1;
-        int startMinute = 2;
-        int endMinute = 4;
-        int startAm = 2;
-        int endEm = 4;
+        int endHour = 2;
+        int startMinute = 3;
+        int endMinute = 5;
+        int startAm = 6;
+        int endEm = 8;
 
         String year = date.substring(startYear, endYear);
         print("year${year}");
@@ -368,12 +368,13 @@ class _ContentWidgetState extends State<ContentWidget> {
         print(DateTime.now());
         print(timeCalculation);
         for (var i in timeCalculation) {
-          if (i > -3600) {
+          if (i > -3600 && i < 600) {
             resolve = "true";
             print(resolve);
+            break;
           } else {
             resolve = "false";
-            print("disable");
+            print(resolve);
           }
         }
       }
