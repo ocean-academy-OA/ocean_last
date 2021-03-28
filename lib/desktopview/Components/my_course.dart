@@ -1,3 +1,4 @@
+import 'dart:html';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/rendering.dart';
@@ -5,7 +6,6 @@ import 'package:ocean_project/desktopview/Components/course_enrole.dart';
 import 'package:ocean_project/desktopview/Components/courses_widget.dart';
 import 'package:ocean_project/desktopview/route/routing.dart';
 import 'package:ocean_project/desktopview/screen/course_details.dart';
-
 import 'package:provider/provider.dart';
 
 final _firestore = FirebaseFirestore.instance;
@@ -141,8 +141,8 @@ class _MyCourseDbState extends State<MyCourseDb> {
       child: Container(
         margin: EdgeInsets.all(35.0),
         //padding: const EdgeInsets.symmetric(horizontal: 30.0, vertical: 10.0),
-        height: 310.0,
-        width: 350.0,
+        height: 350.0,
+        width: 343.0,
         decoration: BoxDecoration(
             color: Colors.white,
             boxShadow: [
@@ -156,10 +156,13 @@ class _MyCourseDbState extends State<MyCourseDb> {
             borderRadius: BorderRadius.circular(15.0)),
         child: Column(
           children: [
+            SizedBox(
+              height: 5,
+            ),
             MouseRegion(
               cursor: SystemMouseCursors.click,
               child: Container(
-                width: 350,
+                width: 330,
                 height: 200,
                 child: ClipRRect(
                   borderRadius: BorderRadius.circular(15.0),
@@ -185,36 +188,122 @@ class _MyCourseDbState extends State<MyCourseDb> {
                     ),
                   ),
                 ),
-                Padding(
-                  padding: const EdgeInsets.all(5.0),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceAround,
-                    children: [
-                      Icon(
-                        Icons.schedule,
-                        color: Color(0xff3B7EB6),
-                      ),
-                      Text("${widget.time} hr"),
-                      Icon(
-                        Icons.web_sharp,
-                        color: Color(0xff3B7EB6),
-                      ),
-                      Text("${widget.session} sessions"),
-                      Icon(
-                        Icons.video_call,
-                        color: Color(0xff3B7EB6),
-                      ),
-                      Text("by zoom"),
-                      // Text(
-                      //   "Click Here",
-                      //   style: TextStyle(
-                      //     color: Color(0xff3B7EB6),
-                      //     fontWeight: FontWeight.bold,
-                      //   ),
-                      // ),
-                    ],
-                  ),
-                ),
+                // Padding(
+                //   padding: const EdgeInsets.all(5.0),
+                //   child: Column(
+                //     children: [
+                //       Row(
+                //         mainAxisAlignment: MainAxisAlignment.center,
+                //         children: [
+                //           Container(
+                //             padding: EdgeInsets.all(5),
+                //             decoration: BoxDecoration(
+                //                 color: Colors.blue[400],
+                //                 borderRadius: BorderRadius.circular(5)),
+                //             child: Row(
+                //               children: [
+                //                 Icon(
+                //                   Icons.timer,
+                //                   color: Colors.white,
+                //                 ),
+                //                 SizedBox(width: 5),
+                //                 Text(
+                //                   "${widget.time} hr",
+                //                   style: TextStyle(color: Colors.white),
+                //                 ),
+                //               ],
+                //             ),
+                //           ),
+                //           // Container(
+                //           //   padding: EdgeInsets.all(5),
+                //           //   decoration: BoxDecoration(
+                //           //       color: Colors.blue[400],
+                //           //       borderRadius: BorderRadius.circular(5)),
+                //           //   child: Row(
+                //           //     children: [
+                //           //       Icon(
+                //           //         Icons.schedule,
+                //           //         color: Colors.white,
+                //           //       ),
+                //           //       SizedBox(width: 5),
+                //           //       Text(
+                //           //         "${widget.time} hr",
+                //           //         style: TextStyle(color: Colors.white),
+                //           //       ),
+                //           //     ],
+                //           //   ),
+                //           // ),
+                //           SizedBox(width: 10),
+                //           Container(
+                //             padding: EdgeInsets.all(5),
+                //             decoration: BoxDecoration(
+                //                 color: Colors.blue[400],
+                //                 borderRadius: BorderRadius.circular(5)),
+                //             child: Row(
+                //               children: [
+                //                 Icon(
+                //                   Icons.video_call,
+                //                   color: Colors.white,
+                //                 ),
+                //                 SizedBox(width: 5),
+                //                 Text(
+                //                   "by zoom",
+                //                   style: TextStyle(color: Colors.white),
+                //                 ),
+                //               ],
+                //             ),
+                //           ),
+                //           Row(
+                //             children: [],
+                //           ),
+                //         ],
+                //       ),
+                //     ],
+                //   ),
+                // ),
+                SizedBox(height: 20),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    FlatButton(
+                        hoverColor: Colors.blue[50],
+                        height: 45,
+                        minWidth: 300,
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(1),
+                          side: BorderSide(color: Colors.blue, width: 1),
+                        ),
+                        color: Colors.white,
+                        onPressed: () {
+                          setState(() {
+                            MyCourseDb.visiblity = true;
+                          });
+                          setState(() {
+                            OnlineCourse.visiblity = false;
+                          });
+                          setState(() {
+                            // Navbar.visiblity = false;
+                          });
+                          print("${widget.coursename}widget.coursename");
+                          Provider.of<SyllabusView>(context, listen: false)
+                              .updateCourseSyllabus(
+                                  routing: CourseDetails(
+                            batch: widget.batchid,
+                            course: widget.coursename,
+                            trainer: widget.trainername,
+                            sess: widget.time,
+                            desc: widget.description,
+                          ));
+                        },
+                        child: Text(
+                          'MORE INFO',
+                          style: TextStyle(
+                            color: Colors.black,
+                            fontWeight: FontWeight.w400,
+                          ),
+                        )),
+                  ],
+                )
               ],
             ),
           ],
