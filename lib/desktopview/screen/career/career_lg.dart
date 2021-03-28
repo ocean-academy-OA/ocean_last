@@ -45,23 +45,26 @@ class _CareerLgState extends State<CareerLg> {
     return Stack(
       children: [
         Column(
+          mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Row(
-              mainAxisAlignment: MainAxisAlignment.start,
-              children: [
-                Container(
-                    width: 280,
-                    height: 240,
-                    padding: EdgeInsets.only(left: 50, top: 50),
-                    child: Image.asset(
-                      "images/coming_soon/Group 13.png",
-                      fit: BoxFit.cover,
-                    ))
-              ],
-            ),
-            SizedBox(
-              height: 10,
-            ),
+            // Row(
+            //   mainAxisAlignment: MainAxisAlignment.start,
+            //   children: [
+            //     Container(
+            //         width: 250,
+            //         height: 230,
+            //         padding: EdgeInsets.only(left: 50, top: 50),
+            //         child: Image.asset(
+            //           "images/coming_soon/Group 13.png",
+            //           height: 200,
+            //           width: 100,
+            //           fit: BoxFit.fill,
+            //         ))
+            //   ],
+            // ),
+            // SizedBox(
+            //   height: 10,
+            // ),
             Column(
               children: [
                 Row(

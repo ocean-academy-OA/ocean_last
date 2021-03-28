@@ -141,7 +141,7 @@ class _MyCourseDbState extends State<MyCourseDb> {
       child: Container(
         margin: EdgeInsets.all(35.0),
         //padding: const EdgeInsets.symmetric(horizontal: 30.0, vertical: 10.0),
-        height: 400.0,
+        height: 350.0,
         width: 343.0,
         decoration: BoxDecoration(
             color: Colors.white,
@@ -188,88 +188,87 @@ class _MyCourseDbState extends State<MyCourseDb> {
                     ),
                   ),
                 ),
-                Padding(
-                  padding: const EdgeInsets.all(5.0),
-                  child: Column(
-                    children: [
-                      Row(
-                        children: [
-                          SizedBox(width: 10),
-                          Container(
-                            padding: EdgeInsets.all(5),
-                            decoration: BoxDecoration(
-                                color: Colors.blue[400],
-                                borderRadius: BorderRadius.circular(5)),
-                            child: Row(
-                              children: [
-                                Icon(
-                                  Icons.schedule,
-                                  color: Colors.white,
-                                ),
-                                SizedBox(width: 5),
-                                Text(
-                                  "${widget.time} hr",
-                                  style: TextStyle(color: Colors.white),
-                                ),
-                              ],
-                            ),
-                          ),
-                          SizedBox(width: 10),
-                          Container(
-                            padding: EdgeInsets.all(5),
-                            decoration: BoxDecoration(
-                                color: Colors.blue[400],
-                                borderRadius: BorderRadius.circular(5)),
-                            child: Row(
-                              children: [
-                                Icon(
-                                  Icons.schedule,
-                                  color: Colors.white,
-                                ),
-                                SizedBox(width: 5),
-                                Text(
-                                  "${widget.time} hr",
-                                  style: TextStyle(color: Colors.white),
-                                ),
-                              ],
-                            ),
-                          ),
-                          SizedBox(width: 10),
-                          Container(
-                            padding: EdgeInsets.all(5),
-                            decoration: BoxDecoration(
-                                color: Colors.blue[400],
-                                borderRadius: BorderRadius.circular(5)),
-                            child: Row(
-                              children: [
-                                Icon(
-                                  Icons.video_call,
-                                  color: Colors.white,
-                                ),
-                                SizedBox(width: 5),
-                                Text(
-                                  "by zoom",
-                                  style: TextStyle(color: Colors.white),
-                                ),
-                              ],
-                            ),
-                          ),
-                          Row(
-                            children: [],
-                          ),
-                        ],
-                      ),
-                    ],
-                  ),
-                ),
+                // Padding(
+                //   padding: const EdgeInsets.all(5.0),
+                //   child: Column(
+                //     children: [
+                //       Row(
+                //         mainAxisAlignment: MainAxisAlignment.center,
+                //         children: [
+                //           Container(
+                //             padding: EdgeInsets.all(5),
+                //             decoration: BoxDecoration(
+                //                 color: Colors.blue[400],
+                //                 borderRadius: BorderRadius.circular(5)),
+                //             child: Row(
+                //               children: [
+                //                 Icon(
+                //                   Icons.timer,
+                //                   color: Colors.white,
+                //                 ),
+                //                 SizedBox(width: 5),
+                //                 Text(
+                //                   "${widget.time} hr",
+                //                   style: TextStyle(color: Colors.white),
+                //                 ),
+                //               ],
+                //             ),
+                //           ),
+                //           // Container(
+                //           //   padding: EdgeInsets.all(5),
+                //           //   decoration: BoxDecoration(
+                //           //       color: Colors.blue[400],
+                //           //       borderRadius: BorderRadius.circular(5)),
+                //           //   child: Row(
+                //           //     children: [
+                //           //       Icon(
+                //           //         Icons.schedule,
+                //           //         color: Colors.white,
+                //           //       ),
+                //           //       SizedBox(width: 5),
+                //           //       Text(
+                //           //         "${widget.time} hr",
+                //           //         style: TextStyle(color: Colors.white),
+                //           //       ),
+                //           //     ],
+                //           //   ),
+                //           // ),
+                //           SizedBox(width: 10),
+                //           Container(
+                //             padding: EdgeInsets.all(5),
+                //             decoration: BoxDecoration(
+                //                 color: Colors.blue[400],
+                //                 borderRadius: BorderRadius.circular(5)),
+                //             child: Row(
+                //               children: [
+                //                 Icon(
+                //                   Icons.video_call,
+                //                   color: Colors.white,
+                //                 ),
+                //                 SizedBox(width: 5),
+                //                 Text(
+                //                   "by zoom",
+                //                   style: TextStyle(color: Colors.white),
+                //                 ),
+                //               ],
+                //             ),
+                //           ),
+                //           Row(
+                //             children: [],
+                //           ),
+                //         ],
+                //       ),
+                //     ],
+                //   ),
+                // ),
                 SizedBox(height: 20),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     FlatButton(
-                        hoverColor: Colors.blue[100],
+                        hoverColor: Colors.blue[50],
                         height: 45,
-                        minWidth: 120,
+                        minWidth: 300,
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(1),
                           side: BorderSide(color: Colors.blue, width: 1),
@@ -297,7 +296,7 @@ class _MyCourseDbState extends State<MyCourseDb> {
                           ));
                         },
                         child: Text(
-                          'Click Here',
+                          'MORE INFO',
                           style: TextStyle(
                             color: Colors.black,
                             fontWeight: FontWeight.w400,
