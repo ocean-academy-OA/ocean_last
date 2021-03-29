@@ -13,10 +13,7 @@ import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'zoom_integration.dart';
 
-Map<String, String> courses_icon = {
-  'C':
-      'https://firebasestorage.googleapis.com/v0/b/ocean-live.appspot.com/o/courses_icon%2Fc.png?alt=media&token=4e2c22c6-8364-4bfc-b49e-d9fdab591bba',
-};
+Map<String, String> courses_icon = {};
 final _firestore = FirebaseFirestore.instance;
 
 // ignore: must_be_immutable
