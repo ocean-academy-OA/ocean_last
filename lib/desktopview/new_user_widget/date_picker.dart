@@ -41,41 +41,48 @@ class _DatePickerState extends State<DatePicker> {
             ),
           ),
           Container(
-            padding: EdgeInsets.symmetric(horizontal: 10.0, vertical: 5.0),
-            decoration: BoxDecoration(borderRadius: BorderRadius.circular(5.0)),
+            padding: EdgeInsets.symmetric(horizontal: 0.0, vertical: 5.0),
+            decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(5.0), color: Colors.white),
             margin: EdgeInsets.symmetric(vertical: 5.0),
             width: 250.0,
-            child: TextFormField(
-              readOnly: true,
-              style: TextStyle(
-                  fontSize: 18.0,
-                  fontWeight: FontWeight.bold,
-                  color: Colors.grey[700]),
-              decoration: InputDecoration(
-                  filled: true,
-                  fillColor: Colors.white,
-                  border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(5.0)),
-                  errorStyle: TextStyle(fontSize: 20.0, color: Colors.red),
-                  hintText: 'MM-DD-YYYY',
-                  suffixIcon: widget.datePickerIcon),
-              validator: widget.validator,
-              onChanged: widget.onChanged,
-              inputFormatters: widget.inputFormatters,
-              controller: widget.controller,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                TextFormField(
+                  readOnly: true,
+                  style: TextStyle(
+                      fontSize: 18.0,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.grey[700]),
+                  decoration: InputDecoration(
+                      filled: true,
+                      fillColor: Colors.grey[100],
+                      disabledBorder: InputBorder.none,
+                      focusedBorder: InputBorder.none,
+                      enabledBorder: InputBorder.none,
+                      errorBorder: InputBorder.none,
+                      hintText: 'MM-DD-YYYY',
+                      suffixIcon: widget.datePickerIcon),
+                  validator: widget.validator,
+                  onChanged: widget.onChanged,
+                  inputFormatters: widget.inputFormatters,
+                  controller: widget.controller,
+                ),
+                Visibility(
+                  visible: widget.visible,
+                  child: Padding(
+                    padding: EdgeInsets.symmetric(horizontal: 5, vertical: 5),
+                    child: Text(
+                      widget.errorText,
+                      style: TextStyle(color: Colors.red[900], fontSize: 12.0),
+                    ),
+                  ),
+                ),
+              ],
             ),
           ),
-          Container(
-            height: 30,
-            margin: EdgeInsets.symmetric(horizontal: 15.0),
-            child: Visibility(
-              visible: widget.visible,
-              child: Text(
-                widget.errorText,
-                style: TextStyle(color: Colors.red, fontSize: 20.0),
-              ),
-            ),
-          )
         ],
       ),
     );

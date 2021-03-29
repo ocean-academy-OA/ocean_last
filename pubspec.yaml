@@ -72,6 +72,8 @@ dependencies:
   flutter_gifimage: ^1.0.1
   lottie: ^0.7.0+1
   random_string: ^2.1.0
+  searchable_dropdown: ^1.1.3
+
 
 
 
