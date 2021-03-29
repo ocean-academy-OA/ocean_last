@@ -64,11 +64,10 @@ class _EditProfileState extends State<EditProfile> {
     return formater;
   }
 
-//MenuBar.stayUser != null ? MenuBar.stayUser : LogIn.registerNumber
   editProfile() async {
     var details = await _firestore
         .collection('new users')
-        .doc('+91 1234567890')
+        .doc(MenuBar.stayUser != null ? MenuBar.stayUser : LogIn.registerNumber)
         .get(); // 8015122373 insted of  LogIn.userNum
     var detailsData = details.data();
 

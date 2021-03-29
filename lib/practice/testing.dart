@@ -6,7 +6,6 @@ import 'package:ocean_project/desktopview/new_user_screen/registration.dart';
 import 'package:ocean_project/desktopview/new_user_widget/contry_states.dart';
 import 'package:ocean_project/mobileview/screen/mobile_wbinar/webinar_list.dart';
 import 'package:ocean_project/webinar/join_successfully.dart';
-import 'package:searchable_dropdown/searchable_dropdown.dart';
 
 void main() {
   runApp(
