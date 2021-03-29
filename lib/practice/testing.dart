@@ -2,6 +2,9 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:ocean_project/desktopview/Components/syllebus/syllabus_widget.dart';
+import 'package:ocean_project/desktopview/Components/zoom_integration.dart';
+import 'package:ocean_project/desktopview/route/routing.dart';
+import 'package:provider/provider.dart';
 
 void main() {
   runApp(
@@ -31,21 +34,24 @@ class _ViewSyllabusState extends State<ViewSyllabus> {
                 .collection('course')
                 .doc('OCNJA18')
                 .collection('schedule')
+                .orderBy('id')
                 .snapshots(),
             builder: (context, snapshot) {
               if (!snapshot.hasData) {
                 return Text('Looding...');
               } else {
                 List<SyllabusList> syllabusLists = [];
-                Widget testWidget;
+                Map<int, String> scheduleDocId = {};
                 Map<int, Widget> syllabusMap = {};
-                List<Widget> test = [];
+                List<int> timingList = [];
+                timingList.sort();
                 for (var i in snapshot.data.docs) {
                   String title = i.id;
                   String subTitle = i.data()['description'];
                   String zoomLink = i.data()['zoom_link'];
                   String zoomPassword = i.data()['zoom_password'];
                   Timestamp timeStamp = i.data()['date'];
+                  int coursId = i.data()['id'];
 
                   int yearFormat;
                   int monthFormat;
@@ -80,28 +86,51 @@ class _ViewSyllabusState extends State<ViewSyllabus> {
                           secondsFormat)
                       .difference(DateTime.now())
                       .inSeconds;
+
                   SyllabusList syllabusAdd = SyllabusList(
-                    title: title,
-                    subTitle: 'subTitle',
-                    dayFormat: 5,
-                    monthFormatString: 'monthFormatString',
-                    minuteFormat: 3,
-                    hourFormat: 6,
-                    timing: 'timeFormat',
-                  );
-                  testWidget = syllabusAdd;
-                  syllabusLists.add(SyllabusList(
                     title: title,
                     subTitle: subTitle,
                     dayFormat: dayFormat,
                     monthFormatString: monthFormatString,
                     minuteFormat: minuteFormat,
                     hourFormat: hourFormat,
+                    color: coursId == 0 ? Color(0xff14BC05) : Color(0xff0B74EF),
                     timing: timeFormat,
-                  ));
-                  syllabusMap.addAll({defrenceTime: syllabusAdd});
-                  print(syllabusMap);
+                    onPressed: coursId == 1
+                        ? () {
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => ZoomIntegration(
+                                          zoomLink:
+                                              "https://brindakarthik.github.io/zoom/?meetingNumber=$zoomLink&username=abc&password=$zoomPassword",
+                                        )));
+                          }
+                        : coursId == 0
+                            ? () {
+                                print('completed');
+                              }
+                            : null,
+                  );
+                  syllabusLists.add(syllabusAdd);
+                  // timingList.add(defrenceTime);
+                  // syllabusMap.addAll({defrenceTime: syllabusAdd});
+                  // scheduleDocId.addAll({defrenceTime: i.id});
+                  // print(timingList);
                 }
+                timingList.sort();
+                print(timingList);
+
+                // for (var widget in timingList) {
+                //   syllabusLists.add(syllabusMap[widget]);
+                //   _firestore
+                //       .collection('course')
+                //       .doc('OCNJA18')
+                //       .collection('schedule')
+                //       .doc(scheduleDocId[widget])
+                //       .update({'flag': true});
+                // }
+
                 return SingleChildScrollView(
                   child: Column(
                     children: syllabusLists,
@@ -115,7 +144,6 @@ class _ViewSyllabusState extends State<ViewSyllabus> {
     );
   }
 }
-
 //
 // class SyllabusList extends StatefulWidget {
 //   @override
