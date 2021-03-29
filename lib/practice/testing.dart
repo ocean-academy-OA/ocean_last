@@ -20,10 +20,11 @@ class _SyllabusListState extends State<SyllabusList> {
     return Scaffold(
         body: Center(
             child: Container(
-      color: Colors.grey,
+      color: Colors.white,
       height: 100,
-      width: 400,
+      width: 500,
       child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           Container(
             width: 100,
@@ -31,9 +32,51 @@ class _SyllabusListState extends State<SyllabusList> {
                 gradient: LinearGradient(
               begin: FractionalOffset.topLeft,
               end: FractionalOffset.bottomRight,
-              colors: [Color(0xff0B74EF), Color(0xff00FFFF)],
+              colors: [Color(0xff0B74EF), Color(0xff00D1FF)],
             )),
-          )
+          ),
+          Row(
+            children: [
+              Container(
+                width: 300,
+                child: Column(
+                  children: [
+                    Text(
+                      'Title',
+                      style: TextStyle(
+                          fontSize: 20,
+                          fontFamily: 'Roboto',
+                          inherit: false,
+                          fontWeight: FontWeight.w800,
+                          color: Colors.grey[700]),
+                    ),
+                    Text(
+                      'Subtitle',
+                      style: TextStyle(
+                          fontSize: 18,
+                          fontFamily: 'Roboto',
+                          inherit: false,
+                          fontWeight: FontWeight.normal,
+                          color: Colors.grey[500]),
+                    ),
+                  ],
+                ),
+              ),
+              IconButton(
+                icon: Icon(Icons.add),
+                iconSize: 20,
+              )
+            ],
+          ),
+          Container(
+            width: 10,
+            decoration: BoxDecoration(
+                gradient: LinearGradient(
+              begin: FractionalOffset.topLeft,
+              end: FractionalOffset.bottomRight,
+              colors: [Color(0xff0B74EF), Color(0xff00D1FF)],
+            )),
+          ),
         ],
       ),
     )));

@@ -22,7 +22,7 @@
     <select />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="f0636c9e-06a6-419e-bb2d-a9c7ab8a2030" name="Default Changelist" comment="edit profile variable changed">
+    <list default="true" id="f0636c9e-06a6-419e-bb2d-a9c7ab8a2030" name="Default Changelist" comment="testing syllabus">
       <change beforePath="$PROJECT_DIR$/.flutter-plugins-dependencies" beforeDir="false" afterPath="$PROJECT_DIR$/.flutter-plugins-dependencies" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/build/f872507f30e2ff2523f0f1d19160266e.cache.dill.track.dill" beforeDir="false" afterPath="$PROJECT_DIR$/build/f872507f30e2ff2523f0f1d19160266e.cache.dill.track.dill" afterDir="false" />
@@ -106,34 +106,6 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1613817500605</updated>
-    </task>
-    <task id="LOCAL-00008" summary="In flash navigator changed to provider">
-      <created>1614754293005</created>
-      <option name="number" value="00008" />
-      <option name="presentableId" value="LOCAL-00008" />
-      <option name="project" value="LOCAL" />
-      <updated>1614754293005</updated>
-    </task>
-    <task id="LOCAL-00009" summary="flash provider recorrected">
-      <created>1614754615647</created>
-      <option name="number" value="00009" />
-      <option name="presentableId" value="LOCAL-00009" />
-      <option name="project" value="LOCAL" />
-      <updated>1614754615647</updated>
-    </task>
-    <task id="LOCAL-00010" summary="03.03.21 push enddate">
-      <created>1614782454610</created>
-      <option name="number" value="00010" />
-      <option name="presentableId" value="LOCAL-00010" />
-      <option name="project" value="LOCAL" />
-      <updated>1614782454611</updated>
-    </task>
-    <task id="LOCAL-00011" summary="current state cleared">
-      <created>1614838683960</created>
-      <option name="number" value="00011" />
-      <option name="presentableId" value="LOCAL-00011" />
-      <option name="project" value="LOCAL" />
-      <updated>1614838683960</updated>
     </task>
     <task id="LOCAL-00012" summary="view course and my course added">
       <created>1614924607699</created>
@@ -450,7 +422,35 @@
       <option name="project" value="LOCAL" />
       <updated>1617009567189</updated>
     </task>
-    <option name="localTasksCounter" value="57" />
+    <task id="LOCAL-00057" summary="testing syllabus">
+      <created>1617012566811</created>
+      <option name="number" value="00057" />
+      <option name="presentableId" value="LOCAL-00057" />
+      <option name="project" value="LOCAL" />
+      <updated>1617012566813</updated>
+    </task>
+    <task id="LOCAL-00058" summary="testing syllabus">
+      <created>1617012583390</created>
+      <option name="number" value="00058" />
+      <option name="presentableId" value="LOCAL-00058" />
+      <option name="project" value="LOCAL" />
+      <updated>1617012583390</updated>
+    </task>
+    <task id="LOCAL-00059" summary="testing syllabus">
+      <created>1617012594753</created>
+      <option name="number" value="00059" />
+      <option name="presentableId" value="LOCAL-00059" />
+      <option name="project" value="LOCAL" />
+      <updated>1617012594753</updated>
+    </task>
+    <task id="LOCAL-00060" summary="testing syllabus">
+      <created>1617012661925</created>
+      <option name="number" value="00060" />
+      <option name="presentableId" value="LOCAL-00060" />
+      <option name="project" value="LOCAL" />
+      <updated>1617012661926</updated>
+    </task>
+    <option name="localTasksCounter" value="61" />
     <servers />
   </component>
   <component name="UnknownFeatures">
@@ -470,7 +470,6 @@
   </component>
   <component name="VcsManagerConfiguration">
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
-    <MESSAGE value="completed the course" />
     <MESSAGE value="end of the day 20-03-2021" />
     <MESSAGE value="complete finish check 1" />
     <MESSAGE value="complete finish check 2" />
@@ -495,7 +494,8 @@
     <MESSAGE value="course segregate finish" />
     <MESSAGE value="complete change color" />
     <MESSAGE value="edit profile variable changed" />
-    <option name="LAST_COMMIT_MESSAGE" value="edit profile variable changed" />
+    <MESSAGE value="testing syllabus" />
+    <option name="LAST_COMMIT_MESSAGE" value="testing syllabus" />
   </component>
   <component name="WindowStateProjectService">
     <state x="839" y="419" key="#Custom_Plugin_Repositories" timestamp="1614073155611">
@@ -528,26 +528,26 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="740" y="275" key="FileChooserDialogImpl/0.0.1920.1040@0.0.1920.1040" timestamp="1616044196390" />
-    <state width="1877" height="253" key="GridCell.Tab.0.bottom" timestamp="1617010474265">
+    <state width="1877" height="253" key="GridCell.Tab.0.bottom" timestamp="1617013509555">
       <screen x="0" y="0" width="1920" height="1080" />
     </state>
     <state width="1877" height="341" key="GridCell.Tab.0.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1616918833193" />
-    <state width="1877" height="253" key="GridCell.Tab.0.bottom/0.0.1920.1080@0.0.1920.1080" timestamp="1617010474265" />
-    <state width="1877" height="253" key="GridCell.Tab.0.center" timestamp="1617010474265">
+    <state width="1877" height="253" key="GridCell.Tab.0.bottom/0.0.1920.1080@0.0.1920.1080" timestamp="1617013509555" />
+    <state width="1877" height="253" key="GridCell.Tab.0.center" timestamp="1617013509555">
       <screen x="0" y="0" width="1920" height="1080" />
     </state>
     <state width="1877" height="341" key="GridCell.Tab.0.center/0.0.1920.1040@0.0.1920.1040" timestamp="1616918833193" />
-    <state width="1877" height="253" key="GridCell.Tab.0.center/0.0.1920.1080@0.0.1920.1080" timestamp="1617010474265" />
-    <state width="1877" height="253" key="GridCell.Tab.0.left" timestamp="1617010474265">
+    <state width="1877" height="253" key="GridCell.Tab.0.center/0.0.1920.1080@0.0.1920.1080" timestamp="1617013509555" />
+    <state width="1877" height="253" key="GridCell.Tab.0.left" timestamp="1617013509555">
       <screen x="0" y="0" width="1920" height="1080" />
     </state>
     <state width="1877" height="341" key="GridCell.Tab.0.left/0.0.1920.1040@0.0.1920.1040" timestamp="1616918833193" />
-    <state width="1877" height="253" key="GridCell.Tab.0.left/0.0.1920.1080@0.0.1920.1080" timestamp="1617010474265" />
-    <state width="1877" height="253" key="GridCell.Tab.0.right" timestamp="1617010474265">
+    <state width="1877" height="253" key="GridCell.Tab.0.left/0.0.1920.1080@0.0.1920.1080" timestamp="1617013509555" />
+    <state width="1877" height="253" key="GridCell.Tab.0.right" timestamp="1617013509555">
       <screen x="0" y="0" width="1920" height="1080" />
     </state>
     <state width="1877" height="341" key="GridCell.Tab.0.right/0.0.1920.1040@0.0.1920.1040" timestamp="1616918833193" />
-    <state width="1877" height="253" key="GridCell.Tab.0.right/0.0.1920.1080@0.0.1920.1080" timestamp="1617010474265" />
+    <state width="1877" height="253" key="GridCell.Tab.0.right/0.0.1920.1080@0.0.1920.1080" timestamp="1617013509555" />
     <state x="540" y="263" key="IDE.errors.dialog" timestamp="1614410080858">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
@@ -572,11 +572,11 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="804" y="433" key="VCS.ChangelistChooser/0.0.1920.1040@0.0.1920.1040" timestamp="1615355201183" />
-    <state x="552" y="263" key="Vcs.Push.Dialog.v2" timestamp="1617009613692">
+    <state x="552" y="263" key="Vcs.Push.Dialog.v2" timestamp="1617012666464">
       <screen x="0" y="0" width="1920" height="1080" />
     </state>
     <state x="552" y="253" key="Vcs.Push.Dialog.v2/0.0.1920.1040@0.0.1920.1040" timestamp="1616918779646" />
-    <state x="552" y="263" key="Vcs.Push.Dialog.v2/0.0.1920.1080@0.0.1920.1080" timestamp="1617009613692" />
+    <state x="552" y="263" key="Vcs.Push.Dialog.v2/0.0.1920.1080@0.0.1920.1080" timestamp="1617012666464" />
     <state x="92" y="92" width="1736" height="856" key="com.intellij.history.integration.ui.views.DirectoryHistoryDialog" timestamp="1616585226461">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
