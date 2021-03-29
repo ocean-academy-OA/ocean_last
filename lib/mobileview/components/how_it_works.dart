@@ -80,23 +80,31 @@ class HowItWorks extends StatelessWidget {
           Column(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Column(
+                    children: [
+                      MainTitleWidget(
+                        title: 'How It Works',
+                      ),
+                      Text(
+                        "We provide training in both Online and Offline modes",
+                        style: TextStyle(fontSize: 12.0),
+                      ),
+                      SizedBox(
+                        height: 30,
+                      ),
+                    ],
+                  ),
+                ],
+              ),
               Container(
                 padding: EdgeInsets.symmetric(horizontal: 50),
                 child: Wrap(
                   alignment: WrapAlignment.center,
                   runSpacing: 40.0,
                   children: [
-                    Column(
-                      children: [
-                        MainTitleWidget(
-                          title: 'How It Works',
-                        ),
-                        Text(
-                          "We provide training in both Online and Offline modes",
-                          style: TextStyle(fontSize: 12.0),
-                        ),
-                      ],
-                    ),
                     Column(
                       children: [
                         Image.asset(

@@ -80,7 +80,7 @@ class _LoginXSState extends State<LoginXS> {
             Container(
               width: MediaQuery.of(context).size.width,
               height: MediaQuery.of(context).size.height,
-              color: Colors.greenAccent[100],
+              color: Colors.blue,
               // color: Color(0xff2B9DD1),
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,

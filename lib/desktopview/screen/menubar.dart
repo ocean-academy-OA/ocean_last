@@ -250,9 +250,8 @@ class _NavbarRoutingState extends State<NavbarRouting> {
                     ///todo:instead of resiter login will come
                     ///
                     Provider.of<Routing>(context, listen: false).updateRouting(
-                        widget: MenuBar.stayUser == null
-                            ? LoginLayout()
-                            : CoursesView());
+                        widget:
+                            MenuBar.stayUser == null ? LogIn() : CoursesView());
                     Provider.of<MenuBar>(context, listen: false).updateMenu(
                         widget: MenuBar.stayUser == null
                             ? NavbarRouting()
