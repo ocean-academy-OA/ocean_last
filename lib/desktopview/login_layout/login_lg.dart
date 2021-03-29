@@ -1,29 +1,29 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:country_code_picker/country_codes.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:country_code_picker/country_code_picker.dart';
 import 'package:flutter/services.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:ocean_project/desktopview/new_user_screen/otp.dart';
 import 'package:ocean_project/desktopview/route/routing.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'dart:ui';
 import 'package:url_launcher/url_launcher.dart';
-import 'otp.dart';
+import 'package:ocean_project/desktopview/login_layout/layoutbuilder.dart';
 
-class LogIn extends StatefulWidget {
+class LoginLG extends StatefulWidget {
   static ConfirmationResult confirmationResult;
   static String registerNumber;
   @override
-  _LogInState createState() => _LogInState();
+  _LoginLGState createState() => _LoginLGState();
 }
 
-class _LogInState extends State<LogIn> {
+class _LoginLGState extends State<LoginLG> {
   var userSession;
   bool isNumValid = false;
   FirebaseAuth auth = FirebaseAuth.instance;
-  TextEditingController _phoneNumberController = TextEditingController();
+  // TextEditingController _phoneNumberController = TextEditingController();
   String countryCode;
   List<Map<String, String>> contri = codes;
   bool rememberMe = false;
@@ -31,15 +31,15 @@ class _LogInState extends State<LogIn> {
 
   ConfirmationResult confirmationResult;
   getOTP() async {
-    LogIn.confirmationResult = await auth.signInWithPhoneNumber(
-        '${countryCode.toString()} ${_phoneNumberController.text}');
-    print("${LogIn.confirmationResult}LogIn.confirmationResult");
+    LoginLG.confirmationResult = await auth.signInWithPhoneNumber(
+        '${countryCode.toString()} ${LoginLayout.phoneNumberController.text}');
+    print("${LoginLG.confirmationResult}LogIn.confirmationResult");
   }
 
   session() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     await prefs.setInt('login', 1);
-    await prefs.setString('user', _phoneNumberController.text);
+    await prefs.setString('user', LoginLayout.phoneNumberController.text);
     print('Otp Submited');
   }
 
@@ -175,7 +175,8 @@ class _LogInState extends State<LogIn> {
                                             decoration: InputDecoration(
                                                 fillColor: Colors.white,
                                                 border: OutlineInputBorder()),
-                                            controller: _phoneNumberController,
+                                            controller: LoginLayout
+                                                .phoneNumberController,
                                             inputFormatters: [
                                               FilteringTextInputFormatter.allow(
                                                   RegExp(r'^\d+\.?\d{0,1}')),
@@ -226,16 +227,16 @@ class _LogInState extends State<LogIn> {
                                       elevation: 0.0,
                                       onPressed: () async {
                                         print(
-                                            "${_phoneNumberController.text}_phoneNumberController.text");
+                                            "${LoginLayout.phoneNumberController.text}_phoneNumberController.text");
                                         setState(() {
                                           //Navbar.visiblity = false;
-                                          LogIn.registerNumber =
-                                              '${countryCode.toString()} ${_phoneNumberController.text}';
+                                          LoginLG.registerNumber =
+                                              '${countryCode.toString()} ${LoginLayout.phoneNumberController.text}';
                                           MenuBar.stayUser =
-                                              LogIn.registerNumber;
+                                              LoginLG.registerNumber;
                                         });
 
-                                        if (_phoneNumberController
+                                        if (LoginLayout.phoneNumberController
                                                 .text.length >=
                                             10) {
                                           //getData();

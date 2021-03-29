@@ -2,24 +2,19 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:ocean_project/desktopview/Components/course_enrole.dart';
-import 'package:ocean_project/desktopview/Components/onlineDb.dart';
 import 'package:ocean_project/desktopview/Components/enrool_appbar.dart';
 import 'package:ocean_project/desktopview/Components/flash_notification.dart';
 import 'package:ocean_project/desktopview/Components/ocean_icons.dart';
 import 'package:ocean_project/desktopview/new_user_screen/log_in.dart';
 import 'package:ocean_project/desktopview/route/routing.dart';
-
 import 'package:ocean_project/desktopview/screen/career/career_layout.dart';
-
 import 'package:ocean_project/desktopview/screen/contact_us.dart';
 import 'package:ocean_project/desktopview/screen/courses.dart';
-import 'package:ocean_project/desktopview/screen/offline.dart';
-import 'package:ocean_project/desktopview/screen/online.dart';
 import 'package:ocean_project/desktopview/screen/services.dart';
 import 'package:provider/provider.dart';
-
 import 'home_screen.dart';
 import 'about_us_screen.dart';
+import 'package:ocean_project/desktopview/login_layout/layoutbuilder.dart';
 
 FirebaseFirestore _firestore = FirebaseFirestore.instance;
 
@@ -255,8 +250,9 @@ class _NavbarRoutingState extends State<NavbarRouting> {
                     ///todo:instead of resiter login will come
                     ///
                     Provider.of<Routing>(context, listen: false).updateRouting(
-                        widget:
-                            MenuBar.stayUser == null ? LogIn() : CoursesView());
+                        widget: MenuBar.stayUser == null
+                            ? LoginLayout()
+                            : CoursesView());
                     Provider.of<MenuBar>(context, listen: false).updateMenu(
                         widget: MenuBar.stayUser == null
                             ? NavbarRouting()

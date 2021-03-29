@@ -1,29 +1,29 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:country_code_picker/country_codes.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:country_code_picker/country_code_picker.dart';
 import 'package:flutter/services.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:ocean_project/desktopview/new_user_screen/otp.dart';
 import 'package:ocean_project/desktopview/route/routing.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'dart:ui';
 import 'package:url_launcher/url_launcher.dart';
-import 'otp.dart';
+import 'package:ocean_project/desktopview/login_layout/layoutbuilder.dart';
 
-class LogIn extends StatefulWidget {
+class LoginMD extends StatefulWidget {
   static ConfirmationResult confirmationResult;
   static String registerNumber;
   @override
-  _LogInState createState() => _LogInState();
+  _LoginMDState createState() => _LoginMDState();
 }
 
-class _LogInState extends State<LogIn> {
+class _LoginMDState extends State<LoginMD> {
   var userSession;
   bool isNumValid = false;
   FirebaseAuth auth = FirebaseAuth.instance;
-  TextEditingController _phoneNumberController = TextEditingController();
+  TextEditingController phoneNumberController = TextEditingController();
   String countryCode;
   List<Map<String, String>> contri = codes;
   bool rememberMe = false;
@@ -31,15 +31,15 @@ class _LogInState extends State<LogIn> {
 
   ConfirmationResult confirmationResult;
   getOTP() async {
-    LogIn.confirmationResult = await auth.signInWithPhoneNumber(
-        '${countryCode.toString()} ${_phoneNumberController.text}');
-    print("${LogIn.confirmationResult}LogIn.confirmationResult");
+    LoginMD.confirmationResult = await auth.signInWithPhoneNumber(
+        '${countryCode.toString()} ${LoginLayout.phoneNumberController.text}');
+    print("${LoginMD.confirmationResult}LogIn.confirmationResult");
   }
 
   session() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     await prefs.setInt('login', 1);
-    await prefs.setString('user', _phoneNumberController.text);
+    await prefs.setString('user', LoginLayout.phoneNumberController.text);
     print('Otp Submited');
   }
 
@@ -80,12 +80,13 @@ class _LogInState extends State<LogIn> {
             Container(
               width: MediaQuery.of(context).size.width,
               height: MediaQuery.of(context).size.height,
-              color: Color(0xff2B9DD1),
+              color: Colors.indigoAccent[100],
+              // color: Color(0xff2B9DD1),
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Container(
-                    width: 600.0,
+                    width: 500.0,
                     height: 450.0,
                     padding:
                         EdgeInsets.symmetric(horizontal: 20.0, vertical: 20.0),
@@ -166,7 +167,7 @@ class _LogInState extends State<LogIn> {
                                       children: [
                                         Container(
                                           height: 50.0,
-                                          width: 400.0,
+                                          width: 320.0,
                                           decoration: BoxDecoration(
                                               color: Colors.white,
                                               borderRadius:
@@ -175,7 +176,8 @@ class _LogInState extends State<LogIn> {
                                             decoration: InputDecoration(
                                                 fillColor: Colors.white,
                                                 border: OutlineInputBorder()),
-                                            controller: _phoneNumberController,
+                                            controller: LoginLayout
+                                                .phoneNumberController,
                                             inputFormatters: [
                                               FilteringTextInputFormatter.allow(
                                                   RegExp(r'^\d+\.?\d{0,1}')),
@@ -226,16 +228,16 @@ class _LogInState extends State<LogIn> {
                                       elevation: 0.0,
                                       onPressed: () async {
                                         print(
-                                            "${_phoneNumberController.text}_phoneNumberController.text");
+                                            "${LoginLayout.phoneNumberController.text}_phoneNumberController.text");
                                         setState(() {
                                           //Navbar.visiblity = false;
-                                          LogIn.registerNumber =
-                                              '${countryCode.toString()} ${_phoneNumberController.text}';
+                                          LoginMD.registerNumber =
+                                              '${countryCode.toString()} ${LoginLayout.phoneNumberController.text}';
                                           MenuBar.stayUser =
-                                              LogIn.registerNumber;
+                                              LoginMD.registerNumber;
                                         });
 
-                                        if (_phoneNumberController
+                                        if (LoginLayout.phoneNumberController
                                                 .text.length >=
                                             10) {
                                           //getData();
@@ -331,7 +333,7 @@ class _LogInState extends State<LogIn> {
                   Container(
                     alignment: Alignment.center,
                     margin: EdgeInsets.symmetric(vertical: 15.0),
-                    width: 600,
+                    width: 500,
                     padding: EdgeInsets.symmetric(vertical: 15),
                     decoration: BoxDecoration(
                         color: Color(0xff006793),
@@ -366,21 +368,21 @@ class _LogInState extends State<LogIn> {
                 left: -250.0,
                 child: Image.asset(
                   'images/rectangle-01.png',
-                  width: 600.0,
+                  width: 500.0,
                 )),
             Positioned(
                 top: -90,
                 right: 100.0,
                 child: Image.asset(
                   'images/tryangle-01.png',
-                  width: 350.0,
+                  width: 280.0,
                 )),
             Positioned(
                 bottom: 90,
                 right: 0.0,
                 child: Image.asset(
                   'images/circle-01.png',
-                  width: 450.0,
+                  width: 330.0,
                 )),
           ],
         ),
