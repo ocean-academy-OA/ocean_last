@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dropdownfield/dropdownfield.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:ocean_project/desktopview/new_user_screen/edit_profile.dart';
 import 'package:ocean_project/desktopview/new_user_screen/registration.dart';
@@ -11,59 +12,91 @@ void main() {
   runApp(
     MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: EditProfile(),
+      home: SyllabusList(),
     ),
   );
 }
 
-class CountryStatePicker extends StatefulWidget {
+class SyllabusList extends StatefulWidget {
   @override
-  _CountryStatePickerState createState() => _CountryStatePickerState();
+  _SyllabusListState createState() => _SyllabusListState();
 }
 
-class _CountryStatePickerState extends State<CountryStatePicker> {
-  List<String> country = [];
-  final countryContrller = TextEditingController();
-  String selectedCountry = '';
-
-  @override
-  void initState() {
-    // TODO: implement initState
-    super.initState();
-    for (var i in contryState['countries']) {
-      country.add(i['country']);
-    }
-  }
-
+class _SyllabusListState extends State<SyllabusList> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
         body: Center(
-      child: Container(
-        alignment: Alignment.center,
-        width: 300,
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(8),
-          color: Colors.white,
-        ),
-        child: DropDownField(
-          controller: countryContrller,
-          hintText: 'search country',
-          enabled: true,
-          strict: false,
-          required: true,
-          itemsVisibleInDropdown: 10,
-          items: country,
-          onValueChanged: (value) {
-            setState(() {
-              selectedCountry = value;
-            });
-          },
-        ),
+            child: Container(
+      color: Colors.grey,
+      height: 100,
+      width: 400,
+      child: Row(
+        children: [
+          Container(
+            width: 100,
+            decoration: BoxDecoration(
+                gradient: LinearGradient(
+              begin: FractionalOffset.topLeft,
+              end: FractionalOffset.bottomRight,
+              colors: [Color(0xff0B74EF), Color(0xff00FFFF)],
+            )),
+          )
+        ],
       ),
-    ));
+    )));
   }
 }
+
+//
+// class CountryStatePicker extends StatefulWidget {
+//   @override
+//   _CountryStatePickerState createState() => _CountryStatePickerState();
+// }
+//
+// class _CountryStatePickerState extends State<CountryStatePicker> {
+//   List<String> country = [];
+//   final countryContrller = TextEditingController();
+//   String selectedCountry = '';
+//
+//   @override
+//   void initState() {
+//     // TODO: implement initState
+//     super.initState();
+//     for (var i in contryState['countries']) {
+//       country.add(i['country']);
+//     }
+//   }
+//
+//   @override
+//   Widget build(BuildContext context) {
+//     return Scaffold(
+//         body: Center(
+//       child: Container(
+//         alignment: Alignment.center,
+//         width: 300,
+//         decoration: BoxDecoration(
+//           borderRadius: BorderRadius.circular(8),
+//           color: Colors.white,
+//         ),
+//         child: DropDownField(
+//           controller: countryContrller,
+//           hintText: 'search country',
+//           enabled: true,
+//           strict: false,
+//           required: true,
+//           itemsVisibleInDropdown: 10,
+//           items: country,
+//           onValueChanged: (value) {
+//             setState(() {
+//               selectedCountry = value;
+//             });
+//           },
+//         ),
+//       ),
+//     ));
+//   }
+// }
 //
 // class MyHomePage extends StatefulWidget {
 //   MyHomePage({Key key, this.title}) : super(key: key);
