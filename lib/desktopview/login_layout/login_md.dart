@@ -86,8 +86,8 @@ class _LoginMDState extends State<LoginMD> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Container(
-                    width: 500.0,
-                    height: 450.0,
+                    width: 470.0,
+                    height: 400.0,
                     padding:
                         EdgeInsets.symmetric(horizontal: 20.0, vertical: 20.0),
                     decoration: BoxDecoration(
@@ -104,7 +104,7 @@ class _LoginMDState extends State<LoginMD> {
                               fontWeight: FontWeight.bold),
                         ),
                         Container(
-                          height: 340,
+                          height: 300,
                           child: Column(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             crossAxisAlignment: CrossAxisAlignment.start,
@@ -167,7 +167,7 @@ class _LoginMDState extends State<LoginMD> {
                                       children: [
                                         Container(
                                           height: 50.0,
-                                          width: 320.0,
+                                          width: 300.0,
                                           decoration: BoxDecoration(
                                               color: Colors.white,
                                               borderRadius:
@@ -216,7 +216,7 @@ class _LoginMDState extends State<LoginMD> {
                                         alignment: Alignment.center,
                                         padding: EdgeInsets.symmetric(
                                             vertical: 15.0),
-                                        width: 450.0,
+                                        width: 400.0,
                                         child: Text(
                                           'NEXT',
                                           style: TextStyle(
@@ -333,7 +333,7 @@ class _LoginMDState extends State<LoginMD> {
                   Container(
                     alignment: Alignment.center,
                     margin: EdgeInsets.symmetric(vertical: 15.0),
-                    width: 500,
+                    width: 470,
                     padding: EdgeInsets.symmetric(vertical: 15),
                     decoration: BoxDecoration(
                         color: Color(0xff006793),

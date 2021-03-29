@@ -87,7 +87,7 @@ class _LoginSMState extends State<LoginSM> {
                 children: [
                   Container(
                     width: 430.0,
-                    height: 400.0,
+                    height: 420.0,
                     padding:
                         EdgeInsets.symmetric(horizontal: 20.0, vertical: 20.0),
                     decoration: BoxDecoration(
