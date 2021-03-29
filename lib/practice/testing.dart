@@ -1,24 +1,156 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:dropdownfield/dropdownfield.dart';
 import 'package:flutter/material.dart';
+import 'package:ocean_project/desktopview/new_user_screen/edit_profile.dart';
+import 'package:ocean_project/desktopview/new_user_screen/registration.dart';
+import 'package:ocean_project/desktopview/new_user_widget/contry_states.dart';
 import 'package:ocean_project/mobileview/screen/mobile_wbinar/webinar_list.dart';
 import 'package:ocean_project/webinar/join_successfully.dart';
+import 'package:searchable_dropdown/searchable_dropdown.dart';
 
 void main() {
   runApp(
     MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: MobileWebinarCard(),
+      home: EditProfile(),
     ),
   );
 }
 
-FirebaseFirestore _firestore = FirebaseFirestore.instance;
-
-class TextingFirebase extends StatefulWidget {
+class CountryStatePicker extends StatefulWidget {
   @override
-  _TextingFirebaseState createState() => _TextingFirebaseState();
+  _CountryStatePickerState createState() => _CountryStatePickerState();
 }
 
+class _CountryStatePickerState extends State<CountryStatePicker> {
+  List<String> country = [];
+  final countryContrller = TextEditingController();
+  String selectedCountry = '';
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    for (var i in contryState['countries']) {
+      country.add(i['country']);
+    }
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+        body: Center(
+      child: Container(
+        alignment: Alignment.center,
+        width: 300,
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(8),
+          color: Colors.white,
+        ),
+        child: DropDownField(
+          controller: countryContrller,
+          hintText: 'search country',
+          enabled: true,
+          strict: false,
+          required: true,
+          itemsVisibleInDropdown: 10,
+          items: country,
+          onValueChanged: (value) {
+            setState(() {
+              selectedCountry = value;
+            });
+          },
+        ),
+      ),
+    ));
+  }
+}
+//
+// class MyHomePage extends StatefulWidget {
+//   MyHomePage({Key key, this.title}) : super(key: key);
+//
+//   final String title;
+//
+//   @override
+//   _MyHomePageState createState() => _MyHomePageState();
+// }
+//
+// class _MyHomePageState extends State<MyHomePage> {
+//   int _counter = 0;
+//   // List<VagasDisponivei> _vagasDisponiveis;
+//   String vaga_name;
+//   String selectedValue;
+//
+//   List<DropdownMenuItem> country = [];
+//   @override
+//   void initState() {
+//     // TODO: implement initState
+//     super.initState();
+//     for (var i in contryState['countries']) {
+//       // country.add(i['country']);
+//       country.add(DropdownMenuItem<String>(child: Text('${i['country']}')));
+//     }
+//     print(country);
+//     // print(contryState['countries']);
+//     // _vagasDisponiveis = [
+//     //   VagasDisponivei(v_id: "1", v_n: "abc"),
+//     //   VagasDisponivei(v_id: "2", v_n: "def"),
+//     //   VagasDisponivei(v_id: "3", v_n: "dgg"),
+//     // ];
+//   }
+//
+//   @override
+//   Widget build(BuildContext context) {
+//     return Scaffold(
+//       appBar: AppBar(
+//         title: Text(widget.title),
+//       ),
+//       body: Center(
+//         child: Column(
+//           mainAxisAlignment: MainAxisAlignment.center,
+//           children: <Widget>[
+//             SearchableDropdown(
+//               items: country,
+//               isExpanded: true,
+//               value: selectedValue,
+//               isCaseSensitiveSearch: false,
+//               searchHint: new Text(
+//                 'Select ',
+//                 style: new TextStyle(fontSize: 20),
+//               ),
+//               onChanged: (value) {
+//                 setState(() {
+//                   selectedValue = value;
+//                   print(selectedValue);
+//                 });
+//               },
+//             ),
+//             Text(
+//               'You have pushed the button this many times:',
+//             ),
+//             Text(
+//               '$_counter',
+//               style: Theme.of(context).textTheme.display1,
+//             ),
+//           ],
+//         ),
+//       ),
+//       // floatingActionButton: FloatingActionButton(
+//       //   onPressed: _incrementCounter,
+//       //   tooltip: 'Increment',
+//       //   child: Icon(Icons.add),
+//       // ),
+//     );
+//   }
+// }
+//
+// FirebaseFirestore _firestore = FirebaseFirestore.instance;
+//
+// class TextingFirebase extends StatefulWidget {
+//   @override
+//   _TextingFirebaseState createState() => _TextingFirebaseState();
+// }
+//
 // getDbData() async {
 //   var webinarCollection = await _firestore.collection('Webinar');
 //   var webinar = await webinarCollection.get();
@@ -85,104 +217,85 @@ class TextingFirebase extends StatefulWidget {
 //     }
 //   }
 // }
-
-final numbrerList = List.generate(50, (index) => index + 1);
-
-showJoinDialog(context) {
-  return showDialog(
-      context: context,
-      builder: (BuildContext context) {
-        return AlertDialog(
-          content: Text('hi'),
-          actions: [
-            TextButton(
-              child: Text('Join'),
-              onPressed: () {
-                Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) => JoinSuccessfully()));
-              },
-            ),
-          ],
-        );
-      });
-}
-
-// payment(List userId) async {
-//   List<Widget> datas = [];
-//   var allpayment = await _firestore
-//       .collection('new users')
-//       .doc(userId[0])
-//       .collection('payment')
-//       .get();
-//   var paymentData = allpayment.docs;
-//   for (var j in paymentData) {
-//     final date = j.data()['date'];
-//     final coursename = j.data()['coursename'];
-//     final amount = j.data()['amount'];
-//     final image = j.data()['image'];
-//     final paid_via = j.data()['paid_via'];
-//     final status = j.data()['status'];
-//     Column singleData = Column(
-//       children: [
-//         Text(date),
-//         Text(coursename),
-//         Text(amount),
-//         Text(image),
-//         Text(paid_via),
-//         Text(status),
-//       ],
-//     );
-//     datas.add(singleData);
-//   }
-//   return Column(children: [Text('hi')]);
-// }
 //
-// Widget paymentStreem(String userId) {
-//   return StreamBuilder<QuerySnapshot>(
+// final numbrerList = List.generate(50, (index) => index + 1);
+//
+
+//
+// // payment(List userId) async {
+// //   List<Widget> datas = [];
+// //   var allpayment = await _firestore
+// //       .collection('new users')
+// //       .doc(userId[0])
+// //       .collection('payment')
+// //       .get();
+// //   var paymentData = allpayment.docs;
+// //   for (var j in paymentData) {
+// //     final date = j.data()['date'];
+// //     final coursename = j.data()['coursename'];
+// //     final amount = j.data()['amount'];
+// //     final image = j.data()['image'];
+// //     final paid_via = j.data()['paid_via'];
+// //     final status = j.data()['status'];
+// //     Column singleData = Column(
+// //       children: [
+// //         Text(date),
+// //         Text(coursename),
+// //         Text(amount),
+// //         Text(image),
+// //         Text(paid_via),
+// //         Text(status),
+// //       ],
+// //     );
+// //     datas.add(singleData);
+// //   }
+// //   return Column(children: [Text('hi')]);
+// // }
+// //
+// // Widget paymentStreem(String userId) {
+// //   return StreamBuilder<QuerySnapshot>(
+// //       stream: _firestore
+// //           .collection('new users')
+// //           .doc(userId)
+// //           .collection('payment')
+// //           .snapshots(),
+// //       builder: (contex, snapshot) {
+// //         if (snapshot.hasData) {
+// //           return Text('test...');
+// //         } else {
+// //           var paymentData = snapshot.data.docs;
+// //           for (var j in paymentData) {
+// //             final date = j.data()['date'];
+// //             final coursename = j.data()['coursename'];
+// //             final amount = j.data()['amount'];
+// //             final image = j.data()['image'];
+// //             final paid_via = j.data()['paid_via'];
+// //             final status = j.data()['status'];
+// //             print(j.data());
+// //           }
+// //           return Text('testr..');
+// //         }
+// //       });
+// // }
+//
+// class _TextingFirebaseState extends State<TextingFirebase> {
+//   @override
+//   Widget build(BuildContext context) {
+//     return StreamBuilder<QuerySnapshot>(
 //       stream: _firestore
 //           .collection('new users')
-//           .doc(userId)
-//           .collection('payment')
-//           .snapshots(),
-//       builder: (contex, snapshot) {
-//         if (snapshot.hasData) {
-//           return Text('test...');
+//           .snapshots(includeMetadataChanges: true),
+//       builder: (context, snapshot) {
+//         if (!snapshot.hasData) {
+//           return Text('if...');
 //         } else {
-//           var paymentData = snapshot.data.docs;
-//           for (var j in paymentData) {
-//             final date = j.data()['date'];
-//             final coursename = j.data()['coursename'];
-//             final amount = j.data()['amount'];
-//             final image = j.data()['image'];
-//             final paid_via = j.data()['paid_via'];
-//             final status = j.data()['status'];
-//             print(j.data());
+//           var test = snapshot.data.docs;
+//           for (var i in test) {
+//             print(i.id);
 //           }
-//           return Text('testr..');
+//           return Text('222222222');
 //         }
-//       });
+//       },
+//     );
+//   }
 // }
-
-class _TextingFirebaseState extends State<TextingFirebase> {
-  @override
-  Widget build(BuildContext context) {
-    return StreamBuilder<QuerySnapshot>(
-      stream: _firestore
-          .collection('new users')
-          .snapshots(includeMetadataChanges: true),
-      builder: (context, snapshot) {
-        if (!snapshot.hasData) {
-          return Text('if...');
-        } else {
-          var test = snapshot.data.docs;
-          for (var i in test) {
-            print(i.id);
-          }
-          return Text('222222222');
-        }
-      },
-    );
-  }
-}

@@ -106,17 +106,26 @@ class _LiveWebinarState extends State<LiveWebinar> {
     );
   }
 
-  // void getData() async {
-  //   http.Response response = await http.get(
-  //       """ https://shrouded-fjord-03855.herokuapp.com/?name=${widget.name}&des=query&mobile=${widget.phoneNumber}&email=${widget.email}&date=date time &type=enquiry""");
-  //
-  //   if (response.statusCode == 200) {
-  //     String data = response.body;
-  //     print(data);
-  //   } else {
-  //     print(response.statusCode);
-  //   }
-  // }
+  showJoinDialog(context) {
+    return showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return AlertDialog(
+            content: Text('hi'),
+            actions: [
+              TextButton(
+                child: Text('Join'),
+                onPressed: () {
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => JoinSuccessfully()));
+                },
+              ),
+            ],
+          );
+        });
+  }
 
   @override
   Widget build(BuildContext context) {

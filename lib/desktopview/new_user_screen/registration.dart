@@ -1,5 +1,6 @@
 import 'dart:typed_data';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:dropdownfield/dropdownfield.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -15,6 +16,7 @@ import 'package:ocean_project/desktopview/new_user_widget/gender_dropdoen_field.
 import 'package:ocean_project/desktopview/new_user_widget/input_text_field.dart';
 import 'package:ocean_project/desktopview/route/routing.dart';
 import 'package:ocean_project/desktopview/screen/menubar.dart';
+import 'package:ocean_project/practice/testing.dart';
 import 'package:path/path.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:provider/provider.dart';
@@ -34,7 +36,7 @@ class _RegistrationState extends State<Registration> {
   String eMail;
   String companyOrSchool;
   String dgree;
-  String country;
+  // String country;
   String state;
   String phoneNumber;
   String portfolioLink;
@@ -77,53 +79,21 @@ class _RegistrationState extends State<Registration> {
   String fileName;
   String profilePictureLink;
 
-  Map<String, List> stateAndContry = {};
-  contryPicker() {
-    for (var i in contryState.entries) {
-      List countryList = i.value;
-      for (var j in countryList) {
-        String contry = j['country'];
-        List states = j['states'];
-        stateAndContry.addAll({contry: states});
-      }
-    }
-    splitCountryAndState();
-  }
-
-  List<DropdownMenuItem<String>> countryList = [];
-  splitCountryAndState() {
-    setState(() {
-      countryList.clear();
-    });
-    for (var i in stateAndContry.entries) {
-      DropdownMenuItem<String> addCountry = DropdownMenuItem(
-        child: Text(i.key),
-        value: i.key,
-      );
-      countryList.add(addCountry);
-    }
-  }
-
-  List<DropdownMenuItem<String>> states = [];
-  statePicker(String state) {
-    setState(() {
-      states.clear();
-    });
-    for (var i in stateAndContry[state]) {
-      print(i);
-      DropdownMenuItem<String> state = DropdownMenuItem(
-        child: Text(i),
-        value: i,
-      );
-      states.add(state);
-    }
-  }
-
+  List<String> country = [];
+  final countryContrller = TextEditingController();
+  final stateContrller = TextEditingController();
+  String selectedCountry = '';
+  String selectedState = '';
+  Map<String, List> CountryState = {};
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
-    contryPicker();
+    for (var i in contryState['countries']) {
+      print(i['states']);
+      country.add(i['country']);
+      CountryState.addAll({i['country']: i['states']});
+    }
   }
 
   @override
@@ -311,33 +281,104 @@ class _RegistrationState extends State<Registration> {
                           controller: _dgree,
                           onChanged: (value) {},
                         ),
-                        ContryPicker(
-                          labelText: 'Country',
-                          errorText: 'select country',
-                          items: countryList,
-                          color: Colors.white,
-                          visible: isCountry,
-                          value: country,
-                          onChanged: (value) {
-                            setState(() {
-                              country = value;
-                              states = [];
-
-                              statePicker(country);
-                            });
-                          },
+                        Container(
+                          margin: EdgeInsets.symmetric(
+                              horizontal: 20, vertical: 10),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                'Country',
+                                style: TextStyle(
+                                    fontSize: 20.0, color: Colors.white),
+                              ),
+                              SizedBox(
+                                height: 9,
+                              ),
+                              Container(
+                                alignment: Alignment.center,
+                                width: 300,
+                                padding: EdgeInsets.symmetric(vertical: 5),
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(5),
+                                  color: Colors.white,
+                                ),
+                                child: DropDownField(
+                                  controller: countryContrller,
+                                  hintText: 'Select Country',
+                                  hintStyle: TextStyle(
+                                      fontSize: 18.0,
+                                      fontWeight: FontWeight.bold,
+                                      color: Colors.grey[500]),
+                                  textStyle: TextStyle(
+                                      fontSize: 18.0,
+                                      fontWeight: FontWeight.bold,
+                                      color: Colors.grey[700]),
+                                  enabled: true,
+                                  strict: false,
+                                  required: isCountry,
+                                  itemsVisibleInDropdown: 3,
+                                  items: country,
+                                  onValueChanged: (value) {
+                                    setState(() {
+                                      selectedCountry = value;
+                                      print(selectedCountry);
+                                    });
+                                  },
+                                ),
+                              ),
+                            ],
+                          ),
                         ),
-                        ContryPicker(
-                          labelText: 'State',
-                          errorText: 'select State',
-                          items: states,
-                          visible: isState,
-                          value: state,
-                          onChanged: (value) {
-                            setState(() {
-                              state = value;
-                            });
-                          },
+                        Container(
+                          margin: EdgeInsets.symmetric(
+                              horizontal: 20, vertical: 10),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                'State',
+                                style: TextStyle(
+                                    fontSize: 20.0, color: Colors.white),
+                              ),
+                              SizedBox(
+                                height: 9,
+                              ),
+                              Container(
+                                alignment: Alignment.center,
+                                width: 300,
+                                padding: EdgeInsets.symmetric(vertical: 5),
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(5),
+                                  color: Colors.white,
+                                ),
+                                child: DropDownField(
+                                  controller: stateContrller,
+                                  hintText: 'Select State',
+                                  hintStyle: TextStyle(
+                                      fontSize: 18.0,
+                                      fontWeight: FontWeight.bold,
+                                      color: Colors.grey[500]),
+                                  textStyle: TextStyle(
+                                      fontSize: 18.0,
+                                      fontWeight: FontWeight.bold,
+                                      color: Colors.grey[700]),
+                                  enabled:
+                                      selectedCountry.length > 1 ? true : false,
+                                  strict: false,
+                                  required: isState,
+                                  itemsVisibleInDropdown: 3,
+                                  items: CountryState[selectedCountry],
+                                  onValueChanged: (value) {
+                                    setState(() {
+                                      selectedState = value;
+                                      print(selectedState);
+                                    });
+                                  },
+                                ),
+                              ),
+                            ],
+                          ),
                         ),
                         LableWithTextField(
                           lableText: 'Phone Number',
@@ -427,24 +468,6 @@ class _RegistrationState extends State<Registration> {
     });
   }
 
-  void fireStoreAdd() {
-    _firestore.collection('new users').doc(_phoneNumber.text).set({
-      'Profile Picture': profilePictureLink,
-      'First Name': _firstName.text,
-      'Last Name': _lastName.text,
-      'Gender': GenderDropdownField.gendVal,
-      'Date of Birth': dOB,
-      'E Mail': _eMail.text,
-      'Company or School': _companyOrSchool.text,
-      'Degree': _dgree.text,
-      'Country': country,
-      'State': state,
-      'Phone Number': _phoneNumber.text,
-      'Courses': [],
-      'batchid': [],
-    });
-  }
-
   void textFieldClear() {
     setState(() {
       profilePictureLink = profilePictureLink = null;
@@ -456,9 +479,27 @@ class _RegistrationState extends State<Registration> {
     _eMail.clear();
     _companyOrSchool.clear();
     _dgree.clear();
-    country = null;
-    state = null;
+    countryContrller.clear();
+    stateContrller.clear();
     _phoneNumber.clear();
+  }
+
+  void fireStoreAdd() {
+    _firestore.collection('new users').doc(_phoneNumber.text).set({
+      'Profile Picture': profilePictureLink,
+      'First Name': _firstName.text,
+      'Last Name': _lastName.text,
+      'Gender': GenderDropdownField.gendVal,
+      'Date of Birth': dOB,
+      'E Mail': _eMail.text,
+      'Company or School': _companyOrSchool.text,
+      'Degree': _dgree.text,
+      'Country': selectedCountry,
+      'State': selectedState,
+      'Phone Number': _phoneNumber.text,
+      'Courses': [],
+      'batchid': [],
+    });
   }
 
   bool isEmail = false;
@@ -514,17 +555,17 @@ class _RegistrationState extends State<Registration> {
       });
     }
     //last name
-    if (!nameValidation(_lastName.text) || _lastName.text.length < 3) {
-      setState(() {
-        isLastName = true;
-        ifRFV = isLastName;
-      });
-    } else {
-      setState(() {
-        isLastName = false;
-        elseRFV = isLastName;
-      });
-    }
+    // if (!nameValidation(_lastName.text) || _lastName.text.length < 3) {
+    //   setState(() {
+    //     isLastName = true;
+    //     ifRFV = isLastName;
+    //   });
+    // } else {
+    //   setState(() {
+    //     isLastName = false;
+    //     elseRFV = isLastName;
+    //   });
+    // }
     // gender
     if (GenderDropdownField.gendVal == null) {
       setState(() {
@@ -587,7 +628,7 @@ class _RegistrationState extends State<Registration> {
       });
     }
     //Country
-    if (country == null) {
+    if (selectedCountry == null || selectedCountry.length < 1) {
       setState(() {
         isCountry = true;
         ifRFV = isCountry;
@@ -599,7 +640,7 @@ class _RegistrationState extends State<Registration> {
       });
     }
     //state
-    if (state == null) {
+    if (selectedState == null || selectedState.length < 1) {
       setState(() {
         isState = true;
         ifRFV = isState;
