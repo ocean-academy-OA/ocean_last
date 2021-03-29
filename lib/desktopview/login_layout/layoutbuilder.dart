@@ -16,7 +16,7 @@ class LoginLayout extends StatelessWidget {
         return LoginMD();
       } else if (constraints.maxWidth > 800 && constraints.maxWidth < 1300) {
         return LoginSM();
-      } else if (constraints.maxWidth > 800 && constraints.maxWidth < 1000) {
+      } else {
         return LoginXS();
       }
     });
