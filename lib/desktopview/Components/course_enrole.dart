@@ -4,7 +4,9 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:intl/intl.dart';
 import 'package:ocean_project/desktopview/Components/onlineDb.dart';
+import 'package:ocean_project/desktopview/Components/syllebus/syllabus_widget.dart';
 import 'package:ocean_project/desktopview/constants.dart';
 import 'package:ocean_project/desktopview/new_user_screen/log_in.dart';
 import 'package:ocean_project/desktopview/route/routing.dart';
@@ -477,71 +479,121 @@ class _ContentWidgetState extends State<ContentWidget> {
             SizedBox(
               height: 20.0,
             ),
-            StreamBuilder<QuerySnapshot>(
-              stream: _firestore
-                  .collection('course')
-                  .doc(widget.batchid)
-                  .collection("schedule")
-                  .snapshots(),
-              // ignore: missing_return
-              builder: (context, snapshot) {
-                if (!snapshot.hasData) {
-                  return Text("Loading...");
-                } else {
-                  final messages = snapshot.data.docs;
-                  List<CourseContent> courseContent = [];
-                  //List<String> subjects = [];
-                  for (var message in messages) {
-                    //if ((message.data()['coursename'] == widget.course)) {
-                    final messageText = message.data()['date_and_time'];
-                    final messagebatch = message.data()['description'];
-                    final meetingNumber = message.data()['zoom_link'];
-                    final password = message.data()['zoom_password'];
-                    final messageFinish = message.data()['finish'];
-                    final messageCoursedescription =
-                        message.data()['description'];
-                    final messageTopic = message.data()['topicCover'];
-                    final messageContent1 = message.id;
-                    final messageContent2 = message.data()['date'];
-                    final messageContent3 = message.data()['time'];
-                    final messageContent = CourseContent(
-                      name: messageText,
-                      coursename: widget.course,
-                      finish: messageFinish,
-                      coursedescription: messageCoursedescription,
-                      topicCover: messageTopic,
-                      title: messageContent1,
-                      date: messageContent2,
-                      time: messageContent3,
-                      meetingPassword: password,
-                      batchid: messagebatch,
-                      meeting: meetingNumber,
-                      result: resolve,
-                      onpress: () {
-                        print(password);
-                        print("++++++++++++++++@@@@@@@@@@@");
-                        print(meetingNumber);
-                        print(
-                            "https://brindakarthik.github.io/zoom/?meetingNumber=$meetingNumber&username=abc&password=$password");
-                        Provider.of<SyllabusView>(context, listen: false)
-                            .updateCourseSyllabus(
-                                routing: ZoomIntegration(
-                          zoomLink:
-                              "https://brindakarthik.github.io/zoom/?meetingNumber=$meetingNumber&username=abc&password=$password",
-                        ));
-                      },
-                    );
-                    courseContent.add(messageContent);
-                    //  }
-                  }
-                  return SingleChildScrollView(
-                    child: Column(
-                      children: courseContent,
-                    ),
-                  );
-                }
-              },
-            ),
+            Container(
+              child: Column(
+                children: [
+                  Row(),
+                  StreamBuilder<QuerySnapshot>(
+                    stream: _firestore
+                        .collection('course')
+                        .doc(widget.batchid)
+                        .collection('schedule')
+                        .orderBy('id')
+                        .snapshots(),
+                    builder: (context, snapshot) {
+                      if (!snapshot.hasData) {
+                        return Text('Looding...');
+                      } else {
+                        List<SyllabusList> syllabusLists = [];
+                        Map<int, String> scheduleDocId = {};
+                        Map<int, Widget> syllabusMap = {};
+                        List<int> timingList = [];
+                        timingList.sort();
+                        for (var i in snapshot.data.docs) {
+                          String title = i.id;
+                          String subTitle = i.data()['description'];
+                          String zoomLink = i.data()['zoom_link'];
+                          String zoomPassword = i.data()['zoom_password'];
+                          Timestamp timeStamp = i.data()['date'];
+                          int coursId = i.data()['id'];
+
+                          int yearFormat;
+                          int monthFormat;
+                          int dayFormat;
+                          int hourFormat;
+                          int minuteFormat;
+                          int secondsFormat;
+                          String monthFormatString;
+
+                          var year = DateFormat('y');
+                          var month = DateFormat('MM');
+                          var day = DateFormat('d');
+                          var hour = DateFormat('hh');
+                          var minute = DateFormat('mm');
+                          var seconds = DateFormat('s');
+                          var monthString = DateFormat('MMMM');
+
+                          yearFormat =
+                              int.parse(year.format(timeStamp.toDate()));
+                          monthFormat =
+                              int.parse(month.format(timeStamp.toDate()));
+                          monthFormatString =
+                              monthString.format(timeStamp.toDate());
+                          dayFormat = int.parse(day.format(timeStamp.toDate()));
+                          hourFormat =
+                              int.parse(hour.format(timeStamp.toDate()));
+                          minuteFormat =
+                              int.parse(minute.format(timeStamp.toDate()));
+                          secondsFormat =
+                              int.parse(seconds.format(timeStamp.toDate()));
+                          var timeFormat =
+                              DateFormat('a').format(timeStamp.toDate());
+                          var defrenceTime = DateTime(
+                                  yearFormat,
+                                  monthFormat,
+                                  dayFormat,
+                                  timeFormat == 'AM'
+                                      ? hourFormat
+                                      : hourFormat + 12,
+                                  minuteFormat,
+                                  secondsFormat)
+                              .difference(DateTime.now())
+                              .inSeconds;
+
+                          SyllabusList syllabusAdd = SyllabusList(
+                            title: title,
+                            subTitle: subTitle,
+                            dayFormat: dayFormat,
+                            monthFormatString: monthFormatString,
+                            minuteFormat: minuteFormat,
+                            hourFormat: hourFormat,
+                            color: coursId == 0
+                                ? Color(0xff14BC05)
+                                : Color(0xff0B74EF),
+                            timing: timeFormat,
+                            onPressed: coursId == 1
+                                ? () {
+                                    Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                            builder: (context) =>
+                                                ZoomIntegration(
+                                                  zoomLink:
+                                                      "https://brindakarthik.github.io/zoom/?meetingNumber=$zoomLink&username=abc&password=$zoomPassword",
+                                                )));
+                                  }
+                                : coursId == 0
+                                    ? () {
+                                        print('completed');
+                                      }
+                                    : null,
+                          );
+                          syllabusLists.add(syllabusAdd);
+                        }
+                        timingList.sort();
+                        print(timingList);
+
+                        return SingleChildScrollView(
+                          child: Column(
+                            children: syllabusLists,
+                          ),
+                        );
+                      }
+                    },
+                  )
+                ],
+              ),
+            )
           ],
         ),
       ),

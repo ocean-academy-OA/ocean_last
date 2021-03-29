@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:ocean_project/desktopview/new_user_screen/edit_profile.dart';
 
 class SyllabusList extends StatefulWidget {
   SyllabusList(
@@ -11,8 +12,10 @@ class SyllabusList extends StatefulWidget {
       this.minuteFormat,
       this.timing,
       this.zoomLink,
-      this.zoomPassword});
+      this.zoomPassword,
+      this.color});
   String title;
+  Color color = Color(0xff0B74EF);
   String subTitle;
   String zoomLink;
   String zoomPassword;
@@ -29,9 +32,9 @@ class SyllabusList extends StatefulWidget {
 class _SyllabusListState extends State<SyllabusList> {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-        body: Center(
-            child: Container(
+    return Center(
+        child: Container(
+      margin: EdgeInsets.symmetric(vertical: 10),
       color: Colors.white,
       height: 150,
       width: 700,
@@ -85,7 +88,7 @@ class _SyllabusListState extends State<SyllabusList> {
           Row(
             children: [
               Container(
-                width: 300,
+                width: 400,
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   mainAxisAlignment: MainAxisAlignment.center,
@@ -114,7 +117,7 @@ class _SyllabusListState extends State<SyllabusList> {
               IconButton(
                 icon: Icon(Icons.video_call_sharp),
                 iconSize: 35,
-                color: Color(0xff0B74EF),
+                color: widget.color,
                 onPressed: widget.onPressed,
               )
             ],
@@ -130,6 +133,6 @@ class _SyllabusListState extends State<SyllabusList> {
           ),
         ],
       ),
-    )));
+    ));
   }
 }
