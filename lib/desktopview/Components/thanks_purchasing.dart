@@ -1,3 +1,4 @@
+import 'dart:html';
 import 'package:flutter/material.dart';
 import 'package:ocean_project/desktopview/screen/footer.dart';
 
