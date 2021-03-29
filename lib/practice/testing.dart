@@ -1,128 +1,236 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
+import 'package:ocean_project/desktopview/Components/syllebus/syllabus_widget.dart';
 
 void main() {
   runApp(
     MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: SyllabusList(),
+      home: Scaffold(body: ViewSyllabus()),
     ),
   );
 }
 
-class SyllabusList extends StatefulWidget {
+FirebaseFirestore _firestore = FirebaseFirestore.instance;
+
+class ViewSyllabus extends StatefulWidget {
   @override
-  _SyllabusListState createState() => _SyllabusListState();
+  _ViewSyllabusState createState() => _ViewSyllabusState();
 }
 
-class _SyllabusListState extends State<SyllabusList> {
+class _ViewSyllabusState extends State<ViewSyllabus> {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-        body: Center(
-            child: Container(
-      color: Colors.white,
-      height: 150,
-      width: 700,
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+    return Container(
+      child: Column(
         children: [
-          Container(
-            width: 150,
-            decoration: BoxDecoration(
-              gradient: LinearGradient(
-                begin: FractionalOffset.topLeft,
-                end: FractionalOffset.bottomRight,
-                colors: [Color(0xff0B74EF), Color(0xff00D1FF)],
-              ),
-            ),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
-              children: [
-                Text(
-                  '10:30 AM',
-                  style: TextStyle(
-                      fontSize: 22,
-                      color: Colors.white,
-                      fontWeight: FontWeight.normal),
-                ),
-                Column(
-                  children: [
-                    Text(
-                      '25',
-                      style: TextStyle(
-                          height: 1,
-                          fontSize: 60,
-                          color: Colors.white,
-                          fontWeight: FontWeight.normal),
-                    ),
-                    Text(
-                      'September',
-                      style: TextStyle(
-                          fontSize: 20,
-                          color: Colors.white,
-                          fontWeight: FontWeight.normal),
-                    )
-                  ],
-                ),
-                SizedBox(
-                  height: 20,
-                )
-              ],
-            ),
-          ),
-          Row(
-            children: [
-              Container(
-                width: 300,
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Text(
-                      'Title',
-                      style: TextStyle(
-                          fontSize: 20,
-                          fontFamily: 'Roboto',
-                          inherit: false,
-                          fontWeight: FontWeight.w800,
-                          color: Colors.grey[700]),
-                    ),
-                    Text(
-                      'Subtitle',
-                      style: TextStyle(
-                          fontSize: 18,
-                          fontFamily: 'Roboto',
-                          inherit: false,
-                          fontWeight: FontWeight.normal,
-                          color: Colors.grey[500]),
-                    ),
-                  ],
-                ),
-              ),
-              IconButton(
-                icon: Icon(Icons.video_call_sharp),
-                iconSize: 35,
-                color: Color(0xff0B74EF),
-                onPressed: () {
-                  print('join');
-                },
-              )
-            ],
-          ),
-          Container(
-            width: 10,
-            decoration: BoxDecoration(
-                gradient: LinearGradient(
-              begin: FractionalOffset.topLeft,
-              end: FractionalOffset.bottomRight,
-              colors: [Color(0xff0B74EF), Color(0xff00D1FF)],
-            )),
-          ),
+          Row(),
+          StreamBuilder<QuerySnapshot>(
+            stream: _firestore
+                .collection('course')
+                .doc('OCNJA18')
+                .collection('schedule')
+                .snapshots(),
+            builder: (context, snapshot) {
+              if (!snapshot.hasData) {
+                return Text('Looding...');
+              } else {
+                List<SyllabusList> syllabusLists = [];
+                Widget testWidget;
+                Map<int, Widget> syllabusMap = {};
+                List<Widget> test = [];
+                for (var i in snapshot.data.docs) {
+                  String title = i.id;
+                  String subTitle = i.data()['description'];
+                  String zoomLink = i.data()['zoom_link'];
+                  String zoomPassword = i.data()['zoom_password'];
+                  Timestamp timeStamp = i.data()['date'];
+
+                  int yearFormat;
+                  int monthFormat;
+                  int dayFormat;
+                  int hourFormat;
+                  int minuteFormat;
+                  int secondsFormat;
+                  String monthFormatString;
+
+                  var year = DateFormat('y');
+                  var month = DateFormat('MM');
+                  var day = DateFormat('d');
+                  var hour = DateFormat('hh');
+                  var minute = DateFormat('mm');
+                  var seconds = DateFormat('s');
+                  var monthString = DateFormat('MMMM');
+
+                  yearFormat = int.parse(year.format(timeStamp.toDate()));
+                  monthFormat = int.parse(month.format(timeStamp.toDate()));
+                  monthFormatString = monthString.format(timeStamp.toDate());
+                  dayFormat = int.parse(day.format(timeStamp.toDate()));
+                  hourFormat = int.parse(hour.format(timeStamp.toDate()));
+                  minuteFormat = int.parse(minute.format(timeStamp.toDate()));
+                  secondsFormat = int.parse(seconds.format(timeStamp.toDate()));
+                  var timeFormat = DateFormat('a').format(timeStamp.toDate());
+                  var defrenceTime = DateTime(
+                          yearFormat,
+                          monthFormat,
+                          dayFormat,
+                          timeFormat == 'AM' ? hourFormat : hourFormat + 12,
+                          minuteFormat,
+                          secondsFormat)
+                      .difference(DateTime.now())
+                      .inSeconds;
+                  SyllabusList syllabusAdd = SyllabusList(
+                    title: title,
+                    subTitle: 'subTitle',
+                    dayFormat: 5,
+                    monthFormatString: 'monthFormatString',
+                    minuteFormat: 3,
+                    hourFormat: 6,
+                    timing: 'timeFormat',
+                  );
+                  testWidget = syllabusAdd;
+                  syllabusLists.add(SyllabusList(
+                    title: title,
+                    subTitle: subTitle,
+                    dayFormat: dayFormat,
+                    monthFormatString: monthFormatString,
+                    minuteFormat: minuteFormat,
+                    hourFormat: hourFormat,
+                    timing: timeFormat,
+                  ));
+                  syllabusMap.addAll({defrenceTime: syllabusAdd});
+                  print(syllabusMap);
+                }
+                return SingleChildScrollView(
+                  child: Column(
+                    children: syllabusLists,
+                  ),
+                );
+              }
+            },
+          )
         ],
       ),
-    )));
+    );
   }
 }
+
+//
+// class SyllabusList extends StatefulWidget {
+//   @override
+//   _SyllabusListState createState() => _SyllabusListState();
+// }
+//
+// class _SyllabusListState extends State<SyllabusList> {
+//   @override
+//   Widget build(BuildContext context) {
+//     return Scaffold(
+//         body: Center(
+//             child: Container(
+//       color: Colors.white,
+//       height: 150,
+//       width: 700,
+//       child: Row(
+//         mainAxisAlignment: MainAxisAlignment.spaceBetween,
+//         children: [
+//           Container(
+//             width: 150,
+//             decoration: BoxDecoration(
+//               gradient: LinearGradient(
+//                 begin: FractionalOffset.topLeft,
+//                 end: FractionalOffset.bottomRight,
+//                 colors: [Color(0xff0B74EF), Color(0xff00D1FF)],
+//               ),
+//             ),
+//             child: Column(
+//               mainAxisAlignment: MainAxisAlignment.spaceAround,
+//               children: [
+//                 Text(
+//                   '10:30 AM',
+//                   style: TextStyle(
+//                       fontSize: 22,
+//                       color: Colors.white,
+//                       fontWeight: FontWeight.normal),
+//                 ),
+//                 Column(
+//                   children: [
+//                     Text(
+//                       '25',
+//                       style: TextStyle(
+//                           height: 1,
+//                           fontSize: 60,
+//                           color: Colors.white,
+//                           fontWeight: FontWeight.normal),
+//                     ),
+//                     Text(
+//                       'September',
+//                       style: TextStyle(
+//                           fontSize: 20,
+//                           color: Colors.white,
+//                           fontWeight: FontWeight.normal),
+//                     )
+//                   ],
+//                 ),
+//                 SizedBox(
+//                   height: 20,
+//                 )
+//               ],
+//             ),
+//           ),
+//           Row(
+//             children: [
+//               Container(
+//                 width: 300,
+//                 child: Column(
+//                   crossAxisAlignment: CrossAxisAlignment.start,
+//                   mainAxisAlignment: MainAxisAlignment.center,
+//                   children: [
+//                     Text(
+//                       'Title',
+//                       style: TextStyle(
+//                           fontSize: 20,
+//                           fontFamily: 'Roboto',
+//                           inherit: false,
+//                           fontWeight: FontWeight.w800,
+//                           color: Colors.grey[700]),
+//                     ),
+//                     Text(
+//                       'Subtitle',
+//                       style: TextStyle(
+//                           fontSize: 18,
+//                           fontFamily: 'Roboto',
+//                           inherit: false,
+//                           fontWeight: FontWeight.normal,
+//                           color: Colors.grey[500]),
+//                     ),
+//                   ],
+//                 ),
+//               ),
+//               IconButton(
+//                 icon: Icon(Icons.video_call_sharp),
+//                 iconSize: 35,
+//                 color: Color(0xff0B74EF),
+//                 onPressed: () {
+//                   print('join');
+//                 },
+//               )
+//             ],
+//           ),
+//           Container(
+//             width: 10,
+//             decoration: BoxDecoration(
+//                 gradient: LinearGradient(
+//               begin: FractionalOffset.topLeft,
+//               end: FractionalOffset.bottomRight,
+//               colors: [Color(0xff0B74EF), Color(0xff00D1FF)],
+//             )),
+//           ),
+//         ],
+//       ),
+//     )));
+//   }
+// }
 
 //
 // class CountryStatePicker extends StatefulWidget {
