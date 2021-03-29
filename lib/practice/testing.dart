@@ -21,25 +21,62 @@ class _SyllabusListState extends State<SyllabusList> {
         body: Center(
             child: Container(
       color: Colors.white,
-      height: 100,
-      width: 500,
+      height: 150,
+      width: 700,
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           Container(
-            width: 100,
+            width: 150,
             decoration: BoxDecoration(
-                gradient: LinearGradient(
-              begin: FractionalOffset.topLeft,
-              end: FractionalOffset.bottomRight,
-              colors: [Color(0xff0B74EF), Color(0xff00D1FF)],
-            )),
+              gradient: LinearGradient(
+                begin: FractionalOffset.topLeft,
+                end: FractionalOffset.bottomRight,
+                colors: [Color(0xff0B74EF), Color(0xff00D1FF)],
+              ),
+            ),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              children: [
+                Text(
+                  '10:30 AM',
+                  style: TextStyle(
+                      fontSize: 22,
+                      color: Colors.white,
+                      fontWeight: FontWeight.normal),
+                ),
+                Column(
+                  children: [
+                    Text(
+                      '25',
+                      style: TextStyle(
+                          height: 1,
+                          fontSize: 60,
+                          color: Colors.white,
+                          fontWeight: FontWeight.normal),
+                    ),
+                    Text(
+                      'September',
+                      style: TextStyle(
+                          fontSize: 20,
+                          color: Colors.white,
+                          fontWeight: FontWeight.normal),
+                    )
+                  ],
+                ),
+                SizedBox(
+                  height: 20,
+                )
+              ],
+            ),
           ),
           Row(
             children: [
               Container(
                 width: 300,
                 child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Text(
                       'Title',
@@ -63,8 +100,12 @@ class _SyllabusListState extends State<SyllabusList> {
                 ),
               ),
               IconButton(
-                icon: Icon(Icons.add),
-                iconSize: 20,
+                icon: Icon(Icons.video_call_sharp),
+                iconSize: 35,
+                color: Color(0xff0B74EF),
+                onPressed: () {
+                  print('join');
+                },
               )
             ],
           ),
