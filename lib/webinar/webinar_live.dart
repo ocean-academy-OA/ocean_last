@@ -3,7 +3,6 @@ import 'package:email_validator/email_validator.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:ocean_project/desktopview/route/routing.dart';
-import 'package:ocean_project/practice/testing.dart';
 import 'package:ocean_project/webinar/join_successfully.dart';
 import 'package:ocean_project/webinar/webinar_const.dart';
 import 'package:provider/provider.dart';

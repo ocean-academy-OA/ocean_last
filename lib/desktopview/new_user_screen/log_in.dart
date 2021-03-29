@@ -1,4 +1,3 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:country_code_picker/country_codes.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';

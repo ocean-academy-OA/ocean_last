@@ -211,7 +211,7 @@ class Purchasedatabase extends StatelessWidget {
           Container(
               alignment: Alignment.center,
               width: 120,
-              child: Text('${totalamount}')),
+              child: Text('$totalamount')),
           Container(
               alignment: Alignment.center, width: 120, child: Text('$paidvia')),
           Container(

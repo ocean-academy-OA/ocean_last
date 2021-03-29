@@ -1,12 +1,9 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:ocean_project/desktopview/constants.dart';
 import 'package:ocean_project/webinar/webinar_const.dart';
 import 'package:slide_countdown_clock/slide_countdown_clock.dart';
-
-FirebaseFirestore _firestore = FirebaseFirestore.instance;
 
 // ignore: must_be_immutable
 class Timer extends StatefulWidget {

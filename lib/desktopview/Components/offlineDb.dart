@@ -1,20 +1,12 @@
 import 'dart:html';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/gestures.dart';
-
 import 'package:flutter/rendering.dart';
-
 import 'package:flutter/services.dart';
-
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:ocean_project/alert/alert_text_field.dart';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:ocean_project/desktopview/constants.dart';
-import 'package:ocean_project/desktopview/route/routing.dart';
-import 'package:ocean_project/desktopview/screen/course_details.dart';
-import 'package:ocean_project/desktopview/screen/courses.dart';
-import 'package:provider/provider.dart';
 
 final _firestore = FirebaseFirestore.instance;
 

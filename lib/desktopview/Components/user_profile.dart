@@ -15,8 +15,6 @@ import 'package:ocean_project/desktopview/screen/menubar.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-final _firestore = FirebaseFirestore.instance;
-
 // ignore: must_be_immutable, camel_case_types
 class User_Profile extends StatefulWidget {
   bool isVisible;

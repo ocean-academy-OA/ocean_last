@@ -341,17 +341,17 @@ class _ContentWidgetState extends State<ContentWidget> {
         int endEm = 8;
 
         String year = date.substring(startYear, endYear);
-        print("year${year}");
+        print("year$year");
         String month = date.substring(startMonth, endMonth);
-        print("month${month}");
+        print("month$month");
         String day = date.substring(startDay, endDay);
-        print("day${day}");
+        print("day$day");
         int hour = int.parse(time.substring(startHour, endHour));
-        print("hour${hour}");
+        print("hour$hour");
         String minute = time.substring(startMinute, endMinute);
-        print("minute${minute}");
+        print("minute$minute");
         String morning = time.substring(startAm, endEm);
-        print("morning${morning}");
+        print("morning$morning");
         var dt = DateTime(
           int.parse(year),
           int.parse(month),
@@ -361,7 +361,7 @@ class _ContentWidgetState extends State<ContentWidget> {
         );
         var second = dt.difference(DateTime.now()).inSeconds;
         timeCalculation.add(second);
-        print("${dt}${morning}datetime");
+        print("$dt${morning}datetime");
         print(DateTime.now());
         print(timeCalculation);
         for (var i in timeCalculation) {
