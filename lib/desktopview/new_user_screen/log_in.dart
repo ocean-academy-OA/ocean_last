@@ -22,7 +22,6 @@ class LogIn extends StatefulWidget {
 class _LogInState extends State<LogIn> {
   var userSession;
   bool isNumValid = false;
-  final _firestore = FirebaseFirestore.instance;
   FirebaseAuth auth = FirebaseAuth.instance;
   TextEditingController _phoneNumberController = TextEditingController();
   String countryCode;
@@ -79,7 +78,8 @@ class _LogInState extends State<LogIn> {
         child: Stack(
           children: [
             Container(
-              width: double.infinity,
+              width: MediaQuery.of(context).size.width,
+              height: MediaQuery.of(context).size.height,
               color: Color(0xff2B9DD1),
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
