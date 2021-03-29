@@ -1,12 +1,5 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:dropdownfield/dropdownfield.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:ocean_project/desktopview/new_user_screen/edit_profile.dart';
-import 'package:ocean_project/desktopview/new_user_screen/registration.dart';
-import 'package:ocean_project/desktopview/new_user_widget/contry_states.dart';
-import 'package:ocean_project/mobileview/screen/mobile_wbinar/webinar_list.dart';
-import 'package:ocean_project/webinar/join_successfully.dart';
 
 void main() {
   runApp(
