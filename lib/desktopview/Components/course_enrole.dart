@@ -403,15 +403,13 @@ class _ContentWidgetState extends State<ContentWidget> {
           children: [
             Row(
               children: [
-                Text(
-                  "☺",
-                  style: TextStyle(
-                      color: Colors.black,
-                      fontSize: 30.0,
-                      fontWeight: FontWeight.bold),
+                Icon(
+                  FontAwesomeIcons.smileBeam,
+                  color: Colors.yellow[900],
+                  size: 30,
                 ),
                 Text(
-                  "Hi ${CoursesView.courseEnroll},you are enroll in ${widget.course} course",
+                  " Hi ${CoursesView.courseEnroll},you are enroll in ${widget.course} course",
                   style: TextStyle(
                       color: Colors.black,
                       fontSize: 20.0,
@@ -428,16 +426,33 @@ class _ContentWidgetState extends State<ContentWidget> {
               children: [
                 Row(
                   children: [
-                    OutlineButton(
-                      borderSide: BorderSide(color: Colors.blue),
+                    MaterialButton(
+                      child: Row(
+                        children: [
+                          Icon(
+                            Icons.menu_book,
+                            color: Colors.white,
+                            size: 30.0,
+                          ),
+                          SizedBox(
+                            width: 10.0,
+                          ),
+                          Text(
+                            "View Syllabus",
+                            style: TextStyle(
+                              color: Colors.white,
+                              fontSize: 15.0,
+                            ),
+                          ),
+                        ],
+                      ),
                       padding: EdgeInsets.symmetric(
                           horizontal: 35.0, vertical: 17.0),
-                      color: Colors.white,
+                      color: Colors.lightBlue,
                       shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.all(
-                          Radius.circular(50.0),
-                        ),
-                      ),
+                          borderRadius: BorderRadius.circular(5)),
+                      hoverElevation: 5,
+                      elevation: 0,
                       onPressed: () {
                         setState(() {
                           OnlineCourse.visiblity = false;
@@ -452,25 +467,6 @@ class _ContentWidgetState extends State<ContentWidget> {
                           batch: widget.batchid,
                         ));
                       },
-                      child: Row(
-                        children: [
-                          Icon(
-                            Icons.menu_book,
-                            color: Color(0xFF0091D2),
-                            size: 30.0,
-                          ),
-                          SizedBox(
-                            width: 10.0,
-                          ),
-                          Text(
-                            "View Syllabus",
-                            style: TextStyle(
-                              color: Color(0xFF0091D2),
-                              fontSize: 15.0,
-                            ),
-                          ),
-                        ],
-                      ),
                     ),
                   ],
                 ),
@@ -559,7 +555,14 @@ class _ContentWidgetState extends State<ContentWidget> {
                             hourFormat: hourFormat,
                             color: coursId == 0
                                 ? Color(0xff14BC05)
-                                : Color(0xff0B74EF),
+                                : coursId == 1
+                                    ? Color(0xff0B74EF)
+                                    : Colors.grey[500],
+                            status: coursId == 0
+                                ? 'Completed'
+                                : coursId == 1
+                                    ? 'Join Live'
+                                    : 'Not Scheduled',
                             timing: timeFormat,
                             onPressed: coursId == 1
                                 ? () {
