@@ -15,8 +15,10 @@ class SyllabusList extends StatefulWidget {
       this.zoomPassword,
       this.mainColor,
       this.status,
-      this.secondaryColor});
+      this.secondaryColor,
+      this.duration});
   String title;
+  String duration;
   String status;
   Color mainColor = Color(0xff0B74EF);
   Color secondaryColor = Color(0xff00A3FF);
@@ -108,6 +110,9 @@ class _SyllabusListState extends State<SyllabusList> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
+                      SizedBox(
+                        height: 25,
+                      ),
                       Text(
                         '${widget.title}',
                         style: TextStyle(
@@ -126,6 +131,14 @@ class _SyllabusListState extends State<SyllabusList> {
                             fontWeight: FontWeight.normal,
                             color: Colors.grey[500]),
                       ),
+                      Spacer(),
+                      Padding(
+                        padding: const EdgeInsets.symmetric(vertical: 10),
+                        child: Text(
+                          '${widget.duration} Minutes',
+                          style: TextStyle(fontSize: 20, color: Colors.grey),
+                        ),
+                      )
                     ],
                   ),
                 ),

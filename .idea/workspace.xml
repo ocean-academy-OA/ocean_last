@@ -22,20 +22,10 @@
     <select />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="f0636c9e-06a6-419e-bb2d-a9c7ab8a2030" name="Default Changelist" comment="syllabus widget completed">
-      <change afterPath="$PROJECT_DIR$/lib/pop_up_menu_botton_custamize.dart" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/practice/popup_menubutton.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.dart_tool/package_config.json" beforeDir="false" afterPath="$PROJECT_DIR$/.dart_tool/package_config.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.flutter-plugins-dependencies" beforeDir="false" afterPath="$PROJECT_DIR$/.flutter-plugins-dependencies" afterDir="false" />
+    <list default="true" id="f0636c9e-06a6-419e-bb2d-a9c7ab8a2030" name="Default Changelist" comment="profile popup menu button completed">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.packages" beforeDir="false" afterPath="$PROJECT_DIR$/.packages" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/f872507f30e2ff2523f0f1d19160266e.cache.dill.track.dill" beforeDir="false" afterPath="$PROJECT_DIR$/build/f872507f30e2ff2523f0f1d19160266e.cache.dill.track.dill" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/flutter_assets/NOTICES" beforeDir="false" afterPath="$PROJECT_DIR$/build/flutter_assets/NOTICES" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/lib/desktopview/Components/course_enrole.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/desktopview/Components/course_enrole.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/desktopview/Components/enrool_appbar.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/desktopview/Components/enrool_appbar.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/lib/desktopview/Components/syllebus/syllabus_widget.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/desktopview/Components/syllebus/syllabus_widget.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/practice/testing.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/practice/testing.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pubspec.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/pubspec.yaml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -115,13 +105,6 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1613817500605</updated>
-    </task>
-    <task id="LOCAL-00019" summary="single webinar passed the course id">
-      <created>1615351774653</created>
-      <option name="number" value="00019" />
-      <option name="presentableId" value="LOCAL-00019" />
-      <option name="project" value="LOCAL" />
-      <updated>1615351774653</updated>
     </task>
     <task id="LOCAL-00020" summary="correct the mistake">
       <created>1615351863382</created>
@@ -459,7 +442,14 @@
       <option name="project" value="LOCAL" />
       <updated>1617079177114</updated>
     </task>
-    <option name="localTasksCounter" value="68" />
+    <task id="LOCAL-00068" summary="profile popup menu button completed">
+      <created>1617101544890</created>
+      <option name="number" value="00068" />
+      <option name="presentableId" value="LOCAL-00068" />
+      <option name="project" value="LOCAL" />
+      <updated>1617101544897</updated>
+    </task>
+    <option name="localTasksCounter" value="69" />
     <servers />
   </component>
   <component name="UnknownFeatures">
@@ -479,7 +469,6 @@
   </component>
   <component name="VcsManagerConfiguration">
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
-    <MESSAGE value="end of the day 15-03-2021.changed in course details page" />
     <MESSAGE value="final version 1 after hosted" />
     <MESSAGE value="completed the otp and routing in course" />
     <MESSAGE value="back routing" />
@@ -504,7 +493,8 @@
     <MESSAGE value="updated mobile_view homepage" />
     <MESSAGE value="syllabus widget done" />
     <MESSAGE value="syllabus widget completed" />
-    <option name="LAST_COMMIT_MESSAGE" value="syllabus widget completed" />
+    <MESSAGE value="profile popup menu button completed" />
+    <option name="LAST_COMMIT_MESSAGE" value="profile popup menu button completed" />
   </component>
   <component name="WindowStateProjectService">
     <state x="839" y="419" key="#Custom_Plugin_Repositories" timestamp="1614073155611">
@@ -581,11 +571,11 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="804" y="433" key="VCS.ChangelistChooser/0.0.1920.1040@0.0.1920.1040" timestamp="1615355201183" />
-    <state x="552" y="263" key="Vcs.Push.Dialog.v2" timestamp="1617079181602">
+    <state x="552" y="263" key="Vcs.Push.Dialog.v2" timestamp="1617101549933">
       <screen x="0" y="0" width="1920" height="1080" />
     </state>
     <state x="552" y="253" key="Vcs.Push.Dialog.v2/0.0.1920.1040@0.0.1920.1040" timestamp="1617027052969" />
-    <state x="552" y="263" key="Vcs.Push.Dialog.v2/0.0.1920.1080@0.0.1920.1080" timestamp="1617079181602" />
+    <state x="552" y="263" key="Vcs.Push.Dialog.v2/0.0.1920.1080@0.0.1920.1080" timestamp="1617101549933" />
     <state x="92" y="92" width="1736" height="856" key="com.intellij.history.integration.ui.views.DirectoryHistoryDialog" timestamp="1616585226461">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
@@ -841,12 +831,12 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="Dart">
           <url>file://$PROJECT_DIR$/lib/desktopview/Components/syllebus/syllabus_widget.dart</url>
-          <line>60</line>
+          <line>59</line>
           <option name="timeStamp" value="152" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="Dart">
           <url>file://$PROJECT_DIR$/lib/desktopview/Components/syllebus/syllabus_widget.dart</url>
-          <line>57</line>
+          <line>56</line>
           <option name="timeStamp" value="153" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="Dart">
