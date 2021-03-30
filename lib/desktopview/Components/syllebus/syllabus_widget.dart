@@ -13,11 +13,13 @@ class SyllabusList extends StatefulWidget {
       this.timing,
       this.zoomLink,
       this.zoomPassword,
-      this.color,
-      this.status});
+      this.mainColor,
+      this.status,
+      this.secondaryColor});
   String title;
   String status;
-  Color color = Color(0xff0B74EF);
+  Color mainColor = Color(0xff0B74EF);
+  Color secondaryColor = Color(0xff00A3FF);
   String subTitle;
   String zoomLink;
   String zoomPassword;
@@ -54,7 +56,7 @@ class _SyllabusListState extends State<SyllabusList> {
               gradient: LinearGradient(
                 begin: FractionalOffset.topLeft,
                 end: FractionalOffset.bottomRight,
-                colors: [Color(0xff0B74EF), Color(0xff00A3FF)],
+                colors: [widget.mainColor, widget.secondaryColor],
               ),
             ),
             child: Column(
@@ -135,13 +137,13 @@ class _SyllabusListState extends State<SyllabusList> {
                       IconButton(
                         icon: Icon(Icons.video_call_sharp),
                         iconSize: 50,
-                        color: widget.color,
+                        color: widget.mainColor,
                         onPressed: widget.onPressed,
                       ),
                       Text(
                         widget.status,
                         style: TextStyle(
-                            fontSize: 20, color: widget.color, height: 1),
+                            fontSize: 20, color: widget.mainColor, height: 1),
                       )
                     ],
                   ),
@@ -155,7 +157,7 @@ class _SyllabusListState extends State<SyllabusList> {
                 gradient: LinearGradient(
               begin: FractionalOffset.topLeft,
               end: FractionalOffset.bottomRight,
-              colors: [Color(0xff0B74EF), Color(0xff00A3FF)],
+              colors: [widget.secondaryColor, widget.mainColor],
             )),
           ),
         ],

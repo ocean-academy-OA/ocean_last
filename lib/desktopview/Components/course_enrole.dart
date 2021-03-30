@@ -484,7 +484,6 @@ class _ContentWidgetState extends State<ContentWidget> {
                         .collection('course')
                         .doc(widget.batchid)
                         .collection('schedule')
-                        .orderBy('id')
                         .snapshots(),
                     builder: (context, snapshot) {
                       if (!snapshot.hasData) {
@@ -502,7 +501,6 @@ class _ContentWidgetState extends State<ContentWidget> {
                           String zoomLink = i.data()['zoom_link'];
                           String zoomPassword = i.data()['zoom_password'];
                           Timestamp timeStamp = i.data()['date'];
-                          int coursId = i.data()['id'];
 
                           int yearFormat;
                           int monthFormat;
@@ -560,11 +558,16 @@ class _ContentWidgetState extends State<ContentWidget> {
                             monthFormatString: monthFormatString,
                             minuteFormat: minuteFormat,
                             hourFormat: hourFormat,
-                            color: courseIDCount == 'Completed'
-                                ? Color(0xff14BC05)
+                            mainColor: courseIDCount == 'Completed'
+                                ? Colors.green
                                 : courseIDCount == 'Join Now'
                                     ? Color(0xff0B74EF)
                                     : Colors.grey[500],
+                            secondaryColor: courseIDCount == 'Completed'
+                                ? Colors.green[700]
+                                : courseIDCount == 'Join Now'
+                                    ? Color(0xff04a6d9)
+                                    : Colors.grey[700],
                             status: courseIDCount == 'Completed'
                                 ? 'Completed'
                                 : courseIDCount == 'Join Now'
