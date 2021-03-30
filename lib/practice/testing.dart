@@ -113,23 +113,23 @@ class _ViewSyllabusState extends State<ViewSyllabus> {
                             : null,
                   );
                   syllabusLists.add(syllabusAdd);
-                  // timingList.add(defrenceTime);
-                  // syllabusMap.addAll({defrenceTime: syllabusAdd});
-                  // scheduleDocId.addAll({defrenceTime: i.id});
-                  // print(timingList);
+                  timingList.add(defrenceTime);
+                  syllabusMap.addAll({defrenceTime: syllabusAdd});
+                  scheduleDocId.addAll({defrenceTime: i.id});
+                  print(timingList);
                 }
                 timingList.sort();
                 print(timingList);
 
-                // for (var widget in timingList) {
-                //   syllabusLists.add(syllabusMap[widget]);
-                //   _firestore
-                //       .collection('course')
-                //       .doc('OCNJA18')
-                //       .collection('schedule')
-                //       .doc(scheduleDocId[widget])
-                //       .update({'flag': true});
-                // }
+                for (var widget in timingList) {
+                  syllabusLists.add(syllabusMap[widget]);
+                  _firestore
+                      .collection('course')
+                      .doc('OCNJA18')
+                      .collection('schedule')
+                      .doc(scheduleDocId[widget])
+                      .update({'flag': true});
+                }
 
                 return SingleChildScrollView(
                   child: Column(

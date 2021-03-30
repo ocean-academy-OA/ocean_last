@@ -494,6 +494,7 @@ class _ContentWidgetState extends State<ContentWidget> {
                         Map<int, String> scheduleDocId = {};
                         Map<int, Widget> syllabusMap = {};
                         List<int> timingList = [];
+                        String courseIDCount = 'Not Scheduled';
                         timingList.sort();
                         for (var i in snapshot.data.docs) {
                           String title = i.id;
@@ -545,7 +546,13 @@ class _ContentWidgetState extends State<ContentWidget> {
                                   secondsFormat)
                               .difference(DateTime.now())
                               .inSeconds;
-
+                          if (defrenceTime > -3600 && defrenceTime < 600) {
+                            courseIDCount = 'Join Now';
+                          } else if (defrenceTime <= -3600) {
+                            courseIDCount = 'Completed';
+                          } else {
+                            courseIDCount = 'Not Scheduled';
+                          }
                           SyllabusList syllabusAdd = SyllabusList(
                             title: title,
                             subTitle: subTitle,
@@ -553,18 +560,18 @@ class _ContentWidgetState extends State<ContentWidget> {
                             monthFormatString: monthFormatString,
                             minuteFormat: minuteFormat,
                             hourFormat: hourFormat,
-                            color: coursId == 0
+                            color: courseIDCount == 'Completed'
                                 ? Color(0xff14BC05)
-                                : coursId == 1
+                                : courseIDCount == 'Join Now'
                                     ? Color(0xff0B74EF)
                                     : Colors.grey[500],
-                            status: coursId == 0
+                            status: courseIDCount == 'Completed'
                                 ? 'Completed'
-                                : coursId == 1
+                                : courseIDCount == 'Join Now'
                                     ? 'Join Live'
                                     : 'Not Scheduled',
                             timing: timeFormat,
-                            onPressed: coursId == 1
+                            onPressed: courseIDCount == 'Join Now'
                                 ? () {
                                     Navigator.push(
                                         context,
@@ -575,16 +582,29 @@ class _ContentWidgetState extends State<ContentWidget> {
                                                       "https://brindakarthik.github.io/zoom/?meetingNumber=$zoomLink&username=abc&password=$zoomPassword",
                                                 )));
                                   }
-                                : coursId == 0
+                                : courseIDCount == 'Completed'
                                     ? () {
                                         print('completed');
                                       }
                                     : null,
                           );
-                          syllabusLists.add(syllabusAdd);
+                          // syllabusLists.add(syllabusAdd);
+                          timingList.add(defrenceTime);
+                          syllabusMap.addAll({defrenceTime: syllabusAdd});
+                          scheduleDocId.addAll({defrenceTime: i.id});
+                          print(timingList);
                         }
                         timingList.sort();
                         print(timingList);
+                        for (var widget in timingList) {
+                          syllabusLists.add(syllabusMap[widget]);
+                          _firestore
+                              .collection('course')
+                              .doc('OCNJA18')
+                              .collection('schedule')
+                              .doc(scheduleDocId[widget])
+                              .update({'flag': true});
+                        }
 
                         return SingleChildScrollView(
                           child: Column(
