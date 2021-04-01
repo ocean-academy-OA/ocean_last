@@ -13,9 +13,15 @@ class SyllabusList extends StatefulWidget {
       this.timing,
       this.zoomLink,
       this.zoomPassword,
-      this.color});
+      this.mainColor,
+      this.status,
+      this.secondaryColor,
+      this.duration});
   String title;
-  Color color = Color(0xff0B74EF);
+  String duration;
+  String status;
+  Color mainColor = Color(0xff0B74EF);
+  Color secondaryColor = Color(0xff00A3FF);
   String subTitle;
   String zoomLink;
   String zoomPassword;
@@ -35,45 +41,53 @@ class _SyllabusListState extends State<SyllabusList> {
     return Center(
         child: Container(
       margin: EdgeInsets.symmetric(vertical: 10),
-      color: Colors.white,
-      height: 150,
-      width: 700,
+      decoration: BoxDecoration(color: Colors.white, boxShadow: [
+        BoxShadow(
+          color: Colors.black.withOpacity(0.3),
+          blurRadius: 5,
+        )
+      ]),
+      height: 200,
+      width: 1300,
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           Container(
-            width: 150,
+            width: 200,
             decoration: BoxDecoration(
               gradient: LinearGradient(
                 begin: FractionalOffset.topLeft,
                 end: FractionalOffset.bottomRight,
-                colors: [Color(0xff0B74EF), Color(0xff00D1FF)],
+                colors: [widget.mainColor, widget.secondaryColor],
               ),
             ),
             child: Column(
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
-                Text(
-                  '${widget.hourFormat}:${widget.minuteFormat} ${widget.timing}',
-                  style: TextStyle(
-                      fontSize: 22,
-                      color: Colors.white,
-                      fontWeight: FontWeight.normal),
+                Padding(
+                  padding: const EdgeInsets.only(top: 20),
+                  child: Text(
+                    '${widget.hourFormat}:${widget.minuteFormat} ${widget.timing}',
+                    style: TextStyle(
+                        fontSize: 22,
+                        color: Colors.white,
+                        fontWeight: FontWeight.normal),
+                  ),
                 ),
                 Column(
                   children: [
                     Text(
                       '${widget.dayFormat}',
                       style: TextStyle(
-                          height: 1,
-                          fontSize: 60,
+                          height: 0.8,
+                          fontSize: 80,
                           color: Colors.white,
                           fontWeight: FontWeight.normal),
                     ),
                     Text(
                       '${widget.monthFormatString}',
                       style: TextStyle(
-                          fontSize: 20,
+                          fontSize: 25,
                           color: Colors.white,
                           fontWeight: FontWeight.normal),
                     )
@@ -85,50 +99,78 @@ class _SyllabusListState extends State<SyllabusList> {
               ],
             ),
           ),
-          Row(
-            children: [
-              Container(
-                width: 400,
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Text(
-                      '${widget.title}',
-                      style: TextStyle(
-                          fontSize: 20,
-                          fontFamily: 'Roboto',
-                          inherit: false,
-                          fontWeight: FontWeight.w800,
-                          color: Colors.grey[700]),
-                    ),
-                    Text(
-                      '${widget.subTitle}',
-                      style: TextStyle(
-                          fontSize: 18,
-                          fontFamily: 'Roboto',
-                          inherit: false,
-                          fontWeight: FontWeight.normal,
-                          color: Colors.grey[500]),
-                    ),
-                  ],
+          Container(
+            width: 1000,
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Container(
+                  width: 800,
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      SizedBox(
+                        height: 25,
+                      ),
+                      Text(
+                        '${widget.title}',
+                        style: TextStyle(
+                            fontSize: 30,
+                            fontFamily: 'Roboto',
+                            inherit: false,
+                            fontWeight: FontWeight.w800,
+                            color: Colors.grey[700]),
+                      ),
+                      Text(
+                        '${widget.subTitle}',
+                        style: TextStyle(
+                            fontSize: 20,
+                            fontFamily: 'Roboto',
+                            inherit: false,
+                            fontWeight: FontWeight.normal,
+                            color: Colors.grey[500]),
+                      ),
+                      Spacer(),
+                      Padding(
+                        padding: const EdgeInsets.symmetric(vertical: 10),
+                        child: Text(
+                          '${widget.duration} Minutes',
+                          style: TextStyle(fontSize: 20, color: Colors.grey),
+                        ),
+                      )
+                    ],
+                  ),
                 ),
-              ),
-              IconButton(
-                icon: Icon(Icons.video_call_sharp),
-                iconSize: 35,
-                color: widget.color,
-                onPressed: widget.onPressed,
-              )
-            ],
+                Container(
+                  width: 200,
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      IconButton(
+                        icon: Icon(Icons.video_call_sharp),
+                        iconSize: 50,
+                        color: widget.mainColor,
+                        onPressed: widget.onPressed,
+                      ),
+                      Text(
+                        widget.status,
+                        style: TextStyle(
+                            fontSize: 20, color: widget.mainColor, height: 1),
+                      )
+                    ],
+                  ),
+                )
+              ],
+            ),
           ),
           Container(
-            width: 10,
+            width: 20,
             decoration: BoxDecoration(
                 gradient: LinearGradient(
               begin: FractionalOffset.topLeft,
               end: FractionalOffset.bottomRight,
-              colors: [Color(0xff0B74EF), Color(0xff00D1FF)],
+              colors: [widget.secondaryColor, widget.mainColor],
             )),
           ),
         ],

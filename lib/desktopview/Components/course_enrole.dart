@@ -392,209 +392,229 @@ class _ContentWidgetState extends State<ContentWidget> {
   @override
   Widget build(BuildContext context) {
     print("OA  batchid${widget.batchid}");
-    return Container(
-      //margin: const EdgeInsets.all(15.0),
-      padding: EdgeInsets.all(40.0),
-      width: 1300,
-      height: double.infinity,
-      color: Colors.white,
+    return Scrollbar(
       child: SingleChildScrollView(
-        child: Column(
-          children: [
-            Row(
-              children: [
-                Text(
-                  "☺",
-                  style: TextStyle(
-                      color: Colors.black,
-                      fontSize: 30.0,
-                      fontWeight: FontWeight.bold),
-                ),
-                Text(
-                  "Hi ${CoursesView.courseEnroll},you are enroll in ${widget.course} course",
-                  style: TextStyle(
-                      color: Colors.black,
-                      fontSize: 20.0,
-                      fontWeight: FontWeight.bold),
-                ),
-              ],
-            ),
-            SizedBox(
-              height: 30.0,
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              textBaseline: TextBaseline.ideographic,
-              children: [
-                Row(
-                  children: [
-                    OutlineButton(
-                      borderSide: BorderSide(color: Colors.blue),
-                      padding: EdgeInsets.symmetric(
-                          horizontal: 35.0, vertical: 17.0),
-                      color: Colors.white,
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.all(
-                          Radius.circular(50.0),
-                        ),
+        child: Container(
+          //margin: const EdgeInsets.all(15.0),
+          padding: EdgeInsets.only(top: 40, left: 40, right: 40),
+          width: 1300,
+          color: Colors.white,
+          child: Column(
+            children: [
+              Column(
+                children: [
+                  Row(
+                    children: [
+                      Icon(
+                        FontAwesomeIcons.smileBeam,
+                        color: Colors.yellow[900],
+                        size: 30,
                       ),
-                      onPressed: () {
-                        setState(() {
-                          OnlineCourse.visiblity = false;
-                        });
-                        Provider.of<SyllabusView>(context, listen: false)
-                            .updateCourseSyllabus(
-                                routing: CourseDetails(
-                          course: widget.course,
-                          trainer: trainername,
-                          sess: widget.startDate,
-                          desc: description,
-                          batch: widget.batchid,
-                        ));
-                      },
-                      child: Row(
+                      Text(
+                        " Hi ${CoursesView.courseEnroll},you are enroll in ${widget.course} course",
+                        style: TextStyle(
+                            color: Colors.black,
+                            fontSize: 20.0,
+                            fontWeight: FontWeight.bold),
+                      ),
+                    ],
+                  ),
+                  SizedBox(
+                    height: 30.0,
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    textBaseline: TextBaseline.ideographic,
+                    children: [
+                      Row(
                         children: [
-                          Icon(
-                            Icons.menu_book,
-                            color: Color(0xFF0091D2),
-                            size: 30.0,
-                          ),
-                          SizedBox(
-                            width: 10.0,
-                          ),
-                          Text(
-                            "View Syllabus",
-                            style: TextStyle(
-                              color: Color(0xFF0091D2),
-                              fontSize: 15.0,
+                          MaterialButton(
+                            child: Row(
+                              children: [
+                                Icon(
+                                  Icons.menu_book,
+                                  color: Colors.white,
+                                  size: 30.0,
+                                ),
+                                SizedBox(
+                                  width: 10.0,
+                                ),
+                                Text(
+                                  "View Syllabus",
+                                  style: TextStyle(
+                                    color: Colors.white,
+                                    fontSize: 15.0,
+                                  ),
+                                ),
+                              ],
                             ),
+                            padding: EdgeInsets.symmetric(
+                                horizontal: 35.0, vertical: 17.0),
+                            color: Colors.lightBlue,
+                            shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(5)),
+                            hoverElevation: 5,
+                            elevation: 0,
+                            onPressed: () {
+                              setState(() {
+                                OnlineCourse.visiblity = false;
+                              });
+                              Provider.of<SyllabusView>(context, listen: false)
+                                  .updateCourseSyllabus(
+                                      routing: CourseDetails(
+                                course: widget.course,
+                                trainer: trainername,
+                                sess: widget.startDate,
+                                desc: description,
+                                batch: widget.batchid,
+                              ));
+                            },
                           ),
                         ],
                       ),
-                    ),
-                  ],
-                ),
-              ],
-            ),
-            SizedBox(
-              height: 20.0,
-            ),
-            Container(
-              child: Column(
-                children: [
-                  Row(),
-                  StreamBuilder<QuerySnapshot>(
-                    stream: _firestore
-                        .collection('course')
-                        .doc(widget.batchid)
-                        .collection('schedule')
-                        .orderBy('id')
-                        .snapshots(),
-                    builder: (context, snapshot) {
-                      if (!snapshot.hasData) {
-                        return Text('Looding...');
-                      } else {
-                        List<SyllabusList> syllabusLists = [];
-                        Map<int, String> scheduleDocId = {};
-                        Map<int, Widget> syllabusMap = {};
-                        List<int> timingList = [];
-                        timingList.sort();
-                        for (var i in snapshot.data.docs) {
-                          String title = i.id;
-                          String subTitle = i.data()['description'];
-                          String zoomLink = i.data()['zoom_link'];
-                          String zoomPassword = i.data()['zoom_password'];
-                          Timestamp timeStamp = i.data()['date'];
-                          int coursId = i.data()['id'];
-
-                          int yearFormat;
-                          int monthFormat;
-                          int dayFormat;
-                          int hourFormat;
-                          int minuteFormat;
-                          int secondsFormat;
-                          String monthFormatString;
-
-                          var year = DateFormat('y');
-                          var month = DateFormat('MM');
-                          var day = DateFormat('d');
-                          var hour = DateFormat('hh');
-                          var minute = DateFormat('mm');
-                          var seconds = DateFormat('s');
-                          var monthString = DateFormat('MMMM');
-
-                          yearFormat =
-                              int.parse(year.format(timeStamp.toDate()));
-                          monthFormat =
-                              int.parse(month.format(timeStamp.toDate()));
-                          monthFormatString =
-                              monthString.format(timeStamp.toDate());
-                          dayFormat = int.parse(day.format(timeStamp.toDate()));
-                          hourFormat =
-                              int.parse(hour.format(timeStamp.toDate()));
-                          minuteFormat =
-                              int.parse(minute.format(timeStamp.toDate()));
-                          secondsFormat =
-                              int.parse(seconds.format(timeStamp.toDate()));
-                          var timeFormat =
-                              DateFormat('a').format(timeStamp.toDate());
-                          var defrenceTime = DateTime(
-                                  yearFormat,
-                                  monthFormat,
-                                  dayFormat,
-                                  timeFormat == 'AM'
-                                      ? hourFormat
-                                      : hourFormat + 12,
-                                  minuteFormat,
-                                  secondsFormat)
-                              .difference(DateTime.now())
-                              .inSeconds;
-
-                          SyllabusList syllabusAdd = SyllabusList(
-                            title: title,
-                            subTitle: subTitle,
-                            dayFormat: dayFormat,
-                            monthFormatString: monthFormatString,
-                            minuteFormat: minuteFormat,
-                            hourFormat: hourFormat,
-                            color: coursId == 0
-                                ? Color(0xff14BC05)
-                                : Color(0xff0B74EF),
-                            timing: timeFormat,
-                            onPressed: coursId == 1
-                                ? () {
-                                    Navigator.push(
-                                        context,
-                                        MaterialPageRoute(
-                                            builder: (context) =>
-                                                ZoomIntegration(
-                                                  zoomLink:
-                                                      "https://brindakarthik.github.io/zoom/?meetingNumber=$zoomLink&username=abc&password=$zoomPassword",
-                                                )));
-                                  }
-                                : coursId == 0
-                                    ? () {
-                                        print('completed');
-                                      }
-                                    : null,
-                          );
-                          syllabusLists.add(syllabusAdd);
-                        }
-                        timingList.sort();
-                        print(timingList);
-
-                        return SingleChildScrollView(
-                          child: Column(
-                            children: syllabusLists,
-                          ),
-                        );
-                      }
-                    },
-                  )
+                    ],
+                  ),
+                  SizedBox(
+                    height: 20.0,
+                  ),
                 ],
               ),
-            )
-          ],
+              StreamBuilder<QuerySnapshot>(
+                stream: _firestore
+                    .collection('course')
+                    .doc(widget.batchid)
+                    .collection('schedule')
+                    .snapshots(),
+                builder: (context, snapshot) {
+                  if (!snapshot.hasData) {
+                    return Text('Looding...');
+                  } else {
+                    List<SyllabusList> syllabusLists = [];
+                    Map<int, String> scheduleDocId = {};
+                    Map<int, Widget> syllabusMap = {};
+                    List<int> timingList = [];
+                    String courseIDCount = 'Not Scheduled';
+                    timingList.sort();
+                    for (var i in snapshot.data.docs) {
+                      String title = i.id;
+                      String subTitle = i.data()['description'];
+                      String zoomLink = i.data()['zoom_link'];
+                      String zoomPassword = i.data()['zoom_password'];
+                      Timestamp timeStamp = i.data()['date'];
+                      int duration = i.data()['duration'];
+
+                      int yearFormat;
+                      int monthFormat;
+                      int dayFormat;
+                      int hourFormat;
+                      int minuteFormat;
+                      int secondsFormat;
+                      String monthFormatString;
+
+                      var year = DateFormat('y');
+                      var month = DateFormat('MM');
+                      var day = DateFormat('d');
+                      var hour = DateFormat('hh');
+                      var minute = DateFormat('mm');
+                      var seconds = DateFormat('s');
+                      var monthString = DateFormat('MMMM');
+
+                      yearFormat = int.parse(year.format(timeStamp.toDate()));
+                      monthFormat = int.parse(month.format(timeStamp.toDate()));
+                      monthFormatString =
+                          monthString.format(timeStamp.toDate());
+                      dayFormat = int.parse(day.format(timeStamp.toDate()));
+                      hourFormat = int.parse(hour.format(timeStamp.toDate()));
+                      minuteFormat =
+                          int.parse(minute.format(timeStamp.toDate()));
+                      secondsFormat =
+                          int.parse(seconds.format(timeStamp.toDate()));
+                      var timeFormat =
+                          DateFormat('a').format(timeStamp.toDate());
+                      var defrenceTime = DateTime(
+                              yearFormat,
+                              monthFormat,
+                              dayFormat,
+                              timeFormat == 'AM' ? hourFormat : hourFormat + 12,
+                              minuteFormat,
+                              secondsFormat)
+                          .difference(DateTime.now())
+                          .inSeconds;
+                      if (defrenceTime > -duration * 60 && defrenceTime < 600) {
+                        courseIDCount = 'Join Now';
+                      } else if (defrenceTime <= -duration * 60) {
+                        courseIDCount = 'Completed';
+                      } else {
+                        courseIDCount = 'Not Scheduled';
+                      }
+                      SyllabusList syllabusAdd = SyllabusList(
+                        title: title,
+                        subTitle: subTitle,
+                        dayFormat: dayFormat,
+                        monthFormatString: monthFormatString,
+                        minuteFormat: minuteFormat,
+                        duration: duration.toString(),
+                        hourFormat: hourFormat,
+                        mainColor: courseIDCount == 'Completed'
+                            ? Colors.green
+                            : courseIDCount == 'Join Now'
+                                ? Color(0xff0B74EF)
+                                : Colors.grey[500],
+                        secondaryColor: courseIDCount == 'Completed'
+                            ? Colors.green[700]
+                            : courseIDCount == 'Join Now'
+                                ? Color(0xff04a6d9)
+                                : Colors.grey[700],
+                        status: courseIDCount == 'Completed'
+                            ? 'Completed'
+                            : courseIDCount == 'Join Now'
+                                ? 'Join Live'
+                                : 'Not Scheduled',
+                        timing: timeFormat,
+                        onPressed: courseIDCount == 'Join Now'
+                            ? () {
+                                Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) => ZoomIntegration(
+                                              zoomLink:
+                                                  "https://brindakarthik.github.io/zoom/?meetingNumber=$zoomLink&username=abc&password=$zoomPassword",
+                                            )));
+                              }
+                            : courseIDCount == 'Completed'
+                                ? () {
+                                    print('completed');
+                                  }
+                                : null,
+                      );
+                      // syllabusLists.add(syllabusAdd);
+                      timingList.add(defrenceTime);
+                      syllabusMap.addAll({defrenceTime: syllabusAdd});
+                      scheduleDocId.addAll({defrenceTime: i.id});
+                      print(timingList);
+                    }
+                    timingList.sort();
+                    print(timingList);
+                    for (var widget in timingList) {
+                      syllabusLists.add(syllabusMap[widget]);
+                      _firestore
+                          .collection('course')
+                          .doc('OCNJA18')
+                          .collection('schedule')
+                          .doc(scheduleDocId[widget])
+                          .update({'flag': true});
+                    }
+
+                    return SingleChildScrollView(
+                      child: Column(
+                        children: syllabusLists,
+                      ),
+                    );
+                  }
+                },
+              )
+            ],
+          ),
         ),
       ),
     );

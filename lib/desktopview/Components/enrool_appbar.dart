@@ -1,16 +1,23 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:ocean_project/desktopview/Components/certificates.dart';
 import 'package:ocean_project/desktopview/Components/course_enrole.dart';
 import 'package:ocean_project/desktopview/Components/enroll_new.dart';
 import 'package:ocean_project/desktopview/Components/my_course.dart';
 import 'package:ocean_project/desktopview/Components/main_notification.dart';
+import 'package:ocean_project/desktopview/Components/notification.dart';
+import 'package:ocean_project/desktopview/Components/purchase.dart';
 import 'package:ocean_project/desktopview/Components/user_profile.dart';
 import 'package:ocean_project/desktopview/Components/ocean_icons.dart';
+import 'package:ocean_project/desktopview/new_user_screen/edit_profile.dart';
 import 'package:ocean_project/desktopview/new_user_screen/log_in.dart';
+import 'package:ocean_project/desktopview/new_user_screen/otp.dart';
 import 'package:ocean_project/desktopview/screen/menubar.dart';
 import 'package:ocean_project/desktopview/route/routing.dart';
 import 'package:ocean_project/desktopview/screen/home_screen.dart';
+import 'package:ocean_project/pop_up_menu_botton_custamize.dart';
+import 'package:ocean_project/popupMenu.dart';
 
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:provider/provider.dart';
@@ -36,11 +43,47 @@ class _AppBarWidgetState extends State<AppBarWidget> {
     //getProfilePicture();
   }
 
+  notification() async {
+    var db = await _firestore.collection('new users').get();
+    var notify = db.docs;
+    for (var title in notify) {
+      print(title.data()['First Name']);
+      FocusedMenuItem item = FocusedMenuItem(
+          title: Text(
+            title.data()['First Name'],
+            style: TextStyle(color: Colors.white),
+          ),
+          onPressed: () {
+            print(title.data()['First Name']);
+          },
+          backgroundColor: Colors.grey[700]);
+      notificationItem.add(item);
+      if (notificationItem.length == 4) {
+        break;
+      }
+    }
+    notificationItem.add(FocusedMenuItem(
+        title: Text(
+          'See All',
+          style: TextStyle(fontSize: 25, color: Colors.white),
+        ),
+        backgroundColor: Colors.blueAccent,
+        onPressed: () {
+          Provider.of<Routing>(context, listen: false)
+              .updateRouting(widget: User());
+          Provider.of<MenuBar>(context, listen: false)
+              .updateMenu(widget: AppBarWidget());
+        }));
+  }
+
+  List<FocusedMenuItem> notificationItem = [];
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
     session();
+    print('hhhhhhhhhhhhhhhhhhhhhhhhhh');
+    notification();
 
     //getImage();
   }
@@ -51,8 +94,37 @@ class _AppBarWidgetState extends State<AppBarWidget> {
     super.dispose();
   }
 
+  GlobalKey notificationKey = GlobalKey();
+  void onClickMenu(MenuItemProvider item) async {
+    print('selected menu -> ${item.menuTitle}');
+    Provider.of<Routing>(context, listen: false)
+        .updateRouting(widget: CoursesView());
+    Provider.of<UserProfiles>(context, listen: false)
+        .updateUser(routing: Notification_onclick());
+  }
+
+  void popupMenuButton() {
+    PopupMenu menu = PopupMenu(
+      maxColumn: 1,
+      incrementWidth: 100,
+      backgroundColor: Colors.grey[700],
+      lineColor: Colors.blue,
+      shadow: false,
+      onClickMenu: onClickMenu,
+      // highlightColor: Colors.red,
+      items: [
+        MenuItem(
+            title: 'See all Notification',
+            textStyle: TextStyle(fontSize: 15, color: Colors.white)),
+      ],
+    );
+    menu.show(widgetKey: notificationKey);
+  }
+
+  String test;
   @override
   Widget build(BuildContext context) {
+    PopupMenu.context = context;
     session();
     return Stack(
       children: [
@@ -103,7 +175,7 @@ class _AppBarWidgetState extends State<AppBarWidget> {
                           color: Colors.white,
                           shape: RoundedRectangleBorder(
                               borderRadius:
-                                  BorderRadius.all(Radius.circular(50.0))),
+                                  BorderRadius.all(Radius.circular(10.0))),
                           onPressed: () {
                             Provider.of<Routing>(context, listen: false)
                                 .updateRouting(widget: CoursesView());
@@ -115,7 +187,7 @@ class _AppBarWidgetState extends State<AppBarWidget> {
                           child: Row(
                             children: [
                               Icon(
-                                Icons.view_agenda,
+                                Icons.menu_book,
                                 color: Color(0xFF0091D2),
                                 size: 30.0,
                               ),
@@ -123,10 +195,10 @@ class _AppBarWidgetState extends State<AppBarWidget> {
                                 width: 10.0,
                               ),
                               Text(
-                                "View My Courses",
+                                "My Courses",
                                 style: TextStyle(
                                   color: Color(0xFF0091D2),
-                                  fontSize: 25.0,
+                                  fontSize: 20.0,
                                 ),
                               ),
                             ],
@@ -137,7 +209,7 @@ class _AppBarWidgetState extends State<AppBarWidget> {
                           color: Colors.white,
                           shape: RoundedRectangleBorder(
                               borderRadius:
-                                  BorderRadius.all(Radius.circular(50.0))),
+                                  BorderRadius.all(Radius.circular(10.0))),
                           onPressed: () {
                             Provider.of<Routing>(context, listen: false)
                                 .updateRouting(widget: CoursesView());
@@ -149,7 +221,7 @@ class _AppBarWidgetState extends State<AppBarWidget> {
                           child: Row(
                             children: [
                               Icon(
-                                Icons.view_agenda,
+                                Icons.collections_bookmark_rounded,
                                 color: Color(0xFF0091D2),
                                 size: 30.0,
                               ),
@@ -157,10 +229,10 @@ class _AppBarWidgetState extends State<AppBarWidget> {
                                 width: 10.0,
                               ),
                               Text(
-                                "View All Courses",
+                                "All Courses",
                                 style: TextStyle(
                                   color: Color(0xFF0091D2),
-                                  fontSize: 25.0,
+                                  fontSize: 20.0,
                                 ),
                               ),
                             ],
@@ -214,29 +286,51 @@ class _AppBarWidgetState extends State<AppBarWidget> {
                             }
                           },
                         ),
-                        MaterialButton(
-                          padding: EdgeInsets.all(10.0),
-                          minWidth: 10.0,
-                          hoverColor: Colors.white10,
-                          shape: RoundedRectangleBorder(
-                              borderRadius:
-                                  BorderRadius.all(Radius.circular(600.0))),
-                          onPressed: () {
-                            setState(() {
-                              ContentWidget.isVisible =
-                                  !ContentWidget.isVisible;
-                              ContentWidget.isShow = false;
-                            });
-                            Provider.of<Routing>(context, listen: false)
-                                .updateRouting(widget: CoursesView());
-                            Provider.of<UserProfiles>(context, listen: false)
-                                .updateUser(routing: Notification_onclick());
-                          },
+                        FocusedMenuHolder(
+                          openWithTap: true,
+                          blurBackgroundColor: Colors.transparent,
+                          animateMenuItems: false,
+                          blurSize: 0,
+                          animationDuration: 50,
+                          arrowColor: Colors.grey[700],
+                          menuWidth: 350,
+                          onPressed: () {},
+                          menuItemExtent: 55,
+                          menuItems: notificationItem,
                           child: Icon(
                             Icons.notifications_none_outlined,
                             color: Colors.white,
                             size: 50.0,
                           ),
+                        ),
+                        MaterialButton(
+                          padding: EdgeInsets.all(10.0),
+                          child: Icon(
+                            Icons.notifications_none_outlined,
+                            color: Colors.white,
+                            size: 50.0,
+                          ),
+                          minWidth: 10.0,
+                          hoverColor: Colors.white10,
+                          key: notificationKey,
+                          shape: RoundedRectangleBorder(
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(600.0))),
+                          onPressed: true
+                              ? popupMenuButton
+                              : () {
+                                  setState(() {
+                                    ContentWidget.isVisible =
+                                        !ContentWidget.isVisible;
+                                    ContentWidget.isShow = false;
+                                  });
+                                  Provider.of<Routing>(context, listen: false)
+                                      .updateRouting(widget: CoursesView());
+                                  Provider.of<UserProfiles>(context,
+                                          listen: false)
+                                      .updateUser(
+                                          routing: Notification_onclick());
+                                },
                         ),
                       ],
                     ),
@@ -245,37 +339,6 @@ class _AppBarWidgetState extends State<AppBarWidget> {
               ),
             ),
           ],
-        ),
-        Visibility(
-          visible: ContentWidget.isShow,
-          child: Positioned(
-            top: 90,
-            right: 176,
-            child: ClipPath(
-              clipper: TraingleClipPath(),
-              child: Container(
-                height: 10,
-                width: 10,
-                color: Colors.white,
-              ),
-            ),
-          ),
-        ),
-        Visibility(
-          visible: ContentWidget.isVisible,
-          child: Positioned(
-            top: 90,
-            right: 63,
-            // right: 23,
-            child: ClipPath(
-              clipper: TraingleClipPath(),
-              child: Container(
-                height: 10,
-                width: 10,
-                color: Colors.white,
-              ),
-            ),
-          ),
         ),
       ],
     );
@@ -311,8 +374,73 @@ class ProfilePictureDb extends StatefulWidget {
 }
 
 class _ProfilePictureDbState extends State<ProfilePictureDb> {
+  GlobalKey menuButtonKey = GlobalKey();
+
+  void onClickMenu(MenuItemProvider item) async {
+    print('selected menu -> ${item.menuTitle}');
+    if (item.menuTitle == 'Certificates') {
+      Provider.of<Routing>(context, listen: false)
+          .updateRouting(widget: Certificate());
+      Provider.of<MenuBar>(context, listen: false)
+          .updateMenu(widget: AppBarWidget());
+    }
+    if (item.menuTitle == 'My profile') {
+      Provider.of<Routing>(context, listen: false)
+          .updateRouting(widget: EditProfile());
+      Provider.of<MenuBar>(context, listen: false)
+          .updateMenu(widget: AppBarWidget());
+    }
+    if (item.menuTitle == 'Purchase') {
+      Provider.of<Routing>(context, listen: false)
+          .updateRouting(widget: Purchase());
+      Provider.of<MenuBar>(context, listen: false)
+          .updateMenu(widget: AppBarWidget());
+    }
+    if (item.menuTitle == 'Log Out') {
+      SharedPreferences prefs = await SharedPreferences.getInstance();
+      // await prefs.setInt('login', 0);
+      await prefs.setString('user', null);
+      LogIn.registerNumber = null;
+      OTP.userID = null;
+      MenuBar.stayUser = null;
+      Provider.of<Routing>(context, listen: false)
+          .updateRouting(widget: Home());
+      Provider.of<MenuBar>(context, listen: false)
+          .updateMenu(widget: NavbarRouting());
+    }
+  }
+
+  void popupMenuButton() {
+    PopupMenu menu = PopupMenu(
+      maxColumn: 1,
+      incrementWidth: 80,
+      incrementHeight: 50,
+      backgroundColor: Colors.grey[700],
+      lineColor: Colors.blue,
+      shadow: false,
+      onClickMenu: onClickMenu,
+      // highlightColor: Colors.red,
+      items: [
+        MenuItem(
+            title: 'Certificates',
+            textStyle: TextStyle(fontSize: 15, color: Colors.white)),
+        MenuItem(
+            title: 'My profile',
+            textStyle: TextStyle(fontSize: 15, color: Colors.white)),
+        MenuItem(
+            title: 'Purchase',
+            textStyle: TextStyle(fontSize: 15, color: Colors.white)),
+        MenuItem(
+            title: 'Log Out',
+            textStyle: TextStyle(fontSize: 15, color: Colors.white)),
+      ],
+    );
+    menu.show(widgetKey: menuButtonKey);
+  }
+
   @override
   Widget build(BuildContext context) {
+    PopupMenu.context = context;
     return Tooltip(
       verticalOffset: 25,
       margin: EdgeInsets.only(left: 100),
@@ -320,10 +448,11 @@ class _ProfilePictureDbState extends State<ProfilePictureDb> {
       child: MaterialButton(
         padding: EdgeInsets.all(10.0),
         minWidth: 10.0,
+        key: menuButtonKey,
         hoverColor: Colors.white10,
         shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.all(Radius.circular(600.0))),
-        onPressed: widget.onpress,
+        onPressed: popupMenuButton,
         child: widget.profilePicture != null
             ? ClipRRect(
                 borderRadius: BorderRadius.circular(100.0),

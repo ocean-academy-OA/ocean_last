@@ -61,19 +61,22 @@ class _OTPState extends State<OTP> {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     await prefs.setInt('login', 1);
     await prefs.setString('user', MenuBar.stayUser);
-    print("${MenuBar.stayUser}");
+    print("${MenuBar.stayUser} ssssssssssssss");
     print('Otp Submited');
   }
 
   _verifyPhone() async {
+    print('/////////////////////////////// 69 OTP');
+    print(LogIn.confirmationResult.toString());
     try {
       setState(() {
         // Navbar.visiblity = false;
       });
       userCredential = await LogIn.confirmationResult.confirm(_otp.text);
 
-      OTP.userID = LogIn.confirmationResult.toString();
-      OTP.userID = LogIn.registerNumber;
+      // OTP.userID = LogIn.confirmationResult.toString();
+      // OTP.userID = LogIn.registerNumber;
+
       print('${OTP.userID} OTP.userID');
       userSession =
           await _firestore.collection('new users').doc(OTP.userID).get();

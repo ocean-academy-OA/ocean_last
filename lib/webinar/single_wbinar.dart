@@ -8,6 +8,7 @@ import 'package:intl/intl.dart';
 import 'package:ocean_project/desktopview/constants.dart';
 import 'package:ocean_project/desktopview/route/routing.dart';
 import 'package:ocean_project/webinar/join_successfully.dart';
+import 'package:ocean_project/webinar/wbinar_payment/webinar_pament.dart';
 import 'package:ocean_project/webinar/webinar_const.dart';
 import 'package:ocean_project/webinar/webinar_list.dart';
 import 'package:provider/provider.dart';
@@ -32,9 +33,7 @@ class SingleWebinarScreen extends StatefulWidget {
 class _SingleWebinarScreenState extends State<SingleWebinarScreen> {
   bool timeUp;
   var sDate;
-
   bool isPlaying = false;
-
   int yearFormat;
   int monthFormat;
   int dayFormat;
@@ -320,18 +319,6 @@ class _SingleWebinarDBState extends State<SingleWebinarDB> {
     );
   }
 
-  String dayCalled(int day) {
-    if (day == 1 || day == 21 || day == 31) {
-      return 'st';
-    } else if (day == 2 || day == 22) {
-      return 'nd';
-    } else if (day == 3 || day == 23) {
-      return 'rd';
-    } else {
-      return 'th';
-    }
-  }
-
   void getData() async {
     http.Response response = await http.get(
         'https://free-webinar-registration.herokuapp.com/?name=${nameController.text}&title=${widget.mainTitle}-${widget.payment == 'free' ? 'Free Webinar' : 'Webinar'}&date=$day${dayCalled(day)}%20$month%20$year&time=$hours:$minutes$dayFormat%20to%20$toHours:$toMinutes$toDayFormat%20IST&speaker=${widget.trainerName}(Ex%20-%20Ocean%20Academy)&email=${emailController.text}');
@@ -364,20 +351,30 @@ class _SingleWebinarDBState extends State<SingleWebinarDB> {
         context: context,
         builder: (BuildContext context) {
           return AlertDialog(
-            content: Text('hi'),
-            actions: [
-              TextButton(
-                child: Text('Join'),
-                onPressed: () {
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => JoinSuccessfully()));
-                },
-              ),
-            ],
+            contentPadding: EdgeInsets.zero,
+            content: WebinarRazorPayWeb(
+              amount: int.parse(widget.payment),
+              courseName: widget.course,
+              userName: widget.name,
+              mobileNumber: widget.phoneNumber,
+              email: widget.email,
+              mainTitle: widget.mainTitle,
+              trainerName: widget.trainerName,
+            ),
           );
         });
+  }
+
+  String dayCalled(int day) {
+    if (day == 1 || day == 21 || day == 31) {
+      return 'st';
+    } else if (day == 2 || day == 22) {
+      return 'nd';
+    } else if (day == 3 || day == 23) {
+      return 'rd';
+    } else {
+      return 'th';
+    }
   }
 
   int year, day, hours, toHours, minutes, toMinutes;
@@ -691,7 +688,7 @@ class _SingleWebinarDBState extends State<SingleWebinarDB> {
                                             'student enrolled':
                                                 '${widget.studentEnrolled + 1}'
                                           });
-
+                                          getData();
                                           Provider.of<MenuBar>(context,
                                                   listen: false)
                                               .updateMenu(widget: SizedBox());
@@ -703,11 +700,12 @@ class _SingleWebinarDBState extends State<SingleWebinarDB> {
                                                           widget.name));
                                         } else {
                                           ///TODO payment Function
-                                          showJoinDialog(context);
+                                          await showJoinDialog(context);
+
                                           print('pement function');
                                         }
                                       }
-                                      getData();
+
                                       nameController.clear();
                                       emailController.clear();
                                       phoneNumberController.clear();
@@ -1321,11 +1319,10 @@ class _SingleWebinarDBState extends State<SingleWebinarDB> {
                                                           widget.name));
                                         } else {
                                           ///TODO payment Function
-                                          showJoinDialog(context);
-                                          print('pement function');
+                                          await showJoinDialog(context);
                                         }
                                       }
-                                      // getData();
+                                      getData();
                                       nameController.clear();
                                       emailController.clear();
                                       phoneNumberController.clear();

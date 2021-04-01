@@ -5,11 +5,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
 import 'package:intl/intl.dart';
+import 'package:ocean_project/desktopview/Components/payment.dart';
 import 'package:ocean_project/desktopview/constants.dart';
 
 import 'package:ocean_project/mobileview/screen/home_screen.dart';
 import 'package:ocean_project/mobileview/screen/mobile_wbinar/mobile_join_successfuly.dart';
 import 'package:ocean_project/mobileview/screen/mobile_wbinar/webinar_list.dart';
+import 'package:ocean_project/webinar/wbinar_payment/mobile_webinar_payment.dart';
+import 'package:ocean_project/webinar/wbinar_payment/webinar_pament.dart';
 
 import 'package:ocean_project/webinar/webinar_const.dart';
 
@@ -369,19 +372,18 @@ class _SingleWebinarDBState extends State<SingleWebinarDB> {
         context: context,
         builder: (BuildContext context) {
           return AlertDialog(
-            content: Text('hi'),
-            actions: [
-              TextButton(
-                child: Text('Join'),
-                onPressed: () {
-                  Navigator.push(
-                      context,
-                      (MaterialPageRoute(
-                          builder: (context) => MobileJoinSuccessfully(
-                              joinUserName: widget.name))));
-                },
-              ),
-            ],
+            contentPadding: EdgeInsets.zero,
+            content: false
+                ? Text('test')
+                : MobileRazorPayWeb(
+                    amount: int.parse(widget.payment),
+                    courseName: widget.course,
+                    userName: widget.name,
+                    mobileNumber: widget.phoneNumber,
+                    email: widget.email,
+                    mainTitle: widget.mainTitle,
+                    trainerName: widget.trainerName,
+                  ),
           );
         });
   }
@@ -684,7 +686,7 @@ class _SingleWebinarDBState extends State<SingleWebinarDB> {
                                         'student enrolled':
                                             '${widget.studentEnrolled + 1}'
                                       });
-
+                                      getData();
                                       Navigator.push(
                                           context,
                                           (MaterialPageRoute(
@@ -694,11 +696,11 @@ class _SingleWebinarDBState extends State<SingleWebinarDB> {
                                                           widget.name))));
                                     } else {
                                       ///TODO payment Function
-                                      showJoinDialog(context);
+                                      await showJoinDialog(context);
                                       print('pement function');
                                     }
                                   }
-                                  getData();
+
                                   nameController.clear();
                                   emailController.clear();
                                   phoneNumberController.clear();

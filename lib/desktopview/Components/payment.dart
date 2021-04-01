@@ -184,13 +184,6 @@ class _RazorPayWebState extends State<RazorPayWeb> {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               SizedBox(),
-              Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Image.network(
-                      'https://firebasestorage.googleapis.com/v0/b/ocean-live-project-ea2e7.appspot.com/o/download%20pdf%20svgs%2Fpayment.svg?alt=media&token=6e950a0c-44d5-45db-a9b1-122be63c26c1')
-                ],
-              ),
               Container(
                 margin: (EdgeInsets.symmetric(horizontal: 30)),
                 height: 670,
@@ -202,6 +195,10 @@ class _RazorPayWebState extends State<RazorPayWeb> {
                 child: HtmlElementView(
                   viewType: 'rzp-html',
                 ),
+              ),
+              Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [Image.asset('images/dribbble-payment-boy.gif')],
               ),
               SizedBox(),
             ],
