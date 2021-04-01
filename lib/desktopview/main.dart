@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:ocean_project/desktopview/route/routing.dart';
-
+import 'package:ocean_project/desktopview/screen/home_screen.dart';
 import 'package:provider/provider.dart';
 
 class OceanLive extends StatefulWidget {
+  static ScrollController controller;
+  static double pixels = 0.0;
   @override
   _OceanLiveState createState() => _OceanLiveState();
 }

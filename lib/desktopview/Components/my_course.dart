@@ -6,6 +6,7 @@ import 'package:ocean_project/desktopview/Components/onlineDb.dart';
 import 'package:ocean_project/desktopview/route/routing.dart';
 import 'package:ocean_project/desktopview/screen/course_details.dart';
 import 'package:provider/provider.dart';
+import 'package:ocean_project/desktopview/screen/hover_extensions.dart';
 
 final _firestore = FirebaseFirestore.instance;
 
@@ -300,7 +301,7 @@ class _MyCourseDbState extends State<MyCourseDb> {
                             color: Colors.black,
                             fontWeight: FontWeight.w400,
                           ),
-                        )),
+                        )).moveUpOnHover,
                   ],
                 )
               ],

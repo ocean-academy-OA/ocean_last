@@ -6,6 +6,7 @@ import 'package:ocean_project/desktopview/route/routing.dart';
 import 'package:ocean_project/desktopview/screen/courses.dart';
 
 import 'package:provider/provider.dart';
+import 'package:ocean_project/desktopview/screen/hover_extensions.dart';
 
 final _firestore = FirebaseFirestore.instance;
 String hometitle;
@@ -84,7 +85,7 @@ class _SliderWidgetState extends State<SliderWidget> {
                     ),
                     RaisedButton(
                       shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(28.0),
+                        borderRadius: BorderRadius.circular(10.0),
                       ),
                       onPressed: () {
                         Provider.of<Routing>(context, listen: false)
@@ -112,7 +113,7 @@ class _SliderWidgetState extends State<SliderWidget> {
                           ],
                         ),
                       ),
-                    ),
+                    ).moveUpOnHover,
                   ],
                 );
               }),

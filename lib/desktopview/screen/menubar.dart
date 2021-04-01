@@ -15,6 +15,7 @@ import 'package:provider/provider.dart';
 import 'home_screen.dart';
 import 'about_us_screen.dart';
 import 'package:ocean_project/desktopview/login_layout/layoutbuilder.dart';
+import 'package:ocean_project/desktopview/screen/hover_extensions.dart';
 
 FirebaseFirestore _firestore = FirebaseFirestore.instance;
 
@@ -265,7 +266,7 @@ class _NavbarRoutingState extends State<NavbarRouting> {
                         fontWeight: FontWeight.bold,
                         fontFamily: "Gilroy"),
                   ),
-                )
+                ).moveUpOnHover,
               ],
             ),
           ],

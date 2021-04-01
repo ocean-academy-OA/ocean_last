@@ -4,13 +4,13 @@ import 'package:flutter/material.dart';
 import 'package:country_code_picker/country_code_picker.dart';
 import 'package:flutter/services.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:ocean_project/desktopview/login_layout/layoutbuilder.dart';
 import 'package:ocean_project/desktopview/new_user_screen/otp.dart';
 import 'package:ocean_project/desktopview/route/routing.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'dart:ui';
 import 'package:url_launcher/url_launcher.dart';
-import 'package:ocean_project/desktopview/login_layout/layoutbuilder.dart';
 
 class LoginXS extends StatefulWidget {
   static ConfirmationResult confirmationResult;
@@ -27,7 +27,7 @@ class _LoginXSState extends State<LoginXS> {
   String countryCode;
   List<Map<String, String>> contri = codes;
   bool rememberMe = false;
-  String phoneNumber;
+  // String phoneNumber;
 
   ConfirmationResult confirmationResult;
   getOTP() async {
@@ -86,8 +86,8 @@ class _LoginXSState extends State<LoginXS> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Container(
-                    width: 200.0,
-                    height: 400.0,
+                    width: 380.0,
+                    height: 320,
                     padding:
                         EdgeInsets.symmetric(horizontal: 20.0, vertical: 20.0),
                     decoration: BoxDecoration(
@@ -99,33 +99,33 @@ class _LoginXSState extends State<LoginXS> {
                         Text(
                           'Welcome Back!',
                           style: TextStyle(
-                              fontSize: 30.0,
+                              fontSize: 25.0,
                               color: Colors.white,
                               fontWeight: FontWeight.bold),
                         ),
+                        SizedBox(height: 20),
                         Container(
-                          height: 340,
+                          // color: Colors.grey,
                           child: Column(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              SizedBox(
-                                height: 10.0,
-                              ),
+                              SizedBox(height: 10.0),
                               Text(
                                 'Mobile Number',
                                 style: TextStyle(
                                     color: Colors.white,
-                                    fontSize: 18.0,
+                                    fontSize: 15.0,
                                     fontWeight: FontWeight.bold),
                               ),
+                              SizedBox(height: 10),
                               Row(
                                 mainAxisAlignment:
                                     MainAxisAlignment.spaceBetween,
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
                                   Container(
-                                    height: 50.0,
+                                    height: 40.0,
+                                    width: 120,
                                     padding: EdgeInsets.symmetric(
                                         horizontal: 5.0, vertical: 5.0),
                                     decoration: BoxDecoration(
@@ -166,8 +166,8 @@ class _LoginXSState extends State<LoginXS> {
                                           MainAxisAlignment.spaceBetween,
                                       children: [
                                         Container(
-                                          height: 50.0,
-                                          width: 300.0,
+                                          height: 40.0,
+                                          width: 220.0,
                                           decoration: BoxDecoration(
                                               color: Colors.white,
                                               borderRadius:
@@ -186,7 +186,7 @@ class _LoginXSState extends State<LoginXS> {
                                             ],
                                             onChanged: (value) {
                                               setState(() {
-                                                phoneNumber = value;
+                                                LoginLayout.phoneNumber = value;
                                               });
                                             },
                                           ),
@@ -216,11 +216,11 @@ class _LoginXSState extends State<LoginXS> {
                                         alignment: Alignment.center,
                                         padding: EdgeInsets.symmetric(
                                             vertical: 15.0),
-                                        width: 430.0,
+                                        width: 300.0,
                                         child: Text(
                                           'NEXT',
                                           style: TextStyle(
-                                            fontSize: 20.0,
+                                            fontSize: 16.0,
                                             color: Colors.white,
                                           ),
                                         ),
@@ -255,42 +255,17 @@ class _LoginXSState extends State<LoginXS> {
                                       }),
                                 ],
                               ),
-                              // Row(
-                              //   children: [
-                              //     Checkbox(
-                              //       value: rememberMe,
-                              //       activeColor: Colors.blue,
-                              //       checkColor: Colors.white,
-                              //       onChanged: (bool value) {
-                              //         setState(() {
-                              //           if (rememberMe) {
-                              //             print(rememberMe);
-                              //             rememberMe = value;
-                              //             print(rememberMe);
-                              //           } else {
-                              //             rememberMe = value;
-                              //             print(rememberMe);
-                              //           }
-                              //         });
-                              //       },
-                              //     ),
-                              //     Text(
-                              //       'Remember Me',
-                              //       style: TextStyle(
-                              //           color: Colors.white, fontSize: 18.0),
-                              //     ),
-                              //   ],
-                              // ),
+                              SizedBox(height: 20),
                               Row(
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
                                   Container(
-                                    width: 430.0,
+                                    width: 300.0,
                                     child: RichText(
                                       text: TextSpan(
                                           style: TextStyle(
                                               color: Colors.white,
-                                              fontSize: 16),
+                                              fontSize: 12),
                                           text:
                                               'By clicking the button above, you are creating an account with Ocean Academy and agree to our ',
                                           children: [
@@ -330,10 +305,11 @@ class _LoginXSState extends State<LoginXS> {
                       ],
                     ),
                   ),
+                  SizedBox(height: 15),
                   Container(
                     alignment: Alignment.center,
                     margin: EdgeInsets.symmetric(vertical: 15.0),
-                    width: 480,
+                    width: 380,
                     padding: EdgeInsets.symmetric(vertical: 15),
                     decoration: BoxDecoration(
                         color: Color(0xff006793),
@@ -368,21 +344,21 @@ class _LoginXSState extends State<LoginXS> {
                 left: -250.0,
                 child: Image.asset(
                   'images/rectangle-01.png',
-                  width: 450.0,
+                  width: 400.0,
                 )),
             Positioned(
-                top: -90,
-                right: 100.0,
+                top: -70,
+                right: 50.0,
                 child: Image.asset(
                   'images/tryangle-01.png',
-                  width: 250.0,
+                  width: 200.0,
                 )),
             Positioned(
                 bottom: 90,
                 right: 0.0,
                 child: Image.asset(
                   'images/circle-01.png',
-                  width: 280.0,
+                  width: 250.0,
                 )),
           ],
         ),

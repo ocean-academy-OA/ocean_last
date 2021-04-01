@@ -626,6 +626,12 @@
       "languageVersion": "2.1"
     },
     {
+      "name": "showcaseview",
+      "rootUri": "file:///C:/src/flutter/.pub-cache/hosted/pub.dartlang.org/showcaseview-0.1.6",
+      "packageUri": "lib/",
+      "languageVersion": "2.1"
+    },
+    {
       "name": "sky_engine",
       "rootUri": "file:///C:/src/flutter/bin/cache/pkg/sky_engine",
       "packageUri": "lib/",
@@ -842,7 +848,7 @@
       "languageVersion": "2.7"
     }
   ],
-  "generated": "2021-03-29T13:28:14.456971Z",
+  "generated": "2021-03-31T10:57:52.002658Z",
   "generator": "pub",
-  "generatorVersion": "2.12.0-133.7.beta"
+  "generatorVersion": "2.12.0-133.2.beta"
 }

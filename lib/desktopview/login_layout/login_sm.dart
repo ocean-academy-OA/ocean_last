@@ -27,7 +27,6 @@ class _LoginSMState extends State<LoginSM> {
   String countryCode;
   List<Map<String, String>> contri = codes;
   bool rememberMe = false;
-  String phoneNumber;
 
   ConfirmationResult confirmationResult;
   getOTP() async {
@@ -85,6 +84,10 @@ class _LoginSMState extends State<LoginSM> {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
+                  RaisedButton(onPressed: () {
+                    print(
+                        "${MediaQuery.of(context).size.width}   MediaQuery //////////////////////////////sm");
+                  }),
                   Container(
                     width: 430.0,
                     height: 420.0,
@@ -186,7 +189,7 @@ class _LoginSMState extends State<LoginSM> {
                                             ],
                                             onChanged: (value) {
                                               setState(() {
-                                                phoneNumber = value;
+                                                LoginLayout.phoneNumber = value;
                                               });
                                             },
                                           ),
@@ -228,7 +231,7 @@ class _LoginSMState extends State<LoginSM> {
                                       elevation: 0.0,
                                       onPressed: () async {
                                         print(
-                                            "${LoginLayout.phoneNumberController.text}_phoneNumberController.text");
+                                            "${LoginLayout.phoneNumberController.text} phoneNumberController.text");
                                         setState(() {
                                           //Navbar.visiblity = false;
                                           LoginSM.registerNumber =
