@@ -1,21 +1,20 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
-import 'package:ocean_project/desktopview/Components/syllebus/syllabus_widget.dart';
-import 'package:ocean_project/desktopview/Components/zoom_integration.dart';
-import 'package:ocean_project/desktopview/route/routing.dart';
+
 import 'package:ocean_project/pop_up_menu_botton_custamize.dart';
+import 'package:ocean_project/practice/custom_dropdown.dart';
 import 'package:ocean_project/practice/popup_menubutton.dart';
 
 import 'package:provider/provider.dart';
 
 void main() {
-  runApp(
-    MaterialApp(
+  runApp(MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: Scaffold(body: ProfileIcon()),
-    ),
-  );
+      home: Scaffold(
+        body: CustomDropDown(
+          text: 'Dropdown Action',
+        ),
+      )));
 }
 
 class ProfileIcon extends StatefulWidget {
