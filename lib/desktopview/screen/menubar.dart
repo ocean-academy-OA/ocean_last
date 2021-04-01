@@ -14,7 +14,6 @@ import 'package:ocean_project/desktopview/screen/services.dart';
 import 'package:provider/provider.dart';
 import 'home_screen.dart';
 import 'about_us_screen.dart';
-import 'package:ocean_project/desktopview/login_layout/layoutbuilder.dart';
 import 'package:ocean_project/desktopview/screen/hover_extensions.dart';
 
 FirebaseFirestore _firestore = FirebaseFirestore.instance;
@@ -234,6 +233,14 @@ class _NavbarRoutingState extends State<NavbarRouting> {
                   width: 60.0,
                 ),
                 MaterialButton(
+                  child: Text(
+                    "Log in",
+                    style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 20.0,
+                        fontWeight: FontWeight.bold,
+                        fontFamily: "Gilroy"),
+                  ),
                   padding: EdgeInsets.all(20.0),
                   minWidth: 150.0,
                   color: Color(0xFF0091D2),
@@ -258,14 +265,6 @@ class _NavbarRoutingState extends State<NavbarRouting> {
                             ? NavbarRouting()
                             : AppBarWidget());
                   },
-                  child: Text(
-                    "Log in",
-                    style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 20.0,
-                        fontWeight: FontWeight.bold,
-                        fontFamily: "Gilroy"),
-                  ),
                 ).moveUpOnHover,
               ],
             ),

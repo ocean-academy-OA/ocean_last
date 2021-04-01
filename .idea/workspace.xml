@@ -23,14 +23,6 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="f0636c9e-06a6-419e-bb2d-a9c7ab8a2030" name="Default Changelist" comment="changed login">
-      <change afterPath="$PROJECT_DIR$/images/login-bg.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/images/login-lg.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/images/login-md.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/images/login-sm.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/images/login-xs.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/desktopview/screen/hover_extensions.dart" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/desktopview/screen/menubar_layout/menubar_layoutbuilder.dart" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/desktopview/screen/translate_on_hover.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.dart_tool/package_config.json" beforeDir="false" afterPath="$PROJECT_DIR$/.dart_tool/package_config.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.dart_tool/package_config_subset" beforeDir="false" afterPath="$PROJECT_DIR$/.dart_tool/package_config_subset" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.dart_tool/version" beforeDir="false" afterPath="$PROJECT_DIR$/.dart_tool/version" afterDir="false" />
@@ -41,24 +33,14 @@
       <change beforePath="$PROJECT_DIR$/build/f872507f30e2ff2523f0f1d19160266e.cache.dill.track.dill" beforeDir="false" afterPath="$PROJECT_DIR$/build/f872507f30e2ff2523f0f1d19160266e.cache.dill.track.dill" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/build/flutter_assets/AssetManifest.json" beforeDir="false" afterPath="$PROJECT_DIR$/build/flutter_assets/AssetManifest.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/build/flutter_assets/NOTICES" beforeDir="false" afterPath="$PROJECT_DIR$/build/flutter_assets/NOTICES" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/flutter_assets/images/circle-01.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/flutter_assets/images/rectangle-01.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/flutter_assets/images/tryangle-01.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/images/circle-01.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/images/rectangle-01.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/images/tryangle-01.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/desktopview/Components/my_course.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/desktopview/Components/my_course.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/desktopview/Components/slider_widget.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/desktopview/Components/slider_widget.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/lib/desktopview/login_layout/layoutbuilder.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/desktopview/login_layout/layoutbuilder.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/lib/desktopview/login_layout/login_lg.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/desktopview/login_layout/login_lg.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/desktopview/login_layout/login_md.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/desktopview/login_layout/login_md.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/lib/desktopview/login_layout/login_sm.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/desktopview/login_layout/login_sm.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/lib/desktopview/login_layout/login_xs.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/desktopview/login_layout/login_xs.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/desktopview/main.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/desktopview/main.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/lib/desktopview/new_user_screen/log_in.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/desktopview/new_user_screen/log_in.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/desktopview/new_user_screen/otp.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/desktopview/new_user_screen/otp.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/lib/desktopview/screen/menubar.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/desktopview/screen/menubar.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pubspec.lock" beforeDir="false" afterPath="$PROJECT_DIR$/pubspec.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pubspec.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/pubspec.yaml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/web/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/web/index.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -99,17 +81,17 @@
     <property name="editorconfig.notification" value="lf;" />
     <property name="eu.ydp.idea.ts.spec.generator.settings.spec.template" value="import {$ClassName$} from '$TestsRelativePath$../src/$classRelativePath$/$ClassName$';&#10;&#10;describe('$ClassName$', () =&gt; {&#10;  let $ObjName$:$ClassName$;&#10;&#10;  beforeEach(() =&gt; {&#10;    $ObjName$ = new $ClassName$();&#10;  });&#10;&#10;  describe('', () =&gt; {&#10;    it('', () =&gt; {&#10;      // given&#10;&#10;      // when&#10;&#10;      // then&#10;    });&#10;  });&#10;});&#10;" />
     <property name="io.flutter.reload.alreadyRun" value="true" />
-    <property name="last_opened_file_path" value="$USER_HOME$/Documents/projects/animate_design" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../../../projects/animate_design" />
     <property name="settings.editor.selected.configurable" value="preferences.pluginManager" />
     <property name="show.migrate.to.gradle.popup" value="false" />
   </component>
   <component name="RecentsManager">
-    <key name="MoveFile.RECENT_KEYS">
-      <recent name="C:\Users\jass0\Desktop\github\images" />
-    </key>
     <key name="CopyFile.RECENT_KEYS">
       <recent name="C:\Users\jass0\Desktop\github\lib\desktopview\new_user_screen" />
       <recent name="C:\Users\jass0\Desktop\github\lib\desktopview\login_layout" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\jass0\Desktop\github\images" />
     </key>
   </component>
   <component name="RunManager" selected="Flutter.main.dart">
@@ -569,25 +551,25 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="740" y="275" key="FileChooserDialogImpl/0.0.1920.1040@0.0.1920.1040" timestamp="1617183503283" />
-    <state width="1860" height="168" key="GridCell.Tab.0.bottom" timestamp="1617198547648">
+    <state width="1877" height="206" key="GridCell.Tab.0.bottom" timestamp="1617272714048">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1860" height="168" key="GridCell.Tab.0.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1617198547648" />
+    <state width="1877" height="206" key="GridCell.Tab.0.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1617272714048" />
     <state width="1877" height="253" key="GridCell.Tab.0.bottom/0.0.1920.1080@0.0.1920.1080" timestamp="1617013509555" />
-    <state width="1860" height="168" key="GridCell.Tab.0.center" timestamp="1617198547647">
+    <state width="1877" height="206" key="GridCell.Tab.0.center" timestamp="1617272714048">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1860" height="168" key="GridCell.Tab.0.center/0.0.1920.1040@0.0.1920.1040" timestamp="1617198547647" />
+    <state width="1877" height="206" key="GridCell.Tab.0.center/0.0.1920.1040@0.0.1920.1040" timestamp="1617272714048" />
     <state width="1877" height="253" key="GridCell.Tab.0.center/0.0.1920.1080@0.0.1920.1080" timestamp="1617013509555" />
-    <state width="1860" height="168" key="GridCell.Tab.0.left" timestamp="1617198547647">
+    <state width="1877" height="206" key="GridCell.Tab.0.left" timestamp="1617272714043">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1860" height="168" key="GridCell.Tab.0.left/0.0.1920.1040@0.0.1920.1040" timestamp="1617198547647" />
+    <state width="1877" height="206" key="GridCell.Tab.0.left/0.0.1920.1040@0.0.1920.1040" timestamp="1617272714043" />
     <state width="1877" height="253" key="GridCell.Tab.0.left/0.0.1920.1080@0.0.1920.1080" timestamp="1617013509555" />
-    <state width="1860" height="168" key="GridCell.Tab.0.right" timestamp="1617198547648">
+    <state width="1877" height="206" key="GridCell.Tab.0.right" timestamp="1617272714048">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1860" height="168" key="GridCell.Tab.0.right/0.0.1920.1040@0.0.1920.1040" timestamp="1617198547648" />
+    <state width="1877" height="206" key="GridCell.Tab.0.right/0.0.1920.1040@0.0.1920.1040" timestamp="1617272714048" />
     <state width="1877" height="253" key="GridCell.Tab.0.right/0.0.1920.1080@0.0.1920.1080" timestamp="1617013509555" />
     <state x="540" y="263" key="IDE.errors.dialog" timestamp="1614410080858">
       <screen x="0" y="0" width="1920" height="1040" />
@@ -851,17 +833,17 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="Dart">
           <url>file://$PROJECT_DIR$/lib/desktopview/screen/menubar.dart</url>
-          <line>75</line>
+          <line>74</line>
           <option name="timeStamp" value="142" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="Dart">
           <url>file://$PROJECT_DIR$/lib/desktopview/screen/menubar.dart</url>
-          <line>76</line>
+          <line>75</line>
           <option name="timeStamp" value="143" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="Dart">
           <url>file://$PROJECT_DIR$/lib/desktopview/screen/menubar.dart</url>
-          <line>77</line>
+          <line>76</line>
           <option name="timeStamp" value="144" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="Dart">

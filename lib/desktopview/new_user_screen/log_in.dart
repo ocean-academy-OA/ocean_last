@@ -6,7 +6,7 @@ import 'package:flutter/services.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:ocean_project/desktopview/route/routing.dart';
 import 'package:provider/provider.dart';
-import 'package:shared_preferences/shared_preferences.dart';
+
 import 'dart:ui';
 import 'package:url_launcher/url_launcher.dart';
 import 'otp.dart';
@@ -19,7 +19,6 @@ class LogIn extends StatefulWidget {
 }
 
 class _LogInState extends State<LogIn> {
-  var userSession;
   bool isNumValid = false;
   FirebaseAuth auth = FirebaseAuth.instance;
   TextEditingController _phoneNumberController = TextEditingController();
@@ -30,17 +29,17 @@ class _LogInState extends State<LogIn> {
 
   ConfirmationResult confirmationResult;
   getOTP() async {
-    LogIn.confirmationResult = await auth.signInWithPhoneNumber(
+    confirmationResult = await auth.signInWithPhoneNumber(
         '${countryCode.toString()} ${_phoneNumberController.text}');
-    print("${LogIn.confirmationResult}LogIn.confirmationResult");
+    print("${confirmationResult}LogIn.confirmationResult");
   }
 
-  session() async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    await prefs.setInt('login', 1);
-    await prefs.setString('user', _phoneNumberController.text);
-    print('Otp Submited');
-  }
+  // session() async {
+  //   SharedPreferences prefs = await SharedPreferences.getInstance();
+  //   await prefs.setInt('login', 1);
+  //   await prefs.setString('user', _phoneNumberController.text);
+  //   print('Otp Submited');
+  // }
 
   List getContryCode() {
     List<String> contryCode = [];
@@ -76,6 +75,7 @@ class _LogInState extends State<LogIn> {
       body: SafeArea(
         child: Container(
           decoration: BoxDecoration(
+            color: Color(0xff2b9dd1),
             image: DecorationImage(
                 image: MediaQuery.of(context).size.width > 900 &&
                         MediaQuery.of(context).size.width < 1000
@@ -236,9 +236,9 @@ class _LogInState extends State<LogIn> {
                                         "${_phoneNumberController.text}_phoneNumberController.text");
                                     setState(() {
                                       //Navbar.visiblity = false;
-                                      LogIn.registerNumber =
+                                      OTP.userID =
                                           '${countryCode.toString()} ${_phoneNumberController.text}';
-                                      MenuBar.stayUser = LogIn.registerNumber;
+                                      // MenuBar.stayUser = OTP.userID;
                                     });
 
                                     if (_phoneNumberController.text.length >=
@@ -247,11 +247,14 @@ class _LogInState extends State<LogIn> {
 
                                       ///todo remove the hide get otp
                                       //session();
-                                      getOTP();
+                                      await getOTP();
 
                                       Provider.of<Routing>(context,
                                               listen: false)
-                                          .updateRouting(widget: OTP());
+                                          .updateRouting(
+                                              widget: OTP(
+                                        confirmationResult: confirmationResult,
+                                      ));
                                     } else {
                                       isNumValid = true;
                                     }

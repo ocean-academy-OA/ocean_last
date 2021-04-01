@@ -23,7 +23,7 @@ class _LoginXSState extends State<LoginXS> {
   var userSession;
   bool isNumValid = false;
   FirebaseAuth auth = FirebaseAuth.instance;
-  // TextEditingController _phoneNumberController = TextEditingController();
+  TextEditingController _phoneNumberController = TextEditingController();
   String countryCode;
   List<Map<String, String>> contri = codes;
   bool rememberMe = false;
@@ -228,16 +228,15 @@ class _LoginXSState extends State<LoginXS> {
                                       elevation: 0.0,
                                       onPressed: () async {
                                         print(
-                                            "${LoginLayout.phoneNumberController.text}_phoneNumberController.text");
+                                            "${_phoneNumberController.text}_phoneNumberController.text");
                                         setState(() {
                                           //Navbar.visiblity = false;
-                                          LoginXS.registerNumber =
-                                              '${countryCode.toString()} ${LoginLayout.phoneNumberController.text}';
-                                          MenuBar.stayUser =
-                                              LoginXS.registerNumber;
+                                          OTP.userID =
+                                              '${countryCode.toString()} ${_phoneNumberController.text}';
+                                          // MenuBar.stayUser = OTP.userID;
                                         });
 
-                                        if (LoginLayout.phoneNumberController
+                                        if (_phoneNumberController
                                                 .text.length >=
                                             10) {
                                           //getData();

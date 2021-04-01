@@ -23,23 +23,16 @@ class _LoginSMState extends State<LoginSM> {
   var userSession;
   bool isNumValid = false;
   FirebaseAuth auth = FirebaseAuth.instance;
-  // TextEditingController _phoneNumberController = TextEditingController();
+  TextEditingController _phoneNumberController = TextEditingController();
   String countryCode;
   List<Map<String, String>> contri = codes;
   bool rememberMe = false;
 
   ConfirmationResult confirmationResult;
   getOTP() async {
-    LoginSM.confirmationResult = await auth.signInWithPhoneNumber(
-        '${countryCode.toString()} ${LoginLayout.phoneNumberController.text}');
-    print("${LoginSM.confirmationResult}LogIn.confirmationResult");
-  }
-
-  session() async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    await prefs.setInt('login', 1);
-    await prefs.setString('user', LoginLayout.phoneNumberController.text);
-    print('Otp Submited');
+    confirmationResult = await auth.signInWithPhoneNumber(
+        '${countryCode.toString()} ${_phoneNumberController.text}');
+    print("${confirmationResult}LogIn.confirmationResult");
   }
 
   List getContryCode() {
@@ -179,8 +172,7 @@ class _LoginSMState extends State<LoginSM> {
                                             decoration: InputDecoration(
                                                 fillColor: Colors.white,
                                                 border: OutlineInputBorder()),
-                                            controller: LoginLayout
-                                                .phoneNumberController,
+                                            controller: _phoneNumberController,
                                             inputFormatters: [
                                               FilteringTextInputFormatter.allow(
                                                   RegExp(r'^\d+\.?\d{0,1}')),
@@ -224,34 +216,37 @@ class _LoginSMState extends State<LoginSM> {
                                           'NEXT',
                                           style: TextStyle(
                                             fontSize: 20.0,
-                                            color: Colors.white,
+                                            color: Colors.pink,
                                           ),
                                         ),
                                       ),
                                       elevation: 0.0,
                                       onPressed: () async {
                                         print(
-                                            "${LoginLayout.phoneNumberController.text} phoneNumberController.text");
+                                            "${_phoneNumberController.text}_phoneNumberController.text");
                                         setState(() {
                                           //Navbar.visiblity = false;
-                                          LoginSM.registerNumber =
-                                              '${countryCode.toString()} ${LoginLayout.phoneNumberController.text}';
-                                          MenuBar.stayUser =
-                                              LoginSM.registerNumber;
+                                          OTP.userID =
+                                              '${countryCode.toString()} ${_phoneNumberController.text}';
+                                          // MenuBar.stayUser = OTP.userID;
                                         });
 
-                                        if (LoginLayout.phoneNumberController
+                                        if (_phoneNumberController
                                                 .text.length >=
                                             10) {
                                           //getData();
 
                                           ///todo remove the hide get otp
                                           //session();
-                                          getOTP();
+                                          await getOTP();
 
                                           Provider.of<Routing>(context,
                                                   listen: false)
-                                              .updateRouting(widget: OTP());
+                                              .updateRouting(
+                                                  widget: OTP(
+                                            confirmationResult:
+                                                confirmationResult,
+                                          ));
                                         } else {
                                           isNumValid = true;
                                         }

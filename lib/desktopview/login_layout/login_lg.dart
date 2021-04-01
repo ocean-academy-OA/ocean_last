@@ -11,14 +11,14 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'dart:ui';
 import 'package:url_launcher/url_launcher.dart';
 
-class LogIn extends StatefulWidget {
+class LogInLg extends StatefulWidget {
   static ConfirmationResult confirmationResult;
   static String registerNumber;
   @override
-  _LogInState createState() => _LogInState();
+  _LogInLgState createState() => _LogInLgState();
 }
 
-class _LogInState extends State<LogIn> {
+class _LogInLgState extends State<LogInLg> {
   var userSession;
   bool isNumValid = false;
   FirebaseAuth auth = FirebaseAuth.instance;
@@ -30,16 +30,8 @@ class _LogInState extends State<LogIn> {
 
   ConfirmationResult confirmationResult;
   getOTP() async {
-    LogIn.confirmationResult = await auth.signInWithPhoneNumber(
+    confirmationResult = await auth.signInWithPhoneNumber(
         '${countryCode.toString()} ${_phoneNumberController.text}');
-    print("${LogIn.confirmationResult}LogIn.confirmationResult");
-  }
-
-  session() async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    await prefs.setInt('login', 1);
-    await prefs.setString('user', _phoneNumberController.text);
-    print('Otp Submited');
   }
 
   List getContryCode() {
@@ -218,7 +210,7 @@ class _LogInState extends State<LogIn> {
                                           'NEXT',
                                           style: TextStyle(
                                             fontSize: 20.0,
-                                            color: Colors.white,
+                                            color: Colors.red,
                                           ),
                                         ),
                                       ),
@@ -228,10 +220,9 @@ class _LogInState extends State<LogIn> {
                                             "${_phoneNumberController.text}_phoneNumberController.text");
                                         setState(() {
                                           //Navbar.visiblity = false;
-                                          LogIn.registerNumber =
+                                          OTP.userID =
                                               '${countryCode.toString()} ${_phoneNumberController.text}';
-                                          MenuBar.stayUser =
-                                              LogIn.registerNumber;
+                                          // MenuBar.stayUser = OTP.userID;
                                         });
 
                                         if (_phoneNumberController
@@ -241,11 +232,15 @@ class _LogInState extends State<LogIn> {
 
                                           ///todo remove the hide get otp
                                           //session();
-                                          getOTP();
+                                          await getOTP();
 
                                           Provider.of<Routing>(context,
                                                   listen: false)
-                                              .updateRouting(widget: OTP());
+                                              .updateRouting(
+                                                  widget: OTP(
+                                            confirmationResult:
+                                                confirmationResult,
+                                          ));
                                         } else {
                                           isNumValid = true;
                                         }

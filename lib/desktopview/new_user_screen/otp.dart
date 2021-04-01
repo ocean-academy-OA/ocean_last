@@ -20,7 +20,9 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:timer_count_down/timer_count_down.dart';
 
 class OTP extends StatefulWidget {
+  OTP({this.confirmationResult});
   static String userID;
+  ConfirmationResult confirmationResult;
   @override
   _OTPState createState() => _OTPState();
 }
@@ -67,12 +69,12 @@ class _OTPState extends State<OTP> {
 
   _verifyPhone() async {
     print('/////////////////////////////// 69 OTP');
-    print(LogIn.confirmationResult.toString());
+    print(widget.confirmationResult.toString());
     try {
       setState(() {
         // Navbar.visiblity = false;
       });
-      userCredential = await LogIn.confirmationResult.confirm(_otp.text);
+      userCredential = await widget.confirmationResult.confirm(_otp.text);
 
       // OTP.userID = LogIn.confirmationResult.toString();
       // OTP.userID = LogIn.registerNumber;
@@ -85,7 +87,7 @@ class _OTPState extends State<OTP> {
         setState(() {
           isLogin = true;
         });
-
+        MenuBar.stayUser = OTP.userID;
         Provider.of<MenuBar>(context, listen: false)
             .updateMenu(widget: AppBarWidget());
         Provider.of<Routing>(context, listen: false)
