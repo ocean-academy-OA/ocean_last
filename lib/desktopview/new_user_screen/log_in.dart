@@ -228,10 +228,9 @@ class _LogInState extends State<LogIn> {
                                             "${_phoneNumberController.text}_phoneNumberController.text");
                                         setState(() {
                                           //Navbar.visiblity = false;
-                                          LogIn.registerNumber =
+                                          OTP.userID =
                                               '${countryCode.toString()} ${_phoneNumberController.text}';
-                                          MenuBar.stayUser =
-                                              LogIn.registerNumber;
+                                          MenuBar.stayUser = OTP.userID;
                                         });
 
                                         if (_phoneNumberController

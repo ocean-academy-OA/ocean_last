@@ -12,6 +12,7 @@ import 'package:ocean_project/desktopview/Components/user_profile.dart';
 import 'package:ocean_project/desktopview/Components/ocean_icons.dart';
 import 'package:ocean_project/desktopview/new_user_screen/edit_profile.dart';
 import 'package:ocean_project/desktopview/new_user_screen/log_in.dart';
+import 'package:ocean_project/desktopview/new_user_screen/otp.dart';
 import 'package:ocean_project/desktopview/screen/menubar.dart';
 import 'package:ocean_project/desktopview/route/routing.dart';
 import 'package:ocean_project/desktopview/screen/home_screen.dart';
@@ -400,6 +401,7 @@ class _ProfilePictureDbState extends State<ProfilePictureDb> {
       // await prefs.setInt('login', 0);
       await prefs.setString('user', null);
       LogIn.registerNumber = null;
+      OTP.userID = null;
       MenuBar.stayUser = null;
       Provider.of<Routing>(context, listen: false)
           .updateRouting(widget: Home());

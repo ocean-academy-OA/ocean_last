@@ -6,6 +6,7 @@ import 'package:ocean_project/desktopview/Components/enrool_appbar.dart';
 import 'package:ocean_project/desktopview/Components/flash_notification.dart';
 import 'package:ocean_project/desktopview/Components/ocean_icons.dart';
 import 'package:ocean_project/desktopview/new_user_screen/log_in.dart';
+import 'package:ocean_project/desktopview/new_user_screen/otp.dart';
 import 'package:ocean_project/desktopview/route/routing.dart';
 import 'package:ocean_project/desktopview/screen/career/career_layout.dart';
 import 'package:ocean_project/desktopview/screen/contact_us.dart';
@@ -233,6 +234,14 @@ class _NavbarRoutingState extends State<NavbarRouting> {
                   width: 60.0,
                 ),
                 MaterialButton(
+                  child: Text(
+                    "Log in",
+                    style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 20.0,
+                        fontWeight: FontWeight.bold,
+                        fontFamily: "Gilroy"),
+                  ),
                   padding: EdgeInsets.all(20.0),
                   minWidth: 150.0,
                   color: Color(0xFF0091D2),
@@ -241,6 +250,7 @@ class _NavbarRoutingState extends State<NavbarRouting> {
                   onPressed: () {
                     print('${MenuBar.stayUser}MenuBar.stayUser');
                     print("${LogIn.registerNumber}LogIn.registerNumber");
+                    print("${OTP.userID}OTP.userID");
 
                     setState(() {
                       NavbarRouting.menu.updateAll(
@@ -257,14 +267,6 @@ class _NavbarRoutingState extends State<NavbarRouting> {
                             ? NavbarRouting()
                             : AppBarWidget());
                   },
-                  child: Text(
-                    "Log in",
-                    style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 20.0,
-                        fontWeight: FontWeight.bold,
-                        fontFamily: "Gilroy"),
-                  ),
                 )
               ],
             ),
