@@ -6,6 +6,7 @@ import 'package:ocean_project/desktopview/Components/course_enrole.dart';
 import 'package:ocean_project/desktopview/Components/enroll_new.dart';
 import 'package:ocean_project/desktopview/Components/my_course.dart';
 import 'package:ocean_project/desktopview/Components/main_notification.dart';
+import 'package:ocean_project/desktopview/Components/notification.dart';
 import 'package:ocean_project/desktopview/Components/purchase.dart';
 import 'package:ocean_project/desktopview/Components/user_profile.dart';
 import 'package:ocean_project/desktopview/Components/ocean_icons.dart';
@@ -15,6 +16,7 @@ import 'package:ocean_project/desktopview/screen/menubar.dart';
 import 'package:ocean_project/desktopview/route/routing.dart';
 import 'package:ocean_project/desktopview/screen/home_screen.dart';
 import 'package:ocean_project/pop_up_menu_botton_custamize.dart';
+import 'package:ocean_project/popupMenu.dart';
 
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:provider/provider.dart';
@@ -40,11 +42,47 @@ class _AppBarWidgetState extends State<AppBarWidget> {
     //getProfilePicture();
   }
 
+  notification() async {
+    var db = await _firestore.collection('new users').get();
+    var notify = db.docs;
+    for (var title in notify) {
+      print(title.data()['First Name']);
+      FocusedMenuItem item = FocusedMenuItem(
+          title: Text(
+            title.data()['First Name'],
+            style: TextStyle(color: Colors.white),
+          ),
+          onPressed: () {
+            print(title.data()['First Name']);
+          },
+          backgroundColor: Colors.grey[700]);
+      notificationItem.add(item);
+      if (notificationItem.length == 4) {
+        break;
+      }
+    }
+    notificationItem.add(FocusedMenuItem(
+        title: Text(
+          'See All',
+          style: TextStyle(fontSize: 25, color: Colors.white),
+        ),
+        backgroundColor: Colors.blueAccent,
+        onPressed: () {
+          Provider.of<Routing>(context, listen: false)
+              .updateRouting(widget: User());
+          Provider.of<MenuBar>(context, listen: false)
+              .updateMenu(widget: AppBarWidget());
+        }));
+  }
+
+  List<FocusedMenuItem> notificationItem = [];
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
     session();
+    print('hhhhhhhhhhhhhhhhhhhhhhhhhh');
+    notification();
 
     //getImage();
   }
@@ -82,6 +120,7 @@ class _AppBarWidgetState extends State<AppBarWidget> {
     menu.show(widgetKey: notificationKey);
   }
 
+  String test;
   @override
   Widget build(BuildContext context) {
     PopupMenu.context = context;
@@ -246,6 +285,23 @@ class _AppBarWidgetState extends State<AppBarWidget> {
                             }
                           },
                         ),
+                        FocusedMenuHolder(
+                          openWithTap: true,
+                          blurBackgroundColor: Colors.transparent,
+                          animateMenuItems: false,
+                          blurSize: 0,
+                          animationDuration: 50,
+                          arrowColor: Colors.grey[700],
+                          menuWidth: 350,
+                          onPressed: () {},
+                          menuItemExtent: 55,
+                          menuItems: notificationItem,
+                          child: Icon(
+                            Icons.notifications_none_outlined,
+                            color: Colors.white,
+                            size: 50.0,
+                          ),
+                        ),
                         MaterialButton(
                           padding: EdgeInsets.all(10.0),
                           child: Icon(
@@ -356,7 +412,7 @@ class _ProfilePictureDbState extends State<ProfilePictureDb> {
     PopupMenu menu = PopupMenu(
       maxColumn: 1,
       incrementWidth: 80,
-      incrementHeight: 70,
+      incrementHeight: 50,
       backgroundColor: Colors.grey[700],
       lineColor: Colors.blue,
       shadow: false,
