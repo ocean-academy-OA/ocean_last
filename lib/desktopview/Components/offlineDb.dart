@@ -1,4 +1,3 @@
-import 'dart:html';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/rendering.dart';
@@ -7,6 +6,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:ocean_project/alert/alert_text_field.dart';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:http/http.dart' as http;
 
 final _firestore = FirebaseFirestore.instance;
 
@@ -272,7 +272,7 @@ class _OfflineCourseState extends State<OfflineCourse> {
         userCredential = await confirmationResult.confirm(_otp.text);
         print(userCredential);
         print(confirmationResult);
-        print('OTP submited');
+        print('OTP submited oooooooo');
         fireStoreAddWithDownload();
 
         fieldClear();
@@ -347,6 +347,19 @@ class _OfflineCourseState extends State<OfflineCourse> {
     _email.clear();
     _name.clear();
     _otp.clear();
+  }
+
+  void getData() async {
+    http.Response response = await http.get(
+        'http://free-webinar-registration.herokuapp.com/?name=${_name.text}&email=${_email.text}&type=syllabus');
+    print('tesss${_name.text}sssssssss${_email.text}sssssssst');
+
+    if (response.statusCode == 200) {
+      String data = response.body;
+      print(data);
+    } else {
+      print(response.statusCode);
+    }
   }
 
   otpPage(String userMobileNumber, context) {
@@ -433,8 +446,10 @@ class _OfflineCourseState extends State<OfflineCourse> {
                                         userCredential =
                                             await confirmationResult
                                                 .confirm(_otp.text);
-                                        print('OTP submited');
+                                        print('OTP submited oooppppppp');
+                                        getData();
                                         fireStoreAddWithDownload();
+
                                         Navigator.pop(context);
                                         fieldClear();
                                         mailSendedDialog(context);
