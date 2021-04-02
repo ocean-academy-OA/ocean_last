@@ -318,91 +318,36 @@ class _ContentWidgetState extends State<ContentWidget> {
   List timeCalculation = [];
   String resolve;
 
-  getTime() async {
-    print("______________________________________");
-    await for (var snapshot in _firestore
-        .collection('course')
-        .doc(widget.batchid)
-        .collection("schedule")
-        .snapshots(includeMetadataChanges: true)) {
-      for (var message in snapshot.docs) {
-        time = message.data()['time'];
-        date = message.data()['date'];
-        print(time);
-        int startYear = 6;
-        int endYear = 10;
-        int startMonth = 3;
-        int endMonth = 5;
-        int startDay = 0;
-        int endDay = 2;
-        int startHour = 0;
-        int endHour = 2;
-        int startMinute = 3;
-        int endMinute = 5;
-        int startAm = 6;
-        int endEm = 8;
-
-        String year = date.substring(startYear, endYear);
-        print("year$year");
-        String month = date.substring(startMonth, endMonth);
-        print("month$month");
-        String day = date.substring(startDay, endDay);
-        print("day$day");
-        int hour = int.parse(time.substring(startHour, endHour));
-        print("hour$hour");
-        String minute = time.substring(startMinute, endMinute);
-        print("minute$minute");
-        String morning = time.substring(startAm, endEm);
-        print("morning$morning");
-        var dt = DateTime(
-          int.parse(year),
-          int.parse(month),
-          int.parse(day),
-          morning == "AM" ? hour : hour + 12,
-          int.parse(minute),
-        );
-        var second = dt.difference(DateTime.now()).inSeconds;
-        timeCalculation.add(second);
-        print("$dt${morning}datetime");
-        print(DateTime.now());
-        print(timeCalculation);
-        for (var i in timeCalculation) {
-          if (i > -3600 && i < 600) {
-            resolve = "true";
-            print(resolve);
-            break;
-          } else {
-            resolve = "false";
-            print(resolve);
-          }
-        }
-      }
-    }
-  }
-
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
     userCoursesName();
     print("______________________________________");
-    getTime();
   }
 
   @override
   Widget build(BuildContext context) {
-    print("OA  batchid${widget.batchid}");
+    print("OA  batchid ${widget.batchid}");
     return Scrollbar(
-      child: SingleChildScrollView(
-        child: Container(
-          //margin: const EdgeInsets.all(15.0),
-          padding: EdgeInsets.only(top: 40, left: 40, right: 40),
-          width: 1300,
-          color: Colors.white,
+      child: Container(
+        alignment: Alignment.centerLeft,
+        //margin: const EdgeInsets.all(15.0),
+        padding: EdgeInsets.only(top: 0, left: 40, right: 40),
+        width: 1300,
+        height: MediaQuery.of(context).size.height,
+
+        child: SingleChildScrollView(
           child: Column(
+            mainAxisAlignment: MainAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Column(
+                mainAxisAlignment: MainAxisAlignment.start,
                 children: [
+                  SizedBox(
+                    height: 30.0,
+                  ),
                   Row(
                     children: [
                       Icon(
@@ -597,18 +542,17 @@ class _ContentWidgetState extends State<ContentWidget> {
                     print(timingList);
                     for (var widget in timingList) {
                       syllabusLists.add(syllabusMap[widget]);
-                      _firestore
-                          .collection('course')
-                          .doc('OCNJA18')
-                          .collection('schedule')
-                          .doc(scheduleDocId[widget])
-                          .update({'flag': true});
+                      // _firestore
+                      //     .collection('course')
+                      //     .doc('OCNJA18')
+                      //     .collection('schedule')
+                      //     .doc(scheduleDocId[widget])
+                      //     .update({'flag': true});
                     }
 
-                    return SingleChildScrollView(
-                      child: Column(
-                        children: syllabusLists,
-                      ),
+                    return Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: syllabusLists,
                     );
                   }
                 },

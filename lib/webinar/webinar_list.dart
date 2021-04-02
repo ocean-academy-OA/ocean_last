@@ -140,11 +140,10 @@ class _WebinarCardState extends State<WebinarCard> {
                         date: date.toString(),
                         time: timing.toString(),
                         onPressed: () {
-                          print(payment);
+                          print('webinar card.................. $dateForMail');
                           Provider.of<Routing>(context, listen: false)
                               .updateRouting(
                                   widget: SingleWebinarScreen(
-                            mailTiming: dateForMail,
                             topic: courseName,
                           ));
                         },
@@ -162,6 +161,8 @@ class _WebinarCardState extends State<WebinarCard> {
 
                       courseList.add(courseMap[i]);
                     }
+                    print(timingMap);
+                    print('**************//////////////////');
                     WebinarCard.timing = timingMap;
 
                     return Wrap(

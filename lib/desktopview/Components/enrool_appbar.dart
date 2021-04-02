@@ -37,8 +37,8 @@ class _AppBarWidgetState extends State<AppBarWidget> {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     await prefs.setInt('login', 1);
     await prefs.setString('user', MenuBar.stayUser);
-    print("${MenuBar.stayUser}MenuBar.stayUser");
-    MenuBar.stayUser = LogIn.registerNumber;
+    print("${MenuBar.stayUser} MenuBar.stayUser");
+    MenuBar.stayUser = OTP.userID;
 
     //getProfilePicture();
   }
@@ -86,12 +86,6 @@ class _AppBarWidgetState extends State<AppBarWidget> {
     notification();
 
     //getImage();
-  }
-
-  @override
-  void dispose() {
-    // TODO: implement dispose
-    super.dispose();
   }
 
   GlobalKey notificationKey = GlobalKey();

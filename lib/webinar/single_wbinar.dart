@@ -20,10 +20,9 @@ FirebaseFirestore _firestore = FirebaseFirestore.instance;
 
 // ignore: must_be_immutable
 class SingleWebinarScreen extends StatefulWidget {
-  Map mailTiming;
   //= (10, 2021 at 10:30:00 AM UTC+5:30);
-  var webinar;
-  SingleWebinarScreen({this.mailTiming, this.topic});
+
+  SingleWebinarScreen({this.topic});
   String topic;
   String payment;
   @override
@@ -44,7 +43,6 @@ class _SingleWebinarScreenState extends State<SingleWebinarScreen> {
     // TODO: implement initState
     super.initState();
     print('eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee');
-    print(widget.mailTiming);
   }
 
   @override
@@ -68,6 +66,7 @@ class _SingleWebinarScreenState extends State<SingleWebinarScreen> {
                     for (var a in getFreeWebinar.docs) {
                       List<Widget> allTopics = [];
                       Timestamp timestamp = a.data()['timestamp'];
+
                       var year = DateFormat('y');
                       var month = DateFormat('MM');
                       var day = DateFormat('d');
@@ -169,7 +168,6 @@ class _SingleWebinarScreenState extends State<SingleWebinarScreen> {
                             aboutMentor: dBaboutMentor,
                             allTopics: allTopics,
                             webinarVideo: webinarVideo,
-                            mailContent: widget.mailTiming,
                           );
                           currentWebinar.add(singleWebinar);
                         }
@@ -190,32 +188,32 @@ class _SingleWebinarScreenState extends State<SingleWebinarScreen> {
 }
 
 class SingleWebinarDB extends StatefulWidget {
-  SingleWebinarDB(
-      {this.name,
-      this.payment,
-      this.mentorImage,
-      this.studentEnrolled,
-      this.email,
-      this.phoneNumber,
-      this.aboutMentor,
-      this.allTopics,
-      this.course,
-      this.webinarDuration,
-      this.mainSubtitle,
-      this.mainTitle,
-      this.superTitle,
-      this.trainerImage,
-      this.trainerName,
-      this.webinarTime,
-      this.webinarVideo,
-      this.mailContent});
+  SingleWebinarDB({
+    this.name,
+    this.payment,
+    this.mentorImage,
+    this.studentEnrolled,
+    this.email,
+    this.phoneNumber,
+    this.aboutMentor,
+    this.allTopics,
+    this.course,
+    this.webinarDuration,
+    this.mainSubtitle,
+    this.mainTitle,
+    this.superTitle,
+    this.trainerImage,
+    this.trainerName,
+    this.webinarTime,
+    this.webinarVideo,
+  });
   String name;
   String phoneNumber;
   String email;
   int studentEnrolled;
   String course;
   String webinarDuration;
-  Map mailContent;
+
   String payment;
   List<Widget> allTopics;
   String aboutMentor;
@@ -321,7 +319,7 @@ class _SingleWebinarDBState extends State<SingleWebinarDB> {
 
   void getData() async {
     http.Response response = await http.get(
-        'https://free-webinar-registration.herokuapp.com/?name=${nameController.text}&title=${widget.mainTitle}-${widget.payment == 'free' ? 'Free Webinar' : 'Webinar'}&date=$day${dayCalled(day)}%20$month%20$year&time=$hours:$minutes$dayFormat%20to%20$toHours:$toMinutes$toDayFormat%20IST&speaker=${widget.trainerName}(Ex%20-%20Ocean%20Academy)&email=${emailController.text}');
+        'https://free-webinar-registration.herokuapp.com/?name=${nameController.text}&title=${widget.mainTitle}-%20${widget.payment == 'free' ? 'Free Webinar' : 'Webinar'}&date=$day${dayCalled(day)}%20$month%20$year&time=$hours:$minutes$dayFormat%20to%20$toHours:$toMinutes$toDayFormat%20IST&speaker=${widget.trainerName}(Ex%20-%20Ocean%20Academy)&email=${emailController.text}&type=freewebinar');
 
     if (response.statusCode == 200) {
       String data = response.body;
@@ -392,7 +390,7 @@ class _SingleWebinarDBState extends State<SingleWebinarDB> {
     month = WebinarCard.timing[widget.course]['Month'];
     dayFormat = WebinarCard.timing[widget.course]['DayFormat'];
     toDayFormat = WebinarCard.timing[widget.course]['To DayFormat'];
-    print(widget.mailContent);
+
     // TODO: implement initState
     super.initState();
     widget._videoController =

@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:ocean_project/desktopview/screen/career/career_layout.dart';
 import 'package:ocean_project/desktopview/screen/footer.dart';
+import 'package:http/http.dart' as http;
 
 final _firestore = FirebaseFirestore.instance;
 
@@ -16,6 +17,17 @@ class _CareerMdState extends State<CareerMd> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   bool validation = false;
   String email;
+  void getData() async {
+    http.Response response = await http.get(
+        'http://free-webinar-registration.herokuapp.com/?name=Brinda&email=${CareerLayout.emailController.text}&type=subscribe');
+
+    if (response.statusCode == 200) {
+      String data = response.body;
+      print(data);
+    } else {
+      print(response.statusCode);
+    }
+  }
 
   Widget _buildEmail() {
     return TextFormField(
@@ -114,6 +126,7 @@ class _CareerMdState extends State<CareerMd> {
                                     setState(() {
                                       validation = false;
                                     });
+                                    getData();
                                     subscribeDialog(context);
                                     CareerLayout.emailController.clear();
                                   } else {

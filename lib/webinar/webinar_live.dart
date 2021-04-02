@@ -26,7 +26,6 @@ class _LiveWebinarState extends State<LiveWebinar> {
   final nameController = TextEditingController();
   final emailController = TextEditingController();
   final phoneNumberController = TextEditingController();
-  bool isPlay = false;
 
   Widget _buildName() {
     return TextFormField(

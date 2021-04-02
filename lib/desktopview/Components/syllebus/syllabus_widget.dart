@@ -38,8 +38,7 @@ class SyllabusList extends StatefulWidget {
 class _SyllabusListState extends State<SyllabusList> {
   @override
   Widget build(BuildContext context) {
-    return Center(
-        child: Container(
+    return Container(
       margin: EdgeInsets.symmetric(vertical: 10),
       decoration: BoxDecoration(color: Colors.white, boxShadow: [
         BoxShadow(
@@ -175,6 +174,6 @@ class _SyllabusListState extends State<SyllabusList> {
           ),
         ],
       ),
-    ));
+    );
   }
 }
