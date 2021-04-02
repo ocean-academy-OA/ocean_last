@@ -22,25 +22,20 @@
     <select />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="f0636c9e-06a6-419e-bb2d-a9c7ab8a2030" name="Default Changelist" comment="changed login">
+    <list default="true" id="f0636c9e-06a6-419e-bb2d-a9c7ab8a2030" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/lib/webinar/live_webinar.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.dart_tool/package_config.json" beforeDir="false" afterPath="$PROJECT_DIR$/.dart_tool/package_config.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.dart_tool/package_config_subset" beforeDir="false" afterPath="$PROJECT_DIR$/.dart_tool/package_config_subset" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.dart_tool/version" beforeDir="false" afterPath="$PROJECT_DIR$/.dart_tool/version" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.flutter-plugins-dependencies" beforeDir="false" afterPath="$PROJECT_DIR$/.flutter-plugins-dependencies" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/libraries/Dart_Packages.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Dart_Packages.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Dart_SDK.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Dart_SDK.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Flutter_Plugins.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Flutter_Plugins.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.packages" beforeDir="false" afterPath="$PROJECT_DIR$/.packages" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/android/local.properties" beforeDir="false" afterPath="$PROJECT_DIR$/android/local.properties" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/build/f872507f30e2ff2523f0f1d19160266e.cache.dill.track.dill" beforeDir="false" afterPath="$PROJECT_DIR$/build/f872507f30e2ff2523f0f1d19160266e.cache.dill.track.dill" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/flutter_assets/AssetManifest.json" beforeDir="false" afterPath="$PROJECT_DIR$/build/flutter_assets/AssetManifest.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/flutter_assets/NOTICES" beforeDir="false" afterPath="$PROJECT_DIR$/build/flutter_assets/NOTICES" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/desktopview/login_layout/layoutbuilder.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/desktopview/login_layout/layoutbuilder.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/desktopview/login_layout/login_lg.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/desktopview/login_layout/login_lg.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/desktopview/login_layout/login_md.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/desktopview/login_layout/login_md.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/desktopview/login_layout/login_sm.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/desktopview/login_layout/login_sm.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/desktopview/login_layout/login_xs.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/desktopview/login_layout/login_xs.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/desktopview/new_user_screen/log_in.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/desktopview/new_user_screen/log_in.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/desktopview/new_user_screen/otp.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/desktopview/new_user_screen/otp.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/desktopview/screen/menubar.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/desktopview/screen/menubar.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/desktopview/screen/translate_on_hover.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/desktopview/screen/translate_on_hover.dart" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -81,17 +76,17 @@
     <property name="editorconfig.notification" value="lf;" />
     <property name="eu.ydp.idea.ts.spec.generator.settings.spec.template" value="import {$ClassName$} from '$TestsRelativePath$../src/$classRelativePath$/$ClassName$';&#10;&#10;describe('$ClassName$', () =&gt; {&#10;  let $ObjName$:$ClassName$;&#10;&#10;  beforeEach(() =&gt; {&#10;    $ObjName$ = new $ClassName$();&#10;  });&#10;&#10;  describe('', () =&gt; {&#10;    it('', () =&gt; {&#10;      // given&#10;&#10;      // when&#10;&#10;      // then&#10;    });&#10;  });&#10;});&#10;" />
     <property name="io.flutter.reload.alreadyRun" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/../../../projects/animate_design" />
+    <property name="last_opened_file_path" value="$USER_HOME$/Documents/projects/animate_design" />
     <property name="settings.editor.selected.configurable" value="preferences.pluginManager" />
     <property name="show.migrate.to.gradle.popup" value="false" />
   </component>
   <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\jass0\Desktop\github\images" />
+    </key>
     <key name="CopyFile.RECENT_KEYS">
       <recent name="C:\Users\jass0\Desktop\github\lib\desktopview\new_user_screen" />
       <recent name="C:\Users\jass0\Desktop\github\lib\desktopview\login_layout" />
-    </key>
-    <key name="MoveFile.RECENT_KEYS">
-      <recent name="C:\Users\jass0\Desktop\github\images" />
     </key>
   </component>
   <component name="RunManager" selected="Flutter.main.dart">
@@ -525,20 +520,24 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="839" y="419" key="#Custom_Plugin_Repositories/0.0.1920.1040@0.0.1920.1040" timestamp="1614073155611" />
-    <state x="414" y="175" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1617024197554">
+    <state x="414" y="175" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1617357714112">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="414" y="175" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1617024197554" />
+    <state x="414" y="175" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1617357714112" />
     <state x="414" y="182" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.0.1920.1080@0.0.1920.1080" timestamp="1617010288957" />
     <state x="712" y="322" key="#com.intellij.fileTypes.FileTypeChooser" timestamp="1615893545031">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="712" y="322" key="#com.intellij.fileTypes.FileTypeChooser/0.0.1920.1040@0.0.1920.1040" timestamp="1615893545031" />
-    <state x="689" y="310" key="#com.intellij.ide.util.TreeFileChooserDialog" timestamp="1617024195472">
+    <state x="689" y="310" key="#com.intellij.ide.util.TreeFileChooserDialog" timestamp="1617357712808">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="689" y="310" key="#com.intellij.ide.util.TreeFileChooserDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1617024195472" />
+    <state x="689" y="310" key="#com.intellij.ide.util.TreeFileChooserDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1617357712808" />
     <state x="689" y="322" key="#com.intellij.ide.util.TreeFileChooserDialog/0.0.1920.1080@0.0.1920.1080" timestamp="1617010286973" />
+    <state x="640" y="256" key="#com.intellij.openapi.updateSettings.impl.PluginUpdateInfoDialog" timestamp="1617273267380">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="640" y="256" key="#com.intellij.openapi.updateSettings.impl.PluginUpdateInfoDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1617273267380" />
     <state x="690" y="267" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog" timestamp="1617098593386">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
@@ -551,25 +550,25 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="740" y="275" key="FileChooserDialogImpl/0.0.1920.1040@0.0.1920.1040" timestamp="1617183503283" />
-    <state width="1877" height="206" key="GridCell.Tab.0.bottom" timestamp="1617272714048">
+    <state width="1860" height="172" key="GridCell.Tab.0.bottom" timestamp="1617357716382">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1877" height="206" key="GridCell.Tab.0.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1617272714048" />
+    <state width="1860" height="172" key="GridCell.Tab.0.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1617357716382" />
     <state width="1877" height="253" key="GridCell.Tab.0.bottom/0.0.1920.1080@0.0.1920.1080" timestamp="1617013509555" />
-    <state width="1877" height="206" key="GridCell.Tab.0.center" timestamp="1617272714048">
+    <state width="1860" height="172" key="GridCell.Tab.0.center" timestamp="1617357716381">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1877" height="206" key="GridCell.Tab.0.center/0.0.1920.1040@0.0.1920.1040" timestamp="1617272714048" />
+    <state width="1860" height="172" key="GridCell.Tab.0.center/0.0.1920.1040@0.0.1920.1040" timestamp="1617357716381" />
     <state width="1877" height="253" key="GridCell.Tab.0.center/0.0.1920.1080@0.0.1920.1080" timestamp="1617013509555" />
-    <state width="1877" height="206" key="GridCell.Tab.0.left" timestamp="1617272714043">
+    <state width="1860" height="172" key="GridCell.Tab.0.left" timestamp="1617357716381">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1877" height="206" key="GridCell.Tab.0.left/0.0.1920.1040@0.0.1920.1040" timestamp="1617272714043" />
+    <state width="1860" height="172" key="GridCell.Tab.0.left/0.0.1920.1040@0.0.1920.1040" timestamp="1617357716381" />
     <state width="1877" height="253" key="GridCell.Tab.0.left/0.0.1920.1080@0.0.1920.1080" timestamp="1617013509555" />
-    <state width="1877" height="206" key="GridCell.Tab.0.right" timestamp="1617272714048">
+    <state width="1860" height="172" key="GridCell.Tab.0.right" timestamp="1617357716381">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1877" height="206" key="GridCell.Tab.0.right/0.0.1920.1040@0.0.1920.1040" timestamp="1617272714048" />
+    <state width="1860" height="172" key="GridCell.Tab.0.right/0.0.1920.1040@0.0.1920.1040" timestamp="1617357716381" />
     <state width="1877" height="253" key="GridCell.Tab.0.right/0.0.1920.1080@0.0.1920.1080" timestamp="1617013509555" />
     <state x="540" y="263" key="IDE.errors.dialog" timestamp="1614410080858">
       <screen x="0" y="0" width="1920" height="1040" />
@@ -628,10 +627,10 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="616" y="240" key="run.anything.popup/0.0.1920.1040@0.0.1920.1040" timestamp="1615973631485" />
-    <state x="623" y="225" width="672" height="678" key="search.everywhere.popup" timestamp="1615634624406">
+    <state x="623" y="225" width="672" height="678" key="search.everywhere.popup" timestamp="1617282723888">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="623" y="225" width="672" height="678" key="search.everywhere.popup/0.0.1920.1040@0.0.1920.1040" timestamp="1615634624406" />
+    <state x="623" y="225" width="672" height="678" key="search.everywhere.popup/0.0.1920.1040@0.0.1920.1040" timestamp="1617282723888" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -850,6 +849,11 @@
           <url>file://$PROJECT_DIR$/lib/desktopview/Components/course_enrole.dart</url>
           <line>380</line>
           <option name="timeStamp" value="151" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="Dart">
+          <url>file://$PROJECT_DIR$/lib/webinar/live_webinar.dart</url>
+          <line>197</line>
+          <option name="timeStamp" value="153" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
