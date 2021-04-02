@@ -44,7 +44,7 @@ class _WebinarRazorPayWebState extends State<WebinarRazorPayWeb> {
 
   void getData() async {
     http.Response response = await http.get(
-        'https://free-webinar-registration.herokuapp.com/?name=${widget.userName}&title=${widget.mainTitle}-${widget.amount.toString() == 'free' ? 'Free Webinar' : 'Webinar'}&date=$day${dayCalled(day)}%20$month%20$year&time=$hours:$minutes$dayFormat%20to%20$toHours:$toMinutes$toDayFormat%20IST&speaker=${widget.trainerName}(Ex%20-%20Ocean%20Academy)&email=${widget.email}');
+        'https://free-webinar-registration.herokuapp.com/?name=${widget.userName}&title=${widget.mainTitle}-%20${widget.amount.toString() == 'free' ? 'Free Webinar' : 'Webinar'}&date=$day${dayCalled(day)}%20$month%20$year&time=$hours:$minutes$dayFormat%20to%20$toHours:$toMinutes$toDayFormat%20IST&speaker=${widget.trainerName}(Ex%20-%20Ocean%20Academy)&email=${widget.email}&type=freewebinar');
     print(response);
     if (response.statusCode == 200) {
       String data = response.body;

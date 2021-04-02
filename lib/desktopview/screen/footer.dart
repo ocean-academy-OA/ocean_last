@@ -13,6 +13,7 @@ import 'package:ocean_project/desktopview/screen/services.dart';
 import 'home_screen.dart';
 import 'about_us_screen.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:http/http.dart' as http;
 
 final _firestore = FirebaseFirestore.instance;
 
@@ -90,6 +91,17 @@ class Footer extends StatefulWidget {
 
 class _FooterState extends State<Footer> {
   TextEditingController _subscribe = TextEditingController();
+  void getData() async {
+    http.Response response = await http.get(
+        'http://free-webinar-registration.herokuapp.com/?name=Brinda&email=${_subscribe.text}&type=subscribe');
+
+    if (response.statusCode == 200) {
+      String data = response.body;
+      print(data);
+    } else {
+      print(response.statusCode);
+    }
+  }
 
   bool validateEmail(String value) {
     Pattern pattern =
@@ -212,6 +224,8 @@ class _FooterState extends State<Footer> {
                                         .set({
                                       'Email': _subscribe.text,
                                     });
+                                    getData();
+
                                     subscribeDialog(context);
                                     _subscribe.clear();
                                   } else {

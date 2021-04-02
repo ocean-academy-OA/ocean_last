@@ -10,6 +10,7 @@ import 'package:ocean_project/desktopview/route/routing.dart';
 import 'package:ocean_project/webinar/wbinar_menubar.dart';
 import 'package:ocean_project/webinar/single_wbinar.dart';
 import 'package:ocean_project/webinar/upcoming_webinar.dart';
+import 'package:ocean_project/webinar/webinar_list.dart';
 
 import 'package:ocean_project/webinar/webinar_live.dart';
 import 'package:provider/provider.dart';
@@ -67,11 +68,14 @@ class _FlashNotificationState extends State<FlashNotification> {
                     List<int> timingList = [];
                     Map<int, Widget> courseMap = {};
                     List<Widget> currentWebinar = [];
-
+                    Map<String, Map> timingMap = {};
                     for (var message in messages) {
                       Timestamp time = message.data()['timestamp'];
                       final freeWebinarContent = message.data()['course'];
+                      final courseName = message.data()['course'];
                       final payment = message.data()['payment'];
+                      int duration =
+                          int.parse(message.data()['webinar duration']);
 
                       int yearFormat;
                       int monthFormat;
@@ -105,6 +109,45 @@ class _FlashNotificationState extends State<FlashNotification> {
                           .difference(DateTime.now())
                           .inSeconds;
 
+                      //for mail info
+                      String toTimeFormat = timeFormat;
+                      int toTime = hourFormat;
+                      int toDuration = duration;
+                      if (toDuration >= 60) {
+                        var hourcalculate = toDuration ~/ 60;
+                        toDuration -= hourcalculate * 60;
+                        toTime += hourcalculate;
+                        if (toTime == 12) {
+                          if (timeFormat == 'AM') {
+                            toTimeFormat = 'PM';
+                          } else {
+                            toTimeFormat = 'AM';
+                          }
+                        } else if (toTime > 12) {
+                          toTime -= 12;
+                          if (timeFormat == 'AM') {
+                            toTimeFormat = 'PM';
+                          } else {
+                            toTimeFormat = 'AM';
+                          }
+                        }
+                      }
+
+                      var monthString = DateFormat('MMMM');
+                      var monthFormatString = monthString.format(time.toDate());
+                      Map dateForMail = {
+                        'Year': yearFormat,
+                        'Month': monthFormatString,
+                        'Day': dayFormat,
+                        'Hours': hourFormat,
+                        'To Hours': toTime,
+                        'Minutes': minuteFormat,
+                        'To Minutes': toDuration,
+                        'DayFormat': timeFormat,
+                        'To DayFormat': toTimeFormat
+                      };
+                      timingMap.addAll({courseName: dateForMail});
+
                       if (defrenceTime > 0) {
                         final webinar = FlashDb(
                           content: freeWebinarContent,
@@ -112,14 +155,16 @@ class _FlashNotificationState extends State<FlashNotification> {
                           dismissNotification: widget.dismissNotification,
                           payment: payment,
                           wbinarLive: currentWebinar,
+                          mailTiming: dateForMail,
                         );
                         timingList.add(defrenceTime);
                         timingList.sort();
 
                         courseMap.addAll({defrenceTime: webinar});
-                      } else {
+                      } else if (defrenceTime > -duration) {
                         final webinar = FlashDb(
                           content: freeWebinarContent,
+                          mailTiming: dateForMail,
                           joinButton: widget.joinButton,
                           dismissNotification: widget.dismissNotification,
                           payment: payment,
@@ -131,6 +176,7 @@ class _FlashNotificationState extends State<FlashNotification> {
                     for (var i in timingList) {
                       courseList.add(courseMap[i]);
                     }
+                    WebinarCard.timing = timingMap;
                     return Container(
                       child: Column(
                         children: [
@@ -180,12 +226,14 @@ class FlashDb extends StatefulWidget {
   Function joinButton;
   Function upcomingButton;
   Function dismissNotification;
+  Map mailTiming;
   String joinButtonName = 'JOIN';
   List<Widget> wbinarLive;
   String content;
   String payment;
   FlashDb(
       {this.content,
+      this.mailTiming,
       this.joinButton,
       this.dismissNotification,
       this.joinButtonName,
@@ -317,7 +365,9 @@ class _FlashDbState extends State<FlashDb> {
               setState(() {
                 Navbar.isNotification = false;
               });
-
+              print('flash notification.............. ${widget.mailTiming}');
+              print(widget.content);
+              //
               Provider.of<Routing>(context, listen: false).updateRouting(
                   widget: widget.wbinarLive.isEmpty
                       ? SingleWebinarScreen(

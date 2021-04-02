@@ -1,5 +1,4 @@
-import 'dart:html';
-
+import 'package:http/http.dart' as http;
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:email_validator/email_validator.dart';
 import 'package:flutter/material.dart';
@@ -19,6 +18,17 @@ class _CareerLgState extends State<CareerLg> {
 
   bool validation = false;
   String email;
+  void getData() async {
+    http.Response response = await http.get(
+        'http://free-webinar-registration.herokuapp.com/?name=Brinda&email=${CareerLayout.emailController.text}&type=subscribe');
+
+    if (response.statusCode == 200) {
+      String data = response.body;
+      print(data);
+    } else {
+      print(response.statusCode);
+    }
+  }
 
   Widget buildEmail() {
     return TextFormField(
@@ -126,6 +136,7 @@ class _CareerLgState extends State<CareerLg> {
                                       setState(() {
                                         validation = false;
                                       });
+                                      getData();
                                       subscribeDialog(context);
                                       CareerLayout.emailController.clear();
                                     } else {

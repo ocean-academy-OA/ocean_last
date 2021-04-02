@@ -12,7 +12,10 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 FirebaseFirestore _firestore = FirebaseFirestore.instance;
 
 class MobileScafold extends StatefulWidget {
-  MobileScafold({this.widget, this.scaffoldKey});
+  MobileScafold({
+    this.widget,
+    this.scaffoldKey,
+  });
   Widget widget = Home();
   final GlobalKey<ScaffoldState> scaffoldKey;
   @override
@@ -144,6 +147,7 @@ class _MobileScafoldState extends State<MobileScafold> {
 
   @override
   Widget build(BuildContext context) {
+    setState(() {});
     return mobileViewAppBar(
         scaffoldKey: widget.scaffoldKey, widget: widget.widget);
   }

@@ -1,3 +1,5 @@
+import 'dart:html';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:email_validator/email_validator.dart';
 import 'package:flutter/gestures.dart';
@@ -7,6 +9,7 @@ import 'package:flutter/services.dart';
 import 'package:intl/intl.dart';
 import 'package:ocean_project/desktopview/Components/payment.dart';
 import 'package:ocean_project/desktopview/constants.dart';
+import 'package:ocean_project/mobileview/screen/contact_us_screen.dart';
 
 import 'package:ocean_project/mobileview/screen/home_screen.dart';
 import 'package:ocean_project/mobileview/screen/mobile_wbinar/mobile_join_successfuly.dart';
@@ -38,26 +41,76 @@ class MobileSingleWebinarScreen extends StatefulWidget {
 class _MobileSingleWebinarScreenState extends State<MobileSingleWebinarScreen> {
   bool timeUp;
   var sDate;
-
   bool isPlaying = false;
-
   int yearFormat;
   int monthFormat;
   int dayFormat;
   int hourFormat;
   int minuteFormat;
+
+  Map<String, bool> menus = {
+    'Support': false,
+    'Contact Us': false,
+    'Upcoming Webinars': false,
+  };
+  GestureDetector webinarMenu({String text, Widget widget}) {
+    return GestureDetector(
+      child: MaterialButton(
+        onPressed: () {},
+        hoverColor: Colors.grey[300],
+        child: Container(
+          padding: EdgeInsets.symmetric(vertical: 8, horizontal: 10),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: [
+              Text(
+                text,
+                style: TextStyle(fontSize: 16, color: Colors.blue),
+              ),
+            ],
+          ),
+        ),
+      ),
+      onTap: () {
+        setState(() {
+          menus.updateAll((key, value) => menus[key] = false);
+          menus[text] = true;
+        });
+        Navigator.push(context, MaterialPageRoute(builder: (_) => widget));
+      },
+    );
+  }
+
+  final GlobalKey<ScaffoldState> webinarScaffoldKey =
+      new GlobalKey<ScaffoldState>();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      key: webinarScaffoldKey,
+      endDrawer: Container(
+        margin: EdgeInsets.only(top: 55),
+        width: 250,
+        child: Drawer(
+            child: Column(
+          crossAxisAlignment: CrossAxisAlignment.end,
+          children: [
+            webinarMenu(text: 'Support'),
+            webinarMenu(text: 'Contact Us', widget: ContactUs()),
+            webinarMenu(text: 'Upcoming Webinars', widget: MobileWebinarCard()),
+          ],
+        )),
+      ),
       appBar: AppBar(
         leading: BackButton(),
         actions: [
           IconButton(
-              icon: Icon(Icons.home),
+              icon: Icon(Icons.menu),
               color: Colors.white,
               onPressed: () {
-                Navigator.push(
-                    context, MaterialPageRoute(builder: (context) => Home()));
+                // Scaffold.of(context).openEndDrawer();
+                webinarScaffoldKey.currentState.openEndDrawer();
+                // Navigator.push(
+                //     context, MaterialPageRoute(builder: (context) => Home()));
               })
         ],
       ),
@@ -342,7 +395,7 @@ class _SingleWebinarDBState extends State<SingleWebinarDB> {
 
   void getData() async {
     http.Response response = await http.get(
-        'https://free-webinar-registration.herokuapp.com/?name=${nameController.text}&title=${widget.mainTitle}-${widget.payment == 'free' ? 'Free Webinar' : 'Webinar'}&date=$day${dayCalled(day)}%20$month%20$year&time=$hours:$minutes$dayFormat%20to%20$toHours:$toMinutes$toDayFormat%20IST&speaker=${widget.trainerName}(Ex%20-%20Ocean%20Academy)&email=${emailController.text}');
+        'https://free-webinar-registration.herokuapp.com/?name=${nameController.text}&title=${widget.mainTitle}-%20${widget.payment == 'free' ? 'Free Webinar' : 'Webinar'}&date=$day${dayCalled(day)}%20$month%20$year&time=$hours:$minutes$dayFormat%20to%20$toHours:$toMinutes$toDayFormat%20IST&speaker=${widget.trainerName}(Ex%20-%20Ocean%20Academy)&email=${emailController.text}&type=freewebinar');
 
     if (response.statusCode == 200) {
       String data = response.body;
@@ -418,6 +471,17 @@ class _SingleWebinarDBState extends State<SingleWebinarDB> {
         Column(
           children: [
             Container(
+              width: MediaQuery.of(context).size.width - 20,
+              child: ClipRRect(
+                borderRadius: BorderRadius.circular(5),
+                child: Image.network(
+                  widget.trainerImage,
+                  fit: BoxFit.contain,
+                  alignment: Alignment.topCenter,
+                ),
+              ),
+            ),
+            Container(
               padding: EdgeInsets.symmetric(horizontal: 15, vertical: 15),
               alignment: Alignment.center,
               color: Colors.blue,
@@ -460,35 +524,34 @@ class _SingleWebinarDBState extends State<SingleWebinarDB> {
                       ),
                       child: Column(
                         children: [
-                          Container(
-                            height: 550,
-                            width: 800,
-                            child: ClipRRect(
-                              borderRadius: BorderRadius.circular(5),
-                              child: Image.network(
-                                widget.trainerImage,
-                                fit: BoxFit.cover,
-                                alignment: Alignment.topCenter,
-                              ),
-                            ),
-                          ),
-                          Container(
-                            alignment: Alignment.center,
-                            width: 800,
-                            height: 70,
-                            color: Colors.grey[200],
-                            margin: EdgeInsets.symmetric(vertical: 10),
-                            child: Text(
-                              'With ${widget.trainerName}',
-                              style: TextStyle(
-                                  inherit: false,
-                                  fontSize: 30,
-                                  color: Colors.grey[700],
-                                  fontFamily: kfontname,
-                                  fontWeight: FontWeight.normal),
-                              textAlign: TextAlign.center,
-                            ),
-                          ),
+                          // Container(
+                          //   width: MediaQuery.of(context).size.width - 20,
+                          //   child: ClipRRect(
+                          //     borderRadius: BorderRadius.circular(5),
+                          //     child: Image.network(
+                          //       widget.trainerImage,
+                          //       fit: BoxFit.contain,
+                          //       alignment: Alignment.topCenter,
+                          //     ),
+                          //   ),
+                          // ),
+                          // Container(
+                          //   alignment: Alignment.center,
+                          //   width: 800,
+                          //   height: 70,
+                          //   color: Colors.grey[200],
+                          //   margin: EdgeInsets.symmetric(vertical: 10),
+                          //   child: Text(
+                          //     'With ${widget.trainerName}',
+                          //     style: TextStyle(
+                          //         inherit: false,
+                          //         fontSize: 30,
+                          //         color: Colors.grey[700],
+                          //         fontFamily: kfontname,
+                          //         fontWeight: FontWeight.normal),
+                          //     textAlign: TextAlign.center,
+                          //   ),
+                          // ),
                         ],
                       )),
                   SizedBox(
@@ -507,238 +570,245 @@ class _SingleWebinarDBState extends State<SingleWebinarDB> {
                               blurRadius: 8,
                               offset: Offset(0, 4))
                         ]),
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        ///TODO TextField and timer join button
-                        //timer
-                        Column(
-                          children: [
-                            Container(
-                              width: 600,
-                              height: 100,
-                              child: Stack(
-                                alignment: Alignment.center,
-                                children: [
-                                  Container(
-                                    height: 110,
-                                    decoration: BoxDecoration(
+                    child: Container(
+                      width: MediaQuery.of(context).size.width - 30,
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          ///TODO TextField and timer join button
+                          //timer
+                          Column(
+                            children: [
+                              Container(
+                                height: 100,
+                                child: Stack(
+                                  alignment: Alignment.center,
+                                  children: [
+                                    Container(
+                                      height: 110,
+                                      decoration: BoxDecoration(
 
-                                        // border: Border.all(
-                                        //     color: kBlue, width: 3),
-                                        borderRadius: BorderRadius.circular(5)),
-                                    child: Column(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceAround,
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.center,
-                                      children: [
-                                        Column(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.center,
-                                          children: [
-                                            Container(
-                                              height: 47,
-                                              child: Stack(
-                                                alignment: Alignment.center,
-                                                children: [
-                                                  Positioned(
-                                                    bottom: 0,
-                                                    child: SlideCountdownClock(
-                                                      duration: Duration(
-                                                          seconds: widget
-                                                              .webinarTime),
-                                                      separator: ' : ',
-                                                      textStyle: TextStyle(
-                                                          fontSize: 40,
+                                          // border: Border.all(
+                                          //     color: kBlue, width: 3),
+                                          borderRadius:
+                                              BorderRadius.circular(5)),
+                                      child: Column(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceAround,
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.center,
+                                        children: [
+                                          Column(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.center,
+                                            children: [
+                                              Container(
+                                                height: 47,
+                                                child: Stack(
+                                                  alignment: Alignment.center,
+                                                  children: [
+                                                    Positioned(
+                                                      bottom: 0,
+                                                      child:
+                                                          SlideCountdownClock(
+                                                        duration: Duration(
+                                                            seconds: widget
+                                                                .webinarTime),
+                                                        separator: ' : ',
+                                                        textStyle: TextStyle(
+                                                            fontSize: 40,
+                                                            fontFamily:
+                                                                kfontname,
+                                                            color: kBlue),
+                                                        separatorTextStyle:
+                                                            TextStyle(
+                                                                fontSize: 35,
+                                                                color: kBlue),
+                                                        shouldShowDays: true,
+                                                        onDone: () {
+                                                          setState(() {
+                                                            print(
+                                                                DateTime.now());
+                                                          });
+                                                        },
+                                                      ),
+                                                    ),
+                                                  ],
+                                                ),
+                                              ),
+                                              Container(
+                                                width: 290,
+                                                child: Row(
+                                                  mainAxisAlignment:
+                                                      MainAxisAlignment
+                                                          .spaceBetween,
+                                                  children: [
+                                                    Text(
+                                                      'DAYS',
+                                                      style: TextStyle(
+                                                          fontSize: 18,
                                                           fontFamily: kfontname,
                                                           color: kBlue),
-                                                      separatorTextStyle:
-                                                          TextStyle(
-                                                              fontSize: 35,
-                                                              color: kBlue),
-                                                      shouldShowDays: true,
-                                                      onDone: () {
-                                                        setState(() {
-                                                          print(DateTime.now());
-                                                        });
-                                                      },
                                                     ),
-                                                  ),
-                                                ],
+                                                    SizedBox(width: 1),
+                                                    Text(
+                                                      'HRS',
+                                                      style: TextStyle(
+                                                          fontSize: 18,
+                                                          fontFamily: kfontname,
+                                                          color: kBlue),
+                                                    ),
+                                                    SizedBox(width: 1),
+                                                    Text(
+                                                      'MIN',
+                                                      style: TextStyle(
+                                                          fontSize: 18,
+                                                          fontFamily: kfontname,
+                                                          color: kBlue),
+                                                    ),
+                                                    SizedBox(width: 1),
+                                                    Text(
+                                                      'SEC',
+                                                      style: TextStyle(
+                                                          fontSize: 18,
+                                                          fontFamily: kfontname,
+                                                          color: kBlue),
+                                                    ),
+                                                  ],
+                                                ),
                                               ),
-                                            ),
-                                            Container(
-                                              width: 290,
-                                              child: Row(
-                                                mainAxisAlignment:
-                                                    MainAxisAlignment
-                                                        .spaceBetween,
-                                                children: [
-                                                  Text(
-                                                    'DAYS',
-                                                    style: TextStyle(
-                                                        fontSize: 18,
-                                                        fontFamily: kfontname,
-                                                        color: kBlue),
-                                                  ),
-                                                  SizedBox(width: 1),
-                                                  Text(
-                                                    'HRS',
-                                                    style: TextStyle(
-                                                        fontSize: 18,
-                                                        fontFamily: kfontname,
-                                                        color: kBlue),
-                                                  ),
-                                                  SizedBox(width: 1),
-                                                  Text(
-                                                    'MIN',
-                                                    style: TextStyle(
-                                                        fontSize: 18,
-                                                        fontFamily: kfontname,
-                                                        color: kBlue),
-                                                  ),
-                                                  SizedBox(width: 1),
-                                                  Text(
-                                                    'SEC',
-                                                    style: TextStyle(
-                                                        fontSize: 18,
-                                                        fontFamily: kfontname,
-                                                        color: kBlue),
-                                                  ),
-                                                ],
-                                              ),
-                                            ),
-                                          ],
-                                        ),
-                                      ],
+                                            ],
+                                          ),
+                                        ],
+                                      ),
                                     ),
-                                  ),
+                                  ],
+                                ),
+                              ),
+                              Container(
+                                alignment: Alignment.center,
+                                height: 40,
+                                child: Text(
+                                  'Webinar Start In...',
+                                  style: TextStyle(
+                                      fontSize: 18, color: Colors.white),
+                                ),
+                                color: Colors.blue,
+                                width: double.infinity,
+                              ),
+                            ],
+                          ),
+
+                          Form(
+                            key: _formKey,
+                            child: Container(
+                              height: 240,
+                              padding: EdgeInsets.symmetric(horizontal: 20),
+                              child: Column(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  _buildName(),
+                                  _buildphonenumber(),
+                                  _buildEmail(),
                                 ],
                               ),
                             ),
-                            Container(
-                              alignment: Alignment.center,
-                              height: 40,
-                              child: Text(
-                                'Webinar Start In...',
-                                style: TextStyle(
-                                    fontSize: 18, color: Colors.white),
-                              ),
-                              color: Colors.blue,
-                              width: double.infinity,
-                            ),
-                          ],
-                        ),
-
-                        Form(
-                          key: _formKey,
-                          child: Container(
-                            height: 240,
-                            padding: EdgeInsets.symmetric(horizontal: 20),
-                            child: Column(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                _buildName(),
-                                _buildphonenumber(),
-                                _buildEmail(),
-                              ],
-                            ),
                           ),
-                        ),
-                        Container(
-                          margin: EdgeInsets.only(top: 0),
-                          child: MaterialButton(
-                              child: Text(
-                                'Join',
-                                style: TextStyle(
-                                    fontSize: 20,
-                                    color: Colors.white,
-                                    fontWeight: FontWeight.bold),
-                              ),
-                              color: kBlue,
-                              minWidth: double.infinity,
-                              height: 60,
-                              elevation: 0,
-                              hoverElevation: 0,
-                              onPressed: () async {
-                                if (_formKey.currentState.validate()) {
-                                  if (widget.name != null &&
-                                      widget.email != null &&
-                                      widget.phoneNumber != null) {
-                                    if (widget.payment == 'free') {
-                                      _firestore
-                                          .collection('webinar Users')
-                                          .doc('+91 ${widget.phoneNumber}')
-                                          .set({
-                                        'name': widget.name,
-                                        'email': widget.email,
-                                        'Phone_Number':
-                                            '+91 ${widget.phoneNumber}',
-                                        'payment': widget.payment == 'free'
-                                            ? 'free'
-                                            : widget.payment
-                                      });
-                                      _firestore
-                                          .collection('Webinar')
-                                          .doc(widget.course)
-                                          .update({
-                                        'student enrolled':
-                                            '${widget.studentEnrolled + 1}'
-                                      });
-                                      getData();
-                                      Navigator.push(
-                                          context,
-                                          (MaterialPageRoute(
-                                              builder: (context) =>
-                                                  MobileJoinSuccessfully(
-                                                      joinUserName:
-                                                          widget.name))));
-                                    } else {
-                                      ///TODO payment Function
-                                      await showJoinDialog(context);
-                                      print('pement function');
+                          Container(
+                            margin: EdgeInsets.only(top: 0),
+                            child: MaterialButton(
+                                child: Text(
+                                  'Join',
+                                  style: TextStyle(
+                                      fontSize: 20,
+                                      color: Colors.white,
+                                      fontWeight: FontWeight.bold),
+                                ),
+                                color: kBlue,
+                                minWidth: double.infinity,
+                                height: 60,
+                                elevation: 0,
+                                hoverElevation: 0,
+                                onPressed: () async {
+                                  if (_formKey.currentState.validate()) {
+                                    if (widget.name != null &&
+                                        widget.email != null &&
+                                        widget.phoneNumber != null) {
+                                      if (widget.payment == 'free') {
+                                        _firestore
+                                            .collection('webinar Users')
+                                            .doc('+91 ${widget.phoneNumber}')
+                                            .set({
+                                          'name': widget.name,
+                                          'email': widget.email,
+                                          'Phone_Number':
+                                              '+91 ${widget.phoneNumber}',
+                                          'payment': widget.payment == 'free'
+                                              ? 'free'
+                                              : widget.payment
+                                        });
+                                        _firestore
+                                            .collection('Webinar')
+                                            .doc(widget.course)
+                                            .update({
+                                          'student enrolled':
+                                              '${widget.studentEnrolled + 1}'
+                                        });
+                                        getData();
+                                        Navigator.push(
+                                            context,
+                                            (MaterialPageRoute(
+                                                builder: (context) =>
+                                                    MobileJoinSuccessfully(
+                                                        joinUserName:
+                                                            widget.name))));
+                                      } else {
+                                        ///TODO payment Function
+                                        await showJoinDialog(context);
+                                        print('pement function');
+                                      }
                                     }
-                                  }
 
-                                  nameController.clear();
-                                  emailController.clear();
-                                  phoneNumberController.clear();
-                                }
-                              }),
-                        ),
-                        Container(
-                          padding: EdgeInsets.symmetric(horizontal: 15),
-                          child: RichText(
-                            text: TextSpan(
-                                style: TextStyle(
-                                    color: Colors.grey[500], fontSize: 16),
-                                text:
-                                    'By clicking the button above, you are creating an account with Ocean Academy and agree to our ',
-                                children: [
-                                  TextSpan(
-                                      recognizer: TapGestureRecognizer()
-                                        ..onTap = () {
-                                          print('Privacy Policy taped');
-                                        },
-                                      text: 'Privacy Policy',
-                                      style: TextStyle(color: kBlue)),
-                                  TextSpan(text: ' and '),
-                                  TextSpan(
-                                      recognizer: TapGestureRecognizer()
-                                        ..onTap = () {
-                                          print('Terms of Use taped');
-                                        },
-                                      text: 'Terms of Use',
-                                      style: TextStyle(color: kBlue)),
-                                  TextSpan(
-                                      text: ', including receiving emails. '),
-                                ]),
-                            textAlign: TextAlign.justify,
+                                    nameController.clear();
+                                    emailController.clear();
+                                    phoneNumberController.clear();
+                                  }
+                                }),
                           ),
-                        ),
-                        SizedBox(height: 10),
-                      ],
+                          Container(
+                            padding: EdgeInsets.symmetric(horizontal: 15),
+                            child: RichText(
+                              text: TextSpan(
+                                  style: TextStyle(
+                                      color: Colors.grey[500], fontSize: 16),
+                                  text:
+                                      'By clicking the button above, you are creating an account with Ocean Academy and agree to our ',
+                                  children: [
+                                    TextSpan(
+                                        recognizer: TapGestureRecognizer()
+                                          ..onTap = () {
+                                            print('Privacy Policy taped');
+                                          },
+                                        text: 'Privacy Policy',
+                                        style: TextStyle(color: kBlue)),
+                                    TextSpan(text: ' and '),
+                                    TextSpan(
+                                        recognizer: TapGestureRecognizer()
+                                          ..onTap = () {
+                                            print('Terms of Use taped');
+                                          },
+                                        text: 'Terms of Use',
+                                        style: TextStyle(color: kBlue)),
+                                    TextSpan(
+                                        text: ', including receiving emails. '),
+                                  ]),
+                              textAlign: TextAlign.justify,
+                            ),
+                          ),
+                          SizedBox(height: 10),
+                        ],
+                      ),
                     ),
                   ),
                 ],
