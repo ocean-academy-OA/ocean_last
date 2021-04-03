@@ -38,9 +38,7 @@ class WebinarFooter extends StatelessWidget {
               ],
             ),
           ),
-          Spacer(
-            flex: 11,
-          ),
+          Spacer(flex: 11),
           Container(
             width: 350,
             child: Row(

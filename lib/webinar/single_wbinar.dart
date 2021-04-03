@@ -7,10 +7,13 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:intl/intl.dart';
 import 'package:ocean_project/desktopview/constants.dart';
 import 'package:ocean_project/desktopview/route/routing.dart';
+
 import 'package:ocean_project/webinar/join_successfully.dart';
-import 'package:ocean_project/webinar/wbinar_payment/webinar_pament.dart';
+
 import 'package:ocean_project/webinar/webinar_const.dart';
+import 'package:ocean_project/webinar/webinar_footer.dart';
 import 'package:ocean_project/webinar/webinar_list.dart';
+import 'package:ocean_project/webinar/webinar_pament.dart';
 import 'package:provider/provider.dart';
 import 'package:slide_countdown_clock/slide_countdown_clock.dart';
 import 'package:http/http.dart' as http;
@@ -178,7 +181,8 @@ class _SingleWebinarScreenState extends State<SingleWebinarScreen> {
                         : Column(children: wbinars);
                   }
                 },
-              )
+              ),
+              WebinarFooter()
             ],
           ),
         ),
@@ -1580,7 +1584,6 @@ class _SingleWebinarDBState extends State<SingleWebinarDB> {
                 ),
                 SizedBox(height: 40),
                 Column(children: widget.allTopics),
-
                 SizedBox(height: 40),
                 Container(
                   padding: EdgeInsets.symmetric(vertical: 50),

@@ -10,6 +10,7 @@ import 'package:ocean_project/desktopview/Components/notification.dart';
 import 'package:ocean_project/desktopview/Components/purchase.dart';
 import 'package:ocean_project/desktopview/Components/user_profile.dart';
 import 'package:ocean_project/desktopview/Components/ocean_icons.dart';
+import 'package:ocean_project/desktopview/constants.dart';
 import 'package:ocean_project/desktopview/new_user_screen/edit_profile.dart';
 import 'package:ocean_project/desktopview/new_user_screen/log_in.dart';
 import 'package:ocean_project/desktopview/new_user_screen/otp.dart';
@@ -67,7 +68,7 @@ class _AppBarWidgetState extends State<AppBarWidget> {
           'See All',
           style: TextStyle(fontSize: 25, color: Colors.white),
         ),
-        backgroundColor: Colors.blueAccent,
+        backgroundColor: Colors.blue,
         onPressed: () {
           Provider.of<Routing>(context, listen: false)
               .updateRouting(widget: User());
@@ -297,35 +298,35 @@ class _AppBarWidgetState extends State<AppBarWidget> {
                             size: 50.0,
                           ),
                         ),
-                        MaterialButton(
-                          padding: EdgeInsets.all(10.0),
-                          child: Icon(
-                            Icons.notifications_none_outlined,
-                            color: Colors.white,
-                            size: 50.0,
-                          ),
-                          minWidth: 10.0,
-                          hoverColor: Colors.white10,
-                          key: notificationKey,
-                          shape: RoundedRectangleBorder(
-                              borderRadius:
-                                  BorderRadius.all(Radius.circular(600.0))),
-                          onPressed: true
-                              ? popupMenuButton
-                              : () {
-                                  setState(() {
-                                    ContentWidget.isVisible =
-                                        !ContentWidget.isVisible;
-                                    ContentWidget.isShow = false;
-                                  });
-                                  Provider.of<Routing>(context, listen: false)
-                                      .updateRouting(widget: CoursesView());
-                                  Provider.of<UserProfiles>(context,
-                                          listen: false)
-                                      .updateUser(
-                                          routing: Notification_onclick());
-                                },
-                        ),
+                        // MaterialButton(
+                        //   padding: EdgeInsets.all(10.0),
+                        //   child: Icon(
+                        //     Icons.notifications_none_outlined,
+                        //     color: Colors.white,
+                        //     size: 50.0,
+                        //   ),
+                        //   minWidth: 10.0,
+                        //   hoverColor: Colors.white10,
+                        //   key: notificationKey,
+                        //   shape: RoundedRectangleBorder(
+                        //       borderRadius:
+                        //           BorderRadius.all(Radius.circular(600.0))),
+                        //   onPressed: true
+                        //       ? popupMenuButton
+                        //       : () {
+                        //           setState(() {
+                        //             ContentWidget.isVisible =
+                        //                 !ContentWidget.isVisible;
+                        //             ContentWidget.isShow = false;
+                        //           });
+                        //           Provider.of<Routing>(context, listen: false)
+                        //               .updateRouting(widget: CoursesView());
+                        //           Provider.of<UserProfiles>(context,
+                        //                   listen: false)
+                        //               .updateUser(
+                        //                   routing: Notification_onclick());
+                        //         },
+                        // ),
                       ],
                     ),
                   ),

@@ -3,7 +3,7 @@ import 'package:flushbar/flushbar.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:url_launcher/url_launcher.dart';
-
+import 'package:http/http.dart' as http;
 import 'alert_text_field.dart';
 
 final _firestore = FirebaseFirestore.instance;
@@ -33,12 +33,25 @@ class _AlertEnquiryState extends State<AlertEnquiry> {
   bool isName = false;
   bool isPhoneNumber = false;
   bool isQuery = false;
+  bool isStart = true;
 
   bool validateEmail(String value) {
     Pattern pattern =
         r'^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$';
     RegExp regex = new RegExp(pattern);
     return (!regex.hasMatch(value)) ? false : true;
+  }
+
+  void getData() async {
+    http.Response response = await http.get(
+        'http://free-webinar-registration.herokuapp.com/?name=${_name.text}&email=${_email.text}&type=enquiry');
+
+    if (response.statusCode == 200) {
+      String data = response.body;
+      print(data);
+    } else {
+      print(response.statusCode);
+    }
   }
 
   bool nameValidation(String value) {
@@ -68,8 +81,15 @@ class _AlertEnquiryState extends State<AlertEnquiry> {
             children: [
               // close icon
               Row(
-                mainAxisAlignment: MainAxisAlignment.end,
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
+                  SizedBox(
+                    width: 35,
+                  ),
+                  Text(
+                    'Quick Enquire',
+                    style: TextStyle(fontSize: 20, color: Colors.blue),
+                  ),
                   IconButton(
                     icon: Icon(Icons.close),
                     iconSize: 30,
@@ -111,24 +131,28 @@ class _AlertEnquiryState extends State<AlertEnquiry> {
                     }
                   });
                 },
-                suffixIcon: isName != true
-                    ? Icon(
-                        Icons.close,
-                        color: Colors.red,
-                      )
-                    : Icon(Icons.check, color: Colors.green),
+                suffixIcon: isStart
+                    ? null
+                    : isName != true
+                        ? Icon(
+                            Icons.close,
+                            color: Colors.red,
+                          )
+                        : Icon(Icons.check, color: Colors.green),
               ),
               AlertTextField(
                   hintText: 'Mobile',
                   errorText: 'Enter Valid Number',
                   icon: Icon(Icons.phone_android),
                   controller: _mobile,
-                  suffixIcon: isPhoneNumber != true
-                      ? Icon(
-                          Icons.close,
-                          color: Colors.red,
-                        )
-                      : Icon(Icons.check, color: Colors.green),
+                  suffixIcon: isStart
+                      ? null
+                      : isPhoneNumber != true
+                          ? Icon(
+                              Icons.close,
+                              color: Colors.red,
+                            )
+                          : Icon(Icons.check, color: Colors.green),
                   onChanged: (value) {
                     setState(() {
                       if (_mobile.text.length == 10 &&
@@ -148,12 +172,14 @@ class _AlertEnquiryState extends State<AlertEnquiry> {
                 errorText: 'invalid Email',
                 icon: Icon(Icons.email),
                 controller: _email,
-                suffixIcon: isEmail != true
-                    ? Icon(
-                        Icons.close,
-                        color: Colors.red,
-                      )
-                    : Icon(Icons.check, color: Colors.green),
+                suffixIcon: isStart
+                    ? null
+                    : isEmail != true
+                        ? Icon(
+                            Icons.close,
+                            color: Colors.red,
+                          )
+                        : Icon(Icons.check, color: Colors.green),
                 onChanged: (value) {
                   setState(() {
                     if (validateEmail(_email.text)) {
@@ -168,31 +194,30 @@ class _AlertEnquiryState extends State<AlertEnquiry> {
                   });
                 },
               ),
-              Visibility(
-                visible: widget.queryField,
-                child: AlertQueryField(
-                  hintText: 'Query',
-                  errorText: 'Enter your Query',
-                  icon: Icon(
-                    Icons.question_answer_rounded,
-                  ),
-                  controller: _query,
-                  suffixIcon: isQuery != true
-                      ? Icon(
-                          Icons.close,
-                          color: Colors.red,
-                        )
-                      : Icon(Icons.check, color: Colors.green),
-                  onChanged: (value) {
-                    setState(() {
-                      if (_query.text.isNotEmpty && _query.text.length > 6) {
-                        isQuery = true;
-                      } else {
-                        isQuery = false;
-                      }
-                    });
-                  },
+              AlertQueryField(
+                hintText: 'Query',
+                errorText: 'Enter your Query',
+                icon: Icon(
+                  Icons.question_answer_rounded,
                 ),
+                controller: _query,
+                suffixIcon: isStart
+                    ? null
+                    : isQuery != true
+                        ? Icon(
+                            Icons.close,
+                            color: Colors.red,
+                          )
+                        : Icon(Icons.check, color: Colors.green),
+                onChanged: (value) {
+                  setState(() {
+                    if (_query.text.isNotEmpty && _query.text.length > 6) {
+                      isQuery = true;
+                    } else {
+                      isQuery = false;
+                    }
+                  });
+                },
               ),
               SizedBox(
                 height: 20,
@@ -210,47 +235,32 @@ class _AlertEnquiryState extends State<AlertEnquiry> {
                     style: TextStyle(fontSize: 20.0, color: Colors.white),
                   ),
                   onPressed: () async {
-                    if (widget.queryField) {
-                      if (validateEmail(_email.text) &&
-                          _mobile.text.length >= 10 &&
-                          nameValidation(_name.text) &&
-                          _name.text.length > 3 &&
-                          _query.text.length > 6) {
-                        print(' with query done');
-                        firestoreAddQuickEnquiry();
-                        SharedPreferences prefs =
-                            await SharedPreferences.getInstance();
-                        prefs.setBool(widget.keyIsFirstLoaded, false);
-                        Navigator.of(context).pop();
-                        Flushbar(
-                          icon: Icon(
-                            Icons.done,
-                            color: Colors.white,
-                          ),
-                          message: "Sent Successfully",
-                          duration: Duration(seconds: 2),
-                        )..show(context);
-                      } else {
-                        print('fill all field');
-                      }
+                    if (validateEmail(_email.text) &&
+                        _mobile.text.length >= 10 &&
+                        nameValidation(_name.text) &&
+                        _name.text.length > 3 &&
+                        _query.text.length > 6) {
+                      print(' with query done');
+                      getData();
+                      firestoreAddQuickEnquiry();
+                      SharedPreferences prefs =
+                          await SharedPreferences.getInstance();
+                      prefs.setBool(widget.keyIsFirstLoaded, false);
+                      Navigator.of(context).pop();
+                      Flushbar(
+                        icon: Icon(
+                          Icons.done,
+                          color: Colors.white,
+                        ),
+                        message: "Sent Successfully",
+                        duration: Duration(seconds: 2),
+                      )..show(context);
                     } else {
-                      if (validateEmail(_email.text) &&
-                          _mobile.text.length >= 10 &&
-                          nameValidation(_name.text) &&
-                          _name.text.length > 3) {
-                        print('without query field');
-                        fireStoreAddWithDownload();
-                        var url = widget.pdfLink;
-                        if (await canLaunch(url)) {
-                          await launch(url);
-                        } else {
-                          throw 'Could not launch $url';
-                        }
-                      } else {
-                        print('fill all field');
-                      }
+                      setState(() {
+                        isStart = false;
+                      });
+                      print('fill all field');
                     }
-                    Navigator.pop(context);
                   },
                 ),
               ),

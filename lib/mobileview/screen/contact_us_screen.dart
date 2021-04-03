@@ -6,8 +6,9 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:intl/intl.dart';
-import 'package:ocean_project/mobile_view/all_scafold.dart';
+
 import 'package:ocean_project/mobileview/Components/navigation_bar.dart';
+import 'package:ocean_project/mobileview/all_scafold.dart';
 import 'package:ocean_project/mobileview/constants.dart';
 import 'package:ocean_project/mobileview/screen/footer.dart';
 
