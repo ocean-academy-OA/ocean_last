@@ -5,7 +5,6 @@ import 'package:ocean_project/desktopview/Components/container_widget.dart';
 import 'package:ocean_project/desktopview/Components/navigation_bar.dart';
 import 'package:ocean_project/desktopview/constants.dart';
 import 'package:ocean_project/desktopview/screen/footer.dart';
-import 'package:ocean_project/text.dart';
 
 const ktopic = TextStyle(
     fontSize: 25.0, color: Colors.black, fontWeight: FontWeight.normal);
@@ -15,7 +14,7 @@ const kcontent = TextStyle(
 );
 
 // ignore: must_be_immutable
-class DestopAboutUs extends StatelessWidget {
+class DesktopAboutUs extends StatelessWidget {
   final _firestore = FirebaseFirestore.instance;
   var myGroup = AutoSizeGroup();
   // This widget is the root of your application.
@@ -50,30 +49,26 @@ class DestopAboutUs extends StatelessWidget {
                         SizedBox(
                           height: 20.0,
                         ),
-                        Text(aboutcontent1,
+                        Text(
+                            "Computer technology and consultancy firm Ocean Academy, a leading name in the area of IT education, software production and IT services, has graduated more than 5,000 students. The Ocean Academy was built from the outset on the concept of constructing and introducing brilliant innovations that generate change for students and customers. It’s the only location where excellence and technology intersect.",
                             textAlign: TextAlign.justify,
                             style: contentTextStyle),
-                        SizedBox(
-                          height: 20.0,
-                        ),
-                        Text(aboutcontent2,
+                        SizedBox(height: 20.0),
+                        Text(
+                            "In numerous fields, we have allowed digital technologies and are still enabling and fostering the latest technology among students and clients. Students and their lives are also enhancing the quality of learning.",
                             textAlign: TextAlign.justify,
                             style: contentTextStyle),
-                        SizedBox(
-                          height: 20.0,
-                        ),
-                        Text(aboutcontent3,
+                        SizedBox(height: 20.0),
+                        Text(
+                            "We understand the value of the interests of students and consumers and therefore satisfy them with the highest level of service. Improving students' readiness to accept emerging technologies and therefore their ability to go beyond it. We engage in the growth of experts who trust about themselves and are trained with the recent advancements in their particular fields, experts who are competent and willing to succeed in a demanding environment.",
                             textAlign: TextAlign.justify,
                             style: contentTextStyle),
-                        SizedBox(
-                          height: 20.0,
-                        ),
-                        Text(aboutcontent4,
+                        SizedBox(height: 20.0),
+                        Text(
+                            "In 2010, we officially launched our creation of IT trail. It is an entity with a certification of 9001:2008 which will continue to aspire and seek to be creative on all the areas. We are working into a core of excellence to enhance the level of learning and science.",
                             textAlign: TextAlign.justify,
                             style: contentTextStyle),
-                        SizedBox(
-                          height: 20.0,
-                        ),
+                        SizedBox(height: 20.0),
                       ],
                     ),
                   ),
@@ -156,9 +151,7 @@ class DestopAboutUs extends StatelessWidget {
                   } else {
                     final messages = snapshot.data.docs;
                     List<ContainerWidget> trainerContent = [];
-                    //List<String> subjects = [];
                     for (var message in messages) {
-                      // if (message.data()['coursename'] == "python") {
                       final trainerName = message.data()['name'];
                       final trainerDesignation = message.data()['designation'];
                       final trainerImage = message.data()['image'];
