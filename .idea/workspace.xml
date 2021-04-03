@@ -22,38 +22,10 @@
     <select />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="f0636c9e-06a6-419e-bb2d-a9c7ab8a2030" name="Default Changelist" comment="download pdf email integration completed">
-      <change afterPath="$PROJECT_DIR$/lib/alert/bottom_sheet.dart" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/mobileview/screen/mobile_wbinar/mobile_webinar_footer.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.flutter-plugins-dependencies" beforeDir="false" afterPath="$PROJECT_DIR$/.flutter-plugins-dependencies" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_26-03-2021_20_16_[Default_Changelist]/shelved.patch" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_26-03-2021_20_16__Default_Changelist_.xml" beforeDir="false" />
+    <list default="true" id="f0636c9e-06a6-419e-bb2d-a9c7ab8a2030" name="Default Changelist" comment="unwanted file deleted">
+      <change afterPath="$PROJECT_DIR$/lib/test_main.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/f872507f30e2ff2523f0f1d19160266e.cache.dill.track.dill" beforeDir="false" afterPath="$PROJECT_DIR$/build/f872507f30e2ff2523f0f1d19160266e.cache.dill.track.dill" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/alert/alert_msg.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/alert/alert_msg.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/desktopview/Components/course_enrole.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/desktopview/Components/course_enrole.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/desktopview/Components/enrool_appbar.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/desktopview/Components/enrool_appbar.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/desktopview/screen/home_screen.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/desktopview/screen/home_screen.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/mobile_view/all_scafold.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/mobileview/all_scafold.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/mobileview/screen/abouts_us_screen.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/mobileview/screen/abouts_us_screen.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/mobileview/screen/contact_us_screen.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/mobileview/screen/contact_us_screen.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/mobileview/screen/courses_screen.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/mobileview/screen/courses_screen.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/mobileview/screen/home_screen.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/mobileview/screen/home_screen.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/mobileview/screen/mobile_wbinar/mobile_single webinar.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/mobileview/screen/mobile_wbinar/mobile_single webinar.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/mobileview/screen/services_screen.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/mobileview/screen/services_screen.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/practice/testing.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/practice/testing.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/webinar/countdown.dart" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/webinar/date_time_countdown.dart" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/webinar/get_date.dart" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/webinar/join_alert.dart" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/webinar/registration_alert.dart" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/webinar/single_wbinar.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/webinar/single_wbinar.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/webinar/video test.dart" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/webinar/wbinar_payment/mobile_webinar_payment.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/mobileview/screen/mobile_wbinar/mobile_webinar_payment.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/webinar/wbinar_payment/webinar_pament.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/webinar/webinar_pament.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/webinar/webinar.dart" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/webinar/webinar_footer.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/webinar/webinar_footer.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/webinar/webinar_page.dart" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/mobileview/main.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/mobileview/main.dart" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -100,6 +72,7 @@
   </component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\thami\Documents\GitHub\29-03-2021\origin changed\lib\Rework_OA" />
       <recent name="C:\Users\thami\Documents\GitHub\29-03-2021\origin changed\lib\webinar" />
       <recent name="C:\Users\thami\Documents\GitHub\29-03-2021\origin changed\lib\mobileview\screen\mobile_wbinar" />
       <recent name="C:\Users\thami\Documents\GitHub\29-03-2021\origin changed\lib\mobileview" />
@@ -120,7 +93,7 @@
       <method v="2" />
     </configuration>
     <configuration name="main.dart" type="FlutterRunConfigurationType" factoryName="Flutter">
-      <option name="filePath" value="$PROJECT_DIR$/lib/main.dart" />
+      <option name="filePath" value="$PROJECT_DIR$/lib/test_main.dart" />
       <method v="2" />
     </configuration>
     <list>
@@ -145,13 +118,6 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1613817500605</updated>
-    </task>
-    <task id="LOCAL-00021" summary="variable passed as payment">
-      <created>1615352510659</created>
-      <option name="number" value="00021" />
-      <option name="presentableId" value="LOCAL-00021" />
-      <option name="project" value="LOCAL" />
-      <updated>1615352510659</updated>
     </task>
     <task id="LOCAL-00022" summary="variable passed as payment for the streambuilder">
       <created>1615352574518</created>
@@ -489,7 +455,14 @@
       <option name="project" value="LOCAL" />
       <updated>1617361608940</updated>
     </task>
-    <option name="localTasksCounter" value="70" />
+    <task id="LOCAL-00070" summary="unwanted file deleted">
+      <created>1617436456865</created>
+      <option name="number" value="00070" />
+      <option name="presentableId" value="LOCAL-00070" />
+      <option name="project" value="LOCAL" />
+      <updated>1617436456865</updated>
+    </task>
+    <option name="localTasksCounter" value="71" />
     <servers />
   </component>
   <component name="UnknownFeatures">
@@ -509,7 +482,6 @@
   </component>
   <component name="VcsManagerConfiguration">
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
-    <MESSAGE value="back routing" />
     <MESSAGE value="fonts" />
     <MESSAGE value="Back Notification completed" />
     <MESSAGE value="login section completed" />
@@ -534,26 +506,27 @@
     <MESSAGE value="lotttie clear" />
     <MESSAGE value="webinar subscribe integration completed" />
     <MESSAGE value="download pdf email integration completed" />
-    <option name="LAST_COMMIT_MESSAGE" value="download pdf email integration completed" />
+    <MESSAGE value="unwanted file deleted" />
+    <option name="LAST_COMMIT_MESSAGE" value="unwanted file deleted" />
   </component>
   <component name="WindowStateProjectService">
     <state x="839" y="419" key="#Custom_Plugin_Repositories" timestamp="1614073155611">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="839" y="419" key="#Custom_Plugin_Repositories/0.0.1920.1040@0.0.1920.1040" timestamp="1614073155611" />
-    <state x="414" y="175" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1617435273226">
+    <state x="414" y="175" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1617445542116">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="414" y="175" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1617435273226" />
+    <state x="414" y="175" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1617445542116" />
     <state x="414" y="182" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.0.1920.1080@0.0.1920.1080" timestamp="1617010288957" />
     <state x="712" y="322" key="#com.intellij.fileTypes.FileTypeChooser" timestamp="1615893545031">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="712" y="322" key="#com.intellij.fileTypes.FileTypeChooser/0.0.1920.1040@0.0.1920.1040" timestamp="1615893545031" />
-    <state x="689" y="310" key="#com.intellij.ide.util.TreeFileChooserDialog" timestamp="1617426151827">
+    <state x="689" y="310" key="#com.intellij.ide.util.TreeFileChooserDialog" timestamp="1617445540161">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="689" y="310" key="#com.intellij.ide.util.TreeFileChooserDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1617426151827" />
+    <state x="689" y="310" key="#com.intellij.ide.util.TreeFileChooserDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1617445540161" />
     <state x="689" y="322" key="#com.intellij.ide.util.TreeFileChooserDialog/0.0.1920.1080@0.0.1920.1080" timestamp="1617010286973" />
     <state x="690" y="267" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog" timestamp="1617434814696">
       <screen x="0" y="0" width="1920" height="1040" />
@@ -567,25 +540,25 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="740" y="275" key="FileChooserDialogImpl/0.0.1920.1040@0.0.1920.1040" timestamp="1617183503283" />
-    <state width="1877" height="192" key="GridCell.Tab.0.bottom" timestamp="1617435471055">
+    <state width="1877" height="317" key="GridCell.Tab.0.bottom" timestamp="1617435834050">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1877" height="192" key="GridCell.Tab.0.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1617435471055" />
+    <state width="1877" height="317" key="GridCell.Tab.0.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1617435834050" />
     <state width="1877" height="253" key="GridCell.Tab.0.bottom/0.0.1920.1080@0.0.1920.1080" timestamp="1617013509555" />
-    <state width="1877" height="192" key="GridCell.Tab.0.center" timestamp="1617435471055">
+    <state width="1877" height="317" key="GridCell.Tab.0.center" timestamp="1617435834045">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1877" height="192" key="GridCell.Tab.0.center/0.0.1920.1040@0.0.1920.1040" timestamp="1617435471055" />
+    <state width="1877" height="317" key="GridCell.Tab.0.center/0.0.1920.1040@0.0.1920.1040" timestamp="1617435834045" />
     <state width="1877" height="253" key="GridCell.Tab.0.center/0.0.1920.1080@0.0.1920.1080" timestamp="1617013509555" />
-    <state width="1877" height="192" key="GridCell.Tab.0.left" timestamp="1617435471055">
+    <state width="1877" height="317" key="GridCell.Tab.0.left" timestamp="1617435834045">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1877" height="192" key="GridCell.Tab.0.left/0.0.1920.1040@0.0.1920.1040" timestamp="1617435471055" />
+    <state width="1877" height="317" key="GridCell.Tab.0.left/0.0.1920.1040@0.0.1920.1040" timestamp="1617435834045" />
     <state width="1877" height="253" key="GridCell.Tab.0.left/0.0.1920.1080@0.0.1920.1080" timestamp="1617013509555" />
-    <state width="1877" height="192" key="GridCell.Tab.0.right" timestamp="1617435471055">
+    <state width="1877" height="317" key="GridCell.Tab.0.right" timestamp="1617435834045">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1877" height="192" key="GridCell.Tab.0.right/0.0.1920.1040@0.0.1920.1040" timestamp="1617435471055" />
+    <state width="1877" height="317" key="GridCell.Tab.0.right/0.0.1920.1040@0.0.1920.1040" timestamp="1617435834045" />
     <state width="1877" height="253" key="GridCell.Tab.0.right/0.0.1920.1080@0.0.1920.1080" timestamp="1617013509555" />
     <state x="540" y="263" key="IDE.errors.dialog" timestamp="1614410080858">
       <screen x="0" y="0" width="1920" height="1040" />
@@ -611,10 +584,10 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="804" y="433" key="VCS.ChangelistChooser/0.0.1920.1040@0.0.1920.1040" timestamp="1615355201183" />
-    <state x="552" y="253" key="Vcs.Push.Dialog.v2" timestamp="1617361613618">
+    <state x="552" y="253" key="Vcs.Push.Dialog.v2" timestamp="1617436462785">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="552" y="253" key="Vcs.Push.Dialog.v2/0.0.1920.1040@0.0.1920.1040" timestamp="1617361613618" />
+    <state x="552" y="253" key="Vcs.Push.Dialog.v2/0.0.1920.1040@0.0.1920.1040" timestamp="1617436462785" />
     <state x="552" y="263" key="Vcs.Push.Dialog.v2/0.0.1920.1080@0.0.1920.1080" timestamp="1617014469038" />
     <state x="92" y="92" width="1736" height="856" key="com.intellij.history.integration.ui.views.DirectoryHistoryDialog" timestamp="1616585226461">
       <screen x="0" y="0" width="1920" height="1040" />
