@@ -331,7 +331,7 @@ class _ContentWidgetState extends State<ContentWidget> {
     print("OA  batchid ${widget.batchid}");
     return Scrollbar(
       child: Container(
-        alignment: Alignment.centerLeft,
+        alignment: Alignment.topLeft,
         //margin: const EdgeInsets.all(15.0),
         padding: EdgeInsets.only(top: 0, left: 40, right: 40),
         width: 1300,

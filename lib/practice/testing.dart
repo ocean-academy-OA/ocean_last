@@ -1,9 +1,11 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:ocean_project/alert/bottom_sheet.dart';
 
 import 'package:ocean_project/pop_up_menu_botton_custamize.dart';
 import 'package:ocean_project/practice/custom_dropdown.dart';
 import 'package:ocean_project/practice/popup_menubutton.dart';
+import 'package:ocean_project/webinar/webinar_footer.dart';
 
 import 'package:provider/provider.dart';
 
@@ -11,110 +13,108 @@ void main() {
   runApp(MaterialApp(
       debugShowCheckedModeBanner: false,
       home: Scaffold(
-        body: CustomDropDown(
-          text: 'Dropdown Action',
-        ),
+        body: MobileBottomSheet(),
       )));
 }
 
-class ProfileIcon extends StatefulWidget {
-  @override
-  _ProfileIconState createState() => _ProfileIconState();
-}
-
-class _ProfileIconState extends State<ProfileIcon> {
-  // PopupMenu menu;
-  GlobalKey menubutton = GlobalKey();
-
-  void stateChanged(bool isShow) {
-    print('menu is ${isShow ? 'showing' : 'closed'}');
-  }
-
-  void onClickMenu(MenuItemProvider item) {
-    print('selected menu -> ${item.menuTitle}');
-    if (item.menuTitle == 'Logout') {
-      Navigator.push(
-          context, MaterialPageRoute(builder: (context) => MyHomePage()));
-    }
-  }
-
-  void onDismiss() {
-    print('Menu is dismiss');
-  }
-
-  void menuItems() {
-    PopupMenu menu = PopupMenu(
-        maxColumn: 1,
-        items: [
-          MenuItem(
-            title: 'Logout',
-            image: Icon(Icons.logout),
-          )
-        ],
-        onClickMenu: onClickMenu,
-        onDismiss: onDismiss,
-        stateChanged: stateChanged);
-    menu.show(widgetKey: menubutton);
-  }
-
-  // void maxColumn() {
-  //   PopupMenu menu = PopupMenu(
-  //     maxColumn: 3,
-  //     items: [
-  //       MenuItem(title: 'Copy', image: Image.asset('images/circle-01.png')),
-  //       MenuItem(
-  //           title: 'Home',
-  //           textStyle: TextStyle(fontSize: 10.0, color: Colors.tealAccent),
-  //           image: Icon(
-  //             Icons.home,
-  //             color: Colors.white,
-  //           )),
-  //       MenuItem(
-  //           title: 'Mail',
-  //           image: Icon(
-  //             Icons.mail,
-  //             color: Colors.white,
-  //           )),
-  //       MenuItem(
-  //           title: 'Power',
-  //           image: Icon(
-  //             Icons.power,
-  //             color: Colors.white,
-  //           )),
-  //       MenuItem(
-  //           title: 'Setting',
-  //           image: Icon(
-  //             Icons.settings,
-  //             color: Colors.white,
-  //           )),
-  //       MenuItem(
-  //           title: 'PopupMenu',
-  //           image: Icon(
-  //             Icons.menu,
-  //             color: Colors.white,
-  //           ))
-  //     ],
-  //     // onClickMenu: onClickMenu,
-  //     // stateChanged: stateChanged,
-  //     // onDismiss: onDismiss
-  //   );
-  //   menu.show(widgetKey: menubutton);
-  // }
-
-  @override
-  Widget build(BuildContext context) {
-    PopupMenu.context = context;
-    return Column(
-      children: [
-        FlatButton(
-          key: menubutton,
-          child: Text('test'),
-          onPressed: menuItems,
-        ),
-      ],
-    );
-  }
-}
+// class ProfileIcon extends StatefulWidget {
+//   @override
+//   _ProfileIconState createState() => _ProfileIconState();
+// }
+//
+// class _ProfileIconState extends State<ProfileIcon> {
+//   // PopupMenu menu;
+//   GlobalKey menubutton = GlobalKey();
+//
+//   void stateChanged(bool isShow) {
+//     print('menu is ${isShow ? 'showing' : 'closed'}');
+//   }
+//
+//   void onClickMenu(MenuItemProvider item) {
+//     print('selected menu -> ${item.menuTitle}');
+//     if (item.menuTitle == 'Logout') {
+//       Navigator.push(
+//           context, MaterialPageRoute(builder: (context) => MyHomePage()));
+//     }
+//   }
+//
+//   void onDismiss() {
+//     print('Menu is dismiss');
+//   }
+//
+//   void menuItems() {
+//     PopupMenu menu = PopupMenu(
+//         maxColumn: 1,
+//         items: [
+//           MenuItem(
+//             title: 'Logout',
+//             image: Icon(Icons.logout),
+//           )
+//         ],
+//         onClickMenu: onClickMenu,
+//         onDismiss: onDismiss,
+//         stateChanged: stateChanged);
+//     menu.show(widgetKey: menubutton);
+//   }
+//
+//   // void maxColumn() {
+//   //   PopupMenu menu = PopupMenu(
+//   //     maxColumn: 3,
+//   //     items: [
+//   //       MenuItem(title: 'Copy', image: Image.asset('images/circle-01.png')),
+//   //       MenuItem(
+//   //           title: 'Home',
+//   //           textStyle: TextStyle(fontSize: 10.0, color: Colors.tealAccent),
+//   //           image: Icon(
+//   //             Icons.home,
+//   //             color: Colors.white,
+//   //           )),
+//   //       MenuItem(
+//   //           title: 'Mail',
+//   //           image: Icon(
+//   //             Icons.mail,
+//   //             color: Colors.white,
+//   //           )),
+//   //       MenuItem(
+//   //           title: 'Power',
+//   //           image: Icon(
+//   //             Icons.power,
+//   //             color: Colors.white,
+//   //           )),
+//   //       MenuItem(
+//   //           title: 'Setting',
+//   //           image: Icon(
+//   //             Icons.settings,
+//   //             color: Colors.white,
+//   //           )),
+//   //       MenuItem(
+//   //           title: 'PopupMenu',
+//   //           image: Icon(
+//   //             Icons.menu,
+//   //             color: Colors.white,
+//   //           ))
+//   //     ],
+//   //     // onClickMenu: onClickMenu,
+//   //     // stateChanged: stateChanged,
+//   //     // onDismiss: onDismiss
+//   //   );
+//   //   menu.show(widgetKey: menubutton);
+//   // }
+//
+//   @override
+//   Widget build(BuildContext context) {
+//     PopupMenu.context = context;
+//     return Column(
+//       children: [
+//         FlatButton(
+//           key: menubutton,
+//           child: Text('test'),
+//           onPressed: menuItems,
+//         ),
+//       ],
+//     );
+//   }
+// }
 
 //
 //

@@ -1,6 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:ocean_project/mobile_view/all_scafold.dart';
+import 'package:ocean_project/mobileview/all_scafold.dart';
 
 import 'package:ocean_project/mobileview/components/container_widget.dart';
 import 'package:ocean_project/mobileview/components/navigation_bar.dart';

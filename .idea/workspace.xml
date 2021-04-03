@@ -22,21 +22,38 @@
     <select />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="f0636c9e-06a6-419e-bb2d-a9c7ab8a2030" name="Default Changelist" comment="webinar subscribe integration completed">
+    <list default="true" id="f0636c9e-06a6-419e-bb2d-a9c7ab8a2030" name="Default Changelist" comment="download pdf email integration completed">
+      <change afterPath="$PROJECT_DIR$/lib/alert/bottom_sheet.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/mobileview/screen/mobile_wbinar/mobile_webinar_footer.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.flutter-plugins-dependencies" beforeDir="false" afterPath="$PROJECT_DIR$/.flutter-plugins-dependencies" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_26-03-2021_20_16_[Default_Changelist]/shelved.patch" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_26-03-2021_20_16__Default_Changelist_.xml" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/build/f872507f30e2ff2523f0f1d19160266e.cache.dill.track.dill" beforeDir="false" afterPath="$PROJECT_DIR$/build/f872507f30e2ff2523f0f1d19160266e.cache.dill.track.dill" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/flutter_assets/AssetManifest.json" beforeDir="false" afterPath="$PROJECT_DIR$/build/flutter_assets/AssetManifest.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/flutter_assets/NOTICES" beforeDir="false" afterPath="$PROJECT_DIR$/build/flutter_assets/NOTICES" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/flutter_assets/packages/cool_alert/assets/flare/error_check.flr" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/flutter_assets/packages/cool_alert/assets/flare/info_check.flr" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/flutter_assets/packages/cool_alert/assets/flare/loading.flr" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/flutter_assets/packages/cool_alert/assets/flare/success_check.flr" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/flutter_assets/packages/cool_alert/assets/flare/warning_check.flr" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/desktopview/Components/offlineDb.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/desktopview/Components/offlineDb.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/desktopview/download_pdf/downlad_pdf_only_class.dart" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/desktopview/download_pdf/download pdf.dart" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/desktopview/download_pdf/download_alert.dart" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/alert/alert_msg.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/alert/alert_msg.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/desktopview/Components/course_enrole.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/desktopview/Components/course_enrole.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/desktopview/Components/enrool_appbar.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/desktopview/Components/enrool_appbar.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/desktopview/screen/home_screen.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/desktopview/screen/home_screen.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/mobile_view/all_scafold.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/mobileview/all_scafold.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/mobileview/screen/abouts_us_screen.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/mobileview/screen/abouts_us_screen.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/mobileview/screen/contact_us_screen.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/mobileview/screen/contact_us_screen.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/mobileview/screen/courses_screen.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/mobileview/screen/courses_screen.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/mobileview/screen/home_screen.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/mobileview/screen/home_screen.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/mobileview/screen/mobile_wbinar/mobile_single webinar.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/mobileview/screen/mobile_wbinar/mobile_single webinar.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/mobileview/screen/services_screen.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/mobileview/screen/services_screen.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/practice/testing.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/practice/testing.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/webinar/countdown.dart" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/webinar/date_time_countdown.dart" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/webinar/get_date.dart" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/webinar/join_alert.dart" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/webinar/registration_alert.dart" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/webinar/single_wbinar.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/webinar/single_wbinar.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/webinar/video test.dart" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/webinar/wbinar_payment/mobile_webinar_payment.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/mobileview/screen/mobile_wbinar/mobile_webinar_payment.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/webinar/wbinar_payment/webinar_pament.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/webinar/webinar_pament.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/webinar/webinar.dart" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/webinar/webinar_footer.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/webinar/webinar_footer.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/webinar/webinar_page.dart" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -82,12 +99,15 @@
     <property name="show.migrate.to.gradle.popup" value="false" />
   </component>
   <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\thami\Documents\GitHub\29-03-2021\origin changed\lib\webinar" />
+      <recent name="C:\Users\thami\Documents\GitHub\29-03-2021\origin changed\lib\mobileview\screen\mobile_wbinar" />
+      <recent name="C:\Users\thami\Documents\GitHub\29-03-2021\origin changed\lib\mobileview" />
+      <recent name="C:\Users\jass0\Desktop\github\images" />
+    </key>
     <key name="CopyFile.RECENT_KEYS">
       <recent name="C:\Users\jass0\Desktop\github\lib\desktopview\new_user_screen" />
       <recent name="C:\Users\jass0\Desktop\github\lib\desktopview\login_layout" />
-    </key>
-    <key name="MoveFile.RECENT_KEYS">
-      <recent name="C:\Users\jass0\Desktop\github\images" />
     </key>
   </component>
   <component name="RunManager" selected="Flutter.main.dart">
@@ -125,13 +145,6 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1613817500605</updated>
-    </task>
-    <task id="LOCAL-00020" summary="correct the mistake">
-      <created>1615351863382</created>
-      <option name="number" value="00020" />
-      <option name="presentableId" value="LOCAL-00020" />
-      <option name="project" value="LOCAL" />
-      <updated>1615351863382</updated>
     </task>
     <task id="LOCAL-00021" summary="variable passed as payment">
       <created>1615352510659</created>
@@ -469,7 +482,14 @@
       <option name="project" value="LOCAL" />
       <updated>1617358679610</updated>
     </task>
-    <option name="localTasksCounter" value="69" />
+    <task id="LOCAL-00069" summary="download pdf email integration completed">
+      <created>1617361608940</created>
+      <option name="number" value="00069" />
+      <option name="presentableId" value="LOCAL-00069" />
+      <option name="project" value="LOCAL" />
+      <updated>1617361608940</updated>
+    </task>
+    <option name="localTasksCounter" value="70" />
     <servers />
   </component>
   <component name="UnknownFeatures">
@@ -489,7 +509,6 @@
   </component>
   <component name="VcsManagerConfiguration">
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
-    <MESSAGE value="completed the otp and routing in course" />
     <MESSAGE value="back routing" />
     <MESSAGE value="fonts" />
     <MESSAGE value="Back Notification completed" />
@@ -514,31 +533,32 @@
     <MESSAGE value="login clear" />
     <MESSAGE value="lotttie clear" />
     <MESSAGE value="webinar subscribe integration completed" />
-    <option name="LAST_COMMIT_MESSAGE" value="webinar subscribe integration completed" />
+    <MESSAGE value="download pdf email integration completed" />
+    <option name="LAST_COMMIT_MESSAGE" value="download pdf email integration completed" />
   </component>
   <component name="WindowStateProjectService">
     <state x="839" y="419" key="#Custom_Plugin_Repositories" timestamp="1614073155611">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="839" y="419" key="#Custom_Plugin_Repositories/0.0.1920.1040@0.0.1920.1040" timestamp="1614073155611" />
-    <state x="414" y="175" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1617335473388">
+    <state x="414" y="175" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1617435273226">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="414" y="175" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1617335473388" />
+    <state x="414" y="175" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1617435273226" />
     <state x="414" y="182" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.0.1920.1080@0.0.1920.1080" timestamp="1617010288957" />
     <state x="712" y="322" key="#com.intellij.fileTypes.FileTypeChooser" timestamp="1615893545031">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="712" y="322" key="#com.intellij.fileTypes.FileTypeChooser/0.0.1920.1040@0.0.1920.1040" timestamp="1615893545031" />
-    <state x="689" y="310" key="#com.intellij.ide.util.TreeFileChooserDialog" timestamp="1617024195472">
+    <state x="689" y="310" key="#com.intellij.ide.util.TreeFileChooserDialog" timestamp="1617426151827">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="689" y="310" key="#com.intellij.ide.util.TreeFileChooserDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1617024195472" />
+    <state x="689" y="310" key="#com.intellij.ide.util.TreeFileChooserDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1617426151827" />
     <state x="689" y="322" key="#com.intellij.ide.util.TreeFileChooserDialog/0.0.1920.1080@0.0.1920.1080" timestamp="1617010286973" />
-    <state x="690" y="267" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog" timestamp="1617098593386">
+    <state x="690" y="267" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog" timestamp="1617434814696">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="690" y="267" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1617098593386" />
+    <state x="690" y="267" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1617434814696" />
     <state x="92" y="92" width="1736" height="856" key="DiffContextDialog" timestamp="1616585226461">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
@@ -547,25 +567,25 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="740" y="275" key="FileChooserDialogImpl/0.0.1920.1040@0.0.1920.1040" timestamp="1617183503283" />
-    <state width="1877" height="230" key="GridCell.Tab.0.bottom" timestamp="1617360262979">
+    <state width="1877" height="192" key="GridCell.Tab.0.bottom" timestamp="1617435471055">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1877" height="230" key="GridCell.Tab.0.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1617360262979" />
+    <state width="1877" height="192" key="GridCell.Tab.0.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1617435471055" />
     <state width="1877" height="253" key="GridCell.Tab.0.bottom/0.0.1920.1080@0.0.1920.1080" timestamp="1617013509555" />
-    <state width="1877" height="230" key="GridCell.Tab.0.center" timestamp="1617360262979">
+    <state width="1877" height="192" key="GridCell.Tab.0.center" timestamp="1617435471055">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1877" height="230" key="GridCell.Tab.0.center/0.0.1920.1040@0.0.1920.1040" timestamp="1617360262979" />
+    <state width="1877" height="192" key="GridCell.Tab.0.center/0.0.1920.1040@0.0.1920.1040" timestamp="1617435471055" />
     <state width="1877" height="253" key="GridCell.Tab.0.center/0.0.1920.1080@0.0.1920.1080" timestamp="1617013509555" />
-    <state width="1877" height="230" key="GridCell.Tab.0.left" timestamp="1617360262979">
+    <state width="1877" height="192" key="GridCell.Tab.0.left" timestamp="1617435471055">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1877" height="230" key="GridCell.Tab.0.left/0.0.1920.1040@0.0.1920.1040" timestamp="1617360262979" />
+    <state width="1877" height="192" key="GridCell.Tab.0.left/0.0.1920.1040@0.0.1920.1040" timestamp="1617435471055" />
     <state width="1877" height="253" key="GridCell.Tab.0.left/0.0.1920.1080@0.0.1920.1080" timestamp="1617013509555" />
-    <state width="1877" height="230" key="GridCell.Tab.0.right" timestamp="1617360262979">
+    <state width="1877" height="192" key="GridCell.Tab.0.right" timestamp="1617435471055">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1877" height="230" key="GridCell.Tab.0.right/0.0.1920.1040@0.0.1920.1040" timestamp="1617360262979" />
+    <state width="1877" height="192" key="GridCell.Tab.0.right/0.0.1920.1040@0.0.1920.1040" timestamp="1617435471055" />
     <state width="1877" height="253" key="GridCell.Tab.0.right/0.0.1920.1080@0.0.1920.1080" timestamp="1617013509555" />
     <state x="540" y="263" key="IDE.errors.dialog" timestamp="1614410080858">
       <screen x="0" y="0" width="1920" height="1040" />
@@ -591,10 +611,10 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="804" y="433" key="VCS.ChangelistChooser/0.0.1920.1040@0.0.1920.1040" timestamp="1615355201183" />
-    <state x="552" y="253" key="Vcs.Push.Dialog.v2" timestamp="1617358692173">
+    <state x="552" y="253" key="Vcs.Push.Dialog.v2" timestamp="1617361613618">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="552" y="253" key="Vcs.Push.Dialog.v2/0.0.1920.1040@0.0.1920.1040" timestamp="1617358692173" />
+    <state x="552" y="253" key="Vcs.Push.Dialog.v2/0.0.1920.1040@0.0.1920.1040" timestamp="1617361613618" />
     <state x="552" y="263" key="Vcs.Push.Dialog.v2/0.0.1920.1080@0.0.1920.1080" timestamp="1617014469038" />
     <state x="92" y="92" width="1736" height="856" key="com.intellij.history.integration.ui.views.DirectoryHistoryDialog" timestamp="1616585226461">
       <screen x="0" y="0" width="1920" height="1040" />
@@ -616,10 +636,10 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="522" y="249" key="com.intellij.xdebugger.impl.breakpoints.ui.BreakpointsDialogFactory$2/0.0.1920.1040@0.0.1920.1040" timestamp="1615204831741" />
-    <state x="431" y="126" width="1036" height="788" key="find.popup" timestamp="1616049759348">
+    <state x="431" y="126" width="1036" height="788" key="find.popup" timestamp="1617435663893">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="431" y="126" width="1036" height="788" key="find.popup/0.0.1920.1040@0.0.1920.1040" timestamp="1616049759348" />
+    <state x="431" y="126" width="1036" height="788" key="find.popup/0.0.1920.1040@0.0.1920.1040" timestamp="1617435663893" />
     <state x="616" y="240" key="run.anything.popup" timestamp="1615973631485">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
@@ -656,11 +676,6 @@
           <url>file://$PROJECT_DIR$/lib/desktopview/route/routing.dart</url>
           <line>47</line>
           <option name="timeStamp" value="5" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="Dart">
-          <url>file://$PROJECT_DIR$/lib/alert/alert_msg.dart</url>
-          <line>212</line>
-          <option name="timeStamp" value="21" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="Dart">
           <url>file://$PROJECT_DIR$/lib/desktopview/Components/Alert_otp.dart</url>
@@ -721,51 +736,6 @@
           <url>file://$PROJECT_DIR$/lib/desktopview/Components/thanks_purchasing.dart</url>
           <line>41</line>
           <option name="timeStamp" value="70" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="Dart">
-          <url>file://$PROJECT_DIR$/lib/webinar/webinar_page.dart</url>
-          <line>338</line>
-          <option name="timeStamp" value="72" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="Dart">
-          <url>file://$PROJECT_DIR$/lib/webinar/webinar_page.dart</url>
-          <line>339</line>
-          <option name="timeStamp" value="73" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="Dart">
-          <url>file://$PROJECT_DIR$/lib/webinar/webinar_page.dart</url>
-          <line>337</line>
-          <option name="timeStamp" value="74" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="Dart">
-          <url>file://$PROJECT_DIR$/lib/webinar/webinar_page.dart</url>
-          <line>336</line>
-          <option name="timeStamp" value="75" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="Dart">
-          <url>file://$PROJECT_DIR$/lib/webinar/webinar_page.dart</url>
-          <line>335</line>
-          <option name="timeStamp" value="76" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="Dart">
-          <url>file://$PROJECT_DIR$/lib/webinar/webinar_page.dart</url>
-          <line>286</line>
-          <option name="timeStamp" value="77" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="Dart">
-          <url>file://$PROJECT_DIR$/lib/webinar/webinar_page.dart</url>
-          <line>285</line>
-          <option name="timeStamp" value="78" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="Dart">
-          <url>file://$PROJECT_DIR$/lib/webinar/webinar_page.dart</url>
-          <line>284</line>
-          <option name="timeStamp" value="79" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="Dart">
-          <url>file://$PROJECT_DIR$/lib/webinar/webinar_page.dart</url>
-          <line>248</line>
-          <option name="timeStamp" value="80" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="Dart">
           <url>file://$PROJECT_DIR$/lib/desktopview/new_user_screen/log_in.dart</url>
@@ -841,6 +811,16 @@
           <url>file://$PROJECT_DIR$/lib/desktopview/screen/menubar.dart</url>
           <line>76</line>
           <option name="timeStamp" value="144" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="Dart">
+          <url>file://$PROJECT_DIR$/lib/webinar/single_wbinar.dart</url>
+          <line>1587</line>
+          <option name="timeStamp" value="156" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="Dart">
+          <url>file://$PROJECT_DIR$/lib/webinar/single_wbinar.dart</url>
+          <line>1494</line>
+          <option name="timeStamp" value="157" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
