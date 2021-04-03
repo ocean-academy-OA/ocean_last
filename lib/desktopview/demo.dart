@@ -135,7 +135,7 @@ void main() {
 class MyHomePage extends StatelessWidget {
   var list = ["Home", "AboutUs", "Service", "ContactUs"];
   var colors = [Colors.orange, Colors.blue, Colors.red, Colors.green];
-  List<Widget> oa = [Home(), AboutUs(), Service(), ContactUs()];
+  List<Widget> oa = [Home(), DestopAboutUs(), Service(), ContactUs()];
 
   PageController controller = PageController();
 
