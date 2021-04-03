@@ -1,5 +1,6 @@
 import 'dart:developer';
 import 'package:flutter/material.dart';
+import 'package:ocean_project/Rework_OA/Service/tab_service.dart';
 import 'package:ocean_project/mobileview/components/ocean_icons.dart';
 import 'package:ocean_project/mobileview/constants.dart';
 import 'package:ocean_project/mobileview/route/routing.dart';
@@ -60,7 +61,7 @@ class _NavbarState extends State<Navbar> {
                     children: [
                       menuItem(text: "Home", widget: Home()),
                       menuItem(text: "About Us", widget: AboutUs()),
-                      menuItem(text: "Service", widget: Service()),
+                      menuItem(text: "Service", widget: TabService()),
                       menuItem(text: "Courses", widget: Courses()),
                       menuItem(text: "Contact Us", widget: ContactUs()),
                     ],
