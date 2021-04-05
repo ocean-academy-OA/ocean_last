@@ -23,12 +23,14 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="f0636c9e-06a6-419e-bb2d-a9c7ab8a2030" name="Default Changelist" comment="service both completed">
-      <change beforePath="$PROJECT_DIR$/.flutter-plugins-dependencies" beforeDir="false" afterPath="$PROJECT_DIR$/.flutter-plugins-dependencies" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_27-03-2021_13_22_[Default_Changelist]/shelved.patch" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_27-03-2021_13_22__Default_Changelist_.xml" beforeDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/mobileview/components/MobileViweWidgets/how_it_works.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/mobileview/components/MobileViweWidgets/main_badget_widget.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/mobileview/components/MobileViweWidgets/placement_company.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/mobileview/components/MobileViweWidgets/reviews.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/mobileview/components/MobileViweWidgets/slider_widget.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/mobileview/components/MobileViweWidgets/upcoming_course_widget.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/f872507f30e2ff2523f0f1d19160266e.cache.dill.track.dill" beforeDir="false" afterPath="$PROJECT_DIR$/build/f872507f30e2ff2523f0f1d19160266e.cache.dill.track.dill" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/mobileview/screen/services_screen.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/mobileview/screen/services_screen.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/mobileview/components/main_badget_widget.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/mobileview/components/main_badget_widget.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/lib/test_main.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/test_main.dart" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -70,24 +72,24 @@
     <property name="editorconfig.notification" value="lf;" />
     <property name="eu.ydp.idea.ts.spec.generator.settings.spec.template" value="import {$ClassName$} from '$TestsRelativePath$../src/$classRelativePath$/$ClassName$';&#10;&#10;describe('$ClassName$', () =&gt; {&#10;  let $ObjName$:$ClassName$;&#10;&#10;  beforeEach(() =&gt; {&#10;    $ObjName$ = new $ClassName$();&#10;  });&#10;&#10;  describe('', () =&gt; {&#10;    it('', () =&gt; {&#10;      // given&#10;&#10;      // when&#10;&#10;      // then&#10;    });&#10;  });&#10;});&#10;" />
     <property name="io.flutter.reload.alreadyRun" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/lib/Rework_OA/Service/service_widget/Mobile_Tab_widget" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/lib/mobileview/components/MobileViweWidgets" />
     <property name="settings.editor.selected.configurable" value="preferences.pluginManager" />
     <property name="show.migrate.to.gradle.popup" value="false" />
   </component>
   <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\thami\Documents\GitHub\29-03-2021\origin changed\lib\mobileview\components\MobileViweWidgets" />
+      <recent name="C:\Users\thami\Documents\GitHub\29-03-2021\origin changed\lib\Rework_OA\Service\service_widget\Mobile_Tab_widget" />
+      <recent name="C:\Users\thami\Documents\GitHub\29-03-2021\origin changed\lib\Rework_OA\Service\service_widget\Mobile_Tab" />
+      <recent name="C:\Users\thami\Documents\GitHub\29-03-2021\origin changed\lib\Rework_OA\Service\service_widget" />
+      <recent name="C:\Users\thami\Documents\GitHub\29-03-2021\origin changed\lib\Rework_OA\Service" />
+    </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="C:\Users\thami\Documents\GitHub\29-03-2021\origin changed\lib\Rework_OA\Service\service_widget\Desktop_widget" />
       <recent name="C:\Users\thami\Documents\GitHub\29-03-2021\origin changed\lib\Rework_OA" />
       <recent name="C:\Users\thami\Documents\GitHub\29-03-2021\origin changed\lib\webinar" />
       <recent name="C:\Users\thami\Documents\GitHub\29-03-2021\origin changed\lib\mobileview\screen\mobile_wbinar" />
       <recent name="C:\Users\thami\Documents\GitHub\29-03-2021\origin changed\lib\mobileview" />
-    </key>
-    <key name="CopyFile.RECENT_KEYS">
-      <recent name="C:\Users\thami\Documents\GitHub\29-03-2021\origin changed\lib\Rework_OA\Service\service_widget\Mobile_Tab_widget" />
-      <recent name="C:\Users\thami\Documents\GitHub\29-03-2021\origin changed\lib\Rework_OA\Service\service_widget\Mobile_Tab" />
-      <recent name="C:\Users\thami\Documents\GitHub\29-03-2021\origin changed\lib\Rework_OA\Service\service_widget" />
-      <recent name="C:\Users\thami\Documents\GitHub\29-03-2021\origin changed\lib\Rework_OA\Service" />
-      <recent name="C:\Users\jass0\Desktop\github\lib\desktopview\new_user_screen" />
     </key>
   </component>
   <component name="RunManager" selected="Flutter.main.dart">
@@ -125,13 +127,6 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1613817500605</updated>
-    </task>
-    <task id="LOCAL-00026" summary="course page completed with session">
-      <created>1615456940262</created>
-      <option name="number" value="00026" />
-      <option name="presentableId" value="LOCAL-00026" />
-      <option name="project" value="LOCAL" />
-      <updated>1615456940263</updated>
     </task>
     <task id="LOCAL-00027" summary="16:19 11-03-21">
       <created>1615459783922</created>
@@ -469,7 +464,14 @@
       <option name="project" value="LOCAL" />
       <updated>1617457068075</updated>
     </task>
-    <option name="localTasksCounter" value="75" />
+    <task id="LOCAL-00075" summary="service both completed">
+      <created>1617608903187</created>
+      <option name="number" value="00075" />
+      <option name="presentableId" value="LOCAL-00075" />
+      <option name="project" value="LOCAL" />
+      <updated>1617608903187</updated>
+    </task>
+    <option name="localTasksCounter" value="76" />
     <servers />
   </component>
   <component name="UnknownFeatures">
@@ -547,25 +549,25 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="740" y="275" key="FileChooserDialogImpl/0.0.1920.1040@0.0.1920.1040" timestamp="1617183503283" />
-    <state width="1877" height="176" key="GridCell.Tab.0.bottom" timestamp="1617460168737">
+    <state width="1877" height="234" key="GridCell.Tab.0.bottom" timestamp="1617618525943">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1877" height="176" key="GridCell.Tab.0.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1617460168737" />
+    <state width="1877" height="234" key="GridCell.Tab.0.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1617618525943" />
     <state width="1877" height="253" key="GridCell.Tab.0.bottom/0.0.1920.1080@0.0.1920.1080" timestamp="1617013509555" />
-    <state width="1877" height="176" key="GridCell.Tab.0.center" timestamp="1617460168737">
+    <state width="1877" height="234" key="GridCell.Tab.0.center" timestamp="1617618525943">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1877" height="176" key="GridCell.Tab.0.center/0.0.1920.1040@0.0.1920.1040" timestamp="1617460168737" />
+    <state width="1877" height="234" key="GridCell.Tab.0.center/0.0.1920.1040@0.0.1920.1040" timestamp="1617618525943" />
     <state width="1877" height="253" key="GridCell.Tab.0.center/0.0.1920.1080@0.0.1920.1080" timestamp="1617013509555" />
-    <state width="1877" height="176" key="GridCell.Tab.0.left" timestamp="1617460168737">
+    <state width="1877" height="234" key="GridCell.Tab.0.left" timestamp="1617618525943">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1877" height="176" key="GridCell.Tab.0.left/0.0.1920.1040@0.0.1920.1040" timestamp="1617460168737" />
+    <state width="1877" height="234" key="GridCell.Tab.0.left/0.0.1920.1040@0.0.1920.1040" timestamp="1617618525943" />
     <state width="1877" height="253" key="GridCell.Tab.0.left/0.0.1920.1080@0.0.1920.1080" timestamp="1617013509555" />
-    <state width="1877" height="176" key="GridCell.Tab.0.right" timestamp="1617460168737">
+    <state width="1877" height="234" key="GridCell.Tab.0.right" timestamp="1617618525943">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1877" height="176" key="GridCell.Tab.0.right/0.0.1920.1040@0.0.1920.1040" timestamp="1617460168737" />
+    <state width="1877" height="234" key="GridCell.Tab.0.right/0.0.1920.1040@0.0.1920.1040" timestamp="1617618525943" />
     <state width="1877" height="253" key="GridCell.Tab.0.right/0.0.1920.1080@0.0.1920.1080" timestamp="1617013509555" />
     <state x="540" y="263" key="IDE.errors.dialog" timestamp="1614410080858">
       <screen x="0" y="0" width="1920" height="1040" />
@@ -591,10 +593,10 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="804" y="433" key="VCS.ChangelistChooser/0.0.1920.1040@0.0.1920.1040" timestamp="1615355201183" />
-    <state x="552" y="253" key="Vcs.Push.Dialog.v2" timestamp="1617457076878">
+    <state x="552" y="253" key="Vcs.Push.Dialog.v2" timestamp="1617608917678">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="552" y="253" key="Vcs.Push.Dialog.v2/0.0.1920.1040@0.0.1920.1040" timestamp="1617457076878" />
+    <state x="552" y="253" key="Vcs.Push.Dialog.v2/0.0.1920.1040@0.0.1920.1040" timestamp="1617608917678" />
     <state x="552" y="263" key="Vcs.Push.Dialog.v2/0.0.1920.1080@0.0.1920.1080" timestamp="1617014469038" />
     <state x="92" y="92" width="1736" height="856" key="com.intellij.history.integration.ui.views.DirectoryHistoryDialog" timestamp="1616585226461">
       <screen x="0" y="0" width="1920" height="1040" />
@@ -608,18 +610,18 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="562" y="122" key="com.intellij.openapi.editor.actions.MultiplePasteAction$ClipboardContentChooser/0.0.1920.1040@0.0.1920.1040" timestamp="1617359040365" />
-    <state x="769" y="434" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1617030689200">
+    <state x="769" y="434" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1617608938782">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="769" y="434" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/0.0.1920.1040@0.0.1920.1040" timestamp="1617030689200" />
+    <state x="769" y="434" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/0.0.1920.1040@0.0.1920.1040" timestamp="1617608938782" />
     <state x="522" y="249" key="com.intellij.xdebugger.impl.breakpoints.ui.BreakpointsDialogFactory$2" timestamp="1615204831741">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="522" y="249" key="com.intellij.xdebugger.impl.breakpoints.ui.BreakpointsDialogFactory$2/0.0.1920.1040@0.0.1920.1040" timestamp="1615204831741" />
-    <state x="431" y="126" width="1036" height="788" key="find.popup" timestamp="1617604233553">
+    <state x="431" y="126" width="1036" height="788" key="find.popup" timestamp="1617616886856">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="431" y="126" width="1036" height="788" key="find.popup/0.0.1920.1040@0.0.1920.1040" timestamp="1617604233553" />
+    <state x="431" y="126" width="1036" height="788" key="find.popup/0.0.1920.1040@0.0.1920.1040" timestamp="1617616886856" />
     <state x="616" y="240" key="run.anything.popup" timestamp="1615973631485">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
