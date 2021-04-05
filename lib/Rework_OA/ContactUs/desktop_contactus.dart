@@ -13,8 +13,8 @@ import 'package:ocean_project/desktopview/Components/navigation_bar.dart';
 import 'package:ocean_project/desktopview/constants.dart';
 import 'package:ocean_project/text.dart';
 import 'package:progress_indicator_button/progress_button.dart';
-import 'package:ocean_project/desktopview/screen/footer.dart';
 import 'package:random_string/random_string.dart';
+import 'package:ocean_project/Rework_OA/Footer/desktop_footer.dart';
 
 final _firestore = FirebaseFirestore.instance;
 
@@ -699,7 +699,7 @@ class _DesktopContactUsState extends State<DesktopContactUs> {
                 ),
               ],
             ),
-            Footer(),
+            DesktopFooter(),
           ],
         ),
       ),

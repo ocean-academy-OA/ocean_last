@@ -418,20 +418,25 @@ class _MobileContactUsState extends State<MobileContactUs> {
                       ],
                     ),
                     SizedBox(height: 20),
-                    Container(
-                      child: Text(
-                        "I'm not Robot",
-                        style: TextStyle(
-                          color: Colors.grey[600],
-                          letterSpacing: 2,
-                          fontSize: 20,
-                          fontWeight: FontWeight.w300,
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Container(
+                          child: Text(
+                            "I'm not Robot",
+                            style: TextStyle(
+                              color: Colors.grey[600],
+                              letterSpacing: 2,
+                              fontSize: 20,
+                              fontWeight: FontWeight.w300,
+                            ),
+                          ),
                         ),
-                      ),
+                      ],
                     ),
                     SizedBox(height: 10),
                     Row(
-                      mainAxisAlignment: MainAxisAlignment.start,
+                      mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         Container(
                           padding: EdgeInsets.all(15),
@@ -506,64 +511,69 @@ class _MobileContactUsState extends State<MobileContactUs> {
                       ],
                     ),
                     SizedBox(height: 10),
-                    RaisedButton(
-                      padding: EdgeInsets.only(
-                          left: 30, right: 30, top: 20, bottom: 20),
-                      splashColor: Colors.white24,
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(10),
-                      ),
-                      color: Color(0xff0091D2),
-                      child: Text(
-                        'Submit',
-                        style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 15,
-                            fontWeight: FontWeight.w700,
-                            fontFamily: kfontname),
-                      ),
-                      onPressed: () {
-                        TimeOfDay picked = TimeOfDay.now();
-                        MaterialLocalizations localizations =
-                            MaterialLocalizations.of(context);
-                        time = localizations.formatTimeOfDay(picked,
-                            alwaysUse24HourFormat: false);
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        RaisedButton(
+                          padding: EdgeInsets.only(
+                              left: 30, right: 30, top: 20, bottom: 20),
+                          splashColor: Colors.white24,
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(10),
+                          ),
+                          color: Color(0xff0091D2),
+                          child: Text(
+                            'Submit',
+                            style: TextStyle(
+                                color: Colors.white,
+                                fontSize: 15,
+                                fontWeight: FontWeight.w700,
+                                fontFamily: kfontname),
+                          ),
+                          onPressed: () {
+                            TimeOfDay picked = TimeOfDay.now();
+                            MaterialLocalizations localizations =
+                                MaterialLocalizations.of(context);
+                            time = localizations.formatTimeOfDay(picked,
+                                alwaysUse24HourFormat: false);
 
-                        date = DateFormat("d-M-y").format(DateTime.now());
-                        print('$time < Current Time >');
-                        if (_formKey.currentState.validate()) {
-                          _formKey.currentState.save();
-                          if (enquiry != null &&
-                              fullname != null &&
-                              email != null &&
-                              query != null &&
-                              phoneNumber != null) {
-                            _firestore.collection('contact_us').add({
-                              'Enquery': enquiry,
-                              'Full_Name': fullname,
-                              'Email': email,
-                              'Query': query,
-                              'Phone_Number': phoneNumber
-                            });
-                            getData();
-                            if (enquiry.isNotEmpty) {
-                              setState(() {
-                                enquiry = enquery[0];
-                                ScaffoldMessenger.of(context)
-                                    .showSnackBar(SnackBar(
-                                  content:
-                                      Text('Your enquiry sent successfully!'),
-                                ));
-                              });
-                              print(enquiry);
+                            date = DateFormat("d-M-y").format(DateTime.now());
+                            print('$time < Current Time >');
+                            if (_formKey.currentState.validate()) {
+                              _formKey.currentState.save();
+                              if (enquiry != null &&
+                                  fullname != null &&
+                                  email != null &&
+                                  query != null &&
+                                  phoneNumber != null) {
+                                _firestore.collection('contact_us').add({
+                                  'Enquery': enquiry,
+                                  'Full_Name': fullname,
+                                  'Email': email,
+                                  'Query': query,
+                                  'Phone_Number': phoneNumber
+                                });
+                                getData();
+                                if (enquiry.isNotEmpty) {
+                                  setState(() {
+                                    enquiry = enquery[0];
+                                    ScaffoldMessenger.of(context)
+                                        .showSnackBar(SnackBar(
+                                      content: Text(
+                                          'Your enquiry sent successfully!'),
+                                    ));
+                                  });
+                                  print(enquiry);
+                                }
+                                nameController.clear();
+                                emailController.clear();
+                                queryController.clear();
+                                phoneNumberController.clear();
+                              }
                             }
-                            nameController.clear();
-                            emailController.clear();
-                            queryController.clear();
-                            phoneNumberController.clear();
-                          }
-                        }
-                      },
+                          },
+                        ),
+                      ],
                     ),
                     SizedBox(height: 30),
                   ],
