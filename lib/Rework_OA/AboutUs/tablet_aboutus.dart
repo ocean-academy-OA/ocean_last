@@ -193,6 +193,7 @@ class TabletAboutUs extends StatelessWidget {
                         // }
                       }
                       return Wrap(
+                        alignment: WrapAlignment.center,
                         children: trainerContent,
                       );
                     }

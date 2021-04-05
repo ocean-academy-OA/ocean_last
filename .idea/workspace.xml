@@ -23,24 +23,10 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="f0636c9e-06a6-419e-bb2d-a9c7ab8a2030" name="Default Changelist" comment="updated carrer, contactus, aboutus and added footer">
-      <change beforePath="$PROJECT_DIR$/.dart_tool/package_config.json" beforeDir="false" afterPath="$PROJECT_DIR$/.dart_tool/package_config.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.dart_tool/package_config_subset" beforeDir="false" afterPath="$PROJECT_DIR$/.dart_tool/package_config_subset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.dart_tool/version" beforeDir="false" afterPath="$PROJECT_DIR$/.dart_tool/version" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.flutter-plugins-dependencies" beforeDir="false" afterPath="$PROJECT_DIR$/.flutter-plugins-dependencies" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Dart_Packages.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Dart_Packages.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Dart_SDK.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Dart_SDK.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Flutter_Plugins.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Flutter_Plugins.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_27-03-2021_13_22_[Default_Changelist]/shelved.patch" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_27-03-2021_13_22__Default_Changelist_.xml" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.packages" beforeDir="false" afterPath="$PROJECT_DIR$/.packages" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/android/local.properties" beforeDir="false" afterPath="$PROJECT_DIR$/android/local.properties" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/build/f872507f30e2ff2523f0f1d19160266e.cache.dill.track.dill" beforeDir="false" afterPath="$PROJECT_DIR$/build/f872507f30e2ff2523f0f1d19160266e.cache.dill.track.dill" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/lib/Rework_OA/AboutUs/tablet_aboutus.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/Rework_OA/AboutUs/tablet_aboutus.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/Rework_OA/ContactUs/desktop_contactus.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/Rework_OA/ContactUs/desktop_contactus.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/Rework_OA/ContactUs/mobile_contactus.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/Rework_OA/ContactUs/mobile_contactus.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/rework_main.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/rework_main.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/webinar/live_webinar.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/webinar/live_webinar.dart" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -131,13 +117,6 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1613817500605</updated>
-    </task>
-    <task id="LOCAL-00021" summary="variable passed as payment">
-      <created>1615352510659</created>
-      <option name="number" value="00021" />
-      <option name="presentableId" value="LOCAL-00021" />
-      <option name="project" value="LOCAL" />
-      <updated>1615352510659</updated>
     </task>
     <task id="LOCAL-00022" summary="variable passed as payment for the streambuilder">
       <created>1615352574518</created>
@@ -475,7 +454,14 @@
       <option name="project" value="LOCAL" />
       <updated>1617458725559</updated>
     </task>
-    <option name="localTasksCounter" value="70" />
+    <task id="LOCAL-00070" summary="updated carrer, contactus, aboutus and added footer">
+      <created>1617616381494</created>
+      <option name="number" value="00070" />
+      <option name="presentableId" value="LOCAL-00070" />
+      <option name="project" value="LOCAL" />
+      <updated>1617616381495</updated>
+    </task>
+    <option name="localTasksCounter" value="71" />
     <servers />
   </component>
   <component name="UnknownFeatures">
@@ -559,25 +545,25 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="740" y="275" key="FileChooserDialogImpl/0.0.1920.1040@0.0.1920.1040" timestamp="1617183503283" />
-    <state width="1877" height="192" key="GridCell.Tab.0.bottom" timestamp="1617610245198">
+    <state width="1877" height="192" key="GridCell.Tab.0.bottom" timestamp="1617616634683">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1877" height="192" key="GridCell.Tab.0.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1617610245198" />
+    <state width="1877" height="192" key="GridCell.Tab.0.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1617616634683" />
     <state width="1877" height="253" key="GridCell.Tab.0.bottom/0.0.1920.1080@0.0.1920.1080" timestamp="1617013509555" />
-    <state width="1877" height="192" key="GridCell.Tab.0.center" timestamp="1617610245197">
+    <state width="1877" height="192" key="GridCell.Tab.0.center" timestamp="1617616634683">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1877" height="192" key="GridCell.Tab.0.center/0.0.1920.1040@0.0.1920.1040" timestamp="1617610245197" />
+    <state width="1877" height="192" key="GridCell.Tab.0.center/0.0.1920.1040@0.0.1920.1040" timestamp="1617616634683" />
     <state width="1877" height="253" key="GridCell.Tab.0.center/0.0.1920.1080@0.0.1920.1080" timestamp="1617013509555" />
-    <state width="1877" height="192" key="GridCell.Tab.0.left" timestamp="1617610245197">
+    <state width="1877" height="192" key="GridCell.Tab.0.left" timestamp="1617616634683">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1877" height="192" key="GridCell.Tab.0.left/0.0.1920.1040@0.0.1920.1040" timestamp="1617610245197" />
+    <state width="1877" height="192" key="GridCell.Tab.0.left/0.0.1920.1040@0.0.1920.1040" timestamp="1617616634683" />
     <state width="1877" height="253" key="GridCell.Tab.0.left/0.0.1920.1080@0.0.1920.1080" timestamp="1617013509555" />
-    <state width="1877" height="192" key="GridCell.Tab.0.right" timestamp="1617610245198">
+    <state width="1877" height="192" key="GridCell.Tab.0.right" timestamp="1617616634683">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1877" height="192" key="GridCell.Tab.0.right/0.0.1920.1040@0.0.1920.1040" timestamp="1617610245198" />
+    <state width="1877" height="192" key="GridCell.Tab.0.right/0.0.1920.1040@0.0.1920.1040" timestamp="1617616634683" />
     <state width="1877" height="253" key="GridCell.Tab.0.right/0.0.1920.1080@0.0.1920.1080" timestamp="1617013509555" />
     <state x="540" y="263" key="IDE.errors.dialog" timestamp="1614410080858">
       <screen x="0" y="0" width="1920" height="1040" />
@@ -587,10 +573,10 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="184" y="86" key="MergeDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1617458761696" />
-    <state x="598" y="281" key="MultipleFileMergeDialog" timestamp="1615473632320">
+    <state x="598" y="281" key="MultipleFileMergeDialog" timestamp="1617616512526">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="598" y="281" key="MultipleFileMergeDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1615473632320" />
+    <state x="598" y="281" key="MultipleFileMergeDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1617616512526" />
     <state x="701" y="222" key="RollbackChangesDialog" timestamp="1615818418605">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
@@ -603,10 +589,10 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="804" y="433" key="VCS.ChangelistChooser/0.0.1920.1040@0.0.1920.1040" timestamp="1615355201183" />
-    <state x="552" y="253" key="Vcs.Push.Dialog.v2" timestamp="1617458732621">
+    <state x="552" y="253" key="Vcs.Push.Dialog.v2" timestamp="1617616520251">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="552" y="253" key="Vcs.Push.Dialog.v2/0.0.1920.1040@0.0.1920.1040" timestamp="1617458732621" />
+    <state x="552" y="253" key="Vcs.Push.Dialog.v2/0.0.1920.1040@0.0.1920.1040" timestamp="1617616520251" />
     <state x="552" y="263" key="Vcs.Push.Dialog.v2/0.0.1920.1080@0.0.1920.1080" timestamp="1617014469038" />
     <state x="92" y="92" width="1736" height="856" key="com.intellij.history.integration.ui.views.DirectoryHistoryDialog" timestamp="1616585226461">
       <screen x="0" y="0" width="1920" height="1040" />
