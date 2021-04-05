@@ -157,9 +157,7 @@ class TabletAboutUs extends StatelessWidget {
                   } else {
                     final messages = snapshot.data.docs;
                     List<ContainerWidget> trainerContent = [];
-                    //List<String> subjects = [];
                     for (var message in messages) {
-                      // if (message.data()['coursename'] == "python") {
                       final trainerName = message.data()['name'];
                       final trainerDesignation = message.data()['designation'];
                       final trainerImage = message.data()['image'];

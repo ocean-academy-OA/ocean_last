@@ -1,14 +1,13 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:ocean_project/mobileview/all_scafold.dart';
-
 import 'package:ocean_project/mobileview/components/container_widget.dart';
 import 'package:ocean_project/mobileview/components/navigation_bar.dart';
 import 'package:ocean_project/mobileview/constants.dart';
 import 'package:ocean_project/mobileview/screen/footer.dart';
 import 'package:ocean_project/text.dart';
 
-class AboutUs extends StatelessWidget {
+class MobileAboutUs extends StatelessWidget {
   final _firestore = FirebaseFirestore.instance;
   final GlobalKey<ScaffoldState> aboutScaffoldKey =
       new GlobalKey<ScaffoldState>();

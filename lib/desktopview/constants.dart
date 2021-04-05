@@ -15,7 +15,7 @@ const kcontentcolor = Color(0xFF717171);
 const kfontname = "Gilroy";
 
 const contentTextStyle = TextStyle(
-  fontSize: 22,
+  fontSize: 20,
   color: kcontentcolor,
   inherit: false,
   fontWeight: FontWeight.bold,
