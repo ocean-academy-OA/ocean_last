@@ -1,5 +1,4 @@
 import 'dart:html';
-import 'dart:ui' as ui;
 import 'package:http/http.dart' as http;
 import 'package:email_validator/email_validator.dart';
 import 'package:flutter/cupertino.dart';
@@ -9,6 +8,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:intl/intl.dart';
 import 'package:modal_progress_hud/modal_progress_hud.dart';
+import 'package:ocean_project/Rework_OA/ContactUs/iframe_map.dart';
 import 'package:ocean_project/desktopview/Components/navigation_bar.dart';
 import 'package:ocean_project/desktopview/constants.dart';
 import 'package:ocean_project/text.dart';
@@ -359,9 +359,7 @@ class _DesktopContactUsState extends State<DesktopContactUs> {
                               fontFamily: kfontname,
                             ),
                           ),
-                          SizedBox(
-                            height: 13,
-                          ),
+                          SizedBox(height: 13),
                           Text(
                             contactuscontent,
                             style: TextStyle(
@@ -389,8 +387,8 @@ class _DesktopContactUsState extends State<DesktopContactUs> {
                                 ]),
                           ),
                           SizedBox(height: 20),
-                          Padding(
-                            padding: EdgeInsets.only(right: 80),
+                          Container(
+                            width: 700,
                             child: DropdownButtonFormField<String>(
                               autovalidate: validation,
                               validator: (value) {
@@ -438,8 +436,8 @@ class _DesktopContactUsState extends State<DesktopContactUs> {
                             ),
                           ),
                           SizedBox(height: 25),
-                          Padding(
-                            padding: EdgeInsets.only(right: 80),
+                          Container(
+                            width: 700,
                             child: _buildName(),
                           ),
                           SizedBox(height: 25),
@@ -460,8 +458,8 @@ class _DesktopContactUsState extends State<DesktopContactUs> {
                                 ]),
                           ),
                           SizedBox(height: 25),
-                          Padding(
-                            padding: EdgeInsets.only(right: 80),
+                          Container(
+                            width: 700,
                             child: _buildphonenumber(),
                           ),
                           SizedBox(height: 25),
@@ -482,8 +480,8 @@ class _DesktopContactUsState extends State<DesktopContactUs> {
                                 ]),
                           ),
                           SizedBox(height: 25),
-                          Padding(
-                            padding: EdgeInsets.only(right: 80),
+                          Container(
+                            width: 700,
                             child: _buildEmail(),
                           ),
                           SizedBox(height: 25),
@@ -504,8 +502,8 @@ class _DesktopContactUsState extends State<DesktopContactUs> {
                                 ]),
                           ),
                           SizedBox(height: 25),
-                          Padding(
-                            padding: EdgeInsets.only(right: 80),
+                          Container(
+                            width: 700,
                             child: _buildquery(),
                           ),
                           SizedBox(height: 20),
@@ -790,62 +788,6 @@ class _AlertState extends State<Alert> {
           ),
         ],
       ),
-    );
-  }
-}
-
-class IframeScreen extends StatefulWidget {
-  double w;
-  double h;
-  String src;
-
-  IframeScreen(double _w, double _h, String _src) {
-    this.w = _w;
-    this.h = _h;
-    this.src = _src;
-  }
-
-  @override
-  _IframeScreenState createState() => _IframeScreenState(w, h, src);
-}
-
-class _IframeScreenState extends State<IframeScreen> {
-  Widget _iframeWidget;
-  final IFrameElement _iframeElement = IFrameElement();
-  double _width;
-  double _height;
-  String _source;
-
-  _IframeScreenState(double _w, double _h, String _src) {
-    _width = _w;
-    _height = _h;
-    _source = _src;
-  }
-
-  @override
-  void initState() {
-    super.initState();
-    _iframeElement.src = _source;
-    _iframeElement.style.border = 'none';
-
-    // ignore: undefined_prefixed_name
-    ui.platformViewRegistry.registerViewFactory(
-      'iframeElement',
-      (int viewId) => _iframeElement,
-    );
-
-    _iframeWidget = HtmlElementView(
-      key: UniqueKey(),
-      viewType: 'iframeElement',
-    );
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return SizedBox(
-      height: _height,
-      width: _width,
-      child: _iframeWidget,
     );
   }
 }

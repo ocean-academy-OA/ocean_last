@@ -6,6 +6,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:intl/intl.dart';
+import 'package:modal_progress_hud/modal_progress_hud.dart';
+import 'package:ocean_project/Rework_OA/ContactUs/iframe_map.dart';
 
 import 'package:ocean_project/mobileview/Components/navigation_bar.dart';
 import 'package:ocean_project/mobileview/all_scafold.dart';
@@ -17,6 +19,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 
 import 'package:email_validator/email_validator.dart';
 import 'package:ocean_project/text.dart';
+import 'package:progress_indicator_button/progress_button.dart';
 import 'package:random_string/random_string.dart';
 
 final _firestore = FirebaseFirestore.instance;
@@ -28,14 +31,14 @@ class TabletContactUs extends StatefulWidget {
 
 class _TabletContactUsState extends State<TabletContactUs> {
   List<String> enquery = [
-    'select',
-    'query1',
-    'query2',
-    'query3',
-    'query4',
+    'Select',
+    'Enquery1',
+    'Enquery2',
+    'Enquery3',
+    'Enquery4',
   ];
 
-  String enquiry = 'select';
+  String enquiry = 'Select';
   String fullname;
   String email;
   String query;
@@ -47,6 +50,7 @@ class _TabletContactUsState extends State<TabletContactUs> {
   int answer;
   String total;
   bool validation = false;
+  bool showSpinner = false;
 
   final enquiryController = TextEditingController();
   final nameController = TextEditingController();
@@ -77,6 +81,7 @@ class _TabletContactUsState extends State<TabletContactUs> {
 
   Widget _buildName() {
     return TextFormField(
+      autovalidate: validation,
       inputFormatters: <TextInputFormatter>[
         FilteringTextInputFormatter.allow(RegExp(r"[a-zA-Z]+|\s")),
         LengthLimitingTextInputFormatter(40),
@@ -104,6 +109,7 @@ class _TabletContactUsState extends State<TabletContactUs> {
 
   Widget _buildphonenumber() {
     return TextFormField(
+      autovalidate: validation,
       inputFormatters: <TextInputFormatter>[
         FilteringTextInputFormatter.allow(RegExp(r"^\d+\.?\d{0,2}")),
         LengthLimitingTextInputFormatter(10),
@@ -129,6 +135,7 @@ class _TabletContactUsState extends State<TabletContactUs> {
 
   Widget _buildEmail() {
     return TextFormField(
+      autovalidate: validation,
       inputFormatters: [FilteringTextInputFormatter.deny(RegExp(r"\s"))],
       validator: (value) =>
           EmailValidator.validate(value) ? null : "invalid email",
@@ -147,19 +154,25 @@ class _TabletContactUsState extends State<TabletContactUs> {
 
   Widget _buildquery() {
     return TextFormField(
+      autovalidate: validation,
       validator: (value) {
         // query = value;
         if (value.isEmpty) {
           print(value);
-          return "Query is required*";
+          return "query is required";
+        } else if (value.length < 2) {
+          return 'character should be more than 2';
         }
         return null;
       },
-      maxLines: 13,
+      maxLines: null,
+      maxLength: 1000,
       decoration: InputDecoration(
+        prefixIcon: Icon(Icons.question_answer_outlined),
         errorStyle: TextStyle(color: Colors.redAccent, fontSize: 12),
         border: OutlineInputBorder(),
         hintText: 'Enter Your Query',
+        labelText: 'Query',
       ),
       controller: queryController,
       onChanged: (value) {
@@ -211,13 +224,22 @@ class _TabletContactUsState extends State<TabletContactUs> {
     return dropList;
   }
 
-  GlobalKey<ScaffoldState> contectScaffoldKey = new GlobalKey<ScaffoldState>();
+  calc() {
+    var first = int.parse(firstInt);
+    var second = int.parse(secondInt);
+    answer = first + second;
+
+    print("$firstInt  //////////////////firstInt");
+    print("$secondInt  //////////////////secondInt");
+    print("$answer  //////////////////answer");
+  }
 
   @override
   Widget build(BuildContext context) {
-    return MobileScafold(
-      scaffoldKey: contectScaffoldKey,
-      widget: SingleChildScrollView(
+    return ModalProgressHUD(
+      opacity: 0.1,
+      inAsyncCall: showSpinner,
+      child: SingleChildScrollView(
         child: Column(
           children: [
             TopNavigationBar(
@@ -347,20 +369,23 @@ class _TabletContactUsState extends State<TabletContactUs> {
                           decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(5),
                               border: Border.all(color: Colors.grey)),
-                          child: DropdownButtonHideUnderline(
-                            child: DropdownButton<String>(
-                              style: TextStyle(
-                                  color: Colors.black87, fontSize: 20),
-                              value: enquiry,
-                              isExpanded: true,
-                              items: getDropdown(),
-                              onChanged: (value) {
-                                setState(() {
-                                  enquiry = value;
-                                });
-                                print(value);
-                              },
+                          child: DropdownButtonFormField<String>(
+                            autovalidate: validation,
+                            style: TextStyle(
+                              fontSize: 15,
+                              fontWeight: FontWeight.w400,
+                              fontFamily: kfontname,
+                              color: kcontentcolor,
                             ),
+                            value: enquiry,
+                            isExpanded: true,
+                            items: getDropdown(),
+                            onChanged: (value) {
+                              setState(() {
+                                enquiry = value;
+                              });
+                              print(value);
+                            },
                           ),
                         ),
                         SizedBox(height: 30),
@@ -418,18 +443,23 @@ class _TabletContactUsState extends State<TabletContactUs> {
                       ],
                     ),
                     SizedBox(height: 20),
-                    Container(
-                      child: Text(
-                        "I'm not Robot",
-                        style: TextStyle(
-                          color: Colors.grey[600],
-                          letterSpacing: 2,
-                          fontSize: 20,
-                          fontWeight: FontWeight.w300,
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: [
+                        Container(
+                          child: Text(
+                            "I'm not Robot",
+                            style: TextStyle(
+                              color: Colors.grey[600],
+                              letterSpacing: 2,
+                              fontSize: 20,
+                              fontWeight: FontWeight.w300,
+                            ),
+                          ),
                         ),
-                      ),
+                      ],
                     ),
-                    SizedBox(height: 10),
+                    SizedBox(height: 5),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.start,
                       children: [
@@ -505,65 +535,91 @@ class _TabletContactUsState extends State<TabletContactUs> {
                         ),
                       ],
                     ),
-                    SizedBox(height: 10),
-                    RaisedButton(
-                      padding: EdgeInsets.only(
-                          left: 30, right: 30, top: 20, bottom: 20),
-                      splashColor: Colors.white24,
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(10),
-                      ),
-                      color: Color(0xff0091D2),
-                      child: Text(
-                        'Submit',
-                        style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 15,
-                            fontWeight: FontWeight.w700,
-                            fontFamily: kfontname),
-                      ),
-                      onPressed: () {
-                        TimeOfDay picked = TimeOfDay.now();
-                        MaterialLocalizations localizations =
-                            MaterialLocalizations.of(context);
-                        time = localizations.formatTimeOfDay(picked,
-                            alwaysUse24HourFormat: false);
+                    SizedBox(height: 25),
+                    Container(
+                      width: 100,
+                      height: 40,
+                      child: ProgressButton(
+                          color: Color(0xff0091D2),
+                          animationDuration: Duration(milliseconds: 200),
+                          borderRadius: BorderRadius.all(Radius.circular(8)),
+                          strokeWidth: 2,
+                          child: Text(
+                            "Submit",
+                            style: TextStyle(
+                              color: Colors.white,
+                              fontSize: 18,
+                              fontFamily: kfontname,
+                            ),
+                          ),
+                          onPressed: (AnimationController controller) async {
+                            calc();
+                            print(answerController.text);
 
-                        date = DateFormat("d-M-y").format(DateTime.now());
-                        print('$time < Current Time >');
-                        if (_formKey.currentState.validate()) {
-                          _formKey.currentState.save();
-                          if (enquiry != null &&
-                              fullname != null &&
-                              email != null &&
-                              query != null &&
-                              phoneNumber != null) {
-                            _firestore.collection('contact_us').add({
-                              'Enquery': enquiry,
-                              'Full_Name': fullname,
-                              'Email': email,
-                              'Query': query,
-                              'Phone_Number': phoneNumber
-                            });
-                            getData();
-                            if (enquiry.isNotEmpty) {
+                            TimeOfDay picked = TimeOfDay.now();
+                            MaterialLocalizations localizations =
+                                MaterialLocalizations.of(context);
+                            time = localizations.formatTimeOfDay(picked,
+                                alwaysUse24HourFormat: false);
+
+                            date = DateFormat("d-M-y").format(DateTime.now());
+                            print('$time < Current Time >');
+                            if (_formKey.currentState.validate()) {
+                              if (controller.isCompleted) {
+                                controller.reverse();
+                              } else {
+                                controller.forward();
+                              }
+                              _formKey.currentState.save();
+                              if (enquiry != null &&
+                                  fullname != null &&
+                                  email != null &&
+                                  query != null &&
+                                  phoneNumber != null &&
+                                  answer.toString() == total) {
+                                await _firestore.collection('contact_us').add({
+                                  'Enquery': enquiry,
+                                  'Full_Name': fullname,
+                                  'Email': email,
+                                  'Query': query,
+                                  'Phone_Number': phoneNumber
+                                });
+                                // getData();
+                                print("$date < Date Time >");
+                                setState(() {
+                                  print(
+                                      'working////////////////////////////////////');
+                                  validation = false;
+                                });
+                                if (enquiry.isNotEmpty) {
+                                  setState(() {
+                                    enquiry = enquery[0];
+                                    ScaffoldMessenger.of(context).showSnackBar(
+                                        SnackBar(
+                                            content: Text(
+                                                'Your enquiry sent successfully!')));
+                                  });
+                                }
+                                nameController.clear();
+                                emailController.clear();
+                                queryController.clear();
+                                phoneNumberController.clear();
+                                answerController.clear();
+
+                                if (controller.isCompleted) {
+                                  setState(() {
+                                    controller.reverse();
+                                  });
+                                }
+                              }
+                            } else {
                               setState(() {
-                                enquiry = enquery[0];
-                                ScaffoldMessenger.of(context)
-                                    .showSnackBar(SnackBar(
-                                  content:
-                                      Text('Your enquiry sent successfully!'),
-                                ));
+                                print(
+                                    'working////////////////////////////////////');
+                                validation = true;
                               });
-                              print(enquiry);
                             }
-                            nameController.clear();
-                            emailController.clear();
-                            queryController.clear();
-                            phoneNumberController.clear();
-                          }
-                        }
-                      },
+                          }),
                     ),
                     SizedBox(height: 30),
                   ],
@@ -585,62 +641,6 @@ class _TabletContactUsState extends State<TabletContactUs> {
           ],
         ),
       ),
-    );
-  }
-}
-
-class IframeScreen extends StatefulWidget {
-  double w;
-  double h;
-  String src;
-
-  IframeScreen(double _w, double _h, String _src) {
-    this.w = _w;
-    this.h = _h;
-    this.src = _src;
-  }
-
-  @override
-  _IframeScreenState createState() => _IframeScreenState(w, h, src);
-}
-
-class _IframeScreenState extends State<IframeScreen> {
-  Widget _iframeWidget;
-  final IFrameElement _iframeElement = IFrameElement();
-  double _width;
-  double _height;
-  String _source;
-
-  _IframeScreenState(double _w, double _h, String _src) {
-    _width = _w;
-    _height = _h;
-    _source = _src;
-  }
-
-  @override
-  void initState() {
-    super.initState();
-    _iframeElement.src = _source;
-    _iframeElement.style.border = 'none';
-
-    // ignore: undefined_prefixed_name
-    ui.platformViewRegistry.registerViewFactory(
-      'iframeElement',
-      (int viewId) => _iframeElement,
-    );
-
-    _iframeWidget = HtmlElementView(
-      key: UniqueKey(),
-      viewType: 'iframeElement',
-    );
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return SizedBox(
-      height: _height,
-      width: _width,
-      child: _iframeWidget,
     );
   }
 }
