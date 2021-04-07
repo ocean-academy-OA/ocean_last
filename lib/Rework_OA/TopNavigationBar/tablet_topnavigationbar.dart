@@ -15,14 +15,14 @@ class TabletTopNavigationBar extends StatelessWidget {
       children: [
         Container(
           color: Color(0xff0091D2),
-          height: 220,
+          height: 180,
           width: double.infinity,
           child: Center(
             child: AutoSizeText(
-              title,
+              "About Us",
               maxLines: 1,
               style: TextStyle(
-                fontSize: 35,
+                fontSize: 25,
                 color: Colors.white,
                 wordSpacing: 1.8,
                 fontFamily: kfontname,
@@ -32,80 +32,80 @@ class TabletTopNavigationBar extends StatelessWidget {
           ),
         ),
         Positioned(
-          top: 20,
-          left: 20,
+          top: 15,
+          left: 15,
           child: Icon(
             Ocean.o,
-            size: 50,
+            size: 45,
             color: Color(0xffBFD400),
           ),
         ),
         Positioned(
-          top: 90,
-          left: 60,
+          top: 75,
+          left: 50,
           child: Icon(
             Ocean.o,
-            size: 50,
+            size: 45,
             color: Color(0xffF8BE5A),
           ),
         ),
         Positioned(
-          top: 140,
-          left: 120,
+          top: 120,
+          left: 110,
           child: Icon(
             Ocean.line_circleshape,
-            size: 60,
+            size: 50,
             color: Color(0xffFFD444),
           ),
         ),
         Positioned(
-          top: 20,
-          right: 20,
+          top: 15,
+          right: 15,
           child: Icon(
             Ocean.o,
-            size: 50,
+            size: 40,
             color: Color(0xffBFD400),
           ),
         ),
         Positioned(
-          top: 100,
-          right: 70,
+          top: 80,
+          right: 60,
           child: Icon(
             Ocean.o,
-            size: 50,
+            size: 40,
             color: Color(0xffF8BE5A),
           ),
         ),
         Positioned(
-          top: 85,
+          top: 70,
           right: -3,
           child: Transform.rotate(
             angle: -0.4,
             child: Icon(
               Ocean.a,
-              size: 55,
+              size: 40,
               color: Color(0xff00FFB9),
             ),
           ),
         ),
         Positioned(
-          top: 160,
-          right: 30,
+          top: 130,
+          right: 35,
           child: Transform.rotate(
             angle: -0.4,
             child: Icon(
               Ocean.a,
-              size: 60,
+              size: 40,
               color: Color(0xffFF00FF),
             ),
           ),
         ),
         Positioned(
-          top: 140,
-          right: 140,
+          top: 120,
+          right: 110,
           child: Icon(
             Ocean.line_circleshape,
-            size: 60,
+            size: 50,
             color: Color(0xffFFD444),
           ),
         )

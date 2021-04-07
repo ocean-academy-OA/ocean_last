@@ -119,15 +119,11 @@ class _FooterState extends State<Footer> {
         children: [
           Row(
             crossAxisAlignment: CrossAxisAlignment.start,
-            //mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            //margin: EdgeInsets.symmetric(horizontal: 30.0, vertical: 40.0),
-
             children: [
               Expanded(
                 flex: 3,
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
-                  //mainAxisAlignment: MainAxisAlignment.start,
                   children: [
                     Container(
                       child: GestureDetector(

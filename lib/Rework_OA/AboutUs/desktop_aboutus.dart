@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:ocean_project/desktopview/Components/container_widget.dart';
 import 'package:ocean_project/desktopview/Components/navigation_bar.dart';
 import 'package:ocean_project/desktopview/constants.dart';
-import 'package:ocean_project/desktopview/screen/footer.dart';
+import 'package:ocean_project/Rework_OA/Footer/desktop_footer.dart';
 
 const ktopic = TextStyle(
     fontSize: 25.0, color: Colors.black, fontWeight: FontWeight.normal);
@@ -29,7 +29,7 @@ class DesktopAboutUs extends StatelessWidget {
               title: "About Us",
             ),
             Padding(
-              padding: const EdgeInsets.all(50.0),
+              padding: EdgeInsets.all(50.0),
               child: Row(
                 children: [
                   Expanded(
@@ -87,10 +87,26 @@ class DesktopAboutUs extends StatelessWidget {
                               child: ClipRRect(
                                 borderRadius: BorderRadius.circular(10.0),
                                 child: Image(
-                                  image: AssetImage('images/lap.jpg'),
+                                  image: AssetImage('images/whatwedo.jpg'),
                                   fit: BoxFit.cover,
                                 ),
                               ),
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(10.0),
+                              ),
+                            ),
+                            Container(
+                              width: 300.0,
+                              height: 300.0,
+                              //height: 300,
+                              margin:
+                                  EdgeInsets.fromLTRB(120.0, 0.0, 0.0, 50.0),
+                              padding: EdgeInsets.fromLTRB(0.0, 10.0, 0.0, 0.0),
+                              child: ClipRRect(
+                                  borderRadius: BorderRadius.circular(10.0),
+                                  child: Container(
+                                    color: Colors.black45,
+                                  )),
                               decoration: BoxDecoration(
                                 borderRadius: BorderRadius.circular(10.0),
                               ),
@@ -106,7 +122,7 @@ class DesktopAboutUs extends StatelessWidget {
                                     topLeft: Radius.circular(10.0),
                                     bottomLeft: Radius.circular(10.0)),
                                 child: Image(
-                                  image: AssetImage('images/lap.jpg'),
+                                  image: AssetImage('images/whatwedo.jpg'),
                                   fit: BoxFit.cover,
                                 ),
                               ),
@@ -180,7 +196,7 @@ class DesktopAboutUs extends StatelessWidget {
                 },
               ),
             ]),
-            Footer(),
+            DesktopFooter(),
           ],
         ),
       ),
