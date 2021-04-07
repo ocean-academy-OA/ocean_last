@@ -19,7 +19,7 @@ class TabletTopNavigationBar extends StatelessWidget {
           width: double.infinity,
           child: Center(
             child: AutoSizeText(
-              "About Us",
+              "title",
               maxLines: 1,
               style: TextStyle(
                 fontSize: 25,
