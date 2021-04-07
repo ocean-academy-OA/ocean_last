@@ -29,7 +29,7 @@ class _ThamizhHomeState extends State<ThamizhHome> {
             margin: EdgeInsets.symmetric(horizontal: 15.0),
             padding: EdgeInsets.all(5.0),
             child: Text(
-              '${key}',
+              '$key',
               style: TextStyle(
                   fontSize: 25.0,
                   fontWeight: FontWeight.bold,

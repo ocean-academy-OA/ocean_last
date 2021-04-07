@@ -7,7 +7,6 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:ocean_project/desktopview/new_user_screen/otp.dart';
 import 'package:ocean_project/desktopview/route/routing.dart';
 import 'package:provider/provider.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 import 'dart:ui';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:ocean_project/desktopview/login_layout/layoutbuilder.dart';

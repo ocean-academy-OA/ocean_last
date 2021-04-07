@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:ocean_project/desktopview/Components/ocean_icons.dart';
 
 class MobileWebinarFooter extends StatelessWidget {
   @override

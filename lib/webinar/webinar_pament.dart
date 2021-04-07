@@ -12,8 +12,6 @@ import 'package:http/http.dart' as http;
 import 'package:ocean_project/desktopview/Components/UiFake.dart'
     if (dart.library.html) 'dart:ui' as ui;
 
-import 'package:cloud_firestore/cloud_firestore.dart';
-
 // ignore: must_be_immutable
 class WebinarRazorPayWeb extends StatefulWidget {
   String courseName;
@@ -38,7 +36,6 @@ class WebinarRazorPayWeb extends StatefulWidget {
 
 class _WebinarRazorPayWebState extends State<WebinarRazorPayWeb> {
   var date;
-  final _firestore = FirebaseFirestore.instance;
 
   // TextEditingController duration = TextEditingController();
 

@@ -10,7 +10,6 @@ import 'package:ocean_project/desktopview/Components/notification.dart';
 import 'package:ocean_project/desktopview/Components/purchase.dart';
 import 'package:ocean_project/desktopview/Components/user_profile.dart';
 import 'package:ocean_project/desktopview/Components/ocean_icons.dart';
-import 'package:ocean_project/desktopview/constants.dart';
 import 'package:ocean_project/desktopview/new_user_screen/edit_profile.dart';
 import 'package:ocean_project/desktopview/new_user_screen/log_in.dart';
 import 'package:ocean_project/desktopview/new_user_screen/otp.dart';
@@ -274,6 +273,7 @@ class _AppBarWidgetState extends State<AppBarWidget> {
                                 }
                               }
                               return MaterialButton(
+                                onPressed: () {},
                                 child: Row(
                                   children: profile,
                                 ),

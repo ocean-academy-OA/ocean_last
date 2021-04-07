@@ -1,17 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:ocean_project/desktopview/Components/certificates.dart';
 import 'package:ocean_project/desktopview/Components/enrool_appbar.dart';
-
 import 'package:ocean_project/desktopview/Components/purchase.dart';
-
 import 'package:ocean_project/desktopview/Components/course_enrole.dart';
 import 'package:ocean_project/desktopview/new_user_screen/edit_profile.dart';
 import 'package:ocean_project/desktopview/new_user_screen/log_in.dart';
 import 'package:ocean_project/desktopview/route/routing.dart';
 import 'package:ocean_project/desktopview/screen/home_screen.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:ocean_project/desktopview/screen/menubar.dart';
-
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 

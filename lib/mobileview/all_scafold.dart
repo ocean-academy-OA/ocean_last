@@ -83,6 +83,7 @@ class _MobileScafoldState extends State<MobileScafold> {
                       });
                 } else {
                   return IconButton(
+                    onPressed: () {},
                     tooltip: 'Webinar Not Available',
                     icon: Icon(Icons.live_tv),
                     color: Colors.red,
@@ -90,6 +91,7 @@ class _MobileScafoldState extends State<MobileScafold> {
                 }
               } else {
                 return IconButton(
+                  onPressed: () {},
                   icon: Icon(Icons.live_tv),
                   color: Colors.red,
                 );

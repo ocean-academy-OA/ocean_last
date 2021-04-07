@@ -1,13 +1,5 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:ocean_project/alert/bottom_sheet.dart';
-
-import 'package:ocean_project/pop_up_menu_botton_custamize.dart';
-import 'package:ocean_project/practice/custom_dropdown.dart';
-import 'package:ocean_project/practice/popup_menubutton.dart';
-import 'package:ocean_project/webinar/webinar_footer.dart';
-
-import 'package:provider/provider.dart';
 
 void main() {
   runApp(MaterialApp(

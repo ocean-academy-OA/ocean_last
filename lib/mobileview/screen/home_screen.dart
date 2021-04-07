@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:ocean_project/alert/alert_msg.dart';
 import 'package:ocean_project/alert/bottom_sheet.dart';
 import 'package:ocean_project/mobileview/all_scafold.dart';
-
 import 'package:ocean_project/mobileview/components/how_it_works.dart';
 import 'package:ocean_project/mobileview/components/main_badget_widget.dart';
 import 'package:ocean_project/mobileview/components/placement_company.dart';
@@ -10,7 +8,6 @@ import 'package:ocean_project/mobileview/components/reviews.dart';
 import 'package:ocean_project/mobileview/components/slider_widget.dart';
 import 'package:ocean_project/mobileview/components/upcoming_course_widget.dart';
 import 'package:ocean_project/mobileview/screen/footer.dart';
-import 'package:rflutter_alert/rflutter_alert.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 // ignore: must_be_immutable

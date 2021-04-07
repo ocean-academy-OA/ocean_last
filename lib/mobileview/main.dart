@@ -3,7 +3,6 @@ import 'package:ocean_project/desktopview/constants.dart';
 import 'package:ocean_project/mobileview/route/routing.dart';
 import 'package:ocean_project/mobileview/screen/home_screen.dart';
 import 'package:provider/provider.dart';
-import 'package:firebase_core/firebase_core.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();

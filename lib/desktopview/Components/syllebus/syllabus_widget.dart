@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:ocean_project/desktopview/new_user_screen/edit_profile.dart';
 
 class SyllabusList extends StatefulWidget {
   SyllabusList(

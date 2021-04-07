@@ -1,6 +1,5 @@
 // ignore: avoid_web_libraries_in_flutter
 import 'dart:html';
-import 'dart:ui' as ui;
 import 'package:http/http.dart' as http;
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -8,15 +7,11 @@ import 'package:flutter/services.dart';
 import 'package:intl/intl.dart';
 import 'package:modal_progress_hud/modal_progress_hud.dart';
 import 'package:ocean_project/Rework_OA/ContactUs/iframe_map.dart';
-
 import 'package:ocean_project/mobileview/Components/navigation_bar.dart';
-import 'package:ocean_project/mobileview/all_scafold.dart';
 import 'package:ocean_project/mobileview/constants.dart';
 import 'package:ocean_project/mobileview/screen/footer.dart';
-
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-
 import 'package:email_validator/email_validator.dart';
 import 'package:ocean_project/text.dart';
 import 'package:progress_indicator_button/progress_button.dart';
