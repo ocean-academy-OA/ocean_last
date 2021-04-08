@@ -1,10 +1,10 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:ocean_project/Rework_OA/Footer/widgets/layout_builder.dart';
 import 'package:ocean_project/desktopview/Components/container_widget.dart';
 import 'package:ocean_project/desktopview/Components/navigation_bar.dart';
 import 'package:ocean_project/desktopview/constants.dart';
-import 'package:ocean_project/Rework_OA/Footer/desktop_footer.dart';
 
 const ktopic = TextStyle(
     fontSize: 25.0, color: Colors.black, fontWeight: FontWeight.normal);
@@ -196,7 +196,7 @@ class DesktopAboutUs extends StatelessWidget {
                 },
               ),
             ]),
-            DesktopFooter(),
+            DesktopFooterLayout(),
           ],
         ),
       ),

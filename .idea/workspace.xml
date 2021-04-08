@@ -23,8 +23,18 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="f0636c9e-06a6-419e-bb2d-a9c7ab8a2030" name="Default Changelist" comment="updated tablet_topnavigationbar.dart and desktop_footer.dart">
+      <change afterPath="$PROJECT_DIR$/lib/Rework_OA/Footer/desktop_footer_md.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/Rework_OA/Footer/tablet_footer.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/Rework_OA/Footer/widgets/layout_builder.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.flutter-plugins-dependencies" beforeDir="false" afterPath="$PROJECT_DIR$/.flutter-plugins-dependencies" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/Rework_OA/TopNavigationBar/tablet_topnavigationbar.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/Rework_OA/TopNavigationBar/tablet_topnavigationbar.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/f872507f30e2ff2523f0f1d19160266e.cache.dill.track.dill" beforeDir="false" afterPath="$PROJECT_DIR$/build/f872507f30e2ff2523f0f1d19160266e.cache.dill.track.dill" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/Rework_OA/AboutUs/desktop_aboutus.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/Rework_OA/AboutUs/desktop_aboutus.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/Rework_OA/AboutUs/tablet_aboutus.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/Rework_OA/AboutUs/tablet_aboutus.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/Rework_OA/ContactUs/desktop_contactus.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/Rework_OA/ContactUs/desktop_contactus.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/Rework_OA/Footer/desktop_footer.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/Rework_OA/Footer/desktop_footer_lg.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/desktopview/constants.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/desktopview/constants.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/rework_main.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/rework_main.dart" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -77,6 +87,7 @@
       <recent name="C:\Users\jass0\Desktop\github\lib\desktopview\login_layout" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\jass0\Desktop\github\lib\Rework_OA\Footer\widgets" />
       <recent name="C:\Users\jass0\Desktop\github\images" />
     </key>
   </component>
@@ -115,13 +126,6 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1613817500605</updated>
-    </task>
-    <task id="LOCAL-00029" summary="menu updated in webinar page">
-      <created>1615529727497</created>
-      <option name="number" value="00029" />
-      <option name="presentableId" value="LOCAL-00029" />
-      <option name="project" value="LOCAL" />
-      <updated>1615529727498</updated>
     </task>
     <task id="LOCAL-00030" summary="available course finished">
       <created>1615544794873</created>
@@ -459,7 +463,14 @@
       <option name="project" value="LOCAL" />
       <updated>1617787802552</updated>
     </task>
-    <option name="localTasksCounter" value="78" />
+    <task id="LOCAL-00078" summary="updated tablet_topnavigationbar.dart and desktop_footer.dart">
+      <created>1617787992179</created>
+      <option name="number" value="00078" />
+      <option name="presentableId" value="LOCAL-00078" />
+      <option name="project" value="LOCAL" />
+      <updated>1617787992179</updated>
+    </task>
+    <option name="localTasksCounter" value="79" />
     <servers />
   </component>
   <component name="UnknownFeatures">
@@ -543,25 +554,25 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="740" y="275" key="FileChooserDialogImpl/0.0.1920.1040@0.0.1920.1040" timestamp="1617183503283" />
-    <state width="1877" height="192" key="GridCell.Tab.0.bottom" timestamp="1617786122384">
+    <state width="1877" height="192" key="GridCell.Tab.0.bottom" timestamp="1617855790836">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1877" height="192" key="GridCell.Tab.0.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1617786122384" />
+    <state width="1877" height="192" key="GridCell.Tab.0.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1617855790836" />
     <state width="1877" height="253" key="GridCell.Tab.0.bottom/0.0.1920.1080@0.0.1920.1080" timestamp="1617013509555" />
-    <state width="1877" height="192" key="GridCell.Tab.0.center" timestamp="1617786122384">
+    <state width="1877" height="192" key="GridCell.Tab.0.center" timestamp="1617855790836">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1877" height="192" key="GridCell.Tab.0.center/0.0.1920.1040@0.0.1920.1040" timestamp="1617786122384" />
+    <state width="1877" height="192" key="GridCell.Tab.0.center/0.0.1920.1040@0.0.1920.1040" timestamp="1617855790836" />
     <state width="1877" height="253" key="GridCell.Tab.0.center/0.0.1920.1080@0.0.1920.1080" timestamp="1617013509555" />
-    <state width="1877" height="192" key="GridCell.Tab.0.left" timestamp="1617786122384">
+    <state width="1877" height="192" key="GridCell.Tab.0.left" timestamp="1617855790836">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1877" height="192" key="GridCell.Tab.0.left/0.0.1920.1040@0.0.1920.1040" timestamp="1617786122384" />
+    <state width="1877" height="192" key="GridCell.Tab.0.left/0.0.1920.1040@0.0.1920.1040" timestamp="1617855790836" />
     <state width="1877" height="253" key="GridCell.Tab.0.left/0.0.1920.1080@0.0.1920.1080" timestamp="1617013509555" />
-    <state width="1877" height="192" key="GridCell.Tab.0.right" timestamp="1617786122384">
+    <state width="1877" height="192" key="GridCell.Tab.0.right" timestamp="1617855790836">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1877" height="192" key="GridCell.Tab.0.right/0.0.1920.1040@0.0.1920.1040" timestamp="1617786122384" />
+    <state width="1877" height="192" key="GridCell.Tab.0.right/0.0.1920.1040@0.0.1920.1040" timestamp="1617855790836" />
     <state width="1877" height="253" key="GridCell.Tab.0.right/0.0.1920.1080@0.0.1920.1080" timestamp="1617013509555" />
     <state x="540" y="263" key="IDE.errors.dialog" timestamp="1614410080858">
       <screen x="0" y="0" width="1920" height="1040" />
@@ -587,10 +598,10 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="804" y="433" key="VCS.ChangelistChooser/0.0.1920.1040@0.0.1920.1040" timestamp="1615355201183" />
-    <state x="552" y="253" key="Vcs.Push.Dialog.v2" timestamp="1617787859080">
+    <state x="552" y="253" key="Vcs.Push.Dialog.v2" timestamp="1617787996733">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="552" y="253" key="Vcs.Push.Dialog.v2/0.0.1920.1040@0.0.1920.1040" timestamp="1617787859080" />
+    <state x="552" y="253" key="Vcs.Push.Dialog.v2/0.0.1920.1040@0.0.1920.1040" timestamp="1617787996733" />
     <state x="552" y="263" key="Vcs.Push.Dialog.v2/0.0.1920.1080@0.0.1920.1080" timestamp="1617014469038" />
     <state x="92" y="92" width="1736" height="856" key="com.intellij.history.integration.ui.views.DirectoryHistoryDialog" timestamp="1616585226461">
       <screen x="0" y="0" width="1920" height="1040" />
